@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Hi</h1>
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+<div mat-dialog-content>
+  <p>What's your favorite animal?</p>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Input" formControlName="name">
+    <mat-error *ngIf="productForm.get('name').invalid">{{getErrorMessage('name')}}</mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button type="submit" [disabled]="!productForm.valid" cdkFocusInitial>Ok</button>
+</div>
+</form>
+

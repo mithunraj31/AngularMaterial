@@ -12,6 +12,6 @@ export class ProductService {
     }
 
     getProducts(){
-        return this.http.get<Product>(this.getProductUrl);
+        return this.http.get<Product[]>(this.getProductUrl);
     }
 }

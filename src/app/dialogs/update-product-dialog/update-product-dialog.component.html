@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Add new product</h1>
+<h1 mat-dialog-title>Update product</h1>
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
 <div mat-dialog-content class="example-container">
   <mat-form-field>
@@ -33,6 +33,7 @@
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Cancel</button>
   <button mat-button type="submit" [disabled]="!productForm.valid" >Ok</button>
+  
 </div>
 </form>
 

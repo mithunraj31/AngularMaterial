@@ -1,15 +1,15 @@
 export interface Product {
-    product_id?: number;
-    product_name:string;
+    productdI?: number;
+    productName:string;
     description: string;
     price: number;
     moq?: number;
-    lead_time?: number
-    obic_no?: string
-    qty: number
-    is_set?: boolean
+    leadTime?: number
+    obicNo?: string
+    quantity: number
+    isSet?: boolean
     active?: boolean
-    created_at?: Date
-    updated_at?: Date
-    user_id?: number
+    createdAt?: Date
+    updatedAt?: Date
+    userId?: number
 }

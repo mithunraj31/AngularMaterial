@@ -1,42 +1,41 @@
 import { Product } from './../../models/Product';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: 'app-add-product-dialog',
-  templateUrl: './add-product-dialog.component.html',
-  styleUrls: ['./add-product-dialog.component.scss']
+  selector: 'app-update-product-dialog',
+  templateUrl: './update-product-dialog.component.html',
+  styleUrls: ['./update-product-dialog.component.scss']
 })
-export class AddProductDialogComponent implements OnInit {
+export class UpdateProductDialogComponent implements OnInit {
   productForm: FormGroup;
   constructor(
-    public dialogRef: MatDialogRef<AddProductDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    public dialogRef: MatDialogRef<UpdateProductDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Product
   ) { }
-
 
   ngOnInit() {
     this.productForm = new FormGroup({
-      "productName": new FormControl("",[
+      "productName": new FormControl(this.data.productName,[
         Validators.required
       ]),
-      "description": new FormControl("",[
+      "description": new FormControl(this.data.description,[
         Validators.required
       ]),
-      "price": new FormControl("",[
+      "price": new FormControl(this.data.price,[
         Validators.required
       ]),
-      "quantity": new FormControl("",[
+      "quantity": new FormControl(this.data.quantity,[
         Validators.required
       ]),
-      "leadTime": new FormControl("",[
+      "leadTime": new FormControl(this.data.leadTime,[
         Validators.required
       ]),
-      "moq": new FormControl("",[
+      "moq": new FormControl(this.data.moq,[
         Validators.required
       ]),
-      "obicNo": new FormControl("",[
+      "obicNo": new FormControl(this.data.obicNo,[
         Validators.required
       ]),
 
@@ -50,6 +49,7 @@ export class AddProductDialogComponent implements OnInit {
       this.dialogRef.close(this.productForm.value);
     }
   }
+  
   getErrorMessage(attribute:string) {
     return this.productForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
     // switch (attribute) {
@@ -61,4 +61,5 @@ export class AddProductDialogComponent implements OnInit {
     //     break;
     // }
   }
+
 }

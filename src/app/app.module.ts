@@ -17,7 +17,9 @@ import {MatToolbarModule,
         MatTableModule,
         MatDialogModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        MatPaginatorModule,
+        MatTabsModule
 } from '@angular/material';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component'; 
@@ -27,6 +29,9 @@ import { ProductsComponent } from './pages/products/products.component';
 import { ProductService } from './services/ProductService';
 import { AddProductDialogComponent } from './dialogs/add-product-dialog/add-product-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UpdateProductDialogComponent } from './dialogs/update-product-dialog/update-product-dialog.component';
+import { ProductSetsComponent } from './pages/product-sets/product-sets.component';
+import { ProductsContainerComponent } from './pages/products-container/products-container.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SidebarComponent,
     HomeComponent,
     ProductsComponent,
-    AddProductDialogComponent
+    AddProductDialogComponent,
+    UpdateProductDialogComponent,
+    ProductSetsComponent,
+    ProductsContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -54,13 +62,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatPaginatorModule,
+    MatTabsModule
   ],
   exports: [ 
      
   ],
   entryComponents: [
-    AddProductDialogComponent
+    AddProductDialogComponent,
+    UpdateProductDialogComponent
   ],
   providers: [
     ProductService

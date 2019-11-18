@@ -1,22 +1,22 @@
-import { Product } from './../../models/Product';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-product-dialog',
-  templateUrl: './add-product-dialog.component.html',
-  styleUrls: ['./add-product-dialog.component.scss']
+  selector: 'app-add-product-set-dialog',
+  templateUrl: './add-product-set-dialog.component.html',
+  styleUrls: ['./add-product-set-dialog.component.scss']
 })
-export class AddProductDialogComponent implements OnInit {
+export class AddProductSetDialogComponent implements OnInit {
+  selected;
   productForm: FormGroup;
-
   constructor(
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
-
+  
   ngOnInit() {
     this.productForm = new FormGroup({
       "productName": new FormControl("",[
@@ -62,4 +62,5 @@ export class AddProductDialogComponent implements OnInit {
     //     break;
     // }
   }
+
 }

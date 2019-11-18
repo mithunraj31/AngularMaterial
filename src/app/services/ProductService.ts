@@ -1,3 +1,4 @@
+import { ProductSet } from './../models/ProductSet';
 import { Product } from './../models/Product';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -6,12 +7,17 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class ProductService {
 
-    getProductUrl = "assets/data/products.json";
+    private getProductUrl = "assets/data/products.json";
+    private getProductSetUrl =  "assets/data/productSets.json";
     constructor(private http: HttpClient){
         
     }
 
-    getProducts(){
+    getProducts() {
         return this.http.get<Product[]>(this.getProductUrl);
+    }
+
+    getProductSets() {
+        return this.http.get<ProductSet[]>(this.getProductSetUrl);
     }
 }

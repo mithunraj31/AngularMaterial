@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Add new customer</h1>
+<form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+<div mat-dialog-content class="example-container">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Customer Name" formControlName="customerName">
+    <mat-error *ngIf="customerForm.get('customerName').invalid">{{getErrorMessage('customerName')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="ZIP" formControlName="zip">
+    <mat-error *ngIf="customerForm.get('zip').invalid">{{getErrorMessage('zip')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Address" formControlName="address">
+    <mat-error *ngIf="customerForm.get('address').invalid">{{getErrorMessage('address')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Tel" formControlName="tel">
+    <mat-error *ngIf="customerForm.get('tel').invalid">{{getErrorMessage('tel')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Contact Name" formControlName="contactName">
+    <mat-error *ngIf="customerForm.get('contactName').invalid">{{getErrorMessage('contactName')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field >
+    <mat-label>Select a Type</mat-label>
+    <mat-select formControlName="type">
+      <mat-option>None</mat-option>
+      <mat-option value="Customer" >Customer</mat-option>
+      <mat-option value="Sales Designation" >Sales Designation</mat-option>
+      <mat-option value="Contractor" >Contractor</mat-option>
+    </mat-select>
+    <mat-error *ngIf="customerForm.get('type').invalid">{{getErrorMessage('type')}}</mat-error>
+  </mat-form-field>
+ 
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button type="submit" [disabled]="!customerForm.valid" >Ok</button>
+</div>
+</form>
+

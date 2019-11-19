@@ -38,6 +38,10 @@ import { AddProductSetDialogComponent } from './dialogs/add-product-set-dialog/a
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { EditProductSetDialogComponent } from './dialogs/edit-product-set-dialog/edit-product-set-dialog.component';
 import { DeleteConfirmationDialogComponent } from './dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { CustomersComponent } from './pages/customers/customers.component';
+import { CustomerService } from './services/CustomerService';
+import { AddCustomerComponent } from './dialogs/add-customer/add-customer.component';
+import { EditCustomerDialogComponent } from './dialogs/edit-customer-dialog/edit-customer-dialog.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,11 @@ import { DeleteConfirmationDialogComponent } from './dialogs/delete-confirmation
     ProductsContainerComponent,
     AddProductSetDialogComponent,
     EditProductSetDialogComponent,
-    DeleteConfirmationDialogComponent
+    DeleteConfirmationDialogComponent,
+    CustomersComponent,
+    AddCustomerComponent,
+    EditCustomerDialogComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -85,10 +93,13 @@ import { DeleteConfirmationDialogComponent } from './dialogs/delete-confirmation
     UpdateProductDialogComponent,
     AddProductSetDialogComponent,
     EditProductSetDialogComponent,
-    DeleteConfirmationDialogComponent
+    DeleteConfirmationDialogComponent,
+    AddCustomerComponent,
+    EditCustomerDialogComponent
   ],
   providers: [
-    ProductService
+    ProductService,
+    CustomerService
   ],
   bootstrap: [AppComponent]
 })

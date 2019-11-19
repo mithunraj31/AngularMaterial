@@ -1,4 +1,3 @@
-import { SaveProductComponent } from './../../models/saveProductComponent';
 import { ProductSet } from './../../models/ProductSet';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -6,7 +5,6 @@ import { SaveProductSet } from 'src/app/models/saveProductSet';
 import { SaveProductComponent } from 'src/app/models/saveProductComponent';
 import { Product } from 'src/app/models/Product';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { ProductService } from 'src/app/services/ProductService';
 
 @Component({

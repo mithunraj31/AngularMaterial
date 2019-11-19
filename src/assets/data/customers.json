@@ -1,0 +1,56 @@
+[
+    {
+        "customerId": 1,
+        "customerName": "sample name A",
+        "zip": "1753254",
+        "address": "東京都港区東麻布1-8-1 東麻布ISビル4F",
+        "tel": "+81-426-32-8510",
+        "contactName": "John doe",
+        "type": "Customer"
+    },
+    {
+        "customerId": 2,
+        "customerName": "sample name B",
+        "zip": "1753254",
+        "address": "東京都港区東麻布1-8-1 東麻布ISビル4F",
+        "tel": "+81-426-32-8510",
+        "contactName": "John doe",
+        "type": "Sales Destination"
+    },
+    {
+        "customerId": 3,
+        "customerName": "sample name C",
+        "zip": "1753254",
+        "address": "東京都港区東麻布1-8-1 東麻布ISビル4F",
+        "tel": "+81-426-32-8510",
+        "contactName": "John doe",
+        "type": "Contractor"
+    },
+    {
+        "customerId": 4,
+        "customerName": "sample name D",
+        "zip": "1753254",
+        "address": "東京都港区東麻布1-8-1 東麻布ISビル4F",
+        "tel": "+81-426-32-8510",
+        "contactName": "John doe",
+        "type": "Customer"
+    },
+    {
+        "customerId": 5,
+        "customerName": "sample name E",
+        "zip": "1753254",
+        "address": "東京都港区東麻布1-8-1 東麻布ISビル4F",
+        "tel": "+81-426-32-8510",
+        "contactName": "John doe",
+        "type": "Sales Destination"
+    },
+    {
+        "customerId": 6,
+        "customerName": "sample name F",
+        "zip": "1753254",
+        "address": "東京都港区東麻布1-8-1 東麻布ISビル4F",
+        "tel": "+81-426-32-8510",
+        "contactName": "John doe",
+        "type": "Contractor"
+    }
+]

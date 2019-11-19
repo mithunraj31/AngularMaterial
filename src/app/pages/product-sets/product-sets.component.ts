@@ -5,6 +5,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTable, MatPaginator, MatDialog } from '@angular/material';
 import { Product } from 'src/app/models/Product';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { EditProductSetDialogComponent } from 'src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component';
 
 @Component({
   selector: 'app-product-sets',
@@ -12,8 +13,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   styleUrls: ['./product-sets.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),]
 })
@@ -34,10 +35,10 @@ export class ProductSetsComponent implements OnInit {
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   expandedElement: ProductSet | null;
-  constructor(private productService: ProductService,public dialog: MatDialog,) { }
+  constructor(private productService: ProductService, public dialog: MatDialog, ) { }
 
   ngOnInit() {
-    this.productService.getProductSets().subscribe(result=>{
+    this.productService.getProductSets().subscribe(result => {
       this.productSets = result;
       console.log(this.productSets);
       this.dataSource.data = this.productSets;
@@ -47,10 +48,10 @@ export class ProductSetsComponent implements OnInit {
 
   deleteProduct(i: any) {
     console.log(this.productSets.indexOf(i));
-    this.productSets.splice(this.productSets.indexOf(i),1);
+    this.productSets.splice(this.productSets.indexOf(i), 1);
     this.dataSource.data = this.productSets;
   }
-  
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -62,10 +63,23 @@ export class ProductSetsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result) {
-       
+
         // change concat to replace when using real api
         // this.products.push(product);
         // this.dataSource.data = this.products;
+        console.log(result);
+      }
+    });
+  }
+  editProductSet(element: ProductSet) {
+    const dialogRef = this.dialog.open(EditProductSetDialogComponent, {
+      width: '600px',
+      data: element
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result) {
         console.log(result);
       }
     });

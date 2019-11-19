@@ -36,6 +36,7 @@ import { ProductSetsComponent } from './pages/product-sets/product-sets.componen
 import { ProductsContainerComponent } from './pages/products-container/products-container.component';
 import { AddProductSetDialogComponent } from './dialogs/add-product-set-dialog/add-product-set-dialog.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { EditProductSetDialogComponent } from './dialogs/edit-product-set-dialog/edit-product-set-dialog.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     UpdateProductDialogComponent,
     ProductSetsComponent,
     ProductsContainerComponent,
-    AddProductSetDialogComponent
+    AddProductSetDialogComponent,
+    EditProductSetDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
   entryComponents: [
     AddProductDialogComponent,
     UpdateProductDialogComponent,
-    AddProductSetDialogComponent
+    AddProductSetDialogComponent,
+    EditProductSetDialogComponent
   ],
   providers: [
     ProductService

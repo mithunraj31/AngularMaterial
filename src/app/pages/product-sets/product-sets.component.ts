@@ -6,6 +6,7 @@ import { MatTableDataSource, MatTable, MatPaginator, MatDialog } from '@angular/
 import { Product } from 'src/app/models/Product';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { EditProductSetDialogComponent } from 'src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component';
+import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @Component({
   selector: 'app-product-sets',
@@ -47,9 +48,19 @@ export class ProductSetsComponent implements OnInit {
   }
 
   deleteProduct(i: any) {
-    console.log(this.productSets.indexOf(i));
-    this.productSets.splice(this.productSets.indexOf(i), 1);
-    this.dataSource.data = this.productSets;
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+      width: '600px',
+      data: this.productSets[this.productSets.indexOf(i)].productName
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        console.log(this.productSets.indexOf(i));
+        this.productSets.splice(this.productSets.indexOf(i), 1);
+        this.dataSource.data = this.productSets;
+      }
+    });
+    
   }
 
   applyFilter(filterValue: string) {

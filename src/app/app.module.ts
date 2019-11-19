@@ -37,6 +37,7 @@ import { ProductsContainerComponent } from './pages/products-container/products-
 import { AddProductSetDialogComponent } from './dialogs/add-product-set-dialog/add-product-set-dialog.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { EditProductSetDialogComponent } from './dialogs/edit-product-set-dialog/edit-product-set-dialog.component';
+import { DeleteConfirmationDialogComponent } from './dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { EditProductSetDialogComponent } from './dialogs/edit-product-set-dialog
     ProductSetsComponent,
     ProductsContainerComponent,
     AddProductSetDialogComponent,
-    EditProductSetDialogComponent
+    EditProductSetDialogComponent,
+    DeleteConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +84,8 @@ import { EditProductSetDialogComponent } from './dialogs/edit-product-set-dialog
     AddProductDialogComponent,
     UpdateProductDialogComponent,
     AddProductSetDialogComponent,
-    EditProductSetDialogComponent
+    EditProductSetDialogComponent,
+    DeleteConfirmationDialogComponent
   ],
   providers: [
     ProductService

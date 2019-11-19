@@ -1,3 +1,4 @@
+import { DeleteConfirmationDialogComponent } from './../../dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { ProductService } from './../../services/ProductService';
 import { AddProductDialogComponent } from './../../dialogs/add-product-dialog/add-product-dialog.component';
 import { Product } from './../../models/Product';
@@ -77,9 +78,19 @@ export class ProductsComponent implements OnInit {
   }
 
   deleteProduct(i: any) {
-    console.log(this.products.indexOf(i));
-    this.products.splice(this.products.indexOf(i),1);
-    this.dataSource.data = this.products;
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+      width: '600px',
+      data: this.products[this.products.indexOf(i)].productName
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        console.log(this.products.indexOf(i));
+      this.products.splice(this.products.indexOf(i),1);
+      this.dataSource.data = this.products;
+      }
+    });
+    
   }
 
   applyFilter(filterValue: string) {

@@ -20,7 +20,8 @@ import {MatToolbarModule,
         MatInputModule,
         MatPaginatorModule,
         MatTabsModule,
-        MatSelectModule
+        MatSelectModule,
+        
 } from '@angular/material';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component'; 
@@ -34,6 +35,7 @@ import { UpdateProductDialogComponent } from './dialogs/update-product-dialog/up
 import { ProductSetsComponent } from './pages/product-sets/product-sets.component';
 import { ProductsContainerComponent } from './pages/products-container/products-container.component';
 import { AddProductSetDialogComponent } from './dialogs/add-product-set-dialog/add-product-set-dialog.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { AddProductSetDialogComponent } from './dialogs/add-product-set-dialog/a
     ReactiveFormsModule,
     MatPaginatorModule,
     MatTabsModule,
-    MatSelectModule
+    MatSelectModule,
+    ScrollingModule
   ],
   exports: [ 
      

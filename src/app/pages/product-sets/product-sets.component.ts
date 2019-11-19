@@ -62,11 +62,11 @@ export class ProductSetsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result) {
-        const product: Product = result;
+       
         // change concat to replace when using real api
         // this.products.push(product);
         // this.dataSource.data = this.products;
-        // console.log(product);
+        console.log(result);
       }
     });
   }

@@ -1,3 +1,4 @@
+import { OrderService } from './services/OrderService';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -21,6 +22,7 @@ import {MatToolbarModule,
         MatPaginatorModule,
         MatTabsModule,
         MatSelectModule,
+        MatExpansionModule,
         
 } from '@angular/material';
 
@@ -42,6 +44,8 @@ import { CustomersComponent } from './pages/customers/customers.component';
 import { CustomerService } from './services/CustomerService';
 import { AddCustomerComponent } from './dialogs/add-customer/add-customer.component';
 import { EditCustomerDialogComponent } from './dialogs/edit-customer-dialog/edit-customer-dialog.component';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { ViewCustomerDialogComponent } from './dialogs/view-customer-dialog/view-customer-dialog.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +64,8 @@ import { EditCustomerDialogComponent } from './dialogs/edit-customer-dialog/edit
     CustomersComponent,
     AddCustomerComponent,
     EditCustomerDialogComponent,
+    OrdersComponent,
+    ViewCustomerDialogComponent,
 
   ],
   imports: [
@@ -83,7 +89,8 @@ import { EditCustomerDialogComponent } from './dialogs/edit-customer-dialog/edit
     MatPaginatorModule,
     MatTabsModule,
     MatSelectModule,
-    ScrollingModule
+    ScrollingModule,
+    MatExpansionModule
   ],
   exports: [ 
      
@@ -95,11 +102,13 @@ import { EditCustomerDialogComponent } from './dialogs/edit-customer-dialog/edit
     EditProductSetDialogComponent,
     DeleteConfirmationDialogComponent,
     AddCustomerComponent,
-    EditCustomerDialogComponent
+    EditCustomerDialogComponent,
+    ViewCustomerDialogComponent
   ],
   providers: [
     ProductService,
-    CustomerService
+    CustomerService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })

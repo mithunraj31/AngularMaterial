@@ -1,0 +1,53 @@
+mat-card{
+  margin: 5;
+}
+table {
+  width: 100%;
+}
+.right-button{
+  text-align: right;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.rowButton {
+  display: flex;
+
+  justify-content: flex-end;
+
+}
+tr.detail-row {
+  height: 0;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: #c8e6c9;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #a4dda6;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+
+.productComponent {
+    width: 300px;
+
+    border: 2px solid #64b5f6; 
+    display: inline-block;
+    margin-right: 5px;
+}
+
+
+.mat-expansion-panel-header-description {
+  display: flex;
+  justify-content: flex-end;
+}

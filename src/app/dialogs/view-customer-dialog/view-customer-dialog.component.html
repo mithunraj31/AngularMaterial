@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>{{data.type}} Details</h1>
+<div mat-dialog-content class="example-container">
+    <mat-card>
+        <mat-list>
+            <mat-list-item> Name :&emsp;{{data.customerName}} </mat-list-item>
+            <mat-list-item> ZIP :&emsp;{{data.zip}} </mat-list-item>
+            <mat-list-item> Address :&emsp;{{data.address}} </mat-list-item>
+            <mat-list-item> Tel :&emsp;{{data.tel}} </mat-list-item>
+            <mat-list-item> Contact Name :&emsp;{{data.contactName}} </mat-list-item>
+        </mat-list>
+    </mat-card>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="" cdkFocusInitial>Ok</button>
+</div>

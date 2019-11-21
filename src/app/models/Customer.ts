@@ -1,5 +1,5 @@
 export interface Customer {
-    customerId: Number;
+    customerId?: Number;
     customerName: String,
     zip: number,
     address: String,

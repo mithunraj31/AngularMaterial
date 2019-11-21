@@ -19,7 +19,7 @@ export class AddCustomerComponent implements OnInit {
     this.initializeCustomerForm();
   }
 
-  initializeCustomerForm(){
+  initializeCustomerForm() {
     this.customerForm = new FormGroup({
       "customerName": new FormControl("",[
         Validators.required

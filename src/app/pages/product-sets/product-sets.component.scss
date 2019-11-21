@@ -16,23 +16,23 @@ table {
     justify-content: flex-end;
 
   }
-  tr.example-detail-row {
+  tr.detail-row {
     height: 0;
   }
   
-  tr.example-element-row:not(.example-expanded-row):hover {
+  tr.element-row:not(.expanded-row):hover {
     background: #c8e6c9;
   }
   
-  // tr.example-element-row:not(.example-expanded-row):active {
-  //   background: #efefef;
-  // }
+  tr.element-row:not(.expanded-row):active {
+    background: #a4dda6;
+  }
   
-  .example-element-row td {
+  .element-row td {
     border-bottom-width: 0;
   }
   
-  .example-element-detail {
+  .element-detail {
     overflow: hidden;
     display: flex;
   }
@@ -40,7 +40,8 @@ table {
 
   .productComponent {
       width: 200px;
-      background: #64b5f6;
+
+      border: 2px solid #64b5f6; 
       display: inline-block;
       margin-right: 5px;
   }

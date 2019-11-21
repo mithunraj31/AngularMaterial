@@ -47,7 +47,7 @@
           "updatedAtDateTime": "2019-11-13T17:00:00",
           "userId": 3,
           "set": false
-          },
+        },
         "quantity": 1
       }
     ]
@@ -100,7 +100,7 @@
           "updatedAtDateTime": "2019-11-13T17:00:00",
           "userId": 3,
           "set": false
-          },
+        },
         "quantity": 1
       },
       {
@@ -118,7 +118,7 @@
           "updatedAtDateTime": "2019-11-13T17:00:00",
           "userId": 3,
           "set": false
-          },
+        },
         "quantity": 1
       },
       {
@@ -136,7 +136,7 @@
           "updatedAtDateTime": "2019-11-13T17:00:00",
           "userId": 3,
           "set": false
-          },
+        },
         "quantity": 1
       }
     ]

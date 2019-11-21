@@ -25,7 +25,7 @@ export class AddCustomerComponent implements OnInit {
         Validators.required
       ]),
       "zip": new FormControl("",[
-        Validators.required
+        Validators.required, Validators.maxLength(7),Validators.minLength(7)
       ]),
       "address": new FormControl("",[
         Validators.required
@@ -52,14 +52,17 @@ export class AddCustomerComponent implements OnInit {
     }
   }
   getErrorMessage(attribute:string) {
-    return this.customerForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
-    // switch (attribute) {
-    //   case "name":
-    //       return this.productForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
-    //     break;
+    //return this.customerForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
+    switch (attribute) {
+      case "zip":
+          return this.customerForm.get(attribute).hasError('required') ? 'You must enter a value':
+          this.customerForm.get(attribute).hasError('maxlength') ? 'zip code length must be 7': 
+          this.customerForm.get(attribute).hasError('minlength') ? 'zip code length must be 7': '';
+        break;
     
-    //   default:
-    //     break;
-    // }
+      default:
+          return this.customerForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
+        break;
+    }
   }
 }

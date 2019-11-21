@@ -45,9 +45,25 @@ tr.element-row:not(.expanded-row):active {
     display: inline-block;
     margin-right: 5px;
 }
+.productSetComponent {
+  width: 300px;
 
+  border: 2px solid #672ed1; 
+  display: inline-block;
+  margin-right: 5px;
+}
 
 .mat-expansion-panel-header-description {
   display: flex;
   justify-content: flex-end;
+}
+mat-expansion-panel {
+  border: 2px solid #64b5f6; 
+  margin-bottom: 2px;
+}
+.mat-badge-medium.mat-badge-above .mat-badge-content {
+  top: -3px;
+  right: -4px;
+  padding: 3px;
+  background-color: #672ed1;
 }

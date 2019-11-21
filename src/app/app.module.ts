@@ -23,6 +23,7 @@ import {MatToolbarModule,
         MatTabsModule,
         MatSelectModule,
         MatExpansionModule,
+        MatBadgeModule,
         
 } from '@angular/material';
 
@@ -90,7 +91,8 @@ import { ViewCustomerDialogComponent } from './dialogs/view-customer-dialog/view
     MatTabsModule,
     MatSelectModule,
     ScrollingModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatBadgeModule
   ],
   exports: [ 
      

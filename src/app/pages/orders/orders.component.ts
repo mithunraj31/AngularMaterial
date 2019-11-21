@@ -18,6 +18,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     ]),]
 })
 export class OrdersComponent implements OnInit {
+  expandedElement;
   columnsToDisplay: string[] = [
     'proposalNo',
     'customer',
@@ -55,6 +56,19 @@ export class OrdersComponent implements OnInit {
       width: '600px',
       data: customer
     });
+  }
+  openDialog() {
+
+  }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  editOrder(order: Order) {
+
+  }
+  deleteOrder(order: Order) {
+
   }
 
 

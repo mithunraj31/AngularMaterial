@@ -1,12 +1,13 @@
 pipeline {
   agent any
-
-  }
-    if(env.BRANCH_NAME == 'master'){
-      stages {
-        stage('Build') {
-          steps {
-          sh '/home/ec2-user/deploy-scripts/angular.sh'
+    stages {
+      stage('Build') {
+        steps {
+          if(env.BRANCH_NAME == 'master'){
+            sh '/home/ec2-user/deploy-scripts/angular.sh'
+          }
+          else {
+            echo 'Only building available in Master Branch'
           }
         }
 

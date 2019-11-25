@@ -1,16 +1,16 @@
 pipeline {
-  agent {
-    node {
-      label 'master'
-    }
+  agent any
 
   }
-  stages {
-    stage('Git Pull') {
-      steps {
-        sh '/home/ec2-user/deploy-scripts/angular.sh'
+    if(env.BRANCH_NAME == 'master'){
+      stages {
+        stage('Build') {
+          steps {
+          sh '/home/ec2-user/deploy-scripts/angular.sh'
+          }
+        }
+
       }
     }
-
-  }
+  
 }

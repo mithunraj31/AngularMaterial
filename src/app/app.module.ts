@@ -1,3 +1,4 @@
+import { IncomingShipmentService } from './services/IncomingShipmentService';
 import { OrderService } from './services/OrderService';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -50,6 +51,8 @@ import { ViewCustomerDialogComponent } from './dialogs/view-customer-dialog/view
 import { AddOrderDialogComponent } from './dialogs/add-order-dialog/add-order-dialog.component';
 import { EditOrderDialogComponent } from './dialogs/edit-order-dialog/edit-order-dialog.component';
 import { ShipmentsComponent } from './pages/shipments/shipments.component';
+import { IncomingShipmentsComponent } from './pages/shipments/incoming-shipments/incoming-shipments.component';
+import { OutgoingShipmentsComponent } from './pages/shipments/outgoing-shipments/outgoing-shipments.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +76,8 @@ import { ShipmentsComponent } from './pages/shipments/shipments.component';
     AddOrderDialogComponent,
     EditOrderDialogComponent,
     ShipmentsComponent,
+    IncomingShipmentsComponent,
+    OutgoingShipmentsComponent,
 
   ],
   imports: [
@@ -118,7 +123,8 @@ import { ShipmentsComponent } from './pages/shipments/shipments.component';
   providers: [
     ProductService,
     CustomerService,
-    OrderService
+    OrderService,
+    IncomingShipmentService
   ],
   bootstrap: [AppComponent]
 })

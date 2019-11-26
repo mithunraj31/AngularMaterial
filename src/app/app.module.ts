@@ -47,6 +47,9 @@ import { AddCustomerComponent } from './dialogs/add-customer/add-customer.compon
 import { EditCustomerDialogComponent } from './dialogs/edit-customer-dialog/edit-customer-dialog.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { ViewCustomerDialogComponent } from './dialogs/view-customer-dialog/view-customer-dialog.component';
+import { AddOrderDialogComponent } from './dialogs/add-order-dialog/add-order-dialog.component';
+import { EditOrderDialogComponent } from './dialogs/edit-order-dialog/edit-order-dialog.component';
+import { ShipmentsComponent } from './pages/shipments/shipments.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +70,9 @@ import { ViewCustomerDialogComponent } from './dialogs/view-customer-dialog/view
     EditCustomerDialogComponent,
     OrdersComponent,
     ViewCustomerDialogComponent,
+    AddOrderDialogComponent,
+    EditOrderDialogComponent,
+    ShipmentsComponent,
 
   ],
   imports: [
@@ -105,7 +111,9 @@ import { ViewCustomerDialogComponent } from './dialogs/view-customer-dialog/view
     DeleteConfirmationDialogComponent,
     AddCustomerComponent,
     EditCustomerDialogComponent,
-    ViewCustomerDialogComponent
+    ViewCustomerDialogComponent,
+    AddOrderDialogComponent,
+    EditOrderDialogComponent
   ],
   providers: [
     ProductService,

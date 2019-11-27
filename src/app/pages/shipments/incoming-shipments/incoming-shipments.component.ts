@@ -41,5 +41,18 @@ export class IncomingShipmentsComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     })
   }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  editShipment(element){
+
+  }
+  deleteShipment(element){
+
+  }
+  openDialog(): void{
+    
+  }
 
 }

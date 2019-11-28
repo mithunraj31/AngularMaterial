@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoginUser } from '../models/LoginUser';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import * as moment from "moment";
 import { BehaviorSubject } from 'rxjs';
 
 export interface Token {

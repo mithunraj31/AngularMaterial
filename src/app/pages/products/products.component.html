@@ -1,5 +1,8 @@
 <mat-card>
-    <button mat-raised-button color="primary" (click)="openDialog()">Add</button><br><br>
+    <div class="row">
+
+        <button mat-raised-button color="primary" (click)="openDialog()">Add</button><span class="spacer"></span><span class="spinner">asasd</span>
+    </div>
     <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>

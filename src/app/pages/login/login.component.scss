@@ -1,0 +1,22 @@
+.container {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}   
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    justify-content: center;
+}
+.row {
+    display: flex;
+    justify-content: center;
+}
+.actions{
+    display: flex;
+
+    flex-direction: column;
+}

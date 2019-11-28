@@ -1,5 +1,7 @@
 <mat-toolbar color="primary">
     <span routerLink="/">Mbel Client</span>
     <span class="spacer"></span>
+    <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async">Logout</button>
     <mat-icon>perm_identity</mat-icon>
+    <h4 *ngIf="isLoggedIn$ | async">UserName</h4>
 </mat-toolbar>

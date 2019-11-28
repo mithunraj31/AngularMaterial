@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/auth/AuthService';
 import { IncomingShipmentService } from './services/IncomingShipmentService';
 import { OrderService } from './services/OrderService';
 import { BrowserModule } from '@angular/platform-browser';
@@ -25,6 +26,7 @@ import {MatToolbarModule,
         MatSelectModule,
         MatExpansionModule,
         MatBadgeModule,
+        MatProgressSpinnerModule
         
 } from '@angular/material';
 
@@ -53,6 +55,9 @@ import { EditOrderDialogComponent } from './dialogs/edit-order-dialog/edit-order
 import { ShipmentsComponent } from './pages/shipments/shipments.component';
 import { IncomingShipmentsComponent } from './pages/shipments/incoming-shipments/incoming-shipments.component';
 import { OutgoingShipmentsComponent } from './pages/shipments/outgoing-shipments/outgoing-shipments.component';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthGuardService } from './auth/AuthGuardService';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -78,6 +83,7 @@ import { OutgoingShipmentsComponent } from './pages/shipments/outgoing-shipments
     ShipmentsComponent,
     IncomingShipmentsComponent,
     OutgoingShipmentsComponent,
+    LoginComponent,
 
   ],
   imports: [
@@ -103,7 +109,8 @@ import { OutgoingShipmentsComponent } from './pages/shipments/outgoing-shipments
     MatSelectModule,
     ScrollingModule,
     MatExpansionModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatProgressSpinnerModule,
   ],
   exports: [ 
      
@@ -124,7 +131,10 @@ import { OutgoingShipmentsComponent } from './pages/shipments/outgoing-shipments
     ProductService,
     CustomerService,
     OrderService,
-    IncomingShipmentService
+    IncomingShipmentService,
+    AuthService,
+    AuthGuardService,
+    AuthInterceptorService
   ],
   bootstrap: [AppComponent]
 })

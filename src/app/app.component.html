@@ -2,7 +2,8 @@
 
 <!-- Side Navigation with Content handler -->
 <mat-drawer-container class="main-container">
-  <mat-drawer mode="side" opened>
+  <mat-drawer mode="side" opened *ngIf="isLoggedIn$ | async">
+      <!-- <mat-drawer mode="side" opened> -->
     <app-sidebar></app-sidebar>
   </mat-drawer>
   <mat-drawer-content>

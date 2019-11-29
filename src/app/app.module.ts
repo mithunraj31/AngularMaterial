@@ -58,6 +58,8 @@ import { OutgoingShipmentsComponent } from './pages/shipments/outgoing-shipments
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuardService } from './auth/AuthGuardService';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -134,7 +136,11 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     IncomingShipmentService,
     AuthService,
     AuthGuardService,
-    AuthInterceptorService
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

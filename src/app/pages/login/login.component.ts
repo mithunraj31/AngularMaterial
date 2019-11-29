@@ -47,12 +47,13 @@ export class LoginComponent implements OnInit {
         "password": this.loginForm.value.password
       }
       this.authService.login(user).subscribe(result => {
+        console.log("test1");
         this.authService.setSession(result);
         console.log(result);
         this.router.navigate(['/']);
       },
         error => {
-          if(error.error.status==401) {
+          if(error.error && error.error.status==401) {
             this.loginError = "Invalid credentials!";
           } else {
             this.loginError = "Somthing went wrong! Please try again later.";

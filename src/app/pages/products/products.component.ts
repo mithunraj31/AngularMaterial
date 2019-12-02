@@ -102,16 +102,21 @@ export class ProductsComponent implements OnInit {
   }
 
   deleteProduct(i: any) {
+    const data = this.products[this.products.indexOf(i)]
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
       width: '600px',
-      data: this.products[this.products.indexOf(i)].productName
+      data: data.productName
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(this.products.indexOf(i));
-        this.products.splice(this.products.indexOf(i), 1);
-        this.dataSource.data = this.products;
+        this.progress = true;
+        this.productService.deleteProduct(data.productId).subscribe(result=>{
+          this.getProductData();
+          this.progress = false;
+        },error=>{
+          this.progress = false;
+        })
       }
     });
 

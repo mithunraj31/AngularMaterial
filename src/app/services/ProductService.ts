@@ -25,4 +25,8 @@ export class ProductService {
     saveProduct(product: Product){
         return this.http.post<Product>(this.productUrl, product);
     }
+
+    updateProduct(product: Product) {
+        return this.http.put<Product>(this.productUrl, product);
+    }
 }

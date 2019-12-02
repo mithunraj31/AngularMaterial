@@ -75,20 +75,28 @@ export class ProductsComponent implements OnInit {
   }
 
   editProduct(i: any) {
+    const data =this.products[this.products.indexOf(i)];
     console.log(this.products[i]);
     const dialogRef = this.dialog.open(UpdateProductDialogComponent, {
       width: '600px',
-      data: this.products[this.products.indexOf(i)]
+      data: data
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      
       console.log('The dialog was closed');
       if (result) {
+        this.progress = true;
         const product: Product = result;
+        product.productId = data.productId;
         // change concat to replace when using real api
-        this.products[this.products.indexOf(i)] = product;
-        this.dataSource.data = this.products;
-        console.log(product);
+        this.productService.updateProduct(product).subscribe((result)=>{
+          this.getProductData();
+          this.progress = false;
+        },error=>{
+          this.progress = false;
+        })
+        
       }
     });
   }

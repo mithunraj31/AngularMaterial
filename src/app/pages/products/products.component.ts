@@ -29,18 +29,27 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
   productName: string;
   dataSource = new MatTableDataSource<Product>();
+  progress=false;
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(public dialog: MatDialog, public productService: ProductService) { }
 
   ngOnInit() {
+    this.getProductData();
+    this.dataSource.paginator = this.paginator;
+  }
+  getProductData() {
+    this.progress = true;
     this.productService.getProducts().subscribe(result => {
       console.log(result);
       this.products = result;
       this.dataSource.data = this.products;
-      this.dataSource.paginator = this.paginator;
+      this.progress = false;
+    }, error=>{
+      this.progress = false;
     })
   }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(AddProductDialogComponent, {
       width: '600px',
@@ -50,10 +59,17 @@ export class ProductsComponent implements OnInit {
       console.log('The dialog was closed');
       if (result) {
         const product: Product = result;
-        // change concat to replace when using real api
-        this.products.push(product);
-        this.dataSource.data = this.products;
-        console.log(product);
+
+        // API Requst to save product
+        this.progress = true;
+        this.productService.saveProduct(product).subscribe(result => {
+          this.getProductData();
+          console.log(result);
+          this.progress = false;
+        },error=>{
+          this.progress = false;
+        })
+      
       }
     });
   }
@@ -84,13 +100,13 @@ export class ProductsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         console.log(this.products.indexOf(i));
-      this.products.splice(this.products.indexOf(i),1);
-      this.dataSource.data = this.products;
+        this.products.splice(this.products.indexOf(i), 1);
+        this.dataSource.data = this.products;
       }
     });
-    
+
   }
 
   applyFilter(filterValue: string) {

@@ -26,7 +26,8 @@ import {MatToolbarModule,
         MatSelectModule,
         MatExpansionModule,
         MatBadgeModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatProgressBarModule
         
 } from '@angular/material';
 
@@ -112,6 +113,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     MatExpansionModule,
     MatBadgeModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
   exports: [ 
      

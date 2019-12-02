@@ -10,12 +10,15 @@ table {
 .spacer {
     flex: 1 1 auto;
   }
-  .rowButton {
+.rowButton {
     display: flex;
 
     justify-content: flex-end;
+}
 
-  }
-  .spacer {
-    flex: 1 1 auto;
-  }
+.spinner {
+  display: flex;
+  margin: 0;
+  top: -4px;
+  justify-content: flex-end;
+}

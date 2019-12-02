@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/']);
       },
         error => {
-          if(error.error && error.error.status==401) {
+          if(error.error && error.error.status && error.error.status==401) {
             this.loginError = "Invalid credentials!";
           } else {
             this.loginError = "Somthing went wrong! Please try again later.";

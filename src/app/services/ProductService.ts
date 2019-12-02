@@ -8,17 +8,21 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class ProductService {
 
-    private getProductUrl = environment.APIURL+"/product/";
-    private getProductSetUrl =  environment.APIURL+"/productset";
+    private productUrl = environment.APIURL+"/product/";
+    private productSetUrl =  environment.APIURL+"/productset";
     constructor(private http: HttpClient){
         
     }
 
     getProducts() {
-        return this.http.get<Product[]>(this.getProductUrl);
+        return this.http.get<Product[]>(this.productUrl);
     }
 
     getProductSets() {
-        return this.http.get<ProductSet[]>(this.getProductSetUrl);
+        return this.http.get<ProductSet[]>(this.productSetUrl);
+    }
+     
+    saveProduct(product: Product){
+        return this.http.post<Product>(this.productUrl, product);
     }
 }

@@ -30,7 +30,7 @@ export class ProductSetsComponent implements OnInit {
     'obicNo',
     'actions'
   ];
-
+  progress = false;
   dataSource = new MatTableDataSource<Product>();
   productSets: ProductSet[];
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
@@ -39,14 +39,22 @@ export class ProductSetsComponent implements OnInit {
   constructor(private productService: ProductService, public dialog: MatDialog, ) { }
 
   ngOnInit() {
+    this.getProductSetData();
+    this.dataSource.paginator = this.paginator;
+  }
+
+  getProductSetData() {
+    this.progress = true;
     this.productService.getProductSets().subscribe(result => {
       this.productSets = result;
       console.log(this.productSets);
       this.dataSource.data = this.productSets;
-      this.dataSource.paginator = this.paginator;
+      this.progress = false;
+    }, error => {
+      this.progress = false;
+      console.log(error);
     })
   }
-
   deleteProduct(i: any) {
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
       width: '600px',
@@ -54,13 +62,13 @@ export class ProductSetsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         console.log(this.productSets.indexOf(i));
         this.productSets.splice(this.productSets.indexOf(i), 1);
         this.dataSource.data = this.productSets;
       }
     });
-    
+
   }
 
   applyFilter(filterValue: string) {

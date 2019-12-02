@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class ProductService {
 
     private productUrl = environment.APIURL+"/product/";
-    private productSetUrl =  environment.APIURL+"/productset";
+    private productSetUrl =  environment.APIURL+"/productset/";
     constructor(private http: HttpClient){
         
     }

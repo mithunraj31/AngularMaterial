@@ -12,6 +12,8 @@ export interface Token {
     scopes: string;
     iat: string;
     exp: string;
+    firstName: string;
+    lastName: string;
 }
 
 @Injectable()
@@ -34,6 +36,8 @@ export class AuthService {
         localStorage.setItem('id_token', authResult.token);
         localStorage.setItem("expires_at", expiresAt);
         localStorage.setItem("scopes",user.scopes);
+        localStorage.setItem("firstName",user.firstName);
+        localStorage.setItem("lastName",user.lastName);
         if (authResult.token) this.loggedIn.next(true);
     }
 
@@ -64,6 +68,7 @@ export class AuthService {
         localStorage.removeItem("expires_at");
         this.loggedIn.next(false);
     }
+
     public isAuthenticated(): boolean {
         if (this.getExpiration() > Date.now()/1000 ) {
             //this.loggedIn.next(true);
@@ -72,5 +77,13 @@ export class AuthService {
             //this.loggedIn.next(false);
             return false;
         }
+    }
+
+    getFirstName(): string{
+        return localStorage.getItem("firstName");
+    }
+
+    getLastName(): string{
+        return localStorage.getItem("lastName");
     }
 }

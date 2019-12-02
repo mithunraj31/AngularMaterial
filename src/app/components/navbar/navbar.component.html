@@ -3,5 +3,5 @@
     <span class="spacer"></span>
     <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async">Logout</button>
     <mat-icon>perm_identity</mat-icon>
-    <h4 *ngIf="isLoggedIn$ | async">UserName</h4>
+    <span class="username" *ngIf="isLoggedIn$ | async">{{lastName}}</span>
 </mat-toolbar>

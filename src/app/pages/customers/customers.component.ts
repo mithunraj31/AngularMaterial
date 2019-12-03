@@ -22,6 +22,7 @@ export class CustomersComponent implements OnInit {
     'type',
     'actions'
   ];
+  progress = false;
   customers: Customer[] = [];
   dataSource = new MatTableDataSource<Customer>();
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
@@ -32,12 +33,19 @@ export class CustomersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getCustomers();
+  }
+
+  getCustomers() {
+    this.progress = true;
     this.customerService.getCustomers().subscribe(result => {
       this.customers = result;
       this.dataSource.data = this.customers;
       this.dataSource.paginator = this.paginator;
+      this.progress = false;
 
-      console.log(result);
+    }, error => {
+      this.progress = false;
     })
   }
 
@@ -53,42 +61,60 @@ export class CustomersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result) {
+        this.progress = true;
         const customer: Customer = result;
-        // change concat to replace when using real api
-        this.customers.push(customer);
-        this.dataSource.data = this.customers;
+        this.customerService.addCustomer(result).subscribe(result => {
+          this.getCustomers();
+          this.progress = false;
+        }, error => {
+          this.progress = false;
+        })
+
       }
     });
   }
 
   deleteCustomer(i: any) {
+    const data = this.customers[this.customers.indexOf(i)]
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
       width: '600px',
-      data: this.customers[this.customers.indexOf(i)].contactName
+      data: data.customerName
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
-        console.log(this.customers.indexOf(i));
-      this.customers.splice(this.customers.indexOf(i),1);
-      this.dataSource.data = this.customers;
+      if (result) {
+        this.progress = true;
+        this.customerService.deleteCustomer(data.customerId).subscribe(result => {
+          this.getCustomers();
+          this.progress = false;
+          console.log(result);
+        }, error => {
+          console.log(error);
+          this.progress = false;
+        })
       }
     });
-    
+
   }
   editCustomer(i: Customer) {
+    const data = this.customers[this.customers.indexOf(i)];
     const dialogRef = this.dialog.open(EditCustomerDialogComponent, {
       width: '600px',
-      data: this.customers[this.customers.indexOf(i)]
+      data: data
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result) {
         const customer: Customer = result;
-        // change concat to replace when using real api
-        this.customers[this.customers.indexOf(i)] = customer;
-        this.dataSource.data = this.customers;
+        customer.customerId = data.customerId;
+        this.progress = true;
+        this.customerService.editCustomer(customer).subscribe(result => {
+          this.getCustomers();
+          this.progress = false;
+        }, error => {
+          this.progress = false;
+        })
       }
     });
 

@@ -11,15 +11,30 @@ import { CustomersComponent } from './pages/customers/customers.component';
 import { AuthGuardService as AuthGuard } from "./auth/AuthGuardService";
 
 const routes: Routes = [
-  { path: '', component: HomeComponent,
-    canActivate: [AuthGuard] },
   {
-    path: 'products', component: ProductsContainerComponent
+    path: '', component: HomeComponent,
+    canActivate: [AuthGuard]
   },
-  { path: 'customers', component: CustomersComponent },
-  { path: 'orders', component: OrdersComponent },
-  { path: 'shipments', component: ShipmentsComponent },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'products', component: ProductsContainerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'customers', component: CustomersComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'orders', component: OrdersComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'shipments', component: ShipmentsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'login', component: LoginComponent,
+    
+  },
 ];
 
 @NgModule({

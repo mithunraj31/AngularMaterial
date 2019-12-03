@@ -48,7 +48,8 @@
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
       <div class="element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <mat-card class="productComponent" *ngFor="let component of element.products">
+        <mat-card [ngClass]="{'productComponent': component.product.active,'notAvailable': !component.product.active}" 
+        *ngFor="let component of element.products">
             <h4>{{component.product.productName}}</h4>
             <p>{{component.product.description}}</p>
             <span>Price : {{component.product.price}}</span><br>

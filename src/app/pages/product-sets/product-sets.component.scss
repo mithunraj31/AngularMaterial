@@ -40,8 +40,13 @@ table {
 
   .productComponent {
       width: 200px;
-
       border: 2px solid #64b5f6; 
+      display: inline-block;
+      margin-right: 5px;
+  }
+  .notAvailable {
+      width: 200px;
+      border: 2px solid #f66464; 
       display: inline-block;
       margin-right: 5px;
   }

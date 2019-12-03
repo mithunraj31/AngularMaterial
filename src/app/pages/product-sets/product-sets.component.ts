@@ -1,3 +1,4 @@
+import { SaveProductSet } from './../../models/saveProductSet';
 import { AddProductSetDialogComponent } from './../../dialogs/add-product-set-dialog/add-product-set-dialog.component';
 import { ProductSet } from './../../models/ProductSet';
 import { ProductService } from './../../services/ProductService';
@@ -56,16 +57,23 @@ export class ProductSetsComponent implements OnInit {
     })
   }
   deleteProduct(i: any) {
+    const data = this.productSets[this.productSets.indexOf(i)];
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
       width: '600px',
-      data: this.productSets[this.productSets.indexOf(i)].productName
+      data: data.productName
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(this.productSets.indexOf(i));
-        this.productSets.splice(this.productSets.indexOf(i), 1);
-        this.dataSource.data = this.productSets;
+        this.progress = true;
+        this.productService.deleteProductSet(data.productId).subscribe(result => {
+          this.getProductSetData();
+          this.progress = false;
+
+        }, error => {
+          this.progress = true;
+          console.log(error);
+        })
       }
     });
 
@@ -80,26 +88,40 @@ export class ProductSetsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result) {
 
-        // change concat to replace when using real api
-        // this.products.push(product);
-        // this.dataSource.data = this.products;
-        console.log(result);
+      console.log(result);
+      if (result) {
+        this.progress = true;
+        this.productService.addProductSet(result).subscribe(result => {
+          this.getProductSetData();
+          this.progress = false;
+        }, error => {
+          console.log(error);
+          this.progress = false;
+        })
       }
     });
   }
-  editProductSet(element: ProductSet) {
+  editProductSet(data: ProductSet) {
     const dialogRef = this.dialog.open(EditProductSetDialogComponent, {
       width: '600px',
-      data: element
+      data: data
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result) {
+        this.progress=true;
         console.log(result);
+        const productset: SaveProductSet = result;
+        productset.productId=data.productId;
+        this.productService.editProductSet(productset).subscribe(result=>{
+          console.log(result);
+          this.getProductSetData();
+          this.progress=false;
+        },error=>{
+          this.progress=false;
+        })
       }
     });
   }

@@ -41,8 +41,8 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input matInput type="date" placeholder="Recieved Date" formControlName="recievedDate">
-            <mat-error *ngIf="orderForm.get('recievedDate').invalid">{{getErrorMessage('recievedDate')}}</mat-error>
+            <input matInput type="date" placeholder="Received Date" formControlName="receivedDate">
+            <mat-error *ngIf="orderForm.get('receivedDate').invalid">{{getErrorMessage('receivedDate')}}</mat-error>
         </mat-form-field>
         <mat-form-field>
                 <input matInput type="date" placeholder="Due Date" formControlName="dueDate">
@@ -52,8 +52,10 @@
             <mat-label>Select a Sales User</mat-label>
             <mat-select formControlName="salesUserId">
                 <mat-option>None</mat-option>
-                    <mat-option value="1" >John Doe</mat-option>
-                    <mat-option value="2" >Sample User</mat-option>
+                <div *ngFor="let user of users">
+                    <mat-option value="{{user.userId}}" >{{user.firstName}} {{user.lastName}}</mat-option>
+
+                </div>
             </mat-select>
             <mat-error *ngIf="orderForm.get('salesUserId').invalid">{{getErrorMessage('salesUserId')}}
             </mat-error>
@@ -73,7 +75,6 @@
               <mat-select [(value)]="selected">
                
                 <mat-option>None</mat-option>
-                <mat-option value="{{i}}" *ngFor="let product of products; let i = index">{{product.productName}}</mat-option>
                 <mat-option value="{{i}}" *ngFor="let product of productSets; let i = index">{{product.productName}}</mat-option>
               </mat-select>
             </mat-form-field>

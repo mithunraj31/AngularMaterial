@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class OrderService {
-    private getOrdersUrl = environment.APIURL + "/order"
+    private getOrdersUrl = environment.APIURL + "/order/"
     constructor(private http: HttpClient){
         
     }
@@ -17,5 +17,15 @@ export class OrderService {
 
     addOrder(order: SaveOrder){
         return this.http.post<SaveOrder>(this.getOrdersUrl, order);
+    }
+
+    deleteOrder(id:number){
+        return this.http.delete<any>(this.getOrdersUrl+id);
+    }
+
+    editOrder(order: SaveOrder) {
+        console.log(this.getOrdersUrl+order.orderId);
+        console.log(order);
+        return this.http.put<SaveOrder>(this.getOrdersUrl+order.orderId,order);
     }
 }

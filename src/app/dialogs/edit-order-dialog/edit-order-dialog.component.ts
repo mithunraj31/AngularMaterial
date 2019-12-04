@@ -1,3 +1,6 @@
+import { User } from './../../models/User';
+import { SaveOrder } from './../../models/SaveOrder';
+import { Order } from './../../models/Order';
 import { Component, OnInit, Inject } from '@angular/core';
 import { SaveProductComponent } from 'src/app/models/saveProductComponent';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -7,6 +10,7 @@ import { ProductSet } from 'src/app/models/ProductSet';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CustomerService } from 'src/app/services/CustomerService';
 import { ProductService } from 'src/app/services/ProductService';
+import { UserService } from 'src/app/services/UserService';
 
 @Component({
   selector: 'app-edit-order-dialog',
@@ -24,22 +28,30 @@ export class EditOrderDialogComponent implements OnInit {
   customers: Customer[] = [];
   products: Product[] = [];
   productSets: ProductSet[] = [];
+  users: User[] = []
   constructor(
     public dialogRef: MatDialogRef<EditOrderDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: Order,
     private customerService: CustomerService,
-    private productService: ProductService
+    private productService: ProductService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
     this.getCustomerData();
     this.initializeCustomerForm();
     this.getProductData();
+    this.getUserData();
   }
   getCustomerData() {
     this.customerService.getCustomers().subscribe(result => {
       this.customers = result;
       console.log(this.customers)
+    })
+  }
+  getUserData() {
+    this.userService.getUsers().subscribe(result => {
+      this.users = result;
     })
   }
 
@@ -50,27 +62,38 @@ export class EditOrderDialogComponent implements OnInit {
       "proposalNo": new FormControl(this.data.proposalNo, [
         Validators.required
       ]),
-      "customer": new FormControl(this.data.customer.customerId, [
+      "customerId": new FormControl(this.data.customer.customerId, [
         Validators.required
       ]),
-      "salesDestination": new FormControl(this.data.salesDestination.customerId, [
+      "salesDestinationId": new FormControl(this.data.salesDestination.customerId, [
         Validators.required
       ]),
-      "contractor": new FormControl(this.data.contractor.customerId, [
+      "contractorId": new FormControl(this.data.contractor.customerId, [
         Validators.required
       ]),
-      "recievedDate": new FormControl(this.data.recievedDate, [
+      "receivedDate": new FormControl(this.data.receivedDate, [
         Validators.required
       ]),
       "dueDate": new FormControl(this.data.dueDate, [
         Validators.required
       ]),
-      "salesUser": new FormControl(this.data.salesUser, [
+      "salesUserId": new FormControl(this.data.salesUser.userId, [
         Validators.required
       ]),
 
     });
     //this.orderForm.controls['customer'].setValue(this.data.customer.customerId,{onlySelf: true})
+    for (let product of this.data.orderedProducts) {
+      this.viewSelectd.push({
+        productId: product.product.productId,
+        productName: product.product.productName,
+        quantity: product.quantity
+      });
+      this.saveProducts.push({
+        productId: product.product.productId,
+        quantity: product.quantity
+      });
+    }
   }
 
   onCancelClick(): void {
@@ -78,7 +101,9 @@ export class EditOrderDialogComponent implements OnInit {
   }
   onSubmit() {
     if (this.orderForm.valid) {
-      this.dialogRef.close(this.orderForm.value);
+      const order: SaveOrder = this.orderForm.value;
+      order.orderedProducts = this.saveProducts;
+      this.dialogRef.close(order);
     }
   }
   getErrorMessage(attribute: string) {
@@ -100,13 +125,13 @@ export class EditOrderDialogComponent implements OnInit {
       console.log(this.selected);
 
       const saveProductComponent: SaveProductComponent = {
-        productId: this.products[this.selected].productId,
+        productId: this.productSets[this.selected].productId,
         quantity: this.qty
       }
       this.saveProducts.push(saveProductComponent);
       this.viewSelectd.push({
-        productId: this.products[this.selected].productId,
-        productName: this.products[this.selected].productName,
+        productId: this.productSets[this.selected].productId,
+        productName: this.productSets[this.selected].productName,
         quantity: this.qty
       })
       console.log(this.viewSelectd);
@@ -123,11 +148,30 @@ export class EditOrderDialogComponent implements OnInit {
     this.saveProducts.splice(id, 1);
   }
   getProductData() {
-    this.productService.getProducts().subscribe(result => {
-      this.products = result;
-    })
     this.productService.getProductSets().subscribe(result => {
       this.productSets = result;
+      this.productService.getProducts().subscribe(presult => {
+        for(let product of presult){
+          const p: ProductSet ={
+            
+            active:product.active,
+            productId :product.productId,
+            price :product.price,
+            productName :product.productName,
+            createdAt:product.createdAt,
+            description:product.description,
+            isSet:product.isSet,
+            leadTime:product.leadTime,
+            moq:product.moq,
+            obicNo:product.obicNo,
+            products:null,
+            quantity:product.quantity,
+            updatedAt:product.updatedAt,
+            userId:product.userId
+          };
+          this.productSets.push(p);
+        }
+      })
     })
   }
 

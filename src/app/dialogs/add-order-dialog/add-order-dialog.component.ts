@@ -1,3 +1,4 @@
+import { User } from './../../models/User';
 import { SaveOrder } from './../../models/SaveOrder';
 import { ProductSet } from './../../models/ProductSet';
 import { CustomerService } from './../../services/CustomerService';
@@ -8,6 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Product } from 'src/app/models/Product';
 import { SaveProductComponent } from 'src/app/models/saveProductComponent';
 import { ProductService } from 'src/app/services/ProductService';
+import { UserService } from 'src/app/services/UserService';
 
 @Component({
   selector: 'app-add-order-dialog',
@@ -25,23 +27,31 @@ export class AddOrderDialogComponent implements OnInit {
   customers: Customer[] = [];
   products: Product[] = [];
   productSets: ProductSet[] = [];
-  saveOrder:SaveOrder;
+  saveOrder: SaveOrder;
+  users: User[] = [];
   constructor(
     public dialogRef: MatDialogRef<AddOrderDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private customerService: CustomerService,
-    private productService: ProductService
+    private productService: ProductService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
     this.getCustomerData();
     this.initializeCustomerForm();
     this.getProductData();
+    this.getUserData();
   }
   getCustomerData() {
     this.customerService.getCustomers().subscribe(result => {
       this.customers = result;
       console.log(this.customers)
+    })
+  }
+  getUserData() {
+    this.userService.getUsers().subscribe(result => {
+      this.users = result;
     })
   }
 
@@ -59,7 +69,7 @@ export class AddOrderDialogComponent implements OnInit {
       "contractorId": new FormControl("", [
         Validators.required
       ]),
-      "recievedDate": new FormControl("", [
+      "receivedDate": new FormControl("", [
         Validators.required
       ]),
       "dueDate": new FormControl("", [
@@ -101,13 +111,13 @@ export class AddOrderDialogComponent implements OnInit {
       console.log(this.selected);
 
       const saveProductComponent: SaveProductComponent = {
-        productId: this.products[this.selected].productId,
+        productId: this.productSets[this.selected].productId,
         quantity: this.qty
       }
       this.saveProducts.push(saveProductComponent);
       this.viewSelectd.push({
-        productId: this.products[this.selected].productId,
-        productName: this.products[this.selected].productName,
+        productId: this.productSets[this.selected].productId,
+        productName: this.productSets[this.selected].productName,
         quantity: this.qty
       })
       console.log(this.viewSelectd);
@@ -124,13 +134,32 @@ export class AddOrderDialogComponent implements OnInit {
     this.saveProducts.splice(id, 1);
   }
   getProductData() {
-    this.productService.getProducts().subscribe(result => {
-      this.products = result;
-    })
     this.productService.getProductSets().subscribe(result => {
       this.productSets = result;
+      this.productService.getProducts().subscribe(presult => {
+        for(let product of presult){
+          const p: ProductSet ={
+            
+            active:product.active,
+            productId :product.productId,
+            price :product.price,
+            productName :product.productName,
+            createdAt:product.createdAt,
+            description:product.description,
+            isSet:product.isSet,
+            leadTime:product.leadTime,
+            moq:product.moq,
+            obicNo:product.obicNo,
+            products:null,
+            quantity:product.quantity,
+            updatedAt:product.updatedAt,
+            userId:product.userId
+          };
+          this.productSets.push(p);
+        }
+      })
     })
   }
-  
+
 
 }

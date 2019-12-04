@@ -18,14 +18,14 @@
                     <ng-container matColumnDef="customer">
                         <th mat-header-cell *matHeaderCellDef> Customer</th>
                         <td mat-cell *matCellDef="let element">
-                            <button mat-button
+                            <button mat-button [color]="!element.customer.active ? 'warn':''" class="customerBtn"
                                 (click)="viewCustomer(element.customer)">{{element.customer.customerName}}</button>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="salesDestination">
                         <th mat-header-cell *matHeaderCellDef> Sales Destination </th>
                         <td mat-cell *matCellDef="let element">
-                            <button mat-button
+                            <button mat-button [color]="!element.salesDestination.active ? 'warn':''" class="customerBtn"
                                 (click)="viewCustomer(element.salesDestination)">{{element.salesDestination.customerName}}
                             </button>
                         </td>
@@ -33,16 +33,17 @@
                     <ng-container matColumnDef="contractor">
                         <th mat-header-cell *matHeaderCellDef> Contractor </th>
                         <td mat-cell *matCellDef="let element">
-                            <button mat-button (click)="viewCustomer(element.contractor)">
+                            <button mat-button [color]="!element.contractor.active ? 'warn':''" class="customerBtn"
+                            (click)="viewCustomer(element.contractor)">
                                 {{element.contractor.customerName}}
                             </button>
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="recievedDate">
-                        <th mat-header-cell *matHeaderCellDef> Recieved Date </th>
+                    <ng-container matColumnDef="receivedDate">
+                        <th mat-header-cell *matHeaderCellDef> Received Date </th>
                         <td mat-cell *matCellDef="let element"
                             (click)="expandedElement = expandedElement === element ? null : element">
-                            {{element.recievedDate | date:'shortDate'}} </td>
+                            {{element.receivedDate | date:'shortDate'}} </td>
                     </ng-container>
                     <ng-container matColumnDef="dueDate">
                         <th mat-header-cell *matHeaderCellDef> Due Date </th>
@@ -67,6 +68,7 @@
                     <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
                     <ng-container matColumnDef="expandedDetail">
                         <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                            
                             <div class="element-detail"
                                 [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                                 <mat-card [ngClass]="{'productComponent': !component.product.set,'productSetComponent': component.product.set}" 
@@ -99,7 +101,7 @@
                                         </mat-expansion-panel>
                                     </mat-accordion>
 
-                                </mat-card>
+                                </mat-card><br>
 
                             </div>
                         </td>

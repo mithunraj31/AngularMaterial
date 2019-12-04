@@ -7,7 +7,7 @@ export interface Order {
     customer: Customer;
     salesDestination: Customer;
     contractor: Customer;
-    recievedDate: Date;
+    receivedDate: Date;
     proposalNo: string;
     createdAt: Date;
     updatedAt: Date;

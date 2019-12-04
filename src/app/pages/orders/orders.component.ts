@@ -29,7 +29,7 @@ export class OrdersComponent implements OnInit {
     'customer',
     'salesDestination',
     'contractor',
-    'recievedDate',
+    'receivedDate',
     'dueDate',
     'salesUser',
     'actions'
@@ -95,32 +95,43 @@ export class OrdersComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  editOrder(order: Order) {
+  editOrder(data: Order) {
     const dialogRef = this.dialog.open(EditOrderDialogComponent, {
       width: '600px',
-      data: order
+      data: data
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result) {
-        const order: Order = result;
-        // change concat to replace when using real api
-        console.log(order);
+        this.progress = true;
+        const order: SaveOrder = result;
+        order.orderId = data.orderId;
+        this.orderService.editOrder(order).subscribe(result => {
+          this.getOrderData();
+          this.progress = false;
+        }, error => {
+          this.progress = true;
+        })
       }
     });
   }
   deleteOrder(order: Order) {
+    const data = this.orders[this.orders.indexOf(order)];
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
       width: '600px',
-      data: this.orders[this.orders.indexOf(order)].proposalNo
+      data: data.proposalNo
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(this.orders.indexOf(order));
-        this.orders.splice(this.orders.indexOf(order), 1);
-        this.dataSource.data = this.orders;
+        this.progress = true;
+        this.orderService.deleteOrder(data.orderId).subscribe(result => {
+          this.getOrderData();
+          this.progress = false;
+        }, error => {
+          this.progress = false;
+        })
       }
     });
   }

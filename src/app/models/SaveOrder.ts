@@ -8,7 +8,7 @@ export interface SaveOrder {
     customerId: number;
     salesDestinationId: number;
     contractorId: number;
-    recievedDate: Date;
+    receivedDate: Date;
     proposalNo: string;
     createdAt: Date;
     updatedAt: Date;

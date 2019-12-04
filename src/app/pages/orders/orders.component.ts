@@ -1,3 +1,4 @@
+import { SaveOrder } from './../../models/SaveOrder';
 import { AddOrderDialogComponent } from './../../dialogs/add-order-dialog/add-order-dialog.component';
 import { OrderedProduct } from './../../models/OrderedProduct';
 import { Customer } from 'src/app/models/Customer';
@@ -33,6 +34,7 @@ export class OrdersComponent implements OnInit {
     'salesUser',
     'actions'
   ];
+  progress = false;
   orders: Order[] = [];
   dataSource = new MatTableDataSource<Order>();
   @ViewChild(MatTable, { static: true }) table: MatTable<any>
@@ -48,10 +50,15 @@ export class OrdersComponent implements OnInit {
   }
 
   getOrderData() {
+    this.progress = true;
     this.orderService.getOrders().subscribe(result => {
       this.orders = result;
       this.dataSource.data = this.orders;
       console.log(this.orders);
+      this.progress = false;
+    }, error => {
+      this.progress = false;
+      console.log(error);
     })
 
   }
@@ -69,10 +76,18 @@ export class OrdersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result) {
-        const order: Order = result;
+        console.log(result);
+        this.progress = true;
+        const order: SaveOrder = result;
         // change concat to replace when using real api
-        this.orders.push(order);
-        this.dataSource.data = this.orders;
+        this.orderService.addOrder(order).subscribe(result => {
+          this.getOrderData();
+          this.progress = false;
+          console.log(result);
+        }, error => {
+          console.log(error);
+          this.progress = false;
+        })
       }
     });
   }
@@ -102,10 +117,10 @@ export class OrdersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         console.log(this.orders.indexOf(order));
-      this.orders.splice(this.orders.indexOf(order),1);
-      this.dataSource.data = this.orders;
+        this.orders.splice(this.orders.indexOf(order), 1);
+        this.dataSource.data = this.orders;
       }
     });
   }

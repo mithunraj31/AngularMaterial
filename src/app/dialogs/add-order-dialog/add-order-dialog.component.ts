@@ -1,3 +1,4 @@
+import { SaveOrder } from './../../models/SaveOrder';
 import { ProductSet } from './../../models/ProductSet';
 import { CustomerService } from './../../services/CustomerService';
 import { Customer } from './../../models/Customer';
@@ -24,6 +25,7 @@ export class AddOrderDialogComponent implements OnInit {
   customers: Customer[] = [];
   products: Product[] = [];
   productSets: ProductSet[] = [];
+  saveOrder:SaveOrder;
   constructor(
     public dialogRef: MatDialogRef<AddOrderDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -48,13 +50,13 @@ export class AddOrderDialogComponent implements OnInit {
       "proposalNo": new FormControl("", [
         Validators.required
       ]),
-      "customer": new FormControl("", [
+      "customerId": new FormControl("", [
         Validators.required
       ]),
-      "salesDestination": new FormControl("", [
+      "salesDestinationId": new FormControl("", [
         Validators.required
       ]),
-      "contractor": new FormControl("", [
+      "contractorId": new FormControl("", [
         Validators.required
       ]),
       "recievedDate": new FormControl("", [
@@ -63,7 +65,7 @@ export class AddOrderDialogComponent implements OnInit {
       "dueDate": new FormControl("", [
         Validators.required
       ]),
-      "salesUser": new FormControl("", [
+      "salesUserId": new FormControl("", [
         Validators.required
       ]),
 
@@ -75,7 +77,9 @@ export class AddOrderDialogComponent implements OnInit {
   }
   onSubmit() {
     if (this.orderForm.valid) {
-      this.dialogRef.close(this.orderForm.value);
+      this.saveOrder = this.orderForm.value;
+      this.saveOrder.orderedProducts = this.saveProducts;
+      this.dialogRef.close(this.saveOrder);
     }
   }
   getErrorMessage(attribute: string) {

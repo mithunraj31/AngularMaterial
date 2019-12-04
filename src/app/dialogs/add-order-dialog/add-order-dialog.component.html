@@ -7,37 +7,37 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Select a customer</mat-label>
-            <mat-select formControlName="customer">
+            <mat-select formControlName="customerId">
                 <mat-option>None</mat-option>
                 <div *ngFor="let customer of customers">
-                    <mat-option value="customer.customerId" *ngIf="customer.type=='Customer'">{{customer.customerName}}
+                    <mat-option value="{{customer.customerId}}" *ngIf="customer.type=='Customer'">{{customer.customerName}}
                     </mat-option>
                 </div>
             </mat-select>
-            <mat-error *ngIf="orderForm.get('customer').invalid">{{getErrorMessage('customer')}}</mat-error>
+            <mat-error *ngIf="orderForm.get('customerId').invalid">{{getErrorMessage('customerId')}}</mat-error>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Select a Sales Destination</mat-label>
-            <mat-select formControlName="salesDestination">
+            <mat-select formControlName="salesDestinationId">
                 <mat-option>None</mat-option>
                 <div *ngFor="let customer of customers">
-                    <mat-option value="customer.customerId" *ngIf="customer.type=='Sales Destination'">
+                    <mat-option value="{{customer.customerId}}" *ngIf="customer.type=='Sales Destination'">
                         {{customer.customerName}}</mat-option>
                 </div>
             </mat-select>
-            <mat-error *ngIf="orderForm.get('salesDestination').invalid">{{getErrorMessage('salesDestination')}}
+            <mat-error *ngIf="orderForm.get('salesDestinationId').invalid">{{getErrorMessage('salesDestinationId')}}
             </mat-error>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Select a Contractor</mat-label>
-            <mat-select formControlName="contractor">
+            <mat-select formControlName="contractorId">
                 <mat-option>None</mat-option>
                 <div *ngFor="let customer of customers">
-                    <mat-option value="customer.customerId" *ngIf="customer.type=='Contractor'">
+                    <mat-option value="{{customer.customerId}}" *ngIf="customer.type=='Contractor'">
                         {{customer.customerName}}</mat-option>
                 </div>
             </mat-select>
-            <mat-error *ngIf="orderForm.get('contractor').invalid">{{getErrorMessage('contractor')}}
+            <mat-error *ngIf="orderForm.get('contractorId').invalid">{{getErrorMessage('contractorId')}}
             </mat-error>
         </mat-form-field>
         <mat-form-field>
@@ -50,12 +50,12 @@
             </mat-form-field>
         <mat-form-field>
             <mat-label>Select a Sales User</mat-label>
-            <mat-select formControlName="salesUser">
+            <mat-select formControlName="salesUserId">
                 <mat-option>None</mat-option>
                     <mat-option value="1" >John Doe</mat-option>
                     <mat-option value="2" >Sample User</mat-option>
             </mat-select>
-            <mat-error *ngIf="orderForm.get('salesUser').invalid">{{getErrorMessage('salesUser')}}
+            <mat-error *ngIf="orderForm.get('salesUserId').invalid">{{getErrorMessage('salesUserId')}}
             </mat-error>
         </mat-form-field>
     </div>

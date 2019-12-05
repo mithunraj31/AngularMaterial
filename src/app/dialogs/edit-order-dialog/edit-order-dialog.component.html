@@ -54,7 +54,7 @@
             <mat-select formControlName="salesUserId">
                 <mat-option>None</mat-option>
                 <div *ngFor="let user of users">
-                    <mat-option value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</mat-option>
+                    <mat-option [value]="user.userId">{{user.firstName}} {{user.lastName}}</mat-option>
 
                 </div>
             </mat-select>

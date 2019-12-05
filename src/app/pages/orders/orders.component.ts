@@ -126,7 +126,6 @@ export class OrdersComponent implements OnInit {
         this.progress = true;
         this.orderService.deleteOrder(data.orderId).subscribe(result => {
           this.getOrderData();
-          this.progress = false;
         }, error => {
           this.progress = false;
         })

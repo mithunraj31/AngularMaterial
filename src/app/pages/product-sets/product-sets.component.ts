@@ -68,7 +68,6 @@ export class ProductSetsComponent implements OnInit {
         this.progress = true;
         this.productService.deleteProductSet(data.productId).subscribe(result => {
           this.getProductSetData();
-          this.progress = false;
 
         }, error => {
           this.progress = true;
@@ -94,7 +93,6 @@ export class ProductSetsComponent implements OnInit {
         this.progress = true;
         this.productService.addProductSet(result).subscribe(result => {
           this.getProductSetData();
-          this.progress = false;
         }, error => {
           console.log(error);
           this.progress = false;
@@ -118,7 +116,6 @@ export class ProductSetsComponent implements OnInit {
         this.productService.editProductSet(productset).subscribe(result=>{
           console.log(result);
           this.getProductSetData();
-          this.progress=false;
         },error=>{
           this.progress=false;
         })

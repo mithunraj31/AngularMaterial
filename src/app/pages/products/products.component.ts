@@ -65,7 +65,6 @@ export class ProductsComponent implements OnInit {
         this.productService.saveProduct(product).subscribe(result => {
           this.getProductData();
           console.log(result);
-          this.progress = false;
         },error=>{
           this.progress = false;
         })
@@ -92,7 +91,6 @@ export class ProductsComponent implements OnInit {
         // change concat to replace when using real api
         this.productService.updateProduct(product).subscribe((result)=>{
           this.getProductData();
-          this.progress = false;
         },error=>{
           this.progress = false;
         })
@@ -113,7 +111,6 @@ export class ProductsComponent implements OnInit {
         this.progress = true;
         this.productService.deleteProduct(data.productId).subscribe(result=>{
           this.getProductData();
-          this.progress = false;
         },error=>{
           this.progress = false;
         })

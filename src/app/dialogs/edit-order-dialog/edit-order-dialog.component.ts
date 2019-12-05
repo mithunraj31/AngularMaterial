@@ -58,9 +58,9 @@ export class EditOrderDialogComponent implements OnInit {
   initializeCustomerForm() {
     console.log("popup data");
     console.log(this.data);
-    const rDate = new Date(this.data.receivedDate);
-    const fDate = rDate.getMonth()+1+"/"+rDate.getDate()+"/"+rDate.getFullYear();
-    console.log(rDate);
+    const rDate = new Date(this.data.receivedDate).toISOString().substring(0, 10);
+    const dDate =new Date(this.data.dueDate).toISOString().substring(0, 10);
+    
     this.orderForm = new FormGroup({
       "proposalNo": new FormControl(this.data.proposalNo, [
         Validators.required
@@ -74,10 +74,10 @@ export class EditOrderDialogComponent implements OnInit {
       "contractorId": new FormControl(this.data.contractor.customerId, [
         Validators.required
       ]),
-      "receivedDate": new FormControl(this.data.receivedDate, [
+      "receivedDate": new FormControl(rDate, [
         Validators.required
       ]),
-      "dueDate": new FormControl(this.data.dueDate, [
+      "dueDate": new FormControl(dDate, [
         Validators.required
       ]),
       "salesUserId": new FormControl(this.data.salesUser.userId, [
@@ -106,8 +106,9 @@ export class EditOrderDialogComponent implements OnInit {
     if (this.orderForm.valid) {
       const order: SaveOrder = this.orderForm.value;
       order.orderedProducts = this.saveProducts;
-      const date:Date  = new Date(this.orderForm.value.receivedDate);
-      order.receivedDate = date;
+      order.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
+      order.dueDate = new Date(this.orderForm.value.dueDate).toISOString();
+
       this.dialogRef.close(order);
     }
   }

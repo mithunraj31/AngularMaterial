@@ -91,7 +91,8 @@ export class AddOrderDialogComponent implements OnInit {
       this.saveOrder.orderedProducts = this.saveProducts;
       const date:Date  = new Date(this.saveOrder.receivedDate);
       console.log(date);
-      this.saveOrder.receivedDate=date;
+      this.saveOrder.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
+      this.saveOrder.dueDate = new Date(this.orderForm.value.dueDate).toISOString();
       this.dialogRef.close(this.saveOrder);
     }
   }

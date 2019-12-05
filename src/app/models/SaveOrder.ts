@@ -4,11 +4,11 @@ import { User } from './User';
 
 export interface SaveOrder {
     orderId: number;
-    dueDate: Date;
+    dueDate: string;
     customerId: number;
     salesDestinationId: number;
     contractorId: number;
-    receivedDate: Date;
+    receivedDate: string;
     proposalNo: string;
     createdAt: Date;
     updatedAt: Date;

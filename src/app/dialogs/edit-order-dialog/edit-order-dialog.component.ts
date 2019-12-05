@@ -58,6 +58,9 @@ export class EditOrderDialogComponent implements OnInit {
   initializeCustomerForm() {
     console.log("popup data");
     console.log(this.data);
+    const rDate = new Date(this.data.receivedDate);
+    const fDate = rDate.getMonth()+1+"/"+rDate.getDate()+"/"+rDate.getFullYear();
+    console.log(rDate);
     this.orderForm = new FormGroup({
       "proposalNo": new FormControl(this.data.proposalNo, [
         Validators.required
@@ -71,7 +74,7 @@ export class EditOrderDialogComponent implements OnInit {
       "contractorId": new FormControl(this.data.contractor.customerId, [
         Validators.required
       ]),
-      "receivedDate": new FormControl(new Date(this.data.receivedDate).getDate(), [
+      "receivedDate": new FormControl(this.data.receivedDate, [
         Validators.required
       ]),
       "dueDate": new FormControl(this.data.dueDate, [

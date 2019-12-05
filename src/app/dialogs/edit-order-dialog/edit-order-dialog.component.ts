@@ -71,7 +71,7 @@ export class EditOrderDialogComponent implements OnInit {
       "contractorId": new FormControl(this.data.contractor.customerId, [
         Validators.required
       ]),
-      "receivedDate": new FormControl(this.data.receivedDate, [
+      "receivedDate": new FormControl(new Date(this.data.receivedDate).getDate(), [
         Validators.required
       ]),
       "dueDate": new FormControl(this.data.dueDate, [
@@ -103,6 +103,8 @@ export class EditOrderDialogComponent implements OnInit {
     if (this.orderForm.valid) {
       const order: SaveOrder = this.orderForm.value;
       order.orderedProducts = this.saveProducts;
+      const date:Date  = new Date(this.orderForm.value.receivedDate);
+      order.receivedDate = date;
       this.dialogRef.close(order);
     }
   }

@@ -2,7 +2,7 @@
     <mat-tab label="Orders">
         <ng-template matTabContent>
 
-
+            <mat-progress-bar mode="indeterminate" *ngIf="progress"></mat-progress-bar>
             <mat-card>
                 <button mat-raised-button color="primary" (click)="openDialog()">Add</button><br><br>
                 <mat-form-field>

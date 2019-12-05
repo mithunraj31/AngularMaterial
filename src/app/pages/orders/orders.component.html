@@ -25,7 +25,8 @@
                     <ng-container matColumnDef="salesDestination">
                         <th mat-header-cell *matHeaderCellDef> Sales Destination </th>
                         <td mat-cell *matCellDef="let element">
-                            <button mat-button [color]="!element.salesDestination.active ? 'warn':''" class="customerBtn"
+                            <button mat-button [color]="!element.salesDestination.active ? 'warn':''"
+                                class="customerBtn"
                                 (click)="viewCustomer(element.salesDestination)">{{element.salesDestination.customerName}}
                             </button>
                         </td>
@@ -34,7 +35,7 @@
                         <th mat-header-cell *matHeaderCellDef> Contractor </th>
                         <td mat-cell *matCellDef="let element">
                             <button mat-button [color]="!element.contractor.active ? 'warn':''" class="customerBtn"
-                            (click)="viewCustomer(element.contractor)">
+                                (click)="viewCustomer(element.contractor)">
                                 {{element.contractor.customerName}}
                             </button>
                         </td>
@@ -68,40 +69,42 @@
                     <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
                     <ng-container matColumnDef="expandedDetail">
                         <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-                            
+
                             <div class="element-detail"
                                 [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                                <mat-card [ngClass]="{'productComponent': !component.product.set,'productSetComponent': component.product.set}" 
-                                *ngFor="let component of element.orderedProducts" matBadge="Set" [matBadgeHidden]="!component.product.set">
-                                    <h4>{{component.product.productName}}</h4>
-                                    <p>{{component.product.description}}</p>
-                                    <span>Price : {{component.product.price}}</span><br>
-                                    <span>QTY: {{component.product.quantity}}</span><br>
-                                    <span>Lead Time: {{component.product.leadTime}}</span><br>
-                                    <span>MOQ : {{component.product.moq}}</span><br>
-                                    <span>Obic No: {{component.product.obicNo}}</span><br>
-                                    <h5>Amount: {{component.quantity}}</h5>
-                                    <mat-accordion *ngIf="component.product.set">
-                                        <mat-expansion-panel *ngFor="let sub of component.product.products">
-                                            <mat-expansion-panel-header class="left-aligned-header">
-                                                <mat-panel-title>
-                                                    {{sub.product.productName}}
-                                                </mat-panel-title>
-                                                <mat-panel-description >
-                                                    {{sub.quantity}}
-                                                </mat-panel-description>
-                                            </mat-expansion-panel-header>
-                                            <p>{{sub.product.description}}</p>
-                                            <span>Price : {{sub.product.price}}</span><br>
-                                            <span>QTY: {{sub.product.quantity}}</span><br>
-                                            <span>Lead Time: {{sub.product.leadTime}}</span><br>
-                                            <span>MOQ : {{sub.product.moq}}</span><br>
-                                            <span>Obic No: {{sub.product.obicNo}}</span><br>
-                                            <h5>Amount: {{sub.quantity}}</h5>
-                                        </mat-expansion-panel>
-                                    </mat-accordion>
+                                        <mat-card
+                                            [ngClass]="{'productComponent': !component.product.set,'productSetComponent': component.product.set}"
+                                            *ngFor="let component of element.orderedProducts" matBadge="Set"
+                                            [matBadgeHidden]="!component.product.set">
+                                            <h4>{{component.product.productName}}</h4>
+                                            <p>{{component.product.description}}</p>
+                                            <span>Price : {{component.product.price}}</span><br>
+                                            <span>QTY: {{component.product.quantity}}</span><br>
+                                            <span>Lead Time: {{component.product.leadTime}}</span><br>
+                                            <span>MOQ : {{component.product.moq}}</span><br>
+                                            <span>Obic No: {{component.product.obicNo}}</span><br>
+                                            <h5>Amount: {{component.quantity}}</h5>
+                                            <mat-accordion *ngIf="component.product.set">
+                                                <mat-expansion-panel *ngFor="let sub of component.product.products">
+                                                    <mat-expansion-panel-header class="left-aligned-header">
+                                                        <mat-panel-title>
+                                                            {{sub.product.productName}}
+                                                        </mat-panel-title>
+                                                        <mat-panel-description>
+                                                            {{sub.quantity}}
+                                                        </mat-panel-description>
+                                                    </mat-expansion-panel-header>
+                                                    <p>{{sub.product.description}}</p>
+                                                    <span>Price : {{sub.product.price}}</span><br>
+                                                    <span>QTY: {{sub.product.quantity}}</span><br>
+                                                    <span>Lead Time: {{sub.product.leadTime}}</span><br>
+                                                    <span>MOQ : {{sub.product.moq}}</span><br>
+                                                    <span>Obic No: {{sub.product.obicNo}}</span><br>
+                                                    <h5>Amount: {{sub.quantity}}</h5>
+                                                </mat-expansion-panel>
+                                            </mat-accordion>
 
-                                </mat-card><br>
+                                        </mat-card>
 
                             </div>
                         </td>

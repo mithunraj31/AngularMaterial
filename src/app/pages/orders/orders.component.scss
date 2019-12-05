@@ -35,22 +35,29 @@ tr.element-row:not(.expanded-row):active {
 .element-detail {
   overflow: hidden;
   display: flex;
+  flex-flow: wrap;
 }
 
+.element-detail hr {
+  width: 100%;
+}
+
+mat-grid-tile {
+  background: lightblue;
+}
 
 .productComponent {
     width: 200px;
 
     border: 2px solid #64b5f6; 
-    display: inline-block;
-    margin-right: 5px;
+
+    margin: 5px;
 }
 .productSetComponent {
   width: 200px;
 
   border: 2px solid #672ed1; 
-  display: inline-block;
-  margin-right: 5px;
+  margin: 5px;
 }
 
 .mat-expansion-panel-header-description {
@@ -59,7 +66,7 @@ tr.element-row:not(.expanded-row):active {
 }
 mat-expansion-panel {
   border: 2px solid #64b5f6; 
-  margin-bottom: 2px;
+  margin-bottom: 5px;
 
 }
 .mat-badge-medium.mat-badge-above .mat-badge-content {

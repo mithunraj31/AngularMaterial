@@ -60,6 +60,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthGuardService } from './auth/AuthGuardService';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AddIncomingShipmentComponent } from './dialogs/add-incoming-shipment/add-incoming-shipment.component';
+import { UserService } from './services/UserService';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     IncomingShipmentsComponent,
     OutgoingShipmentsComponent,
     LoginComponent,
+    AddIncomingShipmentComponent,
 
   ],
   imports: [
@@ -113,7 +116,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     MatExpansionModule,
     MatBadgeModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatGridListModule
   ],
   exports: [ 
      
@@ -128,7 +132,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     EditCustomerDialogComponent,
     ViewCustomerDialogComponent,
     AddOrderDialogComponent,
-    EditOrderDialogComponent
+    EditOrderDialogComponent,
+    AddIncomingShipmentComponent
   ],
   providers: [
     ProductService,
@@ -138,6 +143,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     AuthService,
     AuthGuardService,
     AuthInterceptorService,
+    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

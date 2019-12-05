@@ -1,12 +1,11 @@
-import { ShipmentProduct } from './ShipmentProduct';
 import { User } from './User';
-
-export interface IncomingShipment {
+import { SaveShipmentProduct } from './SaveShipmentProduct';
+export interface SaveIncomingShipment {
     incomingShipmentId: number;
     shipmentNo: string;
     arrivalDate: Date;
     createdAt?: Date;
     updatedAt?: Date;
-    products?: ShipmentProduct[];
-    user:User
+    products?: SaveShipmentProduct[];
+    user: User
 }

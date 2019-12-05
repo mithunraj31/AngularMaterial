@@ -82,7 +82,6 @@ export class OrdersComponent implements OnInit {
         // change concat to replace when using real api
         this.orderService.addOrder(order).subscribe(result => {
           this.getOrderData();
-          this.progress = false;
           console.log(result);
         }, error => {
           console.log(error);
@@ -109,9 +108,8 @@ export class OrdersComponent implements OnInit {
         order.orderId = data.orderId;
         this.orderService.editOrder(order).subscribe(result => {
           this.getOrderData();
-          this.progress = false;
         }, error => {
-          this.progress = true;
+          this.progress = false;
         })
       }
     });

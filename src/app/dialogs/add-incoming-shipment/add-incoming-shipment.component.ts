@@ -98,4 +98,8 @@ export class AddIncomingShipmentComponent implements OnInit {
       this.priceError =true;
     }
   }
+  removeComponent(id: number){
+    this.viewSelectd.splice(id,1);
+    this.saveShipmentProducts.splice(id,1);
+  }
 }

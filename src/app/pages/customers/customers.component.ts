@@ -34,7 +34,7 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit() {
     this.getCustomers();
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    this.dataSource.paginator = this.paginator;
   }
 
   getCustomers() {

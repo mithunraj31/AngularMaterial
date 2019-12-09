@@ -1,23 +1,24 @@
 <div class="container">
 <mat-card>
-        <mat-card-title>Login</mat-card-title>
+        <mat-card-title i18n="@@login">Login</mat-card-title>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-card-content  class="loginForm">
             <mat-form-field>
                 <input matInput type="email" placeholder="Email" formControlName="email">
-                <mat-error *ngIf="loginForm.get('email').invalid">{{getErrorMessage('email')}}</mat-error>
+                <mat-error *ngIf="loginForm.get('email').hasError('required')" i18n="@@emailRequired">Email is required.</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="password" placeholder="Password" formControlName="password">
-                <mat-error *ngIf="loginForm.get('password').invalid">{{getErrorMessage('password')}}</mat-error>
+                <mat-error *ngIf="loginForm.get('password').hasError('required')" i18n="@@passwordRequired">Password is required.</mat-error>
             </mat-form-field>
-            <mat-error *ngIf="loginError">{{loginError}}</mat-error>
+            <mat-error *ngIf="loginError==401" i18n="@@invalidCredentials">Invalid Credentials.</mat-error>
+            <mat-error *ngIf="loginError==500" i18n="@@somethingWentWrong">Something went wrong! Please try again later.</mat-error>
             <div class="row" *ngIf="progress">
                 <mat-spinner diameter="25" color="white"></mat-spinner>
             </div>
         </mat-card-content>
         <mat-card-actions class="actions">
-            <button type="submit" mat-raised-button color="primary">Login
+            <button type="submit" mat-raised-button color="primary" i18n="@@login">Login
             </button>
             
         </mat-card-actions>

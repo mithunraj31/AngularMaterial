@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  languages = [
+    { code: 'en', label: 'English'},
+    { code: 'ja', label: 'Japanese'},
+  ];
+  constructor(@Inject(LOCALE_ID) protected localeId: string) {}
 
   ngOnInit() {
   }

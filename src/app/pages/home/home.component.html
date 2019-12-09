@@ -1,3 +1,10 @@
+
+<ng-template ngFor let-lang [ngForOf]="languages">
+    <span *ngIf="lang.code !== localeId">
+      <a href="/{{lang.code}}/">{{lang.label}}</a> </span>
+    <span *ngIf="lang.code === localeId">{{lang.label}} </span>
+  </ng-template>
+  
 <h3>Features that have implemented until 2019/12/06 09:55 </h3>
 
 <p><b>With API</b></p><br>

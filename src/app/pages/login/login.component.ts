@@ -54,9 +54,9 @@ export class LoginComponent implements OnInit {
       },
         error => {
           if(error.error && error.error.status && error.error.status==401) {
-            this.loginError = "Invalid credentials!";
+            this.loginError = 401;
           } else {
-            this.loginError = "Somthing went wrong! Please try again later.";
+            this.loginError = 500;
           }
           console.log(error);
           this.progress = false;

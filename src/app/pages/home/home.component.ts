@@ -6,11 +6,7 @@ import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  languages = [
-    { code: 'en', label: 'English'},
-    { code: 'ja', label: 'Japanese'},
-  ];
-  constructor(@Inject(LOCALE_ID) protected localeId: string) {}
+
 
   ngOnInit() {
   }

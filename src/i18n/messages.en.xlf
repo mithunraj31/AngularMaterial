@@ -102,6 +102,102 @@
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="add" datatype="html">
+        <source>Add</source>
+        <target>Add</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter" datatype="html">
+        <source>Filter</source>
+        <target>Filter</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="name" datatype="html">
+        <source> Name </source>
+        <target> Name </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="description" datatype="html">
+        <source> Description </source>
+        <target> Description </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="price" datatype="html">
+        <source> Price </source>
+        <target> Price </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="quantity" datatype="html">
+        <source> QTY </source>
+        <target> QTY </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="leadTime" datatype="html">
+        <source> Lead Time </source>
+        <target> Lead Time </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="moq" datatype="html">
+        <source> MOQ </source>
+         <target> MOQ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="obicNo" datatype="html">
+        <source> Obic No </source>
+        <target> Obic No </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit" datatype="html">
+        <source>Edit</source>
+        <target>Edit</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="delete" datatype="html">
+        <source>Delete</source>
+        <target>Delete</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="productSets" datatype="html">
+        <source>Product Sets</source>
+        <target>Product Sets</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products-container/products-container.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

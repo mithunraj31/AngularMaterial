@@ -3,46 +3,46 @@
 
     <div class="row">
 
-        <button mat-raised-button color="primary" (click)="openDialog()">Add</button>
+        <button mat-raised-button color="primary" (click)="openDialog()" i18n="@@add">Add</button>
     </div>
 
     <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            <input matInput (keyup)="applyFilter($event.target.value)" i18n-placeholder="@@filter" placeholder="Filter">
     </mat-form-field>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <th mat-header-cell *matHeaderCellDef i18n="@@name"> Name </th>
             <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
         </ng-container>
         <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <th mat-header-cell *matHeaderCellDef i18n="@@description"> Description </th>
             <td mat-cell *matCellDef="let element"> {{element.description}} </td>
         </ng-container>
         <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Price </th>
+            <th mat-header-cell *matHeaderCellDef i18n="@@price"> Price </th>
             <td mat-cell *matCellDef="let element"> {{element.price}} </td>
         </ng-container>
         <ng-container matColumnDef="qty">
-            <th mat-header-cell *matHeaderCellDef> QTY </th>
+            <th mat-header-cell *matHeaderCellDef i18n="@@quantity"> QTY </th>
             <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
         </ng-container>
         <ng-container matColumnDef="leadTime">
-            <th mat-header-cell *matHeaderCellDef> Lead Time </th>
+            <th mat-header-cell *matHeaderCellDef i18n="@@leadTime"> Lead Time </th>
             <td mat-cell *matCellDef="let element"> {{element.leadTime}} </td>
         </ng-container>
         <ng-container matColumnDef="moq">
-            <th mat-header-cell *matHeaderCellDef> MOQ </th>
+            <th mat-header-cell *matHeaderCellDef i18n="@@moq"> MOQ </th>
             <td mat-cell *matCellDef="let element"> {{element.moq}} </td>
         </ng-container>
         <ng-container matColumnDef="obicNo">
-            <th mat-header-cell *matHeaderCellDef> Obic No </th>
+            <th mat-header-cell *matHeaderCellDef i18n="@@obicNo"> Obic No </th>
             <td mat-cell *matCellDef="let element"> {{element.obicNo}} </td>
         </ng-container>
         <ng-container matColumnDef="actions" >
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element;" >
-                <button mat-button color="primary" (click)="editProduct(element)">Edit</button>
-                <button mat-button color="warn" (click)="deleteProduct(element)">Delete</button>
+                <button mat-button color="primary" (click)="editProduct(element)" i18n="@@edit">Edit</button>
+                <button mat-button color="warn" (click)="deleteProduct(element)" i18n="@@delete">Delete</button>
             </td>
         </ng-container>
 

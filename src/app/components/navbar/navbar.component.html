@@ -18,7 +18,7 @@
           <a href="/{{lang.code}}{{url}}">{{lang.label}}</a> </span>
         <span *ngIf="lang.code === localeId">{{lang.label}} </span> -->
     </ng-template>
-    <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async">Logout</button>
+    <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async" i18n="@@logout">Logout</button>
     <mat-icon>perm_identity</mat-icon>
     <span class="username" *ngIf="isLoggedIn$ | async">{{lastName}}</span>
 </mat-toolbar>

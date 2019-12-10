@@ -62,6 +62,13 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "ja": {
+              "aot": true,
+              "outputPath": "dist/ja/",
+              "i18nFile": "src/i18n/messages.ja.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "ja"
             }
           }
         },
@@ -73,6 +80,9 @@
           "configurations": {
             "production": {
               "browserTarget": "mbel-client:build:production"
+            },
+            "ja": {
+              "browserTarget": "mbel-client:build:ja"
             }
           }
         },

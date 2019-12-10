@@ -1,6 +1,23 @@
 <mat-toolbar color="primary">
     <span routerLink="/">Mbel Client</span>
     <span class="spacer"></span>
+
+    <ng-template ngFor let-lang [ngForOf]="languages">
+        <a href="/{{lang.code}}{{url}}" *ngIf="lang.code !== localeId">
+
+            <mat-icon svgIcon="{{lang.label}}" aria-hidden="false" attr.aria-label="{{lang.label}}" class="icon">
+            </mat-icon>
+        </a>
+        <a *ngIf="lang.code === localeId">
+
+            <mat-icon svgIcon="{{lang.label}}" aria-hidden="false" attr.aria-label="{{lang.label}}" class="iconSelected"
+>
+            </mat-icon>
+        </a>
+        <!-- <span *ngIf="lang.code !== localeId">
+          <a href="/{{lang.code}}{{url}}">{{lang.label}}</a> </span>
+        <span *ngIf="lang.code === localeId">{{lang.label}} </span> -->
+    </ng-template>
     <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async">Logout</button>
     <mat-icon>perm_identity</mat-icon>
     <span class="username" *ngIf="isLoggedIn$ | async">{{lastName}}</span>

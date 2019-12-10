@@ -4,11 +4,11 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-card-content  class="loginForm">
             <mat-form-field>
-                <input matInput type="email" placeholder="Email" formControlName="email">
+                <input matInput type="email" i18n-placeholder="@@email" placeholder="Email" formControlName="email">
                 <mat-error *ngIf="loginForm.get('email').hasError('required')" i18n="@@emailRequired">Email is required.</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input matInput type="password" placeholder="Password" formControlName="password">
+                <input matInput type="password" i18n-placeholder="@@password" placeholder="Password" formControlName="password">
                 <mat-error *ngIf="loginForm.get('password').hasError('required')" i18n="@@passwordRequired">Password is required.</mat-error>
             </mat-form-field>
             <mat-error *ngIf="loginError==401" i18n="@@invalidCredentials">Invalid Credentials.</mat-error>

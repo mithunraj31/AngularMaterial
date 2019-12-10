@@ -1,7 +1,9 @@
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/AuthService';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-navbar',
@@ -11,8 +13,22 @@ import { Observable } from 'rxjs';
 export class NavbarComponent implements OnInit {
   isLoggedIn$: Observable<boolean>;
   lastName: string;
-  constructor(private authService: AuthService, private router: Router) {
-    
+  languages = [
+    { code: 'en', label: 'English'},
+    { code: 'ja', label: 'Japanese'},
+  ];
+  url = "";
+  constructor(@Inject(LOCALE_ID) public localeId: string,
+  private authService: AuthService, 
+  private router: Router,
+  iconRegistry: MatIconRegistry, 
+  sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'English',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icon/English.svg'));
+      iconRegistry.addSvgIcon(
+        'Japanese',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icon/Japanese.svg'));
    }
 
   ngOnInit() {
@@ -22,6 +38,10 @@ export class NavbarComponent implements OnInit {
 
         this.lastName = this.authService.getLastName();
       }
+    })
+    this.router.events.subscribe(result=>{
+        this.url = this.router.url;
+
     })
   }
   logout() {

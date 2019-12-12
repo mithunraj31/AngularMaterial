@@ -254,6 +254,46 @@
           <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="zipCode" datatype="html">
+        <source> ZIP Code </source>
+        <target> ZIP Code </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="address" datatype="html">
+        <source> Address </source>
+        <target> Address </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tel" datatype="html">
+        <source> Tel </source>
+        <target> Tel </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactName" datatype="html">
+        <source> Contact Name </source>
+        <target> Contact Name </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="type" datatype="html">
+        <source> Type </source>
+        <target> Type </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

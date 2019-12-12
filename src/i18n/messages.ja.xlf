@@ -294,6 +294,181 @@
           <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="addNewOrder" datatype="html">
+        <source>Add new Order</source>
+        <target> 新しい注文を追加 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="proposalNumber" datatype="html">
+        <source>Proposal Number</source>
+        <target> 提案番号 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="proposalNumberRequired" datatype="html">
+        <source>Proposal no cannot be empty.</source>
+        <target> 提案番号を空にすることはできません。 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="selectCustomer" datatype="html">
+        <source>Select a customer</source>
+        <target> 顧客を選択してください </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="none" datatype="html">
+        <source>None</source>
+        <target> なし </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="customerRequired" datatype="html">
+        <source>Customer cannot be empty.</source>
+        <target> 顧客を空にすることはできません。 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="selectSalesDestination" datatype="html">
+        <source>Select a Sales Destination</source>
+        <target>販売先を選択してください</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="salesDestinationRequired" datatype="html">
+        <source>Sales Destination cannot be empty.
+            </source>
+            <target> 販売先を空にすることはできません。</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="selectContractor" datatype="html">
+        <source>Select a Contractor</source>
+        <target> 請負業者を選択 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contractorRequired" datatype="html">
+        <source>Contractor cannot be empty.
+            </source>
+            <target> 請負業者を空にすることはできません。 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="receivedDateRequired" datatype="html">
+        <source>Received Date cannot be empty.</source>
+        <target> 受信日を空にすることはできません。 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dueDateRequired" datatype="html">
+        <source>Due Date cannot be empty.</source>
+        <target> 期日を空にすることはできません。 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="selectSalesUser" datatype="html">
+        <source>Select a Sales User</source>
+        <target> 販売ユーザーを選択 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="salesUserRequired" datatype="html">
+        <source>Sales user cannot be empty.
+            </source>
+            <target> 販売ユーザーを空にすることはできません。 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="remove" datatype="html">
+        <source>Remove</source>
+        <target> 削除 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="selectProduct" datatype="html">
+        <source>Select a product</source>
+        <target> 製品を選んでください </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="qtyRequired" datatype="html">
+        <source>QTY cannot be empty</source>
+        <target> 数量は空にできません </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cancel" datatype="html">
+        <source>Cancel</source>
+        <target> キャンセル </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ok" datatype="html">
+        <source>Ok</source>
+        <target> 持続 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

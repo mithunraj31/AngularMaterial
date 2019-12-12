@@ -198,6 +198,62 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="proposalNo" datatype="html">
+        <source> Proposal No </source>
+        <target> 提案番号 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="customer" datatype="html">
+        <source> Customer </source>
+        <target> 顧客 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="salesDestination" datatype="html">
+        <source> Sales Destination </source>
+        <target> 販売先 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contractor" datatype="html">
+        <source> Contractor </source>
+        <target> 請負業者 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="recievedDate" datatype="html">
+        <source> Received Date </source>
+        <target> 受領日 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dueDate" datatype="html">
+        <source> Due Date </source>
+        <target> 期日 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="salesUser" datatype="html">
+        <source> Sales User</source>
+        <target> 販売ユーザー </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

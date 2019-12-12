@@ -198,6 +198,62 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
+       <trans-unit id="proposalNo" datatype="html">
+        <source> Proposal No </source>
+        <target> Proposal No </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="customer" datatype="html">
+        <source> Customer </source>
+        <target> Customer </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="salesDestination" datatype="html">
+        <source> Sales Destination </source>
+        <target> Sales Destination </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contractor" datatype="html">
+        <source> Contractor </source>
+        <target> Contractor </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="recievedDate" datatype="html">
+        <source> Received Date </source>
+        <target> Received Date </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dueDate" datatype="html">
+        <source> Due Date </source>
+        <target> Due Date </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="salesUser" datatype="html">
+        <source> Sales User</source>
+        <target> Sales User </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

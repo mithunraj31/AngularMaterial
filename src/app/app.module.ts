@@ -27,7 +27,8 @@ import {MatToolbarModule,
         MatExpansionModule,
         MatBadgeModule,
         MatProgressSpinnerModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        MatPaginatorIntl
         
 } from '@angular/material';
 
@@ -62,6 +63,8 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddIncomingShipmentComponent } from './dialogs/add-incoming-shipment/add-incoming-shipment.component';
 import { UserService } from './services/UserService';
+import { MatPaginatorIntlCro } from './matPaginatorIntlCroClass';
+
 
 @NgModule({
   declarations: [
@@ -117,7 +120,7 @@ import { UserService } from './services/UserService';
     MatBadgeModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatGridListModule
+    MatGridListModule,
   ],
   exports: [ 
      
@@ -148,7 +151,8 @@ import { UserService } from './services/UserService';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro}
   ],
   bootstrap: [AppComponent]
 })

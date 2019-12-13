@@ -517,6 +517,10 @@
           <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
@@ -546,6 +550,43 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="deleteConfirmation" datatype="html">
+        <source>Delete Confirmation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationMassege" datatype="html">
+        <source>Are you sure you want to delete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="delete" datatype="html">
+        <source>Delete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/product-sets/product-sets.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addNewProduct" datatype="html">
@@ -613,25 +654,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
           <context context-type="linenumber">68</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="delete" datatype="html">
-        <source>Delete</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
-          <context context-type="linenumber">45</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/product-sets/product-sets.component.html</context>
-          <context context-type="linenumber">42</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
-          <context context-type="linenumber">42</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
-          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addNewProductSet" datatype="html">

@@ -1,8 +1,8 @@
-<h1 mat-dialog-title>Delete Confirmation</h1>
+<h1 mat-dialog-title i18n="@@deleteConfirmation">Delete Confirmation</h1>
 <div mat-dialog-content>
-    <h3>Are you sure you want to delete "{{data}}"?</h3>
+    <h3 ><span i18n="@@deleteConfirmationMassege">Are you sure you want to delete</span> "{{data}}"?</h3>
   </div>
   <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="false">Cancel</button>
-    <button mat-raised-button color="warn" [mat-dialog-close]="true" cdkFocusInitial>Delete</button>
+    <button mat-button [mat-dialog-close]="false" i18n="@@cancel">Cancel</button>
+    <button mat-raised-button color="warn" [mat-dialog-close]="true" cdkFocusInitial i18n="@@delete">Delete</button>
   </div>

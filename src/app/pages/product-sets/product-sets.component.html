@@ -52,12 +52,12 @@
         *ngFor="let component of element.products">
             <h4>{{component.product.productName}}</h4>
             <p>{{component.product.description}}</p>
-            <span>Price : {{component.product.price}}</span><br>
-            <span>QTY: {{component.product.quantity}}</span><br>
-            <span>Lead Time: {{component.product.leadTime}}</span><br>
-            <span>MOQ : {{component.product.moq}}</span><br>
-            <span>Obic No:  {{component.product.obicNo}}</span><br>
-            <h5>Amount: {{component.quantity}}</h5>
+            <span i18n="@@price">Price</span> <span>: {{component.product.price}}</span><br>
+            <span i18n="@@quantity">QTY</span><span>: {{component.product.quantity}}</span><br>
+            <span i18n="@@leadTime">Lead Time</span><span>: {{component.product.leadTime}}</span><br>
+            <span i18n="@@moq">MOQ</span><span> : {{component.product.moq}}</span><br>
+            <span i18n="@@obicNo">Obic No</span><span>:  {{component.product.obicNo}}</span><br>
+            <h5><span i18n="@@amount">Amount</span>: {{component.quantity}}</h5>
         </mat-card>
         
       </div>

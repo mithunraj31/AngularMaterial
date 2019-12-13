@@ -1,7 +1,8 @@
 import { MatPaginatorIntl } from '@angular/material';
-import { Inject, LOCALE_ID } from '@angular/core';
-export class MatPaginatorIntlCro extends MatPaginatorIntl {
+import { Inject, LOCALE_ID, Injectable } from '@angular/core';
 
+@Injectable()
+export class MatPaginatorIntlCro extends MatPaginatorIntl {
     constructor(@Inject(LOCALE_ID) public localeId: string) {
         super();
         console.log(this.localeId);

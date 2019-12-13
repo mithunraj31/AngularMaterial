@@ -41,11 +41,11 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input matInput type="date" placeholder="Received Date" formControlName="receivedDate">
+            <input matInput type="date" i18n-placeholder="@@recievedDate" placeholder="Received Date" formControlName="receivedDate">
             <mat-error *ngIf="orderForm.get('receivedDate').hasError('required')" i18n="@@receivedDateRequired">Received Date cannot be empty.</mat-error>
         </mat-form-field>
         <mat-form-field>
-                <input matInput type="date" placeholder="Due Date" formControlName="dueDate">
+                <input matInput type="date" i18n-placeholder="@@dueDate" placeholder="Due Date" formControlName="dueDate">
                 <mat-error *ngIf="orderForm.get('dueDate').hasError('required')" i18n="@@dueDateRequired">Due Date cannot be empty.</mat-error>
             </mat-form-field>
         <mat-form-field>

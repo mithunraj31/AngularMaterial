@@ -1,39 +1,39 @@
-<h1 mat-dialog-title>Add new product</h1>
+<h1 mat-dialog-title i18n="@@addNewProduct">Add new product</h1>
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
 <div mat-dialog-content class="example-container">
   <mat-form-field>
-    <input matInput type="text" placeholder="Product Name" formControlName="productName">
-    <mat-error *ngIf="productForm.get('productName').invalid">{{getErrorMessage('productName')}}</mat-error>
+    <input matInput type="text" i18n-placeholder="@@productName" placeholder="Product Name" formControlName="productName">
+    <mat-error *ngIf="productForm.get('productName').hasError('required')" i18n="@@productNameRequired">Product Name cannot be empty.</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" placeholder="Description" formControlName="description">
-    <mat-error *ngIf="productForm.get('description').invalid">{{getErrorMessage('description')}}</mat-error>
+    <input matInput type="text" i18n-placeholder="@@description" placeholder="Description" formControlName="description">
+    <mat-error *ngIf="productForm.get('description').hasError('required')" i18n="@@descriptionRequired">Description cannot be empty.</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" placeholder="Price" formControlName="price">
-    <mat-error *ngIf="productForm.get('price').invalid">{{getErrorMessage('price')}}</mat-error>
+    <input matInput type="number" i18n-placeholder="@@price" placeholder="Price" formControlName="price">
+    <mat-error *ngIf="productForm.get('price').hasError('required')" i18n="@@priceRequired">Price cannot be empty.</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" placeholder="QTY" formControlName="quantity">
-    <mat-error *ngIf="productForm.get('quantity').invalid">{{getErrorMessage('quantity')}}</mat-error>
+    <input matInput type="number" i18n-placeholder="@@quantity" placeholder="QTY" formControlName="quantity">
+    <mat-error *ngIf="productForm.get('quantity').hasError('required')" i18n="@@qtyRequired">QTY cannot be empty.</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" placeholder="Lead Time" formControlName="leadTime">
-    <mat-error *ngIf="productForm.get('leadTime').invalid">{{getErrorMessage('leadTime')}}</mat-error>
+    <input matInput type="number" i18n-placeholder="@@leadTime" placeholder="Lead Time" formControlName="leadTime">
+    <mat-error *ngIf="productForm.get('leadTime').hasError('required')" i18n="@@leadTimeRequired">Lead Time cannot be empty.</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" placeholder="MOQ" formControlName="moq">
-    <mat-error *ngIf="productForm.get('moq').invalid">{{getErrorMessage('moq')}}</mat-error>
+    <input matInput type="text" i18n-placeholder="@@moq" placeholder="MOQ" formControlName="moq">
+    <mat-error *ngIf="productForm.get('moq').hasError('required')" i18n="@@moqRequired">MOQ cannot be empty.</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" placeholder="Obic No" formControlName="obicNo">
-    <mat-error *ngIf="productForm.get('obicNo').invalid">{{getErrorMessage('obicNo')}}</mat-error>
+    <input matInput type="text" i18n-placeholder="@@obicNo" placeholder="Obic No" formControlName="obicNo">
+    <mat-error *ngIf="productForm.get('obicNo').hasError('required')" i18n="@@obicNoRequired">Obic No cannot be empty.</mat-error>
   </mat-form-field>
  
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancelClick()">Cancel</button>
-  <button mat-button type="submit" [disabled]="!productForm.valid" >Ok</button>
+  <button mat-button (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
+  <button mat-button type="submit" [disabled]="!productForm.valid" i18n-placeholder="@@ok">Ok</button>
 </div>
 </form>
 

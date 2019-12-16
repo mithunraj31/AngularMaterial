@@ -1,12 +1,12 @@
-<h1 mat-dialog-title>Add Incoming Shipment</h1>
+<h1 mat-dialog-title i18n="@@addIncomingShipment">Add Incoming Shipment</h1>
 <form [formGroup]="incomingShipmentForm" (ngSubmit)="onSubmit()">
   <div class="container" style="overflow-y: scroll; height:300px;" >
     <mat-form-field>
-      <input matInput type="text" placeholder="Shipment No" formControlName="shipmentNo">
+      <input matInput type="text" i18n-placeholder="@@shipmentNo" placeholder="Shipment No" formControlName="shipmentNo">
       <mat-error *ngIf="incomingShipmentForm.get('shipmentNo').invalid">{{getErrorMessage('shipmentNo')}}</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="date" placeholder="Arrival Date" formControlName="arrivalDate">
+      <input matInput type="date" i18n-placeholder="@@arrivalDate" placeholder="Arrival Date" formControlName="arrivalDate">
       <mat-error *ngIf="incomingShipmentForm.get('arrivalDate').invalid">{{getErrorMessage('arrivalDate')}}</mat-error>
     </mat-form-field>
 
@@ -16,31 +16,30 @@
       {{element.productName}} : {{element.quantity}}
       
 
-      <button align="end" mat-stroked-button color="warn"  type="button" (click)="removeComponent(i)">Remove</button>
+      <button align="end" mat-stroked-button color="warn"  type="button" (click)="removeComponent(i)" i18n="@@remove">Remove</button>
 
     </mat-card>
     </div>
     <mat-form-field class="inline">
-      <mat-label>Select a product</mat-label>
+      <mat-label i18n="@@selectProduct">Select a product</mat-label>
       <mat-select [(value)]="selected">
-        <mat-option>None</mat-option>
+        <mat-option i18n="@@none"> None</mat-option>
         <mat-option value="{{i}}" *ngFor="let product of products; let i = index">{{product.productName}}</mat-option>
 
       </mat-select>
     </mat-form-field>
     <mat-form-field class="inline">
-      <input matInput type="number" placeholder="QTY" [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
-      <mat-error>QTY cannot be empty</mat-error>
+      <input matInput type="number" i18n-placeholder="@@quantity" placeholder="QTY" [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
     <mat-form-field class="inline">
-        <input matInput type="number" placeholder="Price" [(ngModel)]="price" [ngModelOptions]="{standalone: true}">
+        <input matInput type="number" i18n-placeholder="@@price" placeholder="Price" [(ngModel)]="price" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
-    <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()">Add</button>
-    <br><span class="qtyError" *ngIf="qtyError" color="red">QTY cannot be empty</span>
-    <span class="qtyError" *ngIf="priceError" color="red">Price cannot be empty</span>
+    <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
+    <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>
+    <span class="qtyError" *ngIf="priceError" color="red" i18n="@@priceRequired">Price cannot be empty</span>
 
   <div mat-dialog-actions>
-    <button mat-button (click)="onCancelClick()">Cancel</button>
-    <button mat-button type="submit" [disabled]="!incomingShipmentForm.valid">Ok</button>
+    <button mat-button (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
+    <button mat-button type="submit" [disabled]="!incomingShipmentForm.valid" i18n="@@ok">Ok</button>
   </div>
 </form>

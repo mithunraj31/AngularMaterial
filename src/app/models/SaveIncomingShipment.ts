@@ -3,7 +3,7 @@ import { SaveShipmentProduct } from './SaveShipmentProduct';
 export interface SaveIncomingShipment {
     incomingShipmentId: number;
     shipmentNo: string;
-    arrivalDate: Date;
+    arrivalDate: string;
     createdAt?: Date;
     updatedAt?: Date;
     products?: SaveShipmentProduct[];

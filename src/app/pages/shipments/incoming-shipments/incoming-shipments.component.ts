@@ -42,6 +42,7 @@ export class IncomingShipmentsComponent implements OnInit {
       this.shipments = result;
       this.dataSource.data = this.shipments;
       this.dataSource.paginator = this.paginator;
+      console.log(result);
     })
   }
   applyFilter(filterValue: string) {

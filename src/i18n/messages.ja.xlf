@@ -649,6 +649,30 @@
           <context context-type="linenumber">60</context>
         </context-group>
         </trans-unit>
+         <trans-unit id="addIncomingShipment" datatype="html">
+        <source>Add Incoming Shipment</source>
+        <target>入荷を追加</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shipmentNo" datatype="html">
+        <source>Shipment No</source>
+        <target>出荷番号</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="arrivalDate" datatype="html">
+        <source>Arrival Date</source>
+        <target>到着日</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

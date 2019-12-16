@@ -56,7 +56,9 @@ export class AddIncomingShipmentComponent implements OnInit {
     if(this.incomingShipmentForm.valid){
       this.saveIncomingShipment = this.incomingShipmentForm.value;
       this.saveIncomingShipment.products = this.saveShipmentProducts;
-      this.dialogRef.close(this.saveShipmentProducts);
+      this.saveIncomingShipment.arrivalDate = new Date(this.incomingShipmentForm.value.arrivalDate).toISOString();
+      console.log(new Date(this.incomingShipmentForm.value.arrivalDate).toISOString());
+      this.dialogRef.close(this.saveIncomingShipment);
     }
   }
   getErrorMessage(attribute:string) {

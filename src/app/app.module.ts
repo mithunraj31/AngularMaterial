@@ -64,6 +64,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddIncomingShipmentComponent } from './dialogs/add-incoming-shipment/add-incoming-shipment.component';
 import { UserService } from './services/UserService';
 import { MatPaginatorIntlCro } from './matPaginatorIntlCroClass';
+import { EditIncomingShipmentComponent } from './dialogs/edit-incoming-shipment/edit-incoming-shipment.component';
 
 
 @NgModule({
@@ -92,6 +93,7 @@ import { MatPaginatorIntlCro } from './matPaginatorIntlCroClass';
     OutgoingShipmentsComponent,
     LoginComponent,
     AddIncomingShipmentComponent,
+    EditIncomingShipmentComponent,
 
   ],
   imports: [

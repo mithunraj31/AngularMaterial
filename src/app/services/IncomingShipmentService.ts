@@ -2,12 +2,13 @@ import { SaveIncomingShipment } from './../models/SaveIncomingShipment';
 import { IncomingShipment } from './../models/IncomingShipment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class IncomingShipmentService {
 
 
-    private incomingShipmentUrl = "assets/data/IncomingShipments.json";
+    private incomingShipmentUrl = environment.APIURL + "/shipment/incoming/";
     constructor(private http: HttpClient){
         
     }

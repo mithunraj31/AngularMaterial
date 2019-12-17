@@ -65,6 +65,9 @@ import { AddIncomingShipmentComponent } from './dialogs/add-incoming-shipment/ad
 import { UserService } from './services/UserService';
 import { MatPaginatorIntlCro } from './matPaginatorIntlCroClass';
 import { EditIncomingShipmentComponent } from './dialogs/edit-incoming-shipment/edit-incoming-shipment.component';
+import { OutgoingShipmentService } from './services/OutgoingShipmentService';
+import { AddOutgoingShipmentComponent } from './dialogs/add-outgoing-shipment/add-outgoing-shipment.component';
+import { EditOutgoingShipmentComponent } from './dialogs/edit-outgoing-shipment/edit-outgoing-shipment.component';
 
 
 @NgModule({
@@ -94,6 +97,8 @@ import { EditIncomingShipmentComponent } from './dialogs/edit-incoming-shipment/
     LoginComponent,
     AddIncomingShipmentComponent,
     EditIncomingShipmentComponent,
+    AddOutgoingShipmentComponent,
+    EditOutgoingShipmentComponent,
 
   ],
   imports: [
@@ -139,7 +144,9 @@ import { EditIncomingShipmentComponent } from './dialogs/edit-incoming-shipment/
     AddOrderDialogComponent,
     EditOrderDialogComponent,
     AddIncomingShipmentComponent,
-    EditIncomingShipmentComponent
+    EditIncomingShipmentComponent,
+    AddOutgoingShipmentComponent,
+    EditOutgoingShipmentComponent
   ],
   providers: [
     ProductService,
@@ -149,6 +156,7 @@ import { EditIncomingShipmentComponent } from './dialogs/edit-incoming-shipment/
     AuthService,
     AuthGuardService,
     AuthInterceptorService,
+    OutgoingShipmentService,
     UserService,
     {
       provide: HTTP_INTERCEPTORS,

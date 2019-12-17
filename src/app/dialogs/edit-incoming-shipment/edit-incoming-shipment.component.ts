@@ -75,6 +75,7 @@ export class EditIncomingShipmentComponent implements OnInit {
       this.saveIncomingShipment.products = this.saveShipmentProducts;
       this.saveIncomingShipment.arrivalDate = new Date(this.incomingShipmentForm.value.arrivalDate).toISOString();
       console.log(new Date(this.incomingShipmentForm.value.arrivalDate).toISOString());
+      this.saveIncomingShipment.incomingShipmentId = this.data.incomingShipmentId;
       this.dialogRef.close(this.saveIncomingShipment);
     }
   }

@@ -138,7 +138,8 @@ import { EditIncomingShipmentComponent } from './dialogs/edit-incoming-shipment/
     ViewCustomerDialogComponent,
     AddOrderDialogComponent,
     EditOrderDialogComponent,
-    AddIncomingShipmentComponent
+    AddIncomingShipmentComponent,
+    EditIncomingShipmentComponent
   ],
   providers: [
     ProductService,

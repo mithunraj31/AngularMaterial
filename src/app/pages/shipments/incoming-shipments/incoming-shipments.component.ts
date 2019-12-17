@@ -1,3 +1,4 @@
+import { EditIncomingShipmentComponent } from './../../../dialogs/edit-incoming-shipment/edit-incoming-shipment.component';
 import { AddIncomingShipmentComponent } from './../../../dialogs/add-incoming-shipment/add-incoming-shipment.component';
 import { IncomingShipmentService } from './../../../services/IncomingShipmentService';
 
@@ -50,8 +51,28 @@ export class IncomingShipmentsComponent implements OnInit {
   }
 
   editShipment(element){
+    const dialogRef = this.dialog.open(EditIncomingShipmentComponent, {
+      width: '600px',
+      data: element
+    });
+    console.log(element);
 
+    dialogRef.afterClosed().subscribe(result => {
+
+      console.log(result);
+      if (result) {
+        this.progress = true;
+        this.shipmentService.editShipment(result).subscribe(result => {
+          this.getShipments();
+          this.progress = false;
+        }, error => {
+          console.log(error);
+          this.progress = false;
+        })
+      }
+    });
   }
+
   deleteShipment(element){
     const data = this.shipments[this.shipments.indexOf(element)];
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {

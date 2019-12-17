@@ -661,6 +661,46 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="user" datatype="html">
+        <source> User </source>
+        <target> User </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/shipments/incoming-shipments/incoming-shipments.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stockPrice" datatype="html">
+        <source>Stock Price</source>
+        <target>Stock Price</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/shipments/incoming-shipments/incoming-shipments.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="incoming" datatype="html">
+        <source>Incoming</source>
+        <target>Incoming</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/shipments/shipments.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="outgoing" datatype="html">
+        <source>Outgoing</source>
+        <target>Outgoing</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/shipments/shipments.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="editIncomingShipment" datatype="html">
+        <source>Edit Incoming Shipment</source>
+        <target>Edit Incoming Shipment</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/edit-incoming-shipment/edit-incoming-shipment.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

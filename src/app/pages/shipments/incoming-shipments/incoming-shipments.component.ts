@@ -26,7 +26,7 @@ export class IncomingShipmentsComponent implements OnInit {
     'user',
     'actions'
   ];
-  progress=true;
+  progress=false;
   dataSource = new MatTableDataSource<IncomingShipment>();
   shipments: IncomingShipment[] = [];
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
@@ -39,11 +39,15 @@ export class IncomingShipmentsComponent implements OnInit {
   }
 
   getShipments() {
+    this.progress=true;
     this.shipmentService.getShipments().subscribe(result => {
       this.shipments = result;
       this.dataSource.data = this.shipments;
       this.dataSource.paginator = this.paginator;
       console.log(result);
+      this.progress=false;
+    },error=>{
+      this.progress=false;
     })
   }
   applyFilter(filterValue: string) {
@@ -64,7 +68,6 @@ export class IncomingShipmentsComponent implements OnInit {
         this.progress = true;
         this.shipmentService.editShipment(result).subscribe(result => {
           this.getShipments();
-          this.progress = false;
         }, error => {
           console.log(error);
           this.progress = false;
@@ -85,7 +88,6 @@ export class IncomingShipmentsComponent implements OnInit {
         this.progress = true;
         this.shipmentService.deleteShipment(data.incomingShipmentId).subscribe(result => {
           this.getShipments();
-          this.progress = false;
 
         }, error => {
           this.progress = true;
@@ -107,7 +109,6 @@ export class IncomingShipmentsComponent implements OnInit {
         this.progress = true;
         this.shipmentService.addShipment(result).subscribe(result => {
           this.getShipments();
-          this.progress = false;
         }, error => {
           console.log(error);
           this.progress = false;

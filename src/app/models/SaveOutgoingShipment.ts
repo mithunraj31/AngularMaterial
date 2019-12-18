@@ -5,7 +5,7 @@ import { SaveProductComponent } from './saveProductComponent';
 export interface SaveOutgoingShipment {
     outgoingShipmentId: number;
     shipmentNo: string;
-    shipmentDate: Date;
+    shipmentDate: string;
     salesDestination: Customer
     createdAt?: Date;
     updatedAt?: Date;

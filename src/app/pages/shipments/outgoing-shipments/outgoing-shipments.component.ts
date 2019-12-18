@@ -26,7 +26,7 @@ export class OutgoingShipmentsComponent implements OnInit {
     'user',
     'actions'
   ];
-  progress=true;
+  progress = false;
   dataSource = new MatTableDataSource<OutgoingShipment>();
   shipments: OutgoingShipment[] = [];
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
@@ -39,19 +39,23 @@ export class OutgoingShipmentsComponent implements OnInit {
   }
 
   getShipments() {
+    this.progress = true;
     this.shipmentService.getShipments().subscribe(result => {
       this.shipments = result;
       this.dataSource.data = this.shipments;
       this.dataSource.paginator = this.paginator;
       console.log("result");
       console.log(result);
+      this.progress = false;
+    }, error => {
+      this.progress = false;
     })
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  editShipment(element){
+  editShipment(element) {
     const dialogRef = this.dialog.open(EditOutgoingShipmentComponent, {
       width: '600px',
       data: element
@@ -65,7 +69,6 @@ export class OutgoingShipmentsComponent implements OnInit {
         this.progress = true;
         this.shipmentService.editShipment(result).subscribe(result => {
           this.getShipments();
-          this.progress = false;
         }, error => {
           console.log(error);
           this.progress = false;
@@ -74,7 +77,7 @@ export class OutgoingShipmentsComponent implements OnInit {
     });
   }
 
-  deleteShipment(element){
+  deleteShipment(element) {
     const data = this.shipments[this.shipments.indexOf(element)];
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
       width: '600px',
@@ -86,8 +89,6 @@ export class OutgoingShipmentsComponent implements OnInit {
         this.progress = true;
         this.shipmentService.deleteShipment(data.outgoingShipmentId).subscribe(result => {
           this.getShipments();
-          this.progress = false;
-
         }, error => {
           this.progress = true;
           console.log(error);
@@ -96,7 +97,7 @@ export class OutgoingShipmentsComponent implements OnInit {
     });
 
   }
-  openDialog(): void{
+  openDialog(): void {
     const dialogRef = this.dialog.open(AddOutgoingShipmentComponent, {
       width: '600px',
     });
@@ -108,7 +109,6 @@ export class OutgoingShipmentsComponent implements OnInit {
         this.progress = true;
         this.shipmentService.addShipment(result).subscribe(result => {
           this.getShipments();
-          this.progress = false;
         }, error => {
           console.log(error);
           this.progress = false;

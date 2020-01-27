@@ -9,6 +9,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { AuthGuardService as AuthGuard } from "./auth/AuthGuardService";
+import { ForcastComponent } from './pages/forcast/forcast.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   },
   {
     path: 'login', component: LoginComponent,
+    
+  },
+  {
+    path: 'forcast', component: ForcastComponent,
     
   },
 ];

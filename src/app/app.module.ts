@@ -68,6 +68,10 @@ import { EditIncomingShipmentComponent } from './dialogs/edit-incoming-shipment/
 import { OutgoingShipmentService } from './services/OutgoingShipmentService';
 import { AddOutgoingShipmentComponent } from './dialogs/add-outgoing-shipment/add-outgoing-shipment.component';
 import { EditOutgoingShipmentComponent } from './dialogs/edit-outgoing-shipment/edit-outgoing-shipment.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { ForcastComponent } from './pages/forcast/forcast.component';
+import { FulfillOrderDialogComponent } from './dialogs/fulfill-order-dialog/fulfill-order-dialog.component';
 
 
 @NgModule({
@@ -99,6 +103,8 @@ import { EditOutgoingShipmentComponent } from './dialogs/edit-outgoing-shipment/
     EditIncomingShipmentComponent,
     AddOutgoingShipmentComponent,
     EditOutgoingShipmentComponent,
+    ForcastComponent,
+    FulfillOrderDialogComponent,
 
   ],
   imports: [
@@ -128,6 +134,7 @@ import { EditOutgoingShipmentComponent } from './dialogs/edit-outgoing-shipment/
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatGridListModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ],
   exports: [ 
      
@@ -146,7 +153,9 @@ import { EditOutgoingShipmentComponent } from './dialogs/edit-outgoing-shipment/
     AddIncomingShipmentComponent,
     EditIncomingShipmentComponent,
     AddOutgoingShipmentComponent,
-    EditOutgoingShipmentComponent
+    EditOutgoingShipmentComponent,
+    ForcastComponent,
+    FulfillOrderDialogComponent
   ],
   providers: [
     ProductService,

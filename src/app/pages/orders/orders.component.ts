@@ -1,3 +1,4 @@
+import { FulfillOrderDialogComponent } from './../../dialogs/fulfill-order-dialog/fulfill-order-dialog.component';
 import { SaveOrder } from './../../models/SaveOrder';
 import { AddOrderDialogComponent } from './../../dialogs/add-order-dialog/add-order-dialog.component';
 import { OrderedProduct } from './../../models/OrderedProduct';
@@ -107,6 +108,25 @@ export class OrdersComponent implements OnInit {
         const order: SaveOrder = result;
         order.orderId = data.orderId;
         this.orderService.editOrder(order).subscribe(result => {
+          this.getOrderData();
+        }, error => {
+          this.progress = false;
+        })
+      }
+    });
+  }
+  
+  fullFillOrder(data: Order){
+    const dialogRef = this.dialog.open(FulfillOrderDialogComponent, {
+      width: '600px',
+      data: data.proposalNo
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result) {
+        this.progress = true;
+        this.orderService.fulfillOrder(data.orderId).subscribe(result => {
           this.getOrderData();
         }, error => {
           this.progress = false;

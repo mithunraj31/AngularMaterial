@@ -1,0 +1,20 @@
+h3 {
+    margin: 0 0 10px;
+  }
+  
+  pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+  }
+.calenderNav {
+  margin-right: 3px;
+  margin-bottom: 5px;
+}
+::ng-deep mwl-calendar-month-view .cal-month-view .cal-cell-top {
+  min-height: 50px !important; 
+  max-height: 75px !important;
+}
+::ng-deep mwl-calendar-month-view .cal-month-view .cal-day-cell {
+  min-height: 50px !important; 
+  max-height: 75px !important;
+}

@@ -28,4 +28,17 @@ export class OrderService {
         console.log(order);
         return this.http.put<SaveOrder>(this.getOrdersUrl+order.orderId,order);
     }
+
+    fulfillOrder(id:number){
+        const fmodel: FulfillOrderModel = {
+            orderId: id,
+            fulfillment: true,
+        }
+        return this.http.post<FulfillOrderModel>(this.getOrdersUrl+"fulfillment/", fmodel);
+    }
+}
+
+export class FulfillOrderModel {
+    orderId: number;
+    fulfillment: boolean;
 }

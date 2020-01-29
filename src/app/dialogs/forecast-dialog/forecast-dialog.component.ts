@@ -10,7 +10,7 @@ export class ForecastDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ForecastDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: String,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
   ngOnInit() {

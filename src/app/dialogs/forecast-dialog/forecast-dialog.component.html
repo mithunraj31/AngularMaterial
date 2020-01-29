@@ -15,7 +15,7 @@
     <p *ngIf="!product.product.set">MOQ: {{product.product.moq}}</p>
     <mat-accordion *ngIf="product.product.set">
         <mat-expansion-panel *ngFor="let sub of product.product.products" 
-        [ngClass]="{'products': sub.forecast,'productsRed': !sub.forecast}">
+        [ngClass]="{'products': sub.forecast,'productsDark': !sub.forecast}">
             <mat-expansion-panel-header class="left-aligned-header">
                 <mat-panel-title>
                     {{sub.product.productName}}

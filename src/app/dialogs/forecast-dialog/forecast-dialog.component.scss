@@ -6,10 +6,13 @@
     margin: 5px;
     background: rgb(206, 134, 134);
 }
-.productDark {
+.productsDark {
     margin: 5px;
-    background: #B71C1C;
+    background: #D32F2F;
     color: white;
+    mat-panel-title {
+        color: white;
+    }
 }
 
 .scroll{

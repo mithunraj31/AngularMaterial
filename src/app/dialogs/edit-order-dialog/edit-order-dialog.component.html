@@ -86,7 +86,10 @@
     </mat-form-field>
     <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()">Add</button>
     <br><span class="qtyError" *ngIf="qtyError" color="red">QTY cannot be empty</span>
-
+    <mat-form-field class="inline">
+            <input matInput type="text" placeholder="Edit Reason" formControlName="editReason" >
+            <mat-error>Edit Reason cannot be empty</mat-error>
+        </mat-form-field>
     <div mat-dialog-actions>
         <button mat-button (click)="onCancelClick()">Cancel</button>
         <button mat-button type="submit" [disabled]="!orderForm.valid">Ok</button>

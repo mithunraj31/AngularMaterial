@@ -48,15 +48,15 @@ export class EditProductSetDialogComponent implements OnInit {
       "price": new FormControl(this.data.price, [
         Validators.required
       ]),
-      "quantity": new FormControl(this.data.quantity, [
-        Validators.required
-      ]),
-      "leadTime": new FormControl(this.data.leadTime, [
-        Validators.required
-      ]),
-      "moq": new FormControl(this.data.moq, [
-        Validators.required
-      ]),
+      // "quantity": new FormControl(this.data.quantity, [
+      //   Validators.required
+      // ]),
+      // "leadTime": new FormControl(this.data.leadTime, [
+      //   Validators.required
+      // ]),
+      // "moq": new FormControl(this.data.moq, [
+      //   Validators.required
+      // ]),
       "obicNo": new FormControl(this.data.obicNo, [
         Validators.required
       ]),

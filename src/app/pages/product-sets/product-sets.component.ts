@@ -25,9 +25,9 @@ export class ProductSetsComponent implements OnInit {
     'productName',
     'description',
     'price',
-    'quantity',
-    'leadTime',
-    'moq',
+    // 'quantity',
+    // 'leadTime',
+    // 'moq',
     'obicNo',
     'actions'
   ];
@@ -59,7 +59,7 @@ export class ProductSetsComponent implements OnInit {
   deleteProduct(i: any) {
     const data = this.productSets[this.productSets.indexOf(i)];
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      width: '600px',
+      width: '1000px',
       data: data.productName
     });
 

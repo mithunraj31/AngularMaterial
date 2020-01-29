@@ -25,6 +25,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'orders/:id', component: OrdersComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'orders', component: OrdersComponent,
     canActivate: [AuthGuard]
   },
@@ -37,8 +41,8 @@ const routes: Routes = [
     
   },
   {
-    path: 'forcast', component: ForcastComponent,
-    
+    path: 'forecast', component: ForcastComponent,
+    canActivate: [AuthGuard]
   },
 ];
 

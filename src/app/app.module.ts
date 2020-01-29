@@ -1,3 +1,4 @@
+import { ForecastService } from './services/ForecastService';
 import { AuthService } from 'src/app/auth/AuthService';
 import { IncomingShipmentService } from './services/IncomingShipmentService';
 import { OrderService } from './services/OrderService';
@@ -72,6 +73,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ForcastComponent } from './pages/forcast/forcast.component';
 import { FulfillOrderDialogComponent } from './dialogs/fulfill-order-dialog/fulfill-order-dialog.component';
+import { ForecastDialogComponent } from './dialogs/forecast-dialog/forecast-dialog.component';
 
 
 @NgModule({
@@ -105,6 +107,7 @@ import { FulfillOrderDialogComponent } from './dialogs/fulfill-order-dialog/fulf
     EditOutgoingShipmentComponent,
     ForcastComponent,
     FulfillOrderDialogComponent,
+    ForecastDialogComponent,
 
   ],
   imports: [
@@ -155,7 +158,8 @@ import { FulfillOrderDialogComponent } from './dialogs/fulfill-order-dialog/fulf
     AddOutgoingShipmentComponent,
     EditOutgoingShipmentComponent,
     ForcastComponent,
-    FulfillOrderDialogComponent
+    FulfillOrderDialogComponent,
+    ForecastDialogComponent
   ],
   providers: [
     ProductService,
@@ -167,6 +171,7 @@ import { FulfillOrderDialogComponent } from './dialogs/fulfill-order-dialog/fulf
     AuthInterceptorService,
     OutgoingShipmentService,
     UserService,
+    ForecastService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

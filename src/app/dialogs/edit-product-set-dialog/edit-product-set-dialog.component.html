@@ -13,7 +13,7 @@
       <input matInput type="number" i18n-placeholder="@@price" placeholder="Product Name" placeholder="Price" formControlName="price">
       <mat-error *ngIf="productForm.get('price').hasError('required')" i18n="@@priceRequired">{{getErrorMessage('price')}}</mat-error>
     </mat-form-field>
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input matInput type="number" i18n-placeholder="@@quantity" placeholder="Product Name" placeholder="QTY" formControlName="quantity">
       <mat-error *ngIf="productForm.get('quantity').hasError('required')" i18n="@@qtyRequired">{{getErrorMessage('quantity')}}</mat-error>
     </mat-form-field>
@@ -24,7 +24,7 @@
     <mat-form-field>
       <input matInput type="text" i18n-placeholder="@@moq" placeholder="Product Name" placeholder="MOQ" formControlName="moq">
       <mat-error *ngIf="productForm.get('moq').hasError('required')" i18n="@@moqRequired">{{getErrorMessage('moq')}}</mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
     <mat-form-field>
       <input matInput type="text" i18n-placeholder="@@obicNo" placeholder="Product Name" placeholder="Obic No" formControlName="obicNo">
       <mat-error *ngIf="productForm.get('obicNo').hasError('required')" i18n="@@obicNoRequired">{{getErrorMessage('obicNo')}}</mat-error>

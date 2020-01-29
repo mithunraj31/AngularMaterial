@@ -1,0 +1,25 @@
+.products {
+    margin: 5px;
+    background: lightblue;
+}
+.productsRed {
+    margin: 5px;
+    background: rgb(206, 134, 134);
+}
+.productDark {
+    margin: 5px;
+    background: #B71C1C;
+    color: white;
+}
+
+.scroll{
+    overflow-y: scroll;
+    overflow-x: hidden; 
+}
+h5 {
+    margin-bottom: 2px;
+    padding-bottom: 2px;
+}
+.bold {
+    font-weight: bold;
+}

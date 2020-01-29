@@ -84,6 +84,10 @@ export class EditOrderDialogComponent implements OnInit {
         Validators.required
       ]),
 
+      "editReason": new FormControl("", [
+        Validators.required
+      ]),
+
     });
     //this.orderForm.controls['customer'].setValue(this.data.customer.customerId,{onlySelf: true})
     for (let product of this.data.orderedProducts) {

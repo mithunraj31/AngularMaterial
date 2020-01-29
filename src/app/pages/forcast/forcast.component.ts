@@ -1,8 +1,11 @@
+import { Order } from './../../models/Order';
+import { ForecastDialogComponent } from './../../dialogs/forecast-dialog/forecast-dialog.component';
 import {
   Component,
   ChangeDetectionStrategy,
   ViewChild,
-  TemplateRef
+  TemplateRef,
+  OnInit
 } from '@angular/core';
 import {
   startOfDay,
@@ -21,6 +24,9 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView
 } from 'angular-calendar';
+import { MatDialog } from '@angular/material';
+import { EditOrderDialogComponent } from 'src/app/dialogs/edit-order-dialog/edit-order-dialog.component';
+import { ForecastService } from 'src/app/services/ForecastService';
 
 const colors: any = {
   red: {
@@ -47,7 +53,7 @@ const colors: any = {
   styleUrls: ['forcast.component.scss'],
   templateUrl: 'forcast.component.html'
 })
-export class ForcastComponent {
+export class ForcastComponent implements OnInit{
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
@@ -61,70 +67,42 @@ export class ForcastComponent {
     event: CalendarEvent;
   };
 
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      a11yLabel: 'Edit',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      }
-    },
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
-    }
-  ];
-
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: startOfDay(new Date()),
-      title: 'Order 1',
-      color: colors.green,
-      actions: this.actions
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'Order 2',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'Order 3',
-      color: colors.red,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'Order 3',
-      color: colors.blue,
-      allDay: true
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    }
-  ];
+  events: CustomCalendarEvent[];
 
   activeDayIsOpen: boolean = true;
+  forecasts : Order[];
+  progress;
+  constructor(
+    public dialog: MatDialog,
+    private forecastService: ForecastService,
+    ) {}
 
-  constructor() {}
+  ngOnInit() {
+    this.events = [];
+    this.getForecastdata();
+  }
+  getForecastdata(){
+    this.progress = true;
+    this.forecastService.getForecast().subscribe(result => {
+      this.forecasts = result;
+      this.populateCalender();
+      this.viewDate = new Date();
+      this.progress = false;
+    }, error => {
+      this.progress = false;
+      console.log(error);
+    })
 
+  }
+
+  populateCalender(){
+    this.forecasts.forEach((order)=>{
+      this.addEvent(order.proposalNo, new Date(order.dueDate),order.forecast?colors.green:colors.red, order);
+    })
+    this.refresh.next();
+  }
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
@@ -157,24 +135,22 @@ export class ForcastComponent {
     this.handleEvent('Dropped or resized', event);
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    
+  handleEvent(action: string, event: CustomCalendarEvent): void {
+    console.log(event);
+    const dialogRef = this.dialog.open(ForecastDialogComponent, {
+      width: '600px',
+      data: event.data
+    });
   }
 
-  addEvent(): void {
+  addEvent(title: string, start: Date, color: any, data: Order): void {
     this.events = [
       ...this.events,
       {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true
-        }
+        title: title,
+        start: start,
+        color: color,
+        data: data
       }
     ];
 
@@ -191,4 +167,8 @@ export class ForcastComponent {
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
+}
+
+export interface CustomCalendarEvent extends CalendarEvent {
+  data?: Order;
 }

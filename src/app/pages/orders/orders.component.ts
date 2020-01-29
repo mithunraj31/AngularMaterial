@@ -11,6 +11,7 @@ import { ViewCustomerDialogComponent } from 'src/app/dialogs/view-customer-dialo
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { EditOrderDialogComponent } from 'src/app/dialogs/edit-order-dialog/edit-order-dialog.component';
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -37,10 +38,13 @@ export class OrdersComponent implements OnInit {
   ];
   progress = false;
   orders: Order[] = [];
+  id: string;
+  private searchSub: any;
   dataSource = new MatTableDataSource<Order>();
   @ViewChild(MatTable, { static: true }) table: MatTable<any>
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
+    private route: ActivatedRoute,
     public dialog: MatDialog,
     private orderService: OrderService
   ) { }
@@ -48,6 +52,13 @@ export class OrdersComponent implements OnInit {
   ngOnInit() {
     this.getOrderData();
     this.dataSource.paginator = this.paginator;
+    this.searchSub = this.route.params.subscribe(params=>{
+      this.id = params['id'];
+      if(this.id) {
+
+        this.applyFilter(this.id);
+      }
+    })
   }
 
   getOrderData() {

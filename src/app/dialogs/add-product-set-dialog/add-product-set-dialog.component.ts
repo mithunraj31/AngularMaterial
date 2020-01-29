@@ -49,15 +49,15 @@ export class AddProductSetDialogComponent implements OnInit {
       "price": new FormControl("",[
         Validators.required
       ]),
-      "quantity": new FormControl("",[
-        Validators.required
-      ]),
-      "leadTime": new FormControl("",[
-        Validators.required
-      ]),
-      "moq": new FormControl("",[
-        Validators.required
-      ]),
+      // "quantity": new FormControl("",[
+      //   Validators.required
+      // ]),
+      // "leadTime": new FormControl("",[
+      //   Validators.required
+      // ]),
+      // "moq": new FormControl("",[
+      //   Validators.required
+      // ]),
       "obicNo": new FormControl("",[
         Validators.required
       ]),

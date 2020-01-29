@@ -1,0 +1,45 @@
+<h1 mat-dialog-title i18n="@@forecastInformation">Forecast Information</h1>
+
+<div mat-dialog-content>
+    <div class="scroll">
+    <h5 [routerLink]= "['orders',data.proposalNo]" [mat-dialog-close]="true"><span i18n="@@proposalNo1">Proposal No</span> "{{data.proposalNo}}"?</h5>
+
+  <p>Recieved Date : {{data.receivedDate | date:'shortDate'}}</p>
+  <p>Due Date : {{data.dueDate | date:'shortDate'}}</p>
+  <mat-card  *ngFor="let product of data.orderedProducts" 
+  [ngClass]="{'products': product.forecast,'productsRed': !product.forecast}">
+      <h4>{{product.product.productName}}</h4>
+    <p>{{product.product.description}}</p>
+    <p>Obic No: {{product.product.obicNo}}</p>
+    <p *ngIf="!product.product.set">Stock QTY: {{product.product.quantity}}</p>
+    <p *ngIf="!product.product.set">MOQ: {{product.product.moq}}</p>
+    <mat-accordion *ngIf="product.product.set">
+        <mat-expansion-panel *ngFor="let sub of product.product.products" 
+        [ngClass]="{'products': sub.forecast,'productsRed': !sub.forecast}">
+            <mat-expansion-panel-header class="left-aligned-header">
+                <mat-panel-title>
+                    {{sub.product.productName}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>{{sub.product.description}}</p>
+            <span>Price : {{sub.product.price}}</span><br>
+            <span>Obic No: {{sub.product.obicNo}}</span><br>
+            <span>Stock QTY: {{sub.product.quantity}}</span><br>
+            <span>Lead Time: {{sub.product.leadTime}}</span><br>
+            <span>MOQ : {{sub.product.moq}}</span><br>
+            <span class="bold">Amount: {{sub.quantity}}</span><br>
+            <span class="bold">Required QTY: </span><br>
+            <span class="bold">Estimated available QTY: </span><br>
+            <span class="bold">Minimum Order Date: </span><br>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <span class="bold"> Required QTY: {{product.quantity}}</span><br>
+    <span *ngIf="!product.product.set" class="bold">Estimated available QTY: {{product.currentQuantity}}</span><br>
+    <span *ngIf="!product.product.set && !product.forecast" class="bold">Minimum Order Date: {{product.mod | date:'shortDate'}}</span><br>
+  </mat-card>
+
+</div>
+</div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="false" i18n="@@cancel">OK</button>
+  </div>

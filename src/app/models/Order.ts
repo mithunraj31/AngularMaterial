@@ -15,6 +15,7 @@ export interface Order {
     salesUser: User;
     editReason: string;
     active: boolean;
-    forcast: boolean;
+    forecast: boolean;
+    fulfilled: boolean;
     orderedProducts: OrderedProduct[];
 }

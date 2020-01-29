@@ -28,9 +28,9 @@
             <span>Lead Time: {{sub.product.leadTime}}</span><br>
             <span>MOQ : {{sub.product.moq}}</span><br>
             <span class="bold">Amount: {{sub.quantity}}</span><br>
-            <span class="bold">Required QTY: </span><br>
-            <span class="bold">Estimated available QTY: </span><br>
-            <span class="bold">Minimum Order Date: </span><br>
+            <span class="bold">Required QTY: {{sub.requiredQuantity}}</span><br>
+            <span class="bold">Estimated available QTY: {{sub.currentQuantity}}</span><br>
+            <span class="bold">Minimum Order Date: {{sub.mod | date:'shortDate'}}</span><br>
         </mat-expansion-panel>
     </mat-accordion>
     <span class="bold"> Required QTY: {{product.quantity}}</span><br>

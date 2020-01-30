@@ -74,6 +74,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ForcastComponent } from './pages/forcast/forcast.component';
 import { FulfillOrderDialogComponent } from './dialogs/fulfill-order-dialog/fulfill-order-dialog.component';
 import { ForecastDialogComponent } from './dialogs/forecast-dialog/forecast-dialog.component';
+import { ArrivalOrderDialogComponent } from './dialogs/arrival-order-dialog/arrival-order-dialog.component';
 
 
 @NgModule({
@@ -108,6 +109,7 @@ import { ForecastDialogComponent } from './dialogs/forecast-dialog/forecast-dial
     ForcastComponent,
     FulfillOrderDialogComponent,
     ForecastDialogComponent,
+    ArrivalOrderDialogComponent,
 
   ],
   imports: [
@@ -159,7 +161,8 @@ import { ForecastDialogComponent } from './dialogs/forecast-dialog/forecast-dial
     EditOutgoingShipmentComponent,
     ForcastComponent,
     FulfillOrderDialogComponent,
-    ForecastDialogComponent
+    ForecastDialogComponent,
+    ArrivalOrderDialogComponent
   ],
   providers: [
     ProductService,

@@ -1,3 +1,4 @@
+import { ArrivalOrderDialogComponent } from './../../../dialogs/arrival-order-dialog/arrival-order-dialog.component';
 import { EditIncomingShipmentComponent } from './../../../dialogs/edit-incoming-shipment/edit-incoming-shipment.component';
 import { AddIncomingShipmentComponent } from './../../../dialogs/add-incoming-shipment/add-incoming-shipment.component';
 import { IncomingShipmentService } from './../../../services/IncomingShipmentService';
@@ -111,6 +112,24 @@ export class IncomingShipmentsComponent implements OnInit {
           this.getShipments();
         }, error => {
           console.log(error);
+          this.progress = false;
+        })
+      }
+    });
+  }
+  fullFillArrival(data: IncomingShipment){
+    const dialogRef = this.dialog.open(ArrivalOrderDialogComponent, {
+      width: '600px',
+      data: data.shipmentNo
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result) {
+        this.progress = true;
+        this.shipmentService.arrivalOrder(data.incomingShipmentId).subscribe(result => {
+          this.getShipments();
+        }, error => {
           this.progress = false;
         })
       }

@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class IncomingShipmentService {
+  
 
 
     private incomingShipmentUrl = environment.APIURL + "/shipment/incoming/";
@@ -26,4 +27,16 @@ export class IncomingShipmentService {
     deleteShipment(incomingShipmentId: number) {
         return this.http.delete<any>(this.incomingShipmentUrl+incomingShipmentId);
       }
+    arrivalOrder(incomingShipmentId: number) {
+        const data : ArrivalShipment = {
+            incomingShipmentId: incomingShipmentId,
+            arrival: true
+        }
+        return this.http.post<ArrivalShipment>(this.incomingShipmentUrl+"/arrival/",data);
+    }
+}
+
+export class ArrivalShipment {
+    incomingShipmentId: number;
+    arrival: true;
 }

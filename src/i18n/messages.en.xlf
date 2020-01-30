@@ -733,6 +733,146 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="forecast" datatype="html">
+        <source>Forecast</source>
+        <target>Forecast</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/sidebar/sidebar.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dfulfillConfirmation" datatype="html">
+        <source>Fullment Confirmation</source>
+        <target>Fulfillment Confirmation</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/fulfill-order-dialog/fulfill-order-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fulfillConfirmationMassege" datatype="html">
+        <source>Are you sure you want to fulfill</source>
+        <target>Are you sure you want to fulfill</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/fulfill-order-dialog/fulfill-order-dialog.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/arrival-order-dialog/arrival-order-dialog.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fullfill" datatype="html">
+        <source>Fulfill</source>
+        <target>Fulfill</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/fulfill-order-dialog/fulfill-order-dialog.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="arrivalConfirmation" datatype="html">
+        <source>Arrival Confirmation</source>
+        <target>Arrival Confirmation</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/arrival-order-dialog/arrival-order-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="complete" datatype="html">
+        <source>Complete</source>
+        <target>Complete</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/arrival-order-dialog/arrival-order-dialog.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="arrived" datatype="html">
+        <source>Arrived</source>
+        <target>Arrived</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/shipments/incoming-shipments/incoming-shipments.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="forecastInformation" datatype="html">
+        <source>Forecast Information</source>
+        <target>Forecast Information</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="proposalNo1" datatype="html">
+        <source>Proposal No</source>
+        <target>Proposal No</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="previous" datatype="html">
+        <source>Previous</source>
+        <target>Previous</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/forcast/forcast.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="today" datatype="html">
+        <source>Today</source>
+        <target>Today</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/forcast/forcast.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="next" datatype="html">
+        <source>Next</source>
+        <target>Next</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/forcast/forcast.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="requiredQty" datatype="html">
+        <source>Required QTY</source>
+        <target>Required QTY</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="estimatedQty" datatype="html">
+        <source>Estimated available QTY</source>
+        <target>Estimated available QTY</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="minimumOrderDate" datatype="html">
+        <source>Minimum Order Date</source>
+        <target>Minimum Order Date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

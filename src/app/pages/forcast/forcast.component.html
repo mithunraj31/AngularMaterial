@@ -1,31 +1,25 @@
-<button class="calenderNav"
-mwlCalendarPreviousView
-[view]="view"
-[(viewDate)]="viewDate"
-(viewDateChange)="closeOpenMonthViewDay()" mat-raised-button color="primary" i18n="@@previous">Previous</button>
+<button class="calenderNav" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+  (viewDateChange)="closeOpenMonthViewDay()" mat-raised-button color="primary" i18n="@@previous">Previous</button>
 
-<button class="calenderNav"
-mwlCalendarToday
-[(viewDate)]="viewDate"
-(viewDateChange)="closeOpenMonthViewDay()" mat-raised-button color="primary" i18n="@@today">Today</button>
-<button class="calenderNav"
-mwlCalendarNextView
-[view]="view"
-[(viewDate)]="viewDate"
-(viewDateChange)="closeOpenMonthViewDay()" mat-raised-button color="primary" i18n="@@next">Next</button>
+<button class="calenderNav" mwlCalendarToday [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()"
+  mat-raised-button color="primary" i18n="@@today">Today</button>
+<button class="calenderNav" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+  (viewDateChange)="closeOpenMonthViewDay()" mat-raised-button color="primary" i18n="@@next">Next</button>
 <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
 
 
-  <br />
+<br />
 
-    <mwl-calendar-month-view
-      [viewDate]="viewDate"
-      [events]="events"
-      [refresh]="refresh"
-      [activeDayIsOpen]="activeDayIsOpen"
-      (dayClicked)="dayClicked($event.day)"
-      (eventClicked)="handleEvent('Clicked', $event.event)"
-      (eventTimesChanged)="eventTimesChanged($event)"
-    >
-    </mwl-calendar-month-view>
-   
+<mwl-calendar-month-view [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen"
+  (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)"
+  (eventTimesChanged)="eventTimesChanged($event)">
+</mwl-calendar-month-view>
+
+<mat-list role="list">
+  <span *ngFor="let forecast of forecasts">
+  <mat-list-item role="listitem" *ngIf="!forecast.forecast" (click)="handleListItem(forecast)">
+    <mat-icon svgIcon="info" aria-hidden="false"></mat-icon>
+    {{forecast.proposalNo}}   <span class="forecastDate">{{forecast.dueDate | date:'shortDate'}}</span>
+  </mat-list-item>
+</span>
+</mat-list>

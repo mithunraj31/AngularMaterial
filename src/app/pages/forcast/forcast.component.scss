@@ -18,3 +18,24 @@ h3 {
   min-height: 50px !important; 
   max-height: 75px !important;
 }
+mat-list-item{
+  background-color: rgb(206, 134, 134);
+  padding: 2px;
+  margin: 5px;
+}
+mat-list-item .mat-list-item-content {
+  padding: 2px !important;
+}
+mat-icon{
+  margin-right: 5px;
+}
+.forecastDate{
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}

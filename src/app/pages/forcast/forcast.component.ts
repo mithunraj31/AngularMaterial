@@ -24,9 +24,10 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView
 } from 'angular-calendar';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatIconRegistry } from '@angular/material';
 import { EditOrderDialogComponent } from 'src/app/dialogs/edit-order-dialog/edit-order-dialog.component';
 import { ForecastService } from 'src/app/services/ForecastService';
+import { DomSanitizer } from '@angular/platform-browser';
 
 const colors: any = {
   red: {
@@ -77,7 +78,13 @@ export class ForcastComponent implements OnInit{
   constructor(
     public dialog: MatDialog,
     private forecastService: ForecastService,
-    ) {}
+    iconRegistry: MatIconRegistry, 
+    sanitizer: DomSanitizer
+    ) {
+      iconRegistry.addSvgIcon(
+        'info',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icon/info.svg'));
+    }
 
   ngOnInit() {
     this.events = [];
@@ -140,6 +147,13 @@ export class ForcastComponent implements OnInit{
     const dialogRef = this.dialog.open(ForecastDialogComponent, {
       width: '600px',
       data: event.data
+    });
+  }
+  handleListItem(data: Order): void {
+    console.log(event);
+    const dialogRef = this.dialog.open(ForecastDialogComponent, {
+      width: '600px',
+      data: data
     });
   }
 

@@ -41,7 +41,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field class="inline">
-      <input matInput type="number" i18n-placeholder="@@quantity" placeholder="QTY" [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
+      <input matInput type="number" min="1" i18n-placeholder="@@quantity" placeholder="QTY" [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
     <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
     <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>

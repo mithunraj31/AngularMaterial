@@ -83,7 +83,7 @@
         </mat-select>
     </mat-form-field>
     <mat-form-field class="inline">
-        <input matInput type="number" placeholder="QTY" [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
+        <input matInput type="number" min="1" placeholder="QTY" [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
         <mat-error>QTY cannot be empty</mat-error>
     </mat-form-field>
     <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()">Add</button>

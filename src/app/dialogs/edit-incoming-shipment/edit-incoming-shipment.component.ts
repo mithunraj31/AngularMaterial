@@ -23,6 +23,7 @@ export class EditIncomingShipmentComponent implements OnInit {
   products: Product[] = [];
   saveIncomingShipment:SaveIncomingShipment;
   saveShipmentProducts: SaveShipmentProduct [] = [];
+  alreadyExistsError: boolean;
   constructor(
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -99,19 +100,28 @@ export class EditIncomingShipmentComponent implements OnInit {
         quantity : this.qty,
         price: this.price
       }
-      this.saveShipmentProducts.push(saveShipmentProduct);
-      this.viewSelectd.push({
-        productId: this.products[this.selected].productId,
-        productName: this.products[this.selected].productName,
-        quantity: this.qty,
-        price: this.price
+       //check the product is already exists
+       this.alreadyExistsError= false;
+       this.saveShipmentProducts.forEach(product => {
+        if (product.productId == saveShipmentProduct.productId)
+          this.alreadyExistsError = true;
       })
-      console.log(this.viewSelectd);
-      this.qtyError = false;
-      this.selected=null;
-      this.qty = null;
-      this.price = null;
-      this.priceError =false;
+      if (!this.alreadyExistsError) {
+        this.saveShipmentProducts.push(saveShipmentProduct);
+        this.viewSelectd.push({
+          productId: this.products[this.selected].productId,
+          productName: this.products[this.selected].productName,
+          quantity: this.qty,
+          price: this.price
+        })
+        console.log(this.viewSelectd);
+        this.qtyError = false;
+        this.selected = null;
+        this.qty = null;
+        this.price = null;
+        this.priceError = false;
+        this.alreadyExistsError= false;
+      }
     } else if(!this.qty){
       this.qtyError = true;
     } else if(!this.price){

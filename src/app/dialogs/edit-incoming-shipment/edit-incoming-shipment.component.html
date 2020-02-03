@@ -37,6 +37,7 @@
     <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
     <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>
     <span class="qtyError" *ngIf="priceError" color="red" i18n="@@priceRequired">Price cannot be empty</span>
+    <span class="qtyError" *ngIf="alreadyExistsError" color="red" i18n="@@productAlreadyExists">Product is already added to the list.</span>
 
   <div mat-dialog-actions>
     <button mat-button (click)="onCancelClick()" i18n="@@cancel">Cancel</button>

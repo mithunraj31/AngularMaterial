@@ -9,7 +9,7 @@ export class IncomingShipmentService {
   
 
 
-    private incomingShipmentUrl = environment.APIURL + "/shipment/incoming/";
+    private incomingShipmentUrl = environment.APIURL + "/shipment/incoming";
     constructor(private http: HttpClient){
         
     }

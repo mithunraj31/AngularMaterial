@@ -9,7 +9,7 @@ export class IncomingShipmentService {
   
 
 
-    private incomingShipmentUrl = environment.APIURL + "/shipment/incoming";
+    private incomingShipmentUrl = environment.APIURL + "/shipment/incoming/";
     constructor(private http: HttpClient){
         
     }
@@ -32,7 +32,7 @@ export class IncomingShipmentService {
             incomingShipmentId: incomingShipmentId,
             arrival: true
         }
-        return this.http.post<ArrivalShipment>(this.incomingShipmentUrl+"/arrival/",data);
+        return this.http.post<ArrivalShipment>(this.incomingShipmentUrl+"arrival/",data);
     }
 }
 

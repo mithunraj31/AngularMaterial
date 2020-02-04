@@ -1,3 +1,4 @@
+<mat-progress-bar mode="indeterminate" *ngIf="progress"></mat-progress-bar>
 <button class="calenderNav" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
   (viewDateChange)="closeOpenMonthViewDay()" mat-raised-button color="primary" i18n="@@previous">Previous</button>
 

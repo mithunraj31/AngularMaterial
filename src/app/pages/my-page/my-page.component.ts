@@ -53,13 +53,16 @@ export class MyPageComponent implements OnInit {
         this.successPasswordChange = true;
         this.progress = false;
         this.openSnackBar("Your password has been changed successfully!", "ok");
-        this.passwordForm.reset();
+        // this.passwordForm.reset();
+        this.passwordForm.markAsPristine();
+        this.passwordForm.markAsUntouched();
+        this.passwordForm.updateValueAndValidity();
+        this.changeError = null;
       }, error => {
-        
-        if (error.error && error.error.status ) {
-          if(error.error.status == 401){
+        if (error && error.status ) {
+          if(error.status == 401){
           this.changeError = 401;
-        } else if(error.error.status == 400) {
+        } else if(error.status == 400) {
           this.changeError = 400;
         }
         } else {

@@ -32,7 +32,7 @@ export class IncomingShipmentService {
             incomingShipmentId: incomingShipmentId,
             arrival: true
         }
-        return this.http.post<ArrivalShipment>(this.incomingShipmentUrl+"/arrival/",data);
+        return this.http.post<ArrivalShipment>(this.incomingShipmentUrl+"arrival/",data);
     }
 }
 

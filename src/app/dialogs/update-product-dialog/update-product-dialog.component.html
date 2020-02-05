@@ -18,7 +18,7 @@
     <mat-error *ngIf="productForm.get('quantity').hasError('required')" i18n="@@qtyRequired">QTY cannot be empty.</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" min="1" i18n-placeholder="@@leadTime" placeholder="Lead Time" formControlName="leadTime">
+    <input matInput type="number" min="1" i18n-placeholder="@@leadTime" placeholder="Lead Time (w)" formControlName="leadTime">
     <mat-error *ngIf="productForm.get('leadTime').hasError('required')" i18n="@@leadTimeRequired">Lead Time cannot be empty.</mat-error>
   </mat-form-field>
   <mat-form-field>

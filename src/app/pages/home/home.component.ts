@@ -7,8 +7,8 @@ import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-
+  
   ngOnInit() {
+    const isIEOrEdge = /msie\s|trident\/|edge\//i.test(window.navigator.userAgent);
   }
-
 }

@@ -1,0 +1,22 @@
+.container {
+    height: 27vh;
+    display: flex;
+    justify-content: left;
+
+}   
+
+.passwordForm {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    justify-content: center;
+}
+.row {
+    display: flex;
+    justify-content: center;
+}
+.actions{
+    display: flex;
+
+    flex-direction: column;
+}

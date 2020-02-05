@@ -86,4 +86,7 @@ export class AuthService {
     getLastName(): string{
         return localStorage.getItem("lastName");
     }
+    getRole(): string {
+        return localStorage.getItem("scopes");
+    }
 }

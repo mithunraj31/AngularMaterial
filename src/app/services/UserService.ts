@@ -14,4 +14,8 @@ export class UserService {
     getUsers() {
         return this.http.get<User[]>(this.userUrl);
     }
+    
+    updatePassword(password: any) {
+        return this.http.post<any>(this.userUrl+"password/", password);
+    }
 }

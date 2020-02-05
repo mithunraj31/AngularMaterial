@@ -29,7 +29,8 @@ import {MatToolbarModule,
         MatBadgeModule,
         MatProgressSpinnerModule,
         MatProgressBarModule,
-        MatPaginatorIntl
+        MatPaginatorIntl,
+        MatSnackBarModule,
         
 } from '@angular/material';
 
@@ -75,6 +76,7 @@ import { ForcastComponent } from './pages/forcast/forcast.component';
 import { FulfillOrderDialogComponent } from './dialogs/fulfill-order-dialog/fulfill-order-dialog.component';
 import { ForecastDialogComponent } from './dialogs/forecast-dialog/forecast-dialog.component';
 import { ArrivalOrderDialogComponent } from './dialogs/arrival-order-dialog/arrival-order-dialog.component';
+import { MyPageComponent } from './pages/my-page/my-page.component';
 
 
 @NgModule({
@@ -110,6 +112,7 @@ import { ArrivalOrderDialogComponent } from './dialogs/arrival-order-dialog/arri
     FulfillOrderDialogComponent,
     ForecastDialogComponent,
     ArrivalOrderDialogComponent,
+    MyPageComponent,
 
   ],
   imports: [
@@ -140,6 +143,7 @@ import { ArrivalOrderDialogComponent } from './dialogs/arrival-order-dialog/arri
     MatProgressBarModule,
     MatGridListModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    MatSnackBarModule
   ],
   exports: [ 
      

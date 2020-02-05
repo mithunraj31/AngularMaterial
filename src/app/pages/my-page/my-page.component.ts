@@ -56,8 +56,12 @@ export class MyPageComponent implements OnInit {
         this.passwordForm.reset();
       }, error => {
         
-        if (error.error && error.error.status && error.error.status == 401) {
+        if (error.error && error.error.status ) {
+          if(error.error.status == 401){
           this.changeError = 401;
+        } else if(error.error.status == 400) {
+          this.changeError = 400;
+        }
         } else {
           this.changeError = 500;
         }

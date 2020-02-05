@@ -20,6 +20,7 @@
     </mat-form-field>
     <mat-error *ngIf="changeError==401" i18n="@@invalidCredentials">Invalid Credentials.</mat-error>
     <mat-error *ngIf="changeError==500" i18n="@@somethingWentWrong">Something went wrong! Please try again later.</mat-error>
+    <mat-error *ngIf="changeError==400" i18n="@@somethingWentWrong">New password cannot be the same as your old password.</mat-error>
     <mat-error *ngIf="passwordError" i18n="@@passwordError">Your password and confirmation password do not match.</mat-error>
     <div class="row" *ngIf="progress">
         <mat-spinner diameter="25" color="white"></mat-spinner>

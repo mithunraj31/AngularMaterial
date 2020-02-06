@@ -78,6 +78,7 @@ import { ForecastDialogComponent } from './dialogs/forecast-dialog/forecast-dial
 import { ArrivalOrderDialogComponent } from './dialogs/arrival-order-dialog/arrival-order-dialog.component';
 import { MyPageComponent } from './pages/my-page/my-page.component';
 import { UnfulfilledProductsComponent } from './dialogs/unfulfilled-products/unfulfilled-products.component';
+import { UnfulfillConfirmationComponent } from './dialogs/unfulfill-confirmation/unfulfill-confirmation.component';
 
 
 @NgModule({
@@ -115,6 +116,7 @@ import { UnfulfilledProductsComponent } from './dialogs/unfulfilled-products/unf
     ArrivalOrderDialogComponent,
     MyPageComponent,
     UnfulfilledProductsComponent,
+    UnfulfillConfirmationComponent,
 
   ],
   imports: [
@@ -169,7 +171,8 @@ import { UnfulfilledProductsComponent } from './dialogs/unfulfilled-products/unf
     FulfillOrderDialogComponent,
     ForecastDialogComponent,
     ArrivalOrderDialogComponent,
-    UnfulfilledProductsComponent
+    UnfulfilledProductsComponent,
+    UnfulfillConfirmationComponent
   ],
   providers: [
     ProductService,

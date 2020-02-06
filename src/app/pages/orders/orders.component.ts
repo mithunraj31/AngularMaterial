@@ -13,6 +13,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { EditOrderDialogComponent } from 'src/app/dialogs/edit-order-dialog/edit-order-dialog.component';
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { ActivatedRoute } from '@angular/router';
+import { UnfulfillConfirmationComponent } from 'src/app/dialogs/unfulfill-confirmation/unfulfill-confirmation.component';
 
 @Component({
   selector: 'app-orders',
@@ -53,9 +54,9 @@ export class OrdersComponent implements OnInit {
   ngOnInit() {
     this.getOrderData();
     this.dataSource.paginator = this.paginator;
-    this.searchSub = this.route.params.subscribe(params=>{
+    this.searchSub = this.route.params.subscribe(params => {
       this.id = params['id'];
-      if(this.id) {
+      if (this.id) {
 
         this.applyFilter(this.id);
       }
@@ -127,8 +128,8 @@ export class OrdersComponent implements OnInit {
       }
     });
   }
-  
-  fullFillOrder(data: Order){
+
+  fullFillOrder(data: Order) {
     const dialogRef = this.dialog.open(FulfillOrderDialogComponent, {
       width: '600px',
       data: data.proposalNo
@@ -152,6 +153,24 @@ export class OrdersComponent implements OnInit {
       }
     });
   }
+  unFullFillOrder(data: Order) {
+    const dialogRef = this.dialog.open(UnfulfillConfirmationComponent, {
+      width: '600px',
+      data: data.proposalNo
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.progress = true;
+        this.orderService.unFulfillOrder(data.orderId).subscribe(result => {
+          this.getOrderData();
+        }, error => {
+          this.progress = false;
+        })
+      }
+    });
+  }
+
   deleteOrder(order: Order) {
     const data = this.orders[this.orders.indexOf(order)];
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {

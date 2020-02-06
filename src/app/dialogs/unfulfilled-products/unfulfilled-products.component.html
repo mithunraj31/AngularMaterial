@@ -1,0 +1,35 @@
+<h1 mat-dialog-title i18n="@@unfulfilledProducts">Products that cannot be fulfilled.</h1>
+
+<div mat-dialog-content>
+    <div class="scroll">
+
+        <mat-card >
+            <mat-accordion >
+                <mat-expansion-panel class="productsRed" *ngFor="let product of data">
+                    <mat-expansion-panel-header class="left-aligned-header">
+                        <mat-panel-title>
+                            {{product.product.productName}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <span><b>{{product.product.description}}</b></span><br>
+                    <span i18n="@@price">Price</span><span> : {{product.product.price}}</span><br>
+                    <span i18n="@@obicNo">Obic No</span><span>: {{product.product.obicNo}}</span><br>
+                    <span i18n="@@leadTime">Lead Time</span><span>: {{product.product.leadTime}}w</span><br>
+                    <span i18n="@@moq">MOQ</span><span> : {{product.product.moq}}</span><br>
+                    <!-- <span class="bold" i18n="@@amount">Amount</span><span>: {{product.quantity}}</span><br> -->
+                    <span i18n="@@quantity" class="bold">Stock QTY</span><span>: {{product.product.quantity}}</span><br>
+                    <span class="bold" i18n="@@requiredQty">Required QTY</span><span>:
+                        {{product.requiredQuantity}}</span><br>
+                    <!-- <span class="bold" i18n="@@estimatedQty">Estimated available QTY</span><span>:
+                        {{product.currentQuantity}}</span><br> -->
+                    <!-- <span class="bold" i18n="@@minimumOrderDate">Minimum Order Date</span><span>: -->
+                        <!-- {{product.mod | date:'shortDate'}}</span><br> -->
+                </mat-expansion-panel>
+            </mat-accordion>
+        </mat-card>
+
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="false" i18n="@@ok">OK</button>
+</div>

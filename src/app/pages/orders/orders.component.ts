@@ -1,3 +1,4 @@
+import { UnfulfilledProductsComponent } from './../../dialogs/unfulfilled-products/unfulfilled-products.component';
 import { FulfillOrderDialogComponent } from './../../dialogs/fulfill-order-dialog/fulfill-order-dialog.component';
 import { SaveOrder } from './../../models/SaveOrder';
 import { AddOrderDialogComponent } from './../../dialogs/add-order-dialog/add-order-dialog.component';
@@ -140,6 +141,12 @@ export class OrdersComponent implements OnInit {
         this.orderService.fulfillOrder(data.orderId).subscribe(result => {
           this.getOrderData();
         }, error => {
+          // open unfulfilled porducts
+          console.log(error.error.unfulfilled);
+          const dialogRef = this.dialog.open(UnfulfilledProductsComponent, {
+            width: '600px',
+            data: error.error.unfulfilled
+          });
           this.progress = false;
         })
       }

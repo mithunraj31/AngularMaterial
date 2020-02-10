@@ -19,7 +19,8 @@ export class EditIncomingShipmentComponent implements OnInit {
   qtyError=false;
   price=null;
   priceError=false;
-  viewSelectd: {productId: number,productName: String,quantity: number, price:number}[] = [];
+  currency = "JPY";
+  viewSelectd: {productId: number,productName: String,quantity: number, price:number, currency: string}[] = [];
   products: Product[] = [];
   saveIncomingShipment:SaveIncomingShipment;
   saveShipmentProducts: SaveShipmentProduct [] = [];
@@ -57,7 +58,8 @@ export class EditIncomingShipmentComponent implements OnInit {
         productId: product.product.productId,
         productName: product.product.productName,
         quantity : product.quantity,
-        price: product.price
+        price: product.price,
+        currency: product.currency
       })
     }
 
@@ -98,7 +100,8 @@ export class EditIncomingShipmentComponent implements OnInit {
       const saveShipmentProduct: SaveShipmentProduct = {
         productId : this.products[this.selected].productId,
         quantity : this.qty,
-        price: this.price
+        price: this.price,
+        currency: this.currency
       }
        //check the product is already exists
        this.alreadyExistsError= false;
@@ -112,7 +115,8 @@ export class EditIncomingShipmentComponent implements OnInit {
           productId: this.products[this.selected].productId,
           productName: this.products[this.selected].productName,
           quantity: this.qty,
-          price: this.price
+          price: this.price,
+          currency: this.currency
         })
         console.log(this.viewSelectd);
         this.qtyError = false;

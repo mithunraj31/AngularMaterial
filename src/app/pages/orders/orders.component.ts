@@ -1,3 +1,4 @@
+import { UtilService } from './../../services/UtilService';
 import { UnfulfilledProductsComponent } from './../../dialogs/unfulfilled-products/unfulfilled-products.component';
 import { FulfillOrderDialogComponent } from './../../dialogs/fulfill-order-dialog/fulfill-order-dialog.component';
 import { SaveOrder } from './../../models/SaveOrder';
@@ -48,8 +49,8 @@ export class OrdersComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private orderService: OrderService
-  ) { }
+    private orderService: OrderService,
+    public util: UtilService  ) { }
 
   ngOnInit() {
     this.getOrderData();

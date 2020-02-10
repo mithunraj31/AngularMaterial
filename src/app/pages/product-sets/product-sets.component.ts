@@ -1,3 +1,4 @@
+import { UtilService } from './../../services/UtilService';
 import { SaveProductSet } from './../../models/saveProductSet';
 import { AddProductSetDialogComponent } from './../../dialogs/add-product-set-dialog/add-product-set-dialog.component';
 import { ProductSet } from './../../models/ProductSet';
@@ -37,7 +38,11 @@ export class ProductSetsComponent implements OnInit {
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   expandedElement: ProductSet | null;
-  constructor(private productService: ProductService, public dialog: MatDialog, ) { }
+  constructor(
+    private productService: ProductService,
+    public dialog: MatDialog,
+    public util: UtilService
+  ) { }
 
   ngOnInit() {
     this.getProductSetData();
@@ -109,15 +114,15 @@ export class ProductSetsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result) {
-        this.progress=true;
+        this.progress = true;
         console.log(result);
         const productset: SaveProductSet = result;
-        productset.productId=data.productId;
-        this.productService.editProductSet(productset).subscribe(result=>{
+        productset.productId = data.productId;
+        this.productService.editProductSet(productset).subscribe(result => {
           console.log(result);
           this.getProductSetData();
-        },error=>{
-          this.progress=false;
+        }, error => {
+          this.progress = false;
         })
       }
     });

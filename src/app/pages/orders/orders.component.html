@@ -84,10 +84,10 @@
                                             [matBadgeHidden]="!component.product.set">
                                             <h4>{{component.product.productName}}</h4>
                                             <p>{{component.product.description}}</p>
-                                            <span>Price : {{component.product.price}}</span><br>
-                                            <span>QTY: {{component.product.quantity}}</span><br>
-                                            <span>Lead Time: {{component.product.leadTime}}w</span><br>
-                                            <span>MOQ : {{component.product.moq}}</span><br>
+                                            <span>Price : {{util.getCurrencySign(component.product.currency)}} {{component.product.price}}</span><br>
+                                            <span *ngIf="!component.product.set">QTY: {{component.product.quantity}}</span><br *ngIf="!component.product.set">
+                                            <span *ngIf="!component.product.set">Lead Time: {{component.product.leadTime}}w</span><br *ngIf="!component.product.set">
+                                            <span *ngIf="!component.product.set">MOQ : {{component.product.moq}}</span><br *ngIf="!component.product.set">
                                             <span>Obic No: {{component.product.obicNo}}</span><br>
                                             <h5>Amount: {{component.quantity}}</h5>
                                             <mat-accordion *ngIf="component.product.set">
@@ -101,7 +101,7 @@
                                                         </mat-panel-description>
                                                     </mat-expansion-panel-header>
                                                     <p>{{sub.product.description}}</p>
-                                                    <span>Price : {{sub.product.price}}</span><br>
+                                                    <span>Price : {{util.getCurrencySign(sub.product.currency)}} {{sub.product.price}}</span><br>
                                                     <span>QTY: {{sub.product.quantity}}</span><br>
                                                     <span>Lead Time: {{sub.product.leadTime}}w</span><br>
                                                     <span>MOQ : {{sub.product.moq}}</span><br>

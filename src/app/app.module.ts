@@ -1,3 +1,4 @@
+import { UtilService } from './services/UtilService';
 import { ForecastService } from './services/ForecastService';
 import { AuthService } from 'src/app/auth/AuthService';
 import { IncomingShipmentService } from './services/IncomingShipmentService';
@@ -185,6 +186,7 @@ import { UnfulfillConfirmationComponent } from './dialogs/unfulfill-confirmation
     OutgoingShipmentService,
     UserService,
     ForecastService,
+    UtilService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

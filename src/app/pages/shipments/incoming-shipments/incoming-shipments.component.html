@@ -37,13 +37,13 @@
             <mat-card class="productComponent" *ngFor="let component of element.products">
                 <h4>{{component.product.productName}}</h4>
                 <p>{{component.product.description}}</p>
-                <span i18n="@@stockPrice">Stock Price</span> <span>: {{component.product.price}}</span><br>
+                <span i18n="@@stockPrice">Stock Price</span> <span>:{{util.getCurrencySign(component.product.currency)}} {{component.product.price}}</span><br>
                 <!-- <span>QTY: {{component.product.quantity}}</span><br> -->
                 <span i18n="@@leadTime">Lead Time</span><span>: {{component.product.leadTime}}w</span><br>
                 <span i18n="@@moq">MOQ </span> <span>: {{component.product.moq}}</span><br>
                 <span i18n="@@obicNo">Obic No</span> <span>:  {{component.product.obicNo}}</span><br>
                 <h5><span i18n="@@amount">Amount</span> {{component.quantity}}</h5>
-                <h5><span i18n="@@price">Price</span>: {{component.price}}</h5>
+                <h5><span i18n="@@price">Price</span>: {{util.getCurrencySign(component.currency)}} {{component.price}}</h5>
             </mat-card>
             
           </div>

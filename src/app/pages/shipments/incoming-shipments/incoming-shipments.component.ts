@@ -1,3 +1,4 @@
+import { UtilService } from './../../../services/UtilService';
 import { ArrivalOrderDialogComponent } from './../../../dialogs/arrival-order-dialog/arrival-order-dialog.component';
 import { EditIncomingShipmentComponent } from './../../../dialogs/edit-incoming-shipment/edit-incoming-shipment.component';
 import { AddIncomingShipmentComponent } from './../../../dialogs/add-incoming-shipment/add-incoming-shipment.component';
@@ -27,35 +28,38 @@ export class IncomingShipmentsComponent implements OnInit {
     'user',
     'actions'
   ];
-  progress=false;
+  progress = false;
   dataSource = new MatTableDataSource<IncomingShipment>();
   shipments: IncomingShipment[] = [];
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   expandedElement: IncomingShipment | null;
-  constructor(private shipmentService: IncomingShipmentService, public dialog: MatDialog) { }
+  constructor(
+    private shipmentService: IncomingShipmentService,
+    public dialog: MatDialog,
+    public util: UtilService) { }
 
   ngOnInit() {
     this.getShipments();
   }
 
   getShipments() {
-    this.progress=true;
+    this.progress = true;
     this.shipmentService.getShipments().subscribe(result => {
       this.shipments = result;
       this.dataSource.data = this.shipments;
       this.dataSource.paginator = this.paginator;
       console.log(result);
-      this.progress=false;
-    },error=>{
-      this.progress=false;
+      this.progress = false;
+    }, error => {
+      this.progress = false;
     })
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  editShipment(element){
+  editShipment(element) {
     const dialogRef = this.dialog.open(EditIncomingShipmentComponent, {
       width: '600px',
       data: element
@@ -77,7 +81,7 @@ export class IncomingShipmentsComponent implements OnInit {
     });
   }
 
-  deleteShipment(element){
+  deleteShipment(element) {
     const data = this.shipments[this.shipments.indexOf(element)];
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
       width: '600px',
@@ -98,9 +102,9 @@ export class IncomingShipmentsComponent implements OnInit {
     });
 
   }
-  openDialog(): void{
+  openDialog(): void {
     const dialogRef = this.dialog.open(AddIncomingShipmentComponent, {
-      width: '600px',
+      width: '800px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -117,7 +121,7 @@ export class IncomingShipmentsComponent implements OnInit {
       }
     });
   }
-  fullFillArrival(data: IncomingShipment){
+  fullFillArrival(data: IncomingShipment) {
     const dialogRef = this.dialog.open(ArrivalOrderDialogComponent, {
       width: '600px',
       data: data.shipmentNo

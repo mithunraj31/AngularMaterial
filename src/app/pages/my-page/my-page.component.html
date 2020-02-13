@@ -1,0 +1,12 @@
+<mat-tab-group>
+    <mat-tab i18n-label="@@profile" label="Profile">
+        <ng-template matTabContent>
+            <app-profile></app-profile>
+        </ng-template>
+    </mat-tab>
+    <mat-tab *ngIf="role=='ADMIN'" i18n-label="@@users" label="Users">
+        <ng-template matTabContent>
+            <app-users></app-users>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

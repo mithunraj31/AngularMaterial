@@ -6,7 +6,7 @@
     <mat-error *ngIf="customerForm.get('customerName').invalid">{{getErrorMessage('customerName')}}</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" placeholder="ZIP" formControlName="zip">
+    <input matInput (keypress)="numberOnly($event)" type="text" placeholder="ZIP" formControlName="zip">
     <mat-error *ngIf="customerForm.get('zip').invalid">{{getErrorMessage('zip')}}</mat-error>
   </mat-form-field>
   <mat-form-field>
@@ -14,7 +14,7 @@
     <mat-error *ngIf="customerForm.get('address').invalid">{{getErrorMessage('address')}}</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" placeholder="Tel" formControlName="tel">
+    <input matInput (keypress)="numberOnly($event)" type="text" placeholder="Tel" formControlName="tel">
     <mat-error *ngIf="customerForm.get('tel').invalid">{{getErrorMessage('tel')}}</mat-error>
   </mat-form-field>
   <mat-form-field>

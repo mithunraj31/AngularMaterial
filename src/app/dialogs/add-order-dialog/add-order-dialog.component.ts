@@ -147,6 +147,7 @@ export class AddOrderDialogComponent implements OnInit {
             active:product.active,
             productId :product.productId,
             price :product.price,
+            currency: product.currency,
             productName :product.productName,
             createdAt:product.createdAt,
             description:product.description,

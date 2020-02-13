@@ -26,10 +26,9 @@ export class EditCustomerDialogComponent implements OnInit {
         Validators.required
       ]),
       "zip": new FormControl(this.data.zip,[
-        Validators.required
+        Validators.maxLength(7),Validators.minLength(7)
       ]),
       "address": new FormControl(this.data.address,[
-        Validators.required
       ]),
       "tel": new FormControl(this.data.tel,[
         Validators.required
@@ -44,6 +43,15 @@ export class EditCustomerDialogComponent implements OnInit {
     })
   }
 
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
+  }
+  
   onCancelClick(): void {
     this.dialogRef.close(null);
   }

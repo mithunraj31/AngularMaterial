@@ -1,3 +1,5 @@
+import { UtilService } from './../../services/UtilService';
+import { UnfulfilledProductsComponent } from './../../dialogs/unfulfilled-products/unfulfilled-products.component';
 import { FulfillOrderDialogComponent } from './../../dialogs/fulfill-order-dialog/fulfill-order-dialog.component';
 import { SaveOrder } from './../../models/SaveOrder';
 import { AddOrderDialogComponent } from './../../dialogs/add-order-dialog/add-order-dialog.component';
@@ -12,6 +14,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { EditOrderDialogComponent } from 'src/app/dialogs/edit-order-dialog/edit-order-dialog.component';
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { ActivatedRoute } from '@angular/router';
+import { UnfulfillConfirmationComponent } from 'src/app/dialogs/unfulfill-confirmation/unfulfill-confirmation.component';
 
 @Component({
   selector: 'app-orders',
@@ -46,15 +49,15 @@ export class OrdersComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private orderService: OrderService
-  ) { }
+    private orderService: OrderService,
+    public util: UtilService  ) { }
 
   ngOnInit() {
     this.getOrderData();
     this.dataSource.paginator = this.paginator;
-    this.searchSub = this.route.params.subscribe(params=>{
+    this.searchSub = this.route.params.subscribe(params => {
       this.id = params['id'];
-      if(this.id) {
+      if (this.id) {
 
         this.applyFilter(this.id);
       }
@@ -126,8 +129,8 @@ export class OrdersComponent implements OnInit {
       }
     });
   }
-  
-  fullFillOrder(data: Order){
+
+  fullFillOrder(data: Order) {
     const dialogRef = this.dialog.open(FulfillOrderDialogComponent, {
       width: '600px',
       data: data.proposalNo
@@ -140,11 +143,35 @@ export class OrdersComponent implements OnInit {
         this.orderService.fulfillOrder(data.orderId).subscribe(result => {
           this.getOrderData();
         }, error => {
+          // open unfulfilled porducts
+          console.log(error.error.unfulfilled);
+          const dialogRef = this.dialog.open(UnfulfilledProductsComponent, {
+            width: '600px',
+            data: error.error.unfulfilled
+          });
           this.progress = false;
         })
       }
     });
   }
+  unFullFillOrder(data: Order) {
+    const dialogRef = this.dialog.open(UnfulfillConfirmationComponent, {
+      width: '600px',
+      data: data.proposalNo
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.progress = true;
+        this.orderService.unFulfillOrder(data.orderId).subscribe(result => {
+          this.getOrderData();
+        }, error => {
+          this.progress = false;
+        })
+      }
+    });
+  }
+
   deleteOrder(order: Order) {
     const data = this.orders[this.orders.indexOf(order)];
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {

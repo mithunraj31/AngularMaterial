@@ -1,3 +1,4 @@
+import { UtilService } from './../../services/UtilService';
 import { DeleteConfirmationDialogComponent } from './../../dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { ProductService } from './../../services/ProductService';
 import { AddProductDialogComponent } from './../../dialogs/add-product-dialog/add-product-dialog.component';
@@ -32,7 +33,10 @@ export class ProductsComponent implements OnInit {
   progress=false;
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  constructor(public dialog: MatDialog, public productService: ProductService) { }
+  constructor(
+    public dialog: MatDialog,
+    public productService: ProductService,
+    public util: UtilService) { }
 
   ngOnInit() {
     this.getProductData();

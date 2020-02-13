@@ -6,35 +6,44 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class OrderService {
+
     private getOrdersUrl = environment.APIURL + "/order/"
-    constructor(private http: HttpClient){
-        
+    constructor(private http: HttpClient) {
+
     }
 
-    getOrders(){
+    getOrders() {
         return this.http.get<Order[]>(this.getOrdersUrl);
     }
 
-    addOrder(order: SaveOrder){
+    addOrder(order: SaveOrder) {
         return this.http.post<SaveOrder>(this.getOrdersUrl, order);
     }
 
-    deleteOrder(id:number){
-        return this.http.delete<any>(this.getOrdersUrl+id);
+    deleteOrder(id: number) {
+        return this.http.delete<any>(this.getOrdersUrl + id);
     }
 
     editOrder(order: SaveOrder) {
-        console.log(this.getOrdersUrl+order.orderId);
+        console.log(this.getOrdersUrl + order.orderId);
         console.log(order);
-        return this.http.put<SaveOrder>(this.getOrdersUrl+order.orderId,order);
+        return this.http.put<SaveOrder>(this.getOrdersUrl + order.orderId, order);
     }
 
-    fulfillOrder(id:number){
+    fulfillOrder(id: number) {
         const fmodel: FulfillOrderModel = {
             orderId: id,
             fulfillment: true,
         }
-        return this.http.post<FulfillOrderModel>(this.getOrdersUrl+"fulfillment/", fmodel);
+        return this.http.post<FulfillOrderModel>(this.getOrdersUrl + "fulfillment/", fmodel);
+    }
+
+    unFulfillOrder(orderId: number) {
+        const fmodel: FulfillOrderModel = {
+            orderId: orderId,
+            fulfillment: false,
+        }
+        return this.http.post<FulfillOrderModel>(this.getOrdersUrl + "fulfillment/", fmodel);
     }
 }
 

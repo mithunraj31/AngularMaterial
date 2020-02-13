@@ -1,3 +1,4 @@
+import { UtilService } from './services/UtilService';
 import { ForecastService } from './services/ForecastService';
 import { AuthService } from 'src/app/auth/AuthService';
 import { IncomingShipmentService } from './services/IncomingShipmentService';
@@ -29,7 +30,8 @@ import {MatToolbarModule,
         MatBadgeModule,
         MatProgressSpinnerModule,
         MatProgressBarModule,
-        MatPaginatorIntl
+        MatPaginatorIntl,
+        MatSnackBarModule,
         
 } from '@angular/material';
 
@@ -75,6 +77,12 @@ import { ForcastComponent } from './pages/forcast/forcast.component';
 import { FulfillOrderDialogComponent } from './dialogs/fulfill-order-dialog/fulfill-order-dialog.component';
 import { ForecastDialogComponent } from './dialogs/forecast-dialog/forecast-dialog.component';
 import { ArrivalOrderDialogComponent } from './dialogs/arrival-order-dialog/arrival-order-dialog.component';
+import { MyPageComponent } from './pages/my-page/my-page.component';
+import { UnfulfilledProductsComponent } from './dialogs/unfulfilled-products/unfulfilled-products.component';
+import { UnfulfillConfirmationComponent } from './dialogs/unfulfill-confirmation/unfulfill-confirmation.component';
+import { ProfileComponent } from './pages/my-page/profile/profile.component';
+import { UsersComponent } from './pages/my-page/users/users.component';
+import { AddUserDialogComponent } from './dialogs/add-user-dialog/add-user-dialog.component';
 
 
 @NgModule({
@@ -110,6 +118,12 @@ import { ArrivalOrderDialogComponent } from './dialogs/arrival-order-dialog/arri
     FulfillOrderDialogComponent,
     ForecastDialogComponent,
     ArrivalOrderDialogComponent,
+    MyPageComponent,
+    UnfulfilledProductsComponent,
+    UnfulfillConfirmationComponent,
+    ProfileComponent,
+    UsersComponent,
+    AddUserDialogComponent,
 
   ],
   imports: [
@@ -140,6 +154,7 @@ import { ArrivalOrderDialogComponent } from './dialogs/arrival-order-dialog/arri
     MatProgressBarModule,
     MatGridListModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    MatSnackBarModule
   ],
   exports: [ 
      
@@ -162,7 +177,10 @@ import { ArrivalOrderDialogComponent } from './dialogs/arrival-order-dialog/arri
     ForcastComponent,
     FulfillOrderDialogComponent,
     ForecastDialogComponent,
-    ArrivalOrderDialogComponent
+    ArrivalOrderDialogComponent,
+    UnfulfilledProductsComponent,
+    UnfulfillConfirmationComponent,
+    AddUserDialogComponent
   ],
   providers: [
     ProductService,
@@ -175,6 +193,7 @@ import { ArrivalOrderDialogComponent } from './dialogs/arrival-order-dialog/arri
     OutgoingShipmentService,
     UserService,
     ForecastService,
+    UtilService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

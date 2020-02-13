@@ -23,9 +23,10 @@ export class AuthService {
     constructor(private http: HttpClient) { }
 
     apiurl = environment.APIURL;
+    
     login(user: LoginUser) {
         console.log("userAuth");
-        return this.http.post<LoginUser>("http://13.113.194.21:4000/mbel/login", user);
+        return this.http.post<LoginUser>(this.apiurl+"/login", user);
 
     }
 

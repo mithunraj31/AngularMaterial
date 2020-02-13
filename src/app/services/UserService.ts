@@ -1,5 +1,5 @@
+import { User } from './../models/User';
 import { Injectable } from '@angular/core';
-import { User } from '../models/User';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
@@ -10,12 +10,15 @@ export class UserService {
     constructor(private http: HttpClient) {
 
     }
+    register(user: User) {
+        return this.http.post<any>(this.userUrl + "register/", user);
+    }
 
     getUsers() {
         return this.http.get<User[]>(this.userUrl);
     }
-    
+
     updatePassword(password: any) {
-        return this.http.post<any>(this.userUrl+"password/", password);
+        return this.http.post<any>(this.userUrl + "password/", password);
     }
 }

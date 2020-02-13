@@ -1,36 +1,12 @@
-<h3>My Page</h3>
-<p>First Name : {{firstName}}</p>
-<p>Last Name : {{lastName}}</p>
-<p>Role : {{role}}</p>
-
-<div class="container"><mat-card>
-<form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
-<mat-card-content  class="passwordForm">
-    <mat-form-field>
-        <input matInput type="password" i18n-placeholder="@@oldPassword" placeholder="Old Password" formControlName="oldPassword">
-        <!-- <mat-error *ngIf="passwordForm.get('oldPassword').hasError('required')" i18n="@@oldPasswordRequired">Old Password is required.</mat-error> -->
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput type="password" i18n-placeholder="@@newPassword" placeholder="New Password" formControlName="newPassword">
-        <!-- <mat-error *ngIf="passwordForm.get('newPassword').hasError('required')" i18n="@@newPasswordRequired">New Password is required.</mat-error> -->
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput type="password" i18n-placeholder="@@confirmPassword" placeholder="Confirm Password" formControlName="confirmPassword">
-        <!-- <mat-error *ngIf="passwordForm.get('cconfirmPassword').hasError('required')" i18n="@@confirmPasswordRequired">Confirm Password is required.</mat-error> -->
-    </mat-form-field>
-    <mat-error *ngIf="changeError==401" i18n="@@invalidCredentials">Invalid Credentials.</mat-error>
-    <mat-error *ngIf="changeError==500" i18n="@@somethingWentWrong">Something went wrong! Please try again later.</mat-error>
-    <mat-error *ngIf="changeError==400" i18n="@@samePassword">New password cannot be the same as your old password.</mat-error>
-    <mat-error *ngIf="passwordError" i18n="@@passwordError">Your password and confirmation password do not match.</mat-error>
-    <div class="row" *ngIf="progress">
-        <mat-spinner diameter="25" color="white"></mat-spinner>
-    </div>
-</mat-card-content>
-<mat-card-actions class="actions">
-    <button type="submit" mat-raised-button color="primary" i18n="@@changePassword">Change Password
-    </button>
-    
-</mat-card-actions>
-</form>
-</mat-card>
-</div>
+<mat-tab-group>
+    <mat-tab i18n-label="@@profile" label="Profile">
+        <ng-template matTabContent>
+            <app-profile></app-profile>
+        </ng-template>
+    </mat-tab>
+    <mat-tab i18n-label="@@users" label="Users">
+        <ng-template matTabContent>
+            <app-users></app-users>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,32 @@
+.container {
+    height: 45vh;
+    display: flex;
+    justify-content: left;
+
+}   
+
+.passwordForm {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    justify-content: center;
+}
+.row {
+    display: flex;
+    justify-content: center;
+}
+.actions{
+    display: flex;
+
+    flex-direction: column;
+}
+:host{
+    box-sizing: border-box;
+    display: block;
+    height: 100%;
+  }
+
+  body, html{
+    height: 100%;
+    margin: 0;
+  }

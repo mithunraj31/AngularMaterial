@@ -3,13 +3,14 @@ export interface Product {
     productName:string;
     description: string;
     price: number;
+    currency?: string;
     moq?: number;
-    leadTime?: number
-    obicNo?: string
-    quantity: number
-    isSet?: boolean
-    active?: boolean
-    createdAt?: Date
-    updatedAt?: Date
-    userId?: number
+    leadTime?: number;
+    obicNo?: string;
+    quantity: number;
+    isSet?: boolean;
+    active?: boolean;
+    createdAt?: Date;
+    updatedAt?: Date;
+    userId?: number;
 }

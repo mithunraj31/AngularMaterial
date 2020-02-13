@@ -9,9 +9,16 @@
       <input matInput type="text" i18n-placeholder="@@description" placeholder="Product Name" placeholder="Description" formControlName="description">
       <mat-error *ngIf="productForm.get('description').hasError('required')" i18n="@@descriptionRequired">{{getErrorMessage('description')}}</mat-error>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput type="number" min="1" i18n-placeholder="@@price" placeholder="Product Name" placeholder="Price" formControlName="price">
-      <mat-error *ngIf="productForm.get('price').hasError('required')" i18n="@@priceRequired">{{getErrorMessage('price')}}</mat-error>
+    <mat-form-field class="inline">
+      <input matInput type="number" min="1" i18n-placeholder="@@price" placeholder="Price" formControlName="price">
+      <mat-error *ngIf="productForm.get('price').hasError('required')" i18n="@@priceRequired">Price cannot be empty.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="inline">
+      <mat-select formControlName="currency">
+        <mat-option se value="JPY">JPY</mat-option>
+        <mat-option value="USD">USD</mat-option>
+      </mat-select>
     </mat-form-field>
     <!-- <mat-form-field>
       <input matInput type="number" i18n-placeholder="@@quantity" placeholder="Product Name" placeholder="QTY" formControlName="quantity">

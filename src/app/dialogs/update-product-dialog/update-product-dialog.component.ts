@@ -26,6 +26,9 @@ export class UpdateProductDialogComponent implements OnInit {
       "price": new FormControl(this.data.price,[
         Validators.required
       ]),
+      "currency": new FormControl(this.data.currency?this.data.currency:"JPY",[
+        Validators.required
+      ]),
       "quantity": new FormControl(this.data.quantity,[
         Validators.required
       ]),

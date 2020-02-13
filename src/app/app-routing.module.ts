@@ -1,3 +1,4 @@
+import { MyPageComponent } from './pages/my-page/my-page.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ShipmentsComponent } from './pages/shipments/shipments.component';
 import { OrdersComponent } from './pages/orders/orders.component';
@@ -42,6 +43,10 @@ const routes: Routes = [
   },
   {
     path: 'forecast', component: ForcastComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'mypage', component: MyPageComponent,
     canActivate: [AuthGuard]
   },
 ];

@@ -1,9 +1,7 @@
-
-
-  
 <h2>Welcome!!! </h2>
 <h3>Dashboard features will be developed according to your request.</h3>
 
-<mat-card *ngIf ="!isIEOrEdge">「Google Chrome」または「Firefox」ブラウザを使用して最高の体験をしてください。</mat-card>
-
-
+<mat-card *ngIf="browser=='ie' || browser=='edge'">
+    <h4>「{{browser}}」を使用している場合、一部の機能は正常に動作しません。</h4>
+    <h3>「Google Chrome」または「Firefox」ブラウザを使用して最高の体験をしてください。</h3>
+</mat-card>

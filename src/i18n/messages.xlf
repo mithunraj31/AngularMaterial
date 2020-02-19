@@ -94,7 +94,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
@@ -117,7 +117,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">11</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
@@ -144,7 +144,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
@@ -156,18 +156,14 @@
         </context-group>
       </trans-unit>
       <trans-unit id="price" datatype="html">
-        <source>Product Name</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
+        <source>Price</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
           <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
@@ -190,6 +186,10 @@
           <context context-type="linenumber">55</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfilled-products/unfulfilled-products.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-incoming-shipment/edit-incoming-shipment.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
@@ -207,14 +207,15 @@
         </context-group>
       </trans-unit>
       <trans-unit id="priceRequired" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{getErrorMessage(&apos;price&apos;)}}"/></source>
+        <source>Price cannot be empty.
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
@@ -230,26 +231,26 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="obicNo" datatype="html">
         <source>Product Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">44</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
@@ -257,7 +258,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-set-dialog/add-product-set-dialog.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/product-sets/product-sets.component.html</context>
@@ -266,6 +267,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/product-sets/product-sets.component.html</context>
           <context context-type="linenumber">59</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfilled-products/unfulfilled-products.component.html</context>
+          <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/shipments/incoming-shipments/incoming-shipments.component.html</context>
@@ -277,6 +282,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
@@ -284,26 +293,26 @@
         <source><x id="INTERPOLATION" equiv-text="{{getErrorMessage(&apos;obicNo&apos;)}}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-set-dialog/add-product-set-dialog.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove" datatype="html">
         <source>Remove</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-set-dialog/add-product-set-dialog.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
@@ -330,11 +339,11 @@
         <source>Select a product</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">51</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-set-dialog/add-product-set-dialog.component.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">50</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
@@ -361,11 +370,19 @@
         <source>None</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">53</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-set-dialog/add-product-set-dialog.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
@@ -416,15 +433,15 @@
         <source>QTY</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">59</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">28</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
@@ -432,11 +449,15 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-set-dialog/add-product-set-dialog.component.html</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/product-sets/product-sets.component.html</context>
           <context context-type="linenumber">56</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfilled-products/unfulfilled-products.component.html</context>
+          <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-incoming-shipment/edit-incoming-shipment.component.html</context>
@@ -456,6 +477,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
@@ -463,7 +488,7 @@
         <source>Add</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">61</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
@@ -471,7 +496,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-set-dialog/add-product-set-dialog.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/product-sets/product-sets.component.html</context>
@@ -491,7 +516,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/shipments/incoming-shipments/incoming-shipments.component.html</context>
@@ -509,24 +534,28 @@
           <context context-type="sourcefile">src/app/pages/shipments/outgoing-shipments/outgoing-shipments.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/users/users.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="qtyRequired" datatype="html">
         <source>QTY cannot be empty</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">62</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">29</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-set-dialog/add-product-set-dialog.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">61</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
@@ -542,7 +571,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">44</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-outgoing-shipment/add-outgoing-shipment.component.html</context>
@@ -557,7 +586,7 @@
         <source>Cancel</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">65</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component.html</context>
@@ -565,15 +594,19 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">51</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">41</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-set-dialog/add-product-set-dialog.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/fulfill-order-dialog/fulfill-order-dialog.component.html</context>
@@ -584,16 +617,20 @@
           <context context-type="linenumber">89</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfill-confirmation/unfulfill-confirmation.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/arrival-order-dialog/arrival-order-dialog.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-incoming-shipment/edit-incoming-shipment.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">49</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-outgoing-shipment/add-outgoing-shipment.component.html</context>
@@ -603,16 +640,28 @@
           <context context-type="sourcefile">src/app/dialogs/edit-outgoing-shipment/edit-outgoing-shipment.component.html</context>
           <context context-type="linenumber">51</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="ok" datatype="html">
         <source>Ok</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component.html</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">66</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfilled-products/unfulfilled-products.component.html</context>
+          <context context-type="linenumber">34</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
@@ -620,11 +669,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-incoming-shipment/edit-incoming-shipment.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">44</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">50</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-outgoing-shipment/add-outgoing-shipment.component.html</context>
@@ -645,11 +694,19 @@
           <context context-type="sourcefile">src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfill-confirmation/unfulfill-confirmation.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="deleteConfirmationMassege" datatype="html">
         <source>Are you sure you want to delete</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfill-confirmation/unfulfill-confirmation.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
@@ -673,7 +730,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">71</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/shipments/incoming-shipments/incoming-shipments.component.html</context>
@@ -695,11 +752,11 @@
         <source>Lead Time (w)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">33</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">28</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
@@ -708,6 +765,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/product-sets/product-sets.component.html</context>
           <context context-type="linenumber">57</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfilled-products/unfulfilled-products.component.html</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/shipments/incoming-shipments/incoming-shipments.component.html</context>
@@ -723,25 +784,26 @@
         </context-group>
       </trans-unit>
       <trans-unit id="leadTimeRequired" datatype="html">
-        <source>Lead Time cannot be empty.</source>
+        <source>Lead Time cannot be
+        empty.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moq" datatype="html">
         <source>MOQ</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
@@ -750,6 +812,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/product-sets/product-sets.component.html</context>
           <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfilled-products/unfulfilled-products.component.html</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/shipments/incoming-shipments/incoming-shipments.component.html</context>
@@ -761,22 +827,27 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moqRequired" datatype="html">
-        <source>MOQ cannot be empty.</source>
+        <source>MOQ cannot be empty.
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">33</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="updateProduct" datatype="html">
@@ -812,6 +883,10 @@
           <context context-type="sourcefile">src/app/pages/shipments/outgoing-shipments/outgoing-shipments.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/users/users.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="name" datatype="html">
         <source> Name </source>
@@ -844,7 +919,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">70</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/shipments/incoming-shipments/incoming-shipments.component.html</context>
@@ -888,6 +963,93 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="addNewCustomer" datatype="html">
+        <source>Add new customer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="customerName" datatype="html">
+        <source>Customer Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="zip" datatype="html">
+        <source>ZIP</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="address" datatype="html">
+        <source>Address</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tel" datatype="html">
+        <source>Tel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactName" datatype="html">
+        <source>Contact Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="selectAType" datatype="html">
+        <source>Select a Type</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="customer" datatype="html">
+        <source>Customer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="salesDestination" datatype="html">
+        <source>Sales Destination</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/shipments/outgoing-shipments/outgoing-shipments.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="zipCode" datatype="html">
         <source> ZIP Code </source>
         <context-group purpose="location">
@@ -895,32 +1057,33 @@
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="address" datatype="html">
-        <source> Address </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="tel" datatype="html">
-        <source> Tel </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
-          <context context-type="linenumber">27</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="contactName" datatype="html">
-        <source> Contact Name </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="type" datatype="html">
         <source> Type </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
           <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unfulfilledProducts" datatype="html">
+        <source>Products that cannot be fulfilled.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfilled-products/unfulfilled-products.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="requiredQty" datatype="html">
+        <source>Required QTY</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfilled-products/unfulfilled-products.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dfulfillConfirmation" datatype="html">
@@ -946,10 +1109,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/fulfill-order-dialog/fulfill-order-dialog.component.html</context>
           <context context-type="linenumber">7</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
-          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addNewOrder" datatype="html">
@@ -1092,29 +1251,22 @@
           <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="undo" datatype="html">
+        <source>Undo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfill-confirmation/unfulfill-confirmation.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="proposalNo" datatype="html">
         <source> Proposal No </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
           <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="customer" datatype="html">
-        <source> Customer</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="salesDestination" datatype="html">
-        <source> Sales Destination </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
-          <context context-type="linenumber">30</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/shipments/outgoing-shipments/outgoing-shipments.component.html</context>
-          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contractor" datatype="html">
@@ -1129,6 +1281,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
           <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unfulfill" datatype="html">
+        <source>Undo Fulfill</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="incoming" datatype="html">
@@ -1206,6 +1365,17 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/shipments/incoming-shipments/incoming-shipments.component.html</context>
           <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="productAlreadyExists" datatype="html">
+        <source>Product is already added to the list.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/edit-incoming-shipment/edit-incoming-shipment.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addIncomingShipment" datatype="html">
@@ -1290,12 +1460,20 @@
           <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/users/users.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="emailRequired" datatype="html">
         <source>Email is required.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
           <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="password" datatype="html">
@@ -1304,12 +1482,20 @@
           <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="passwordRequired" datatype="html">
         <source>Password is required.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
           <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invalidCredentials" datatype="html">
@@ -1318,12 +1504,20 @@
           <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="somethingWentWrong" datatype="html">
         <source>Something went wrong! Please try again later.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
           <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="forecastInformation" datatype="html">
@@ -1338,17 +1532,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
           <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="requiredQty" datatype="html">
-        <source>Required QTY</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
-          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="estimatedQty" datatype="html">
@@ -1377,21 +1560,134 @@
         <source>Previous</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/forcast/forcast.component.html</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="today" datatype="html">
         <source>Today</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/forcast/forcast.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="next" datatype="html">
         <source>Next</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/forcast/forcast.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile" datatype="html">
+        <source>Profile</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/my-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="users" datatype="html">
+        <source>Users</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/my-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="oldPassword" datatype="html">
+        <source>Old Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="newPassword" datatype="html">
+        <source>New Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
           <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmPassword" datatype="html">
+        <source>Confirm Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="samePassword" datatype="html">
+        <source>New password cannot be the same as your old password.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="passwordError" datatype="html">
+        <source>Your password and confirmation password do not match.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="changePassword" datatype="html">
+        <source>Change Password
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="addNewUser" datatype="html">
+        <source>Add new User</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="firstName" datatype="html">
+        <source>First Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/users/users.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="firstNameRequired" datatype="html">
+        <source>First Name
+        cannot be empty.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="lastName" datatype="html">
+        <source>Last Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/users/users.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="lastNameRequired" datatype="html">
+        <source>Last Name
+          cannot be empty.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="role" datatype="html">
+        <source> Role </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/users/users.component.html</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
     </body>

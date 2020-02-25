@@ -9,6 +9,7 @@
     <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" i18n-placeholder="@@filter" placeholder="Filter">
     </mat-form-field>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons class="paginator--left"></mat-paginator>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef i18n="@@name"> Name </th>
@@ -50,5 +51,5 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         
     </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons class="paginator--left"></mat-paginator>
 </mat-card>
-<mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>

@@ -32,6 +32,7 @@ import {MatToolbarModule,
         MatProgressBarModule,
         MatPaginatorIntl,
         MatSnackBarModule,
+        MatTooltipModule,
         
 } from '@angular/material';
 
@@ -83,6 +84,8 @@ import { UnfulfillConfirmationComponent } from './dialogs/unfulfill-confirmation
 import { ProfileComponent } from './pages/my-page/profile/profile.component';
 import { UsersComponent } from './pages/my-page/users/users.component';
 import { AddUserDialogComponent } from './dialogs/add-user-dialog/add-user-dialog.component';
+import { CalendarComponent } from './pages/forcast/calendar/calendar.component';
+import { TableComponent } from './pages/forcast/table/table.component';
 
 
 @NgModule({
@@ -124,6 +127,8 @@ import { AddUserDialogComponent } from './dialogs/add-user-dialog/add-user-dialo
     ProfileComponent,
     UsersComponent,
     AddUserDialogComponent,
+    CalendarComponent,
+    TableComponent,
 
   ],
   imports: [
@@ -154,7 +159,8 @@ import { AddUserDialogComponent } from './dialogs/add-user-dialog/add-user-dialo
     MatProgressBarModule,
     MatGridListModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   exports: [ 
      

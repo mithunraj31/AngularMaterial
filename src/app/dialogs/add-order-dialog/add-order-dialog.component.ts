@@ -29,6 +29,8 @@ export class AddOrderDialogComponent implements OnInit {
   productSets: ProductSet[] = [];
   saveOrder: SaveOrder;
   users: User[] = [];
+  productSearch = "";
+  selectedProductSets = [];
   constructor(
     public dialogRef: MatDialogRef<AddOrderDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -163,8 +165,20 @@ export class AddOrderDialogComponent implements OnInit {
           this.productSets.push(p);
         }
       })
+      this.selectedProductSets = this.productSets;
     })
   }
+  // Receive user input and send to search method**
+  onKey(value) { 
+  this.selectedProductSets = this.search(value);
+  }
+  search(value: string) { 
+    let filter = value.toLowerCase();
+    return this.productSets.filter(option => option.productName.toLowerCase().startsWith(filter));
+  }
 
-
+  resetP(){
+    this.productSearch = "";
+    this.selectedProductSets = this.productSets;
+  }
 }

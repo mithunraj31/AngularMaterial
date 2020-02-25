@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/AuthService';
 import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
@@ -11,6 +12,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  
+  appName = environment.APPNAME;
   isLoggedIn$: Observable<boolean>;
   lastName: string;
   languages = [

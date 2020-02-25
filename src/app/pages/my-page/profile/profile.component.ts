@@ -26,6 +26,8 @@ export class ProfileComponent implements OnInit {
     this.firstName = this.auth.getFirstName();
     this.lastName = this.auth.getLastName();
     this.role = this.auth.getRole();
+    const r = this.role.split("_");
+    this.role = r[1];
   }
 
   initializeLoginForm() {

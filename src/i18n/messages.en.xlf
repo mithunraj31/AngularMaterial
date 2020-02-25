@@ -873,6 +873,202 @@
           <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="addNewCustomer" datatype="html">
+        <source>Add new customer</source>
+        <target>Add new customer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="customerName" datatype="html">
+        <source>Customer Name</source>
+        <target>Customer Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="zip" datatype="html">
+        <source>ZIP</source>
+        <target>ZIP</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        </trans-unit>
+         <trans-unit id="selectAType" datatype="html">
+        <source>Select a Type</source>
+        <target>Select a Type</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="undo" datatype="html">
+        <source>Undo</source>
+        <target>Undo</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfill-confirmation/unfulfill-confirmation.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="productAlreadyExists" datatype="html">
+        <source>Product is already added to the list.</source>
+        <target>Product is already added to the list.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/edit-incoming-shipment/edit-incoming-shipment.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile" datatype="html">
+        <source>Profile</source>
+        <target>Profile</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/my-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="users" datatype="html">
+        <source>Users</source>
+        <target>Users</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/my-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="oldPassword" datatype="html">
+        <source>Old Password</source>
+        <target>Old Password</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="newPassword" datatype="html">
+        <source>New Password</source>
+        <target>New Password</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmPassword" datatype="html">
+        <source>Confirm Password</source>
+        <target>Confirm Password</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="samePassword" datatype="html">
+        <source>New password cannot be the same as your old password.</source>
+        <target>New password cannot be the same as your old password.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="passwordError" datatype="html">
+        <source>Your password and confirmation password do not match.</source>
+        <target>Your password and confirmation password do not match.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="changePassword" datatype="html">
+        <source>Change Password</source>
+        <target>Change Password</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/profile/profile.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="addNewUser" datatype="html">
+        <source>Add new User</source>
+        <target>Add new User</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="firstName" datatype="html">
+        <source>First Name</source>
+        <target>First Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/users/users.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="firstNameRequired" datatype="html">
+        <source>First Name cannot be empty.</source>
+        <target>First Name cannot be empty.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="lastName" datatype="html">
+        <source>Last Name</source>
+        <target>Last Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/users/users.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="lastNameRequired" datatype="html">
+        <source>Last Name cannot be empty.</source>
+        <target>Last Name cannot be empty.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-user-dialog/add-user-dialog.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="role" datatype="html">
+        <source> Role </source>
+        <target> Role </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/my-page/users/users.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unfulfilledProducts" datatype="html">
+        <source>Products that cannot be fulfilled.</source>
+        <target>Products that cannot be fulfilled.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/unfulfilled-products/unfulfilled-products.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unfulfill" datatype="html">
+        <source>Undo Fulfill</source>
+        <target>Undo Fulfill</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

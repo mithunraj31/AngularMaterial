@@ -2,40 +2,40 @@
 <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
 <div mat-dialog-content class="example-container">
   <mat-form-field>
-    <input matInput type="text" placeholder="Customer Name" formControlName="customerName">
+    <input matInput type="text" i18n-placeholder="@@customerName" placeholder="Customer Name" formControlName="customerName">
     <mat-error *ngIf="customerForm.get('customerName').invalid">{{getErrorMessage('customerName')}}</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput (keypress)="numberOnly($event)" type="text" placeholder="ZIP" formControlName="zip">
+    <input matInput (keypress)="numberOnly($event)" type="text" i18n-placeholder="@@zip" placeholder="ZIP" formControlName="zip">
     <mat-error *ngIf="customerForm.get('zip').invalid">{{getErrorMessage('zip')}}</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" placeholder="Address" formControlName="address">
+    <input matInput type="text" i18n-placeholder="@@address" placeholder="Address" formControlName="address">
     <mat-error *ngIf="customerForm.get('address').invalid">{{getErrorMessage('address')}}</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput (keypress)="numberOnly($event)" type="text" placeholder="Tel" formControlName="tel">
+    <input matInput (keypress)="numberOnly($event)" type="text" i18n-placeholder="@@tel" placeholder="Tel" formControlName="tel">
     <mat-error *ngIf="customerForm.get('tel').invalid">{{getErrorMessage('tel')}}</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" placeholder="Contact Name" formControlName="contactName">
+    <input matInput type="text" placeholder="Contact Name" i18n-placeholder="@@contactName" formControlName="contactName">
     <mat-error *ngIf="customerForm.get('contactName').invalid">{{getErrorMessage('contactName')}}</mat-error>
   </mat-form-field>
   <mat-form-field >
-    <mat-label>Select a Type</mat-label>
+    <mat-label i18n="@@selectAType">Select a Type</mat-label>
     <mat-select formControlName="type">
-      <mat-option>None</mat-option>
-      <mat-option value="Customer" >Customer</mat-option>
-      <mat-option value="Sales Destination" >Sales Destination</mat-option>
-      <mat-option value="Contractor" >Contractor</mat-option>
+      <mat-option i18n="@@none">None</mat-option>
+      <mat-option value="Customer" i18n="@@customer">Customer</mat-option>
+      <mat-option value="Sales Destination" i18n="@@salesDestination">Sales Destination</mat-option>
+      <mat-option value="Contractor" i18n="@@none" i18n-option="@@contractor">Contractor</mat-option>
     </mat-select>
     <mat-error *ngIf="customerForm.get('type').invalid">{{getErrorMessage('type')}}</mat-error>
   </mat-form-field>
  
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancelClick()">Cancel</button>
-  <button mat-button type="submit" [disabled]="!customerForm.valid" >Ok</button>
+  <button mat-button (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
+  <button mat-button type="submit" [disabled]="!customerForm.valid" i18n="@@ok">Ok</button>
 </div>
 </form>
 

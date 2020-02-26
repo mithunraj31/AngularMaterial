@@ -32,7 +32,8 @@ export class IncomingShipmentsComponent implements OnInit {
   dataSource = new MatTableDataSource<IncomingShipment>();
   shipments: IncomingShipment[] = [];
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
+  @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
   expandedElement: IncomingShipment | null;
   constructor(
     private shipmentService: IncomingShipmentService,
@@ -43,13 +44,37 @@ export class IncomingShipmentsComponent implements OnInit {
     this.getShipments();
   }
 
+  onTopPaginateChange(){
+    this.paginatorBottom.length = this.dataSource.data.length;
+    this.paginatorBottom.pageSize = this.paginatorTop.pageSize;
+    this.paginatorBottom.pageIndex = this.paginatorTop.pageIndex;
+  }
+  onBottomPaginateChange(event){
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex==1) {
+      this.paginatorTop.nextPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.pageIndex-event.previousPageIndex==-1) {
+      this.paginatorTop.previousPage();
+    }
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex>1) {
+      this.paginatorTop.lastPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.previousPageIndex-event.pageIndex>1) {
+      this.paginatorTop.firstPage();
+    }
+    this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
+
+  }
+
+
   getShipments() {
     this.progress = true;
     this.shipmentService.getShipments().subscribe(result => {
       this.shipments = result;
       this.dataSource.data = this.shipments;
-      this.dataSource.paginator = this.paginator;
+      this.dataSource.paginator = this.paginatorTop;
       console.log(result);
+      this.onTopPaginateChange();
       this.progress = false;
     }, error => {
       this.progress = false;

@@ -26,7 +26,8 @@ export class CustomersComponent implements OnInit {
   customers: Customer[] = [];
   dataSource = new MatTableDataSource<Customer>();
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
+  @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
   constructor(
     public dialog: MatDialog,
     private customerService: CustomerService
@@ -34,7 +35,7 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit() {
     this.getCustomers();
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginatorTop;
   }
 
   getCustomers() {
@@ -43,10 +44,32 @@ export class CustomersComponent implements OnInit {
       this.customers = result;
       this.dataSource.data = this.customers;
       this.progress = false;
-
+      this.onTopPaginateChange();
     }, error => {
       this.progress = false;
     })
+  }
+
+  onTopPaginateChange(){
+    this.paginatorBottom.length = this.dataSource.data.length;
+    this.paginatorBottom.pageSize = this.paginatorTop.pageSize;
+    this.paginatorBottom.pageIndex = this.paginatorTop.pageIndex;
+  }
+  onBottomPaginateChange(event){
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex==1) {
+      this.paginatorTop.nextPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.pageIndex-event.previousPageIndex==-1) {
+      this.paginatorTop.previousPage();
+    }
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex>1) {
+      this.paginatorTop.lastPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.previousPageIndex-event.pageIndex>1) {
+      this.paginatorTop.firstPage();
+    }
+    this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
+
   }
 
   applyFilter(filterValue: string) {

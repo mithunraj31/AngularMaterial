@@ -45,7 +45,8 @@ export class OrdersComponent implements OnInit {
   private searchSub: any;
   dataSource = new MatTableDataSource<Order>();
   @ViewChild(MatTable, { static: true }) table: MatTable<any>
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
+  @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -54,7 +55,7 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit() {
     this.getOrderData();
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginatorTop;
     this.searchSub = this.route.params.subscribe(params => {
       this.id = params['id'];
       if (this.id) {
@@ -64,6 +65,28 @@ export class OrdersComponent implements OnInit {
     })
   }
 
+  onTopPaginateChange(){
+    this.paginatorBottom.length = this.dataSource.data.length;
+    this.paginatorBottom.pageSize = this.paginatorTop.pageSize;
+    this.paginatorBottom.pageIndex = this.paginatorTop.pageIndex;
+  }
+  onBottomPaginateChange(event){
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex==1) {
+      this.paginatorTop.nextPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.pageIndex-event.previousPageIndex==-1) {
+      this.paginatorTop.previousPage();
+    }
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex>1) {
+      this.paginatorTop.lastPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.previousPageIndex-event.pageIndex>1) {
+      this.paginatorTop.firstPage();
+    }
+    this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
+
+  }
+
   getOrderData() {
     this.progress = true;
     this.orderService.getOrders().subscribe(result => {
@@ -71,6 +94,7 @@ export class OrdersComponent implements OnInit {
       this.dataSource.data = this.orders;
       console.log(this.orders);
       this.progress = false;
+      this.onTopPaginateChange();
     }, error => {
       this.progress = false;
       console.log(error);

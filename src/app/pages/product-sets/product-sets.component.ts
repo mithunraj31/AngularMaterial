@@ -36,7 +36,8 @@ export class ProductSetsComponent implements OnInit {
   dataSource = new MatTableDataSource<Product>();
   productSets: ProductSet[];
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
+  @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
   expandedElement: ProductSet | null;
   constructor(
     private productService: ProductService,
@@ -46,19 +47,18 @@ export class ProductSetsComponent implements OnInit {
 
   ngOnInit() {
     this.getProductSetData();
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginatorTop;
   }
 
   getProductSetData() {
     this.progress = true;
     this.productService.getProductSets().subscribe(result => {
       this.productSets = result;
-      console.log(this.productSets);
       this.dataSource.data = this.productSets;
       this.progress = false;
+      this.onTopPaginateChange();
     }, error => {
       this.progress = false;
-      console.log(error);
     })
   }
   deleteProduct(i: any) {
@@ -126,6 +126,27 @@ export class ProductSetsComponent implements OnInit {
         })
       }
     });
+  }
+  onTopPaginateChange(){
+    this.paginatorBottom.length = this.dataSource.data.length;
+    this.paginatorBottom.pageSize = this.paginatorTop.pageSize;
+    this.paginatorBottom.pageIndex = this.paginatorTop.pageIndex;
+  }
+  onBottomPaginateChange(event){
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex==1) {
+      this.paginatorTop.nextPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.pageIndex-event.previousPageIndex==-1) {
+      this.paginatorTop.previousPage();
+    }
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex>1) {
+      this.paginatorTop.lastPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.previousPageIndex-event.pageIndex>1) {
+      this.paginatorTop.firstPage();
+    }
+    this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
+
   }
 
 }

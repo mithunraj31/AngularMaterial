@@ -30,7 +30,8 @@ export class OutgoingShipmentsComponent implements OnInit {
   dataSource = new MatTableDataSource<OutgoingShipment>();
   shipments: OutgoingShipment[] = [];
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
+  @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
   expandedElement: OutgoingShipment | null;
   constructor(private shipmentService: OutgoingShipmentService, public dialog: MatDialog) { }
 
@@ -43,13 +44,36 @@ export class OutgoingShipmentsComponent implements OnInit {
     this.shipmentService.getShipments().subscribe(result => {
       this.shipments = result;
       this.dataSource.data = this.shipments;
-      this.dataSource.paginator = this.paginator;
+      this.dataSource.paginator = this.paginatorTop;
       console.log("result");
       console.log(result);
+      this.onTopPaginateChange();
       this.progress = false;
     }, error => {
       this.progress = false;
     })
+  }
+
+  onTopPaginateChange(){
+    this.paginatorBottom.length = this.dataSource.data.length;
+    this.paginatorBottom.pageSize = this.paginatorTop.pageSize;
+    this.paginatorBottom.pageIndex = this.paginatorTop.pageIndex;
+  }
+  onBottomPaginateChange(event){
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex==1) {
+      this.paginatorTop.nextPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.pageIndex-event.previousPageIndex==-1) {
+      this.paginatorTop.previousPage();
+    }
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex>1) {
+      this.paginatorTop.lastPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.previousPageIndex-event.pageIndex>1) {
+      this.paginatorTop.firstPage();
+    }
+    this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
+
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

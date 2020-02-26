@@ -6,122 +6,131 @@
         </ng-template>
     </mat-tab>
 </mat-tab-group>
-            <mat-progress-bar mode="indeterminate" *ngIf="progress"></mat-progress-bar>
-            <mat-card>
-                <button mat-raised-button color="primary" (click)="openDialog()" i18n="@@add">Add</button><br><br>
-                <mat-form-field>
-                    <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="id" i18n-placeholder="@@filter" placeholder="Filter">
-                </mat-form-field>
-                <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
-                    <ng-container matColumnDef="proposalNo">
-                        <th mat-header-cell *matHeaderCellDef i18n="@@proposalNo"> Proposal No </th>
-                        <td mat-cell *matCellDef="let element"
-                            (click)="expandedElement = expandedElement === element ? null : element">
-                            {{element.proposalNo}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="customer">
-                        <th mat-header-cell *matHeaderCellDef i18n="@@customer"> Customer</th>
-                        <td mat-cell *matCellDef="let element">
-                            <button mat-button [color]="!element.customer.active ? 'warn':''" class="customerBtn"
-                                (click)="viewCustomer(element.customer)">{{element.customer.customerName}}</button>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="salesDestination">
-                        <th mat-header-cell *matHeaderCellDef i18n="@@salesDestination"> Sales Destination </th>
-                        <td mat-cell *matCellDef="let element">
-                            <button mat-button [color]="!element.salesDestination.active ? 'warn':''"
-                                class="customerBtn"
-                                (click)="viewCustomer(element.salesDestination)">{{element.salesDestination.customerName}}
-                            </button>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="contractor">
-                        <th mat-header-cell *matHeaderCellDef i18n="@@contractor"> Contractor </th>
-                        <td mat-cell *matCellDef="let element">
-                            <button mat-button [color]="!element.contractor.active ? 'warn':''" class="customerBtn"
-                                (click)="viewCustomer(element.contractor)">
-                                {{element.contractor.customerName}}
-                            </button>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="receivedDate">
-                        <th mat-header-cell *matHeaderCellDef i18n="@@recievedDate"> Received Date </th>
-                        <td mat-cell *matCellDef="let element"
-                            (click)="expandedElement = expandedElement === element ? null : element">
-                            {{element.receivedDate | date:'shortDate'}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="dueDate">
-                        <th mat-header-cell *matHeaderCellDef i18n="@@dueDate"> Due Date </th>
-                        <td mat-cell *matCellDef="let element"
-                            (click)="expandedElement = expandedElement === element ? null : element">
-                            {{element.dueDate | date:'shortDate'}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="salesUser">
-                        <th mat-header-cell *matHeaderCellDef i18n="@@salesUser"> Sales User</th>
-                        <td mat-cell *matCellDef="let element"
-                            (click)="expandedElement = expandedElement === element ? null : element">
-                            {{element.salesUser.firstName}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="actions">
-                        <th mat-header-cell *matHeaderCellDef></th>
-                        <td mat-cell *matCellDef="let element;">
-                            <button mat-raised-button color="warn" (click)="unFullFillOrder(element)" *ngIf="element.fulfilled" i18n="@@unfulfill">Undo Fulfill</button>
-                            <button mat-raised-button class="fullfillBtn" (click)="fullFillOrder(element)" *ngIf="!element.fulfilled" i18n="@@undo">Fulfill</button>
-                            <button mat-button color="primary" (click)="editOrder(element)" i18n="@@edit">Edit</button>
-                            <button mat-button color="warn" (click)="deleteOrder(element)" i18n="@@delete">Delete</button>
-                        </td>
-                    </ng-container>
+<mat-progress-bar mode="indeterminate" *ngIf="progress"></mat-progress-bar>
+<mat-card>
+    <button mat-raised-button color="primary" (click)="openDialog()" i18n="@@add">Add</button><br><br>
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="id" i18n-placeholder="@@filter"
+            placeholder="Filter">
+    </mat-form-field>
+    <mat-paginator #paginatorTop (page)="onTopPaginateChange()" [pageSizeOptions]="[5, 10, 20, 50]"
+        showFirstLastButtons></mat-paginator>
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+        <ng-container matColumnDef="proposalNo">
+            <th mat-header-cell *matHeaderCellDef i18n="@@proposalNo"> Proposal No </th>
+            <td mat-cell *matCellDef="let element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+                {{element.proposalNo}} </td>
+        </ng-container>
+        <ng-container matColumnDef="customer">
+            <th mat-header-cell *matHeaderCellDef i18n="@@customer"> Customer</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button [color]="!element.customer.active ? 'warn':''" class="customerBtn"
+                    (click)="viewCustomer(element.customer)">{{element.customer.customerName}}</button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="salesDestination">
+            <th mat-header-cell *matHeaderCellDef i18n="@@salesDestination"> Sales Destination </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button [color]="!element.salesDestination.active ? 'warn':''" class="customerBtn"
+                    (click)="viewCustomer(element.salesDestination)">{{element.salesDestination.customerName}}
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="contractor">
+            <th mat-header-cell *matHeaderCellDef i18n="@@contractor"> Contractor </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button [color]="!element.contractor.active ? 'warn':''" class="customerBtn"
+                    (click)="viewCustomer(element.contractor)">
+                    {{element.contractor.customerName}}
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="receivedDate">
+            <th mat-header-cell *matHeaderCellDef i18n="@@recievedDate"> Received Date </th>
+            <td mat-cell *matCellDef="let element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+                {{element.receivedDate | date:'shortDate'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="dueDate">
+            <th mat-header-cell *matHeaderCellDef i18n="@@dueDate"> Due Date </th>
+            <td mat-cell *matCellDef="let element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+                {{element.dueDate | date:'shortDate'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="salesUser">
+            <th mat-header-cell *matHeaderCellDef i18n="@@salesUser"> Sales User</th>
+            <td mat-cell *matCellDef="let element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+                {{element.salesUser.firstName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element;">
+                <button mat-raised-button color="warn" (click)="unFullFillOrder(element)" *ngIf="element.fulfilled"
+                    i18n="@@unfulfill">Undo Fulfill</button>
+                <button mat-raised-button class="fullfillBtn" (click)="fullFillOrder(element)"
+                    *ngIf="!element.fulfilled" i18n="@@undo">Fulfill</button>
+                <button mat-button color="primary" (click)="editOrder(element)" i18n="@@edit">Edit</button>
+                <button mat-button color="warn" (click)="deleteOrder(element)" i18n="@@delete">Delete</button>
+            </td>
+        </ng-container>
 
-                    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-                    <ng-container matColumnDef="expandedDetail">
-                        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
 
-                            <div class="element-detail"
-                                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                                        <mat-card
-                                            [ngClass]="{'productComponent': !component.product.set,'productSetComponent': component.product.set}"
-                                            *ngFor="let component of element.orderedProducts" matBadge="Set"
-                                            [matBadgeHidden]="!component.product.set">
-                                            <h4>{{component.product.productName}}</h4>
-                                            <p>{{component.product.description}}</p>
-                                            <span>Price : {{util.getCurrencySign(component.product.currency)}} {{component.product.price}}</span><br>
-                                            <span *ngIf="!component.product.set">QTY: {{component.product.quantity}}</span><br *ngIf="!component.product.set">
-                                            <span *ngIf="!component.product.set">Lead Time: {{component.product.leadTime}}w</span><br *ngIf="!component.product.set">
-                                            <span *ngIf="!component.product.set">MOQ : {{component.product.moq}}</span><br *ngIf="!component.product.set">
-                                            <span>Obic No: {{component.product.obicNo}}</span><br>
-                                            <h5>Amount: {{component.quantity}}</h5>
-                                            <mat-accordion *ngIf="component.product.set">
-                                                <mat-expansion-panel *ngFor="let sub of component.product.products">
-                                                    <mat-expansion-panel-header class="left-aligned-header">
-                                                        <mat-panel-title>
-                                                            {{sub.product.productName}}
-                                                        </mat-panel-title>
-                                                        <mat-panel-description>
-                                                            {{sub.quantity}}
-                                                        </mat-panel-description>
-                                                    </mat-expansion-panel-header>
-                                                    <p>{{sub.product.description}}</p>
-                                                    <span>Price : {{util.getCurrencySign(sub.product.currency)}} {{sub.product.price}}</span><br>
-                                                    <span>QTY: {{sub.product.quantity}}</span><br>
-                                                    <span>Lead Time: {{sub.product.leadTime}}w</span><br>
-                                                    <span>MOQ : {{sub.product.moq}}</span><br>
-                                                    <span>Obic No: {{sub.product.obicNo}}</span><br>
-                                                    <h5>Amount: {{sub.quantity}}</h5>
-                                                </mat-expansion-panel>
-                                            </mat-accordion>
+                <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <mat-card
+                        [ngClass]="{'productComponent': !component.product.set,'productSetComponent': component.product.set}"
+                        *ngFor="let component of element.orderedProducts" matBadge="Set"
+                        [matBadgeHidden]="!component.product.set">
+                        <h4>{{component.product.productName}}</h4>
+                        <p>{{component.product.description}}</p>
+                        <span>Price : {{util.getCurrencySign(component.product.currency)}}
+                            {{component.product.price}}</span><br>
+                        <span *ngIf="!component.product.set">QTY: {{component.product.quantity}}</span><br
+                            *ngIf="!component.product.set">
+                        <span *ngIf="!component.product.set">Lead Time: {{component.product.leadTime}}w</span><br
+                            *ngIf="!component.product.set">
+                        <span *ngIf="!component.product.set">MOQ : {{component.product.moq}}</span><br
+                            *ngIf="!component.product.set">
+                        <span>Obic No: {{component.product.obicNo}}</span><br>
+                        <h5>Amount: {{component.quantity}}</h5>
+                        <mat-accordion *ngIf="component.product.set">
+                            <mat-expansion-panel *ngFor="let sub of component.product.products">
+                                <mat-expansion-panel-header class="left-aligned-header">
+                                    <mat-panel-title>
+                                        {{sub.product.productName}}
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        {{sub.quantity}}
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <p>{{sub.product.description}}</p>
+                                <span>Price : {{util.getCurrencySign(sub.product.currency)}}
+                                    {{sub.product.price}}</span><br>
+                                <span>QTY: {{sub.product.quantity}}</span><br>
+                                <span>Lead Time: {{sub.product.leadTime}}w</span><br>
+                                <span>MOQ : {{sub.product.moq}}</span><br>
+                                <span>Obic No: {{sub.product.obicNo}}</span><br>
+                                <h5>Amount: {{sub.quantity}}</h5>
+                            </mat-expansion-panel>
+                        </mat-accordion>
 
-                                        </mat-card>
+                    </mat-card>
 
-                            </div>
-                        </td>
-                    </ng-container>
+                </div>
+            </td>
+        </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-                    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row"
-                        [class.expanded-row]="expandedElement === element">
-                    </tr>
-                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row"
+            [class.expanded-row]="expandedElement === element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
 
-                </table>
-            </mat-card>
-            <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+    </table>
+</mat-card>
+<mat-paginator #paginatorBottom (page)="onBottomPaginateChange($event)" [pageSizeOptions]="[5, 10, 20, 50]"
+    showFirstLastButtons></mat-paginator>

@@ -1154,7 +1154,15 @@
       </trans-unit>
       <trans-unit id="invalidCharacters" datatype="html">
         <source>Invalid Characters</source>
-        <target>無効な文字</target>
+        <target>半角英数/半角記号/全角日本語で入力してください</target>
+      </trans-unit>
+      <trans-unit id="invalidPostal" datatype="html">
+        <source>Invalid Characters</source>
+        <target>半角数字と半角ハイフン(-)で入力してください</target>
+      </trans-unit>
+      <trans-unit id="invalidTP" datatype="html">
+        <source>Invalid Characters</source>
+        <target>半角数字と半角ハイフン(-)で入力してください。また、1文字目のみ半角プラス(+)を使用できます</target>
       </trans-unit>
       <trans-unit id="customerNameRequired" datatype="html">
         <source>Customer Name is required.</source>

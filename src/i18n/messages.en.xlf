@@ -1133,6 +1133,14 @@
         <source>Invalid Characters</source>
         <target>Invalid Characters</target>
       </trans-unit>
+      <trans-unit id="invalidPostal" datatype="html">
+        <source>Invalid Characters</source>
+        <target>Invalid Postal Code.</target>
+      </trans-unit>
+      <trans-unit id="invalidTP" datatype="html">
+        <source>Invalid Characters</source>
+        <target>Invalid telephone number</target>
+      </trans-unit>
       <trans-unit id="customerNameRequired" datatype="html">
         <source>Customer Name is required.</source>
         <target>Customer Name is required.</target>

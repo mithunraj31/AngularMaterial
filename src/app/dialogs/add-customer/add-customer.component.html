@@ -9,6 +9,7 @@
   <mat-form-field>
     <input matInput (keypress)="validateZip($event)" type="text" maxlength="8" i18n-placeholder="@@zipCode" placeholder="ZIP" formControlName="zip">
     <mat-error *ngIf="customerForm.get('zip').invalid" i18n="@@maxLength8">Max length should be 8.</mat-error>
+    <mat-error *ngIf="customerForm.get('zip').hasError('pattern') " i18n="@@invalidPostal">Invalid Characters.</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput type="text" i18n-placeholder="@@address" placeholder="Address" formControlName="address">
@@ -16,6 +17,7 @@
   </mat-form-field>
   <mat-form-field>
     <input matInput (keypress)="numberOnly($event)" type="text" maxlength="20" i18n-placeholder="@@tel" placeholder="Tel" formControlName="tel">
+    <mat-error *ngIf="customerForm.get('tel').hasError('pattern') " i18n="@@invalidTP">Invalid Characters.</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput type="text" placeholder="Contact Name" i18n-placeholder="@@contactName" formControlName="contactName">

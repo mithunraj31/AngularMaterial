@@ -79,11 +79,11 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field class="inline">
-              <input matInput type="number" min="1" placeholder="QTY" [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
+              <input matInput type="number" min="1" placeholder="QTY" i18n-placeholder="@@qty"  [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
               <mat-error i18n="@@qtyRequired">QTY cannot be empty</mat-error>
             </mat-form-field>
             <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
-            <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>
+            <br><span class="qtyError" *ngIf="qtyError" color="red"  i18n="@@qtyRequired">QTY cannot be empty</span>
 
     <div mat-dialog-actions>
         <button mat-button (click)="onCancelClick()" i18n="@@cancel">Cancel</button>

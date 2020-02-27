@@ -527,7 +527,7 @@
       </trans-unit>
       <trans-unit id="productName" datatype="html">
         <source>Product Name</source>
-        <target>商品名 </target>
+        <target>製品名 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
           <context context-type="linenumber">5</context>
@@ -559,7 +559,7 @@
       </trans-unit>
       <trans-unit id="productSetName" datatype="html">
         <source>Product Set Name</source>
-        <target>商品セット名 </target>
+        <target>製品セット名 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
           <context context-type="linenumber">5</context>
@@ -575,7 +575,7 @@
       </trans-unit>
       <trans-unit id="productSetNameRequired" datatype="html">
         <source>Product Set Name cannot be empty.</source>
-        <target>商品セット名を空欄にすることはできません。 </target>
+        <target>製品セット名を空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
           <context context-type="linenumber">6</context>
@@ -1171,6 +1171,14 @@
       <trans-unit id="typeRequired" datatype="html">
         <source>Type is Required.</source>
         <target>分類を空欄にすることはできません。</target>
+      </trans-unit>
+      <trans-unit id="shipmentNoRequired" datatype="html">
+        <source>Shipment No cannot be empty.</source>
+        <target>入荷番号を空欄にすることはできません。</target>
+      </trans-unit>
+      <trans-unit id="arrivalDateRequired" datatype="html">
+        <source>Arrival Date cannot be empty.</source>
+        <target>到着日を空欄にすることはできません。</target>
       </trans-unit>
     </body>
   </file>

@@ -1149,6 +1149,14 @@
         <source>Type is Required.</source>
         <target>Type is Required.</target>
       </trans-unit>
+      <trans-unit id="shipmentNoRequired" datatype="html">
+        <source>Shipment No cannot be empty.</source>
+        <target>Shipment No cannot be empty.</target>
+      </trans-unit>
+      <trans-unit id="arrivalDateRequired" datatype="html">
+        <source>Arrival Date cannot be empty.</source>
+        <target>Arrival Date cannot be empty.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

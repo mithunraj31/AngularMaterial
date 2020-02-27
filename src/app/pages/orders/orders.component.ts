@@ -75,6 +75,18 @@ export class OrdersComponent implements OnInit {
       }
     });
     this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate = (data, filter: string)  => {
+      const accumulator = (currentTerm, key) => {
+        return key === 'contractor' ? currentTerm + data.contractor.customerName : 
+        key === 'salesUser' ? currentTerm + data.salesUser.firstName : 
+        key === 'salesDestination' ? currentTerm + data.salesDestination.customerName :
+        key === 'customer' ? currentTerm + data.customer.customerName :currentTerm + data[key];
+      };
+      const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+      // Transform the filter by converting it to lowercase and removing whitespace.
+      const transformedFilter = filter.trim().toLowerCase();
+      return dataStr.indexOf(transformedFilter) !== -1;
+    };
   }
 
   onTopPaginateChange(){

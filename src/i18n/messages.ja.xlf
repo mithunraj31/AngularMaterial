@@ -72,7 +72,7 @@
       </trans-unit>
       <trans-unit id="products" datatype="html">
         <source>Products</source>
-        <target>製品</target>
+        <target>製品管理</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/sidebar/sidebar.component.html</context>
           <context context-type="linenumber">3</context>
@@ -80,7 +80,7 @@
       </trans-unit>
       <trans-unit id="customers" datatype="html">
         <source>Customers</source>
-        <target>お客さま</target>
+        <target>顧客管理</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/sidebar/sidebar.component.html</context>
           <context context-type="linenumber">6</context>
@@ -88,7 +88,7 @@
       </trans-unit>
       <trans-unit id="orders" datatype="html">
         <source>Orders</source>
-        <target>ご注文</target>
+        <target>注文管理</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/sidebar/sidebar.component.html</context>
           <context context-type="linenumber">9</context>
@@ -96,7 +96,7 @@
       </trans-unit>
       <trans-unit id="shipments" datatype="html">
         <source>Shipments</source>
-        <target>出荷</target>
+        <target>入荷管理</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/sidebar/sidebar.component.html</context>
           <context context-type="linenumber">12</context>
@@ -112,7 +112,7 @@
       </trans-unit>
       <trans-unit id="filter" datatype="html">
         <source>Filter</source>
-        <target>サーチ</target>
+        <target>検索</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
           <context context-type="linenumber">10</context>
@@ -128,7 +128,7 @@
       </trans-unit>
       <trans-unit id="description" datatype="html">
         <source> Description </source>
-        <target> 説明 </target>
+        <target> 製品内容 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
           <context context-type="linenumber">18</context>
@@ -136,13 +136,21 @@
       </trans-unit>
       <trans-unit id="price" datatype="html">
         <source> Price </source>
-        <target> 価格 </target>
+        <target> 単価 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
           <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="quantity" datatype="html">
+        <source> Current QTY </source>
+        <target> 現在庫 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="qty" datatype="html">
         <source> QTY </source>
         <target> 数量 </target>
         <context-group purpose="location">
@@ -160,7 +168,7 @@
       </trans-unit>
       <trans-unit id="moq" datatype="html">
         <source> MOQ </source>
-         <target> 最小注文数量 </target>
+        <target> MOQ </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
           <context context-type="linenumber">34</context>
@@ -168,7 +176,7 @@
       </trans-unit>
       <trans-unit id="obicNo" datatype="html">
         <source> Obic No </source>
-        <target> オビック番号 </target>
+        <target> OBIC番号 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
           <context context-type="linenumber">38</context>
@@ -192,7 +200,7 @@
       </trans-unit>
       <trans-unit id="productSets" datatype="html">
         <source>Product Sets</source>
-        <target>製品セット</target>
+        <target>製品セット管理</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/products-container/products-container.component.html</context>
           <context context-type="linenumber">7</context>
@@ -248,13 +256,13 @@
       </trans-unit>
       <trans-unit id="salesUser" datatype="html">
         <source> Sales User</source>
-        <target> 販売ユーザー </target>
+        <target> 営業担当 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
           <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
-       <trans-unit id="zipCode" datatype="html">
+      <trans-unit id="zipCode" datatype="html">
         <source> ZIP Code </source>
         <target> 郵便番号 </target>
         <context-group purpose="location">
@@ -288,7 +296,7 @@
       </trans-unit>
       <trans-unit id="type" datatype="html">
         <source> Type </source>
-        <target> タイプ </target>
+        <target> 分類 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/customers/customers.component.html</context>
           <context context-type="linenumber">35</context>
@@ -312,7 +320,7 @@
       </trans-unit>
       <trans-unit id="proposalNumberRequired" datatype="html">
         <source>Proposal no cannot be empty.</source>
-        <target> 提案番号を空にすることはできません。 </target>
+        <target> 提案番号を空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">6</context>
@@ -352,7 +360,7 @@
       </trans-unit>
       <trans-unit id="customerRequired" datatype="html">
         <source>Customer cannot be empty.</source>
-        <target> 顧客を空にすることはできません。 </target>
+        <target> 顧客を空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">17</context>
@@ -369,7 +377,7 @@
       <trans-unit id="salesDestinationRequired" datatype="html">
         <source>Sales Destination cannot be empty.
             </source>
-            <target> 販売先を空にすることはできません。</target>
+        <target> 販売先を空欄にすることはできません。</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">28</context>
@@ -377,7 +385,7 @@
       </trans-unit>
       <trans-unit id="selectContractor" datatype="html">
         <source>Select a Contractor</source>
-        <target> 請負業者を選択 </target>
+        <target> 請負業者を選択してください。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">32</context>
@@ -386,7 +394,7 @@
       <trans-unit id="contractorRequired" datatype="html">
         <source>Contractor cannot be empty.
             </source>
-            <target> 請負業者を空にすることはできません。 </target>
+        <target> 請負業者を空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">40</context>
@@ -394,7 +402,7 @@
       </trans-unit>
       <trans-unit id="receivedDateRequired" datatype="html">
         <source>Received Date cannot be empty.</source>
-        <target> 受信日を空にすることはできません。 </target>
+        <target> 受信日を空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">45</context>
@@ -402,7 +410,7 @@
       </trans-unit>
       <trans-unit id="dueDateRequired" datatype="html">
         <source>Due Date cannot be empty.</source>
-        <target> 期日を空にすることはできません。 </target>
+        <target> 期日を空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">49</context>
@@ -410,7 +418,7 @@
       </trans-unit>
       <trans-unit id="selectSalesUser" datatype="html">
         <source>Select a Sales User</source>
-        <target> 販売ユーザーを選択 </target>
+        <target> 営業担当を選択してください。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">52</context>
@@ -419,7 +427,7 @@
       <trans-unit id="salesUserRequired" datatype="html">
         <source>Sales user cannot be empty.
             </source>
-            <target> 販売ユーザーを空にすることはできません。 </target>
+        <target> 営業担当を空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">60</context>
@@ -451,7 +459,7 @@
       </trans-unit>
       <trans-unit id="ok" datatype="html">
         <source>Ok</source>
-        <target> 持続 </target>
+        <target> OK </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">90</context>
@@ -479,7 +487,7 @@
       </trans-unit>
       <trans-unit id="qtyRequired" datatype="html">
         <source>QTY cannot be empty.</source>
-        <target>QTYを空にすることはできません。 </target>
+        <target>現在庫を空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
           <context context-type="linenumber">18</context>
@@ -535,7 +543,39 @@
       </trans-unit>
       <trans-unit id="productNameRequired" datatype="html">
         <source>Product Name cannot be empty.</source>
-        <target>製品名を空にすることはできません。 </target>
+        <target>製品名を空欄にすることはできません。 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-product-set-dialog/add-product-set-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="productSetName" datatype="html">
+        <source>Product Set Name</source>
+        <target>商品セット名 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-product-set-dialog/add-product-set-dialog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="productSetNameRequired" datatype="html">
+        <source>Product Set Name cannot be empty.</source>
+        <target>商品セット名を空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
           <context context-type="linenumber">6</context>
@@ -551,7 +591,7 @@
       </trans-unit>
       <trans-unit id="descriptionRequired" datatype="html">
         <source>Description cannot be empty.</source>
-        <target>説明を空欄にすることはできません。 </target>
+        <target>製品内容を空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
           <context context-type="linenumber">10</context>
@@ -567,7 +607,7 @@
       </trans-unit>
       <trans-unit id="priceRequired" datatype="html">
         <source>Price cannot be empty.</source>
-        <target>価格を空にすることはできません。</target>
+        <target>単価を空欄にすることはできません。</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
           <context context-type="linenumber">14</context>
@@ -581,9 +621,9 @@
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
-       <trans-unit id="leadTimeRequired" datatype="html">
+      <trans-unit id="leadTimeRequired" datatype="html">
         <source>Lead Time cannot be empty.</source>
-        <target>リードタイムを空にすることはできません。 </target>
+        <target>リードタイムを空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
           <context context-type="linenumber">22</context>
@@ -599,7 +639,7 @@
       </trans-unit>
       <trans-unit id="moqRequired" datatype="html">
         <source>MOQ cannot be empty.</source>
-        <target>MOQを空にすることはできません。 </target>
+        <target>MOQを空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
           <context context-type="linenumber">26</context>
@@ -643,15 +683,15 @@
       </trans-unit>
       <trans-unit id="amount" datatype="html">
         <source>Amount</source>
-        <target>量</target>
+        <target>1セットあたりの数量</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/product-sets/product-sets.component.html</context>
           <context context-type="linenumber">60</context>
         </context-group>
-        </trans-unit>
-         <trans-unit id="addIncomingShipment" datatype="html">
+      </trans-unit>
+      <trans-unit id="addIncomingShipment" datatype="html">
         <source>Add Incoming Shipment</source>
-        <target>入荷を追加</target>
+        <target>新規入荷登録</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
           <context context-type="linenumber">1</context>
@@ -659,7 +699,7 @@
       </trans-unit>
       <trans-unit id="shipmentNo" datatype="html">
         <source>Shipment No</source>
-        <target>出荷番号</target>
+        <target>入荷番号</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
           <context context-type="linenumber">5</context>
@@ -689,9 +729,10 @@
           <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
-       <trans-unit id="incoming" datatype="html">
+      <trans-unit id="incoming" datatype="html">
         <source>Incoming</source>
-        <target>着信</target>
+        <target>
+          入荷管理</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/shipments/shipments.component.html</context>
           <context context-type="linenumber">2</context>
@@ -699,7 +740,7 @@
       </trans-unit>
       <trans-unit id="outgoing" datatype="html">
         <source>Outgoing</source>
-        <target>発信</target>
+        <target>出荷管理</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/shipments/shipments.component.html</context>
           <context context-type="linenumber">7</context>
@@ -745,9 +786,9 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-       <trans-unit id="forecast" datatype="html">
+      <trans-unit id="forecast" datatype="html">
         <source>Forecast</source>
-        <target>予測</target>
+        <target>在庫予測</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/sidebar/sidebar.component.html</context>
           <context context-type="linenumber">15</context>
@@ -801,13 +842,29 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="arrived" datatype="html">
-        <source>Arrived</source>
-        <target>到着した</target>
+      <trans-unit id="shipped" datatype="html">
+        <source>Shipped</source>
+        <target>出荷済</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/shipments/incoming-shipments/incoming-shipments.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="waitToShip" datatype="html">
+        <source>Wait</source>
+        <target>未出荷</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/shipments/incoming-shipments/incoming-shipments.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="notInStock" datatype="html">
+        <source>Not in stock</source>
+        <target>未入荷</target>
+      </trans-unit>
+      <trans-unit id="arrived" datatype="html">
+        <source>Arrived</source>
+        <target>入荷済</target>
       </trans-unit>
       <trans-unit id="forecastInformation" datatype="html">
         <source>Forecast Information</source>
@@ -827,7 +884,7 @@
       </trans-unit>
       <trans-unit id="previous" datatype="html">
         <source>Previous</source>
-        <target>前</target>
+        <target>前月</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/forcast/forcast.component.html</context>
           <context context-type="linenumber">5</context>
@@ -835,7 +892,7 @@
       </trans-unit>
       <trans-unit id="today" datatype="html">
         <source>Today</source>
-        <target>今日</target>
+        <target>今月</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/forcast/forcast.component.html</context>
           <context context-type="linenumber">10</context>
@@ -843,7 +900,7 @@
       </trans-unit>
       <trans-unit id="next" datatype="html">
         <source>Next</source>
-        <target>次</target>
+        <target>次月</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/forcast/forcast.component.html</context>
           <context context-type="linenumber">15</context>
@@ -861,9 +918,21 @@
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="requiredQtySet" datatype="html">
+        <source>Required QTY of Sets</source>
+        <target>必要なセット数</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="estimatedQty" datatype="html">
         <source>Estimated available QTY</source>
-        <target>推定利用可能数量</target>
+        <target>期日における利用可能数量</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
           <context context-type="linenumber">32</context>
@@ -875,7 +944,7 @@
       </trans-unit>
       <trans-unit id="minimumOrderDate" datatype="html">
         <source>Minimum Order Date</source>
-        <target>最小注文日</target>
+        <target>この製品の注文期限</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
           <context context-type="linenumber">33</context>
@@ -885,7 +954,7 @@
           <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
-        <trans-unit id="addNewCustomer" datatype="html">
+      <trans-unit id="addNewCustomer" datatype="html">
         <source>Add new customer</source>
         <target>新しい顧客を追加</target>
         <context-group purpose="location">
@@ -902,18 +971,18 @@
         </context-group>
       </trans-unit>
 
-      
-       <trans-unit id="zip" datatype="html">
+
+      <trans-unit id="zip" datatype="html">
         <source>ZIP</source>
         <target>ZIP</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
-         </trans-unit>
-         <trans-unit id="selectAType" datatype="html">
+      </trans-unit>
+      <trans-unit id="selectAType" datatype="html">
         <source>Select a Type</source>
-        <target>タイプを選択してください</target>
+        <target>分類を選択してください。</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
           <context context-type="linenumber">25</context>
@@ -959,7 +1028,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-       <trans-unit id="oldPassword" datatype="html">
+      <trans-unit id="oldPassword" datatype="html">
         <source>Old Password</source>
         <target>以前のパスワード</target>
         <context-group purpose="location">
@@ -1035,7 +1104,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-<trans-unit id="lastName" datatype="html">
+      <trans-unit id="lastName" datatype="html">
         <source>Last Name</source>
         <target>苗字</target>
         <context-group purpose="location">
@@ -1082,6 +1151,26 @@
           <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
           <context context-type="linenumber">68</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="invalidCharacters" datatype="html">
+        <source>Invalid Characters</source>
+        <target>無効な文字</target>
+      </trans-unit>
+      <trans-unit id="customerNameRequired" datatype="html">
+        <source>Customer Name is required.</source>
+        <target>顧客名を空欄にすることはできません。</target>
+      </trans-unit>
+      <trans-unit id="maxLength8" datatype="html">
+        <source>Max length should be 8.</source>
+        <target>最大長は8でなければなりません。</target>
+      </trans-unit>
+      <trans-unit id="contactNameRequired" datatype="html">
+        <source>Contact Name is Required.</source>
+        <target>連絡先を空欄にすることはできません。</target>
+      </trans-unit>
+      <trans-unit id="typeRequired" datatype="html">
+        <source>Type is Required.</source>
+        <target>分類を空欄にすることはできません。</target>
       </trans-unit>
     </body>
   </file>

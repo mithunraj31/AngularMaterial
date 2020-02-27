@@ -3,23 +3,24 @@
 <div mat-dialog-content class="example-container">
   <mat-form-field>
     <input matInput type="text" i18n-placeholder="@@customerName" placeholder="Customer Name" formControlName="customerName">
-    <mat-error *ngIf="customerForm.get('customerName').invalid">{{getErrorMessage('customerName')}}</mat-error>
+    <mat-error *ngIf="customerForm.get('customerName').hasError('required') " i18n="@@customerNameRequired">Customer Name is required.</mat-error>
+    <mat-error *ngIf="customerForm.get('customerName').hasError('pattern') " i18n="@@invalidCharacters">Invalid Characters.</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput (keypress)="numberOnly($event)" type="text" i18n-placeholder="@@zip" placeholder="ZIP" formControlName="zip">
-    <mat-error *ngIf="customerForm.get('zip').invalid">{{getErrorMessage('zip')}}</mat-error>
+    <input matInput (keypress)="validateZip($event)" type="text" maxlength="8" i18n-placeholder="@@zipCode" placeholder="ZIP" formControlName="zip">
+    <mat-error *ngIf="customerForm.get('zip').invalid" i18n="@@maxLength8">Max length should be 8.</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput type="text" i18n-placeholder="@@address" placeholder="Address" formControlName="address">
-    <mat-error *ngIf="customerForm.get('address').invalid">{{getErrorMessage('address')}}</mat-error>
+    <mat-error *ngIf="customerForm.get('address').hasError('pattern') " i18n="@@invalidCharacters">Invalid Characters.</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput (keypress)="numberOnly($event)" type="text" i18n-placeholder="@@tel" placeholder="Tel" formControlName="tel">
-    <mat-error *ngIf="customerForm.get('tel').invalid">{{getErrorMessage('tel')}}</mat-error>
+    <input matInput (keypress)="numberOnly($event)" type="text" maxlength="20" i18n-placeholder="@@tel" placeholder="Tel" formControlName="tel">
   </mat-form-field>
   <mat-form-field>
     <input matInput type="text" placeholder="Contact Name" i18n-placeholder="@@contactName" formControlName="contactName">
-    <mat-error *ngIf="customerForm.get('contactName').invalid">{{getErrorMessage('contactName')}}</mat-error>
+    <mat-error *ngIf="customerForm.get('contactName').hasError('pattern') " i18n="@@invalidCharacters">Invalid Characters.</mat-error>
+    <mat-error *ngIf="customerForm.get('contactName').hasError('required') " i18n="@@contactNameRequired">Contact Name is Required.</mat-error>
   </mat-form-field>
   <mat-form-field >
     <mat-label i18n="@@selectAType">Select a Type</mat-label>
@@ -27,9 +28,9 @@
       <mat-option i18n="@@none">None</mat-option>
       <mat-option value="Customer" i18n="@@customer">Customer</mat-option>
       <mat-option value="Sales Destination" i18n="@@salesDestination">Sales Destination</mat-option>
-      <mat-option value="Contractor" i18n="@@none" i18n-option="@@contractor">Contractor</mat-option>
+      <mat-option value="Contractor" i18n="@@contractor">Contractor</mat-option>
     </mat-select>
-    <mat-error *ngIf="customerForm.get('type').invalid">{{getErrorMessage('type')}}</mat-error>
+    <mat-error *ngIf="customerForm.get('contactName').hasError('required') " i18n="@@typeRequired">Contact Name is Required.</mat-error>
   </mat-form-field>
  
 </div>

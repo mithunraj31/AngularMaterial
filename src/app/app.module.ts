@@ -32,6 +32,7 @@ import {MatToolbarModule,
         MatProgressBarModule,
         MatPaginatorIntl,
         MatSnackBarModule,
+        MatSortModule,
         
 } from '@angular/material';
 
@@ -154,7 +155,8 @@ import { AddUserDialogComponent } from './dialogs/add-user-dialog/add-user-dialo
     MatProgressBarModule,
     MatGridListModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSortModule
   ],
   exports: [ 
      

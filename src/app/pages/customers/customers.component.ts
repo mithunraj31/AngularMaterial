@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomerService } from 'src/app/services/CustomerService';
 import { Customer } from 'src/app/models/Customer';
-import { MatTableDataSource, MatTable, MatPaginator, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatTable, MatPaginator, MatDialog, MatSort } from '@angular/material';
 import { Product } from 'src/app/models/Product';
 import { AddCustomerComponent } from 'src/app/dialogs/add-customer/add-customer.component';
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
@@ -28,6 +28,7 @@ export class CustomersComponent implements OnInit {
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
   @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(
     public dialog: MatDialog,
     private customerService: CustomerService
@@ -36,6 +37,7 @@ export class CustomersComponent implements OnInit {
   ngOnInit() {
     this.getCustomers();
     this.dataSource.paginator = this.paginatorTop;
+    this.dataSource.sort = this.sort;
   }
 
   getCustomers() {

@@ -4,7 +4,7 @@ import { ProductService } from './../../services/ProductService';
 import { AddProductDialogComponent } from './../../dialogs/add-product-dialog/add-product-dialog.component';
 import { Product } from './../../models/Product';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatTable, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTable, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { UpdateProductDialogComponent } from 'src/app/dialogs/update-product-dialog/update-product-dialog.component';
 
 
@@ -18,10 +18,10 @@ import { UpdateProductDialogComponent } from 'src/app/dialogs/update-product-dia
 export class ProductsComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'name',
+    'productName',
     'description',
     'price',
-    'qty',
+    'quantity',
     'leadTime',
     'moq',
     'obicNo',
@@ -34,6 +34,7 @@ export class ProductsComponent implements OnInit {
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
   @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(
     public dialog: MatDialog,
     public productService: ProductService,
@@ -42,6 +43,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.getProductData();
     this.dataSource.paginator = this.paginatorTop;
+    this.dataSource.sort = this.sort;
     
   }
   getProductData() {

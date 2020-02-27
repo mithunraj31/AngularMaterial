@@ -6,7 +6,7 @@ import { AddOrderDialogComponent } from './../../dialogs/add-order-dialog/add-or
 import { OrderedProduct } from './../../models/OrderedProduct';
 import { Customer } from 'src/app/models/Customer';
 import { OrderService } from './../../services/OrderService';
-import { MatTableDataSource, MatTable, MatPaginator, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatTable, MatPaginator, MatDialog, MatSort } from '@angular/material';
 import { Order } from './../../models/Order';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ViewCustomerDialogComponent } from 'src/app/dialogs/view-customer-dialog/view-customer-dialog.component';
@@ -22,16 +22,17 @@ import { UnfulfillConfirmationComponent } from 'src/app/dialogs/unfulfill-confir
   styleUrls: ['./orders.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      state('collapsed, void', style({ height: '0px', minHeight: '0', display: 'none' })),
+  state('expanded', style({ height: '*' })),
+  transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+  transition('expanded <=> void', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
     ]),]
 })
 export class OrdersComponent implements OnInit {
   expandedElement;
   columnsToDisplay: string[] = [
     'proposalNo',
-    'customer',
+    'customerName',
     'salesDestination',
     'contractor',
     'receivedDate',
@@ -47,6 +48,7 @@ export class OrdersComponent implements OnInit {
   @ViewChild(MatTable, { static: true }) table: MatTable<any>
   @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
   @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -56,13 +58,23 @@ export class OrdersComponent implements OnInit {
   ngOnInit() {
     this.getOrderData();
     this.dataSource.paginator = this.paginatorTop;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch(property) {
+        case 'customerName': return item.customer.customerName;
+        case 'salesDestination': return item.salesDestination.customerName;
+        case 'contractor': return item.contractor.customerName;
+        case 'salesUser': return item.salesUser.firstName;
+        default: return item[property];
+      }
+    };
     this.searchSub = this.route.params.subscribe(params => {
       this.id = params['id'];
       if (this.id) {
 
         this.applyFilter(this.id);
       }
-    })
+    });
+    this.dataSource.sort = this.sort;
   }
 
   onTopPaginateChange(){

@@ -26,14 +26,15 @@ export class AddCustomerComponent implements OnInit {
         Validators.pattern("^[a-zA-z0-9一-龠ぁ-ゔァ-ヴ!-/:-@\[-`{-~ 　]*$")
       ]),
       "zip": new FormControl("", [
-        Validators.maxLength(8)
+        Validators.maxLength(8),
+        Validators.pattern(/^[0-9\-]*$/)
       ]),
       "address": new FormControl("", [
         Validators.pattern("^[a-zA-z0-9一-龠ぁ-ゔァ-ヴ!-/:-@\[-`{-~ 　]*$")
         // Validators.pattern("/[一-龠]+|[ぁ-ゔ]+|[ァ-ヴー]+|[a-zA-Z0-9]+/g")
       ]),
       "tel": new FormControl("", [
-
+        Validators.pattern(/^(\(?\+?[0-9]*\)?)?[0-9_\-\(\)]*$/)
       ]),
       "contactName": new FormControl("", [
         Validators.required,

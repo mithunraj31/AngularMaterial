@@ -25,14 +25,14 @@ export class AddCustomerComponent implements OnInit {
     this.customerForm = new FormGroup({
       "customerName": new FormControl("", [
         Validators.required,
-        Validators.pattern("^[a-zA-z0-9一-龠ぁ-ゔァ-ヴ!-/:-@\[-`{-~ 　]*$")
+        Validators.pattern("^[a-zA-z0-9一-龠ぁ-ゔァ-ヴー!-/:-@\[-`{-~ 　]*$")
       ]),
       "zip": new FormControl("", [
         Validators.maxLength(8),
         Validators.pattern(/^[0-9\-]*$/)
       ]),
       "address": new FormControl("", [
-        Validators.pattern("^[a-zA-z0-9一-龠ぁ-ゔァ-ヴ!-/:-@\[-`{-~ 　]*$")
+        Validators.pattern("^[a-zA-z0-9一-龠ぁ-ゔァ-ヴー!-/:-@\[-`{-~ 　]*$")
         // Validators.pattern("/[一-龠]+|[ぁ-ゔ]+|[ァ-ヴー]+|[a-zA-Z0-9]+/g")
       ]),
       "tel": new FormControl("", [
@@ -40,7 +40,7 @@ export class AddCustomerComponent implements OnInit {
       ]),
       "contactName": new FormControl("", [
         Validators.required,
-        Validators.pattern("^[a-zA-z0-9一-龠ぁ-ゔァ-ヴ!-/:-@\[-`{-~ 　]*$")
+        Validators.pattern("^[a-zA-z0-9一-龠ぁ-ゔァ-ヴー!-/:-@\[-`{-~ 　]*$")
       ]),
       "type": new FormControl("", [
         Validators.required

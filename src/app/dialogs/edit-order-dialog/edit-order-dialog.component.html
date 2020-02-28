@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Edit Order</h1>
 
-<form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+<form (keydown.enter)="$event.preventDefault()" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
     <div mat-dialog-content>
     <div class="container" style="overflow-y: scroll; height:350px;">
         <mat-form-field>

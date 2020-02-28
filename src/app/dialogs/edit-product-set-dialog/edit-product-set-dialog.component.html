@@ -1,5 +1,5 @@
 <h1 mat-dialog-title i18n="@@updateProductSet">Edit product set</h1>
-<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+<form (keydown.enter)="$event.preventDefault()" [formGroup]="productForm" (ngSubmit)="onSubmit()">
   <div class="container" style="overflow-y: scroll; height:350px;" >
     <mat-form-field>
       <input matInput type="text" i18n-placeholder="@@productName" placeholder="Product Name" placeholder="Product Name" formControlName="productName">

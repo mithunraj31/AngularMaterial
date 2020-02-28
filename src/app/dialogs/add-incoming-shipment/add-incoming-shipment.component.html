@@ -1,5 +1,5 @@
 <h1 mat-dialog-title i18n="@@addIncomingShipment">Add Incoming Shipment</h1>
-<form [formGroup]="incomingShipmentForm" (ngSubmit)="onSubmit()">
+<form (keydown.enter)="$event.preventDefault()" [formGroup]="incomingShipmentForm" (ngSubmit)="onSubmit()">
   <div class="container" style="overflow-y: scroll; height:300px;">
     <mat-form-field>
       <input matInput type="text" i18n-placeholder="@@shipmentNo" placeholder="Shipment No"

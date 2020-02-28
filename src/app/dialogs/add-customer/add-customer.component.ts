@@ -1,3 +1,4 @@
+import { UtilService } from './../../services/UtilService';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
@@ -12,7 +13,8 @@ export class AddCustomerComponent implements OnInit {
   customerForm: FormGroup;
   constructor(
     public dialogRef: MatDialogRef<AddCustomerComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public util: UtilService
   ) { }
 
   ngOnInit() {
@@ -61,7 +63,7 @@ export class AddCustomerComponent implements OnInit {
     return result;
 
   }
-  validateZip(event): boolean{
+  validateZip(event): boolean {
     let result = false;
     const charCode = (event.which) ? event.which : event.keyCode;
 
@@ -93,5 +95,11 @@ export class AddCustomerComponent implements OnInit {
         break;
     }
   }
+
+  hankana2Zenkana(str,key){
+    console.log(str,key);
+    let trnslated = this.util.hankaku2ZenkakuEN(this.util.hankana2Zenkana(str));
+    this.customerForm.controls[key].setValue(trnslated);
 }
 
+}

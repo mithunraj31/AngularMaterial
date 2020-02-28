@@ -804,7 +804,7 @@
       </trans-unit>
       <trans-unit id="fulfillConfirmationMassege" datatype="html">
         <source>Are you sure you want to fulfill</source>
-        <target>本当にやりたいですか</target>
+        <target>を入荷済みに変更します</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/fulfill-order-dialog/fulfill-order-dialog.component.html</context>
           <context context-type="linenumber">3</context>

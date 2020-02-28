@@ -2,7 +2,7 @@
 <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
 <div mat-dialog-content class="example-container">
   <mat-form-field>
-    <input matInput type="text" #cnbox (keyup.enter)="hankana2Zenkana(cnbox.value,'customerName')"　(blur)="hankana2Zenkana(cnbox.value,'customerName')"　i18n-placeholder="@@customerName" placeholder="Customer Name" formControlName="customerName">
+    <input matInput type="text" #cnbox (keyup.enter)="hankana2Zenkana(cnbox.value,'customerName')" (blur)="hankana2Zenkana(cnbox.value,'customerName')" i18n-placeholder="@@customerName" placeholder="Customer Name" formControlName="customerName">
     <mat-error *ngIf="customerForm.get('customerName').hasError('required') " i18n="@@customerNameRequired">Customer Name is required.</mat-error>
     <mat-error *ngIf="customerForm.get('customerName').hasError('pattern') " i18n="@@invalidCharacters">Invalid Characters.</mat-error>
   </mat-form-field>
@@ -12,7 +12,7 @@
     <mat-error *ngIf="customerForm.get('zip').hasError('pattern') " i18n="@@invalidPostal">Invalid Characters.</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" #addressbox (keyup.enter)="hankana2Zenkana(addressbox.value,'customerName')"　(blur)="hankana2Zenkana(addressbox.value,'customerName')" i18n-placeholder="@@address" placeholder="Address" formControlName="address">
+    <input matInput type="text" #addressbox (keyup.enter)="hankana2Zenkana(addressbox.value,'address')" (blur)="hankana2Zenkana(addressbox.value,'address')" i18n-placeholder="@@address" placeholder="Address" formControlName="address">
     <mat-error *ngIf="customerForm.get('address').hasError('pattern') " i18n="@@invalidCharacters">Invalid Characters.</mat-error>
   </mat-form-field>
   <mat-form-field>
@@ -20,7 +20,7 @@
     <mat-error *ngIf="customerForm.get('tel').hasError('pattern') " i18n="@@invalidTP">Invalid Characters.</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" #cnamebox (keyup.enter)="hankana2Zenkana(cnamebox.value,'customerName')"　(blur)="hankana2Zenkana(cnamebox.value,'customerName')" placeholder="Contact Name" i18n-placeholder="@@contactName" formControlName="contactName">
+    <input matInput type="text"  #cnamebox (keyup.enter)="hankana2Zenkana(cnamebox.value,'contactName')" (blur)="hankana2Zenkana(cnamebox.value,'contactName')" placeholder="Contact Name" i18n-placeholder="@@contactName" formControlName="contactName">
     <mat-error *ngIf="customerForm.get('contactName').hasError('pattern') " i18n="@@invalidCharacters">Invalid Characters.</mat-error>
     <mat-error *ngIf="customerForm.get('contactName').hasError('required') " i18n="@@contactNameRequired">Contact Name is Required.</mat-error>
   </mat-form-field>

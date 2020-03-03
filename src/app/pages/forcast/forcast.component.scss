@@ -1,0 +1,76 @@
+p {
+    font-family: Lato;
+  }
+  
+
+  
+  th, td {
+    vertical-align: center;
+    text-align: center !important;
+    justify-content:center;
+    border-right: 1px solid rgba(0,0,0,.12);
+    
+  }
+
+
+  .bold {
+      font-weight: bold;
+  }
+  .mat-column-setName {
+    left: 0px !important;
+    max-width: 100px !important;
+    min-width: 100px !important;
+  }
+  .mat-column-productId 
+{
+  left: 125px !important;
+  max-width: 100px !important;
+  min-width: 100px !important;
+
+}
+.mat-column-productName 
+{
+  left: 226px !important;
+  width: 100px !important;
+  min-width: 100px !important;
+}
+.mat-column-description 
+{
+  left: 327px !important;
+  width: 200px !important;
+  min-width: 200px !important;
+}
+.mat-column-values 
+{
+  left: 528px !important;
+  width: 70px !important;
+  min-width: 70px !important;
+}
+
+.table-container {
+    height: 90vh;
+    width: 100%;
+    overflow: auto;
+  }
+  
+  td.mat-column-star {
+    width: 20px;
+    padding-right: 8px;
+  }
+  
+  th.mat-column-position, td.mat-column-position {
+    padding-left: 8px;
+  }
+  
+  .blue-backround {
+      background-color: aqua;
+  }
+
+  .forecastOrders {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }

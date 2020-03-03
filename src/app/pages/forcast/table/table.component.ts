@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ForecastService } from './../../../services/ForecastService';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-table',
@@ -6,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
+  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   displayedColumns: string[] = [
     'setName',
     'productId',
@@ -15,59 +19,101 @@ export class TableComponent implements OnInit {
 
   ];
   columnsToDisplay: string[] = this.displayedColumns.slice();
-  subColumns: string[] = [
-    "price",
-    "moq",
-    "leadTime",
-    "obicNo",
-    "quantity",
+  subColumns: any[] = [
+    {
+      value: "in qty",
+      key: "incomingQuantity"
+    },
+    {
+      value: "out qty",
+      key: "requiredQuantity"
+    },
+    {
+      value: "predicted stock",
+      key: "currentQuantity"
+    },
+    {
+      value: "stock",
+      key: "quantity"
+    },
   ]
   dataSource: Array<any> = [];
   spans = [];
   spanningColumns = ['productId', 'productName', 'description'];
   tempRowId = null;
   tempRowCount = null;
+  productForecast;
+  progress;
+  unsub = new Subject();
+  constructor(private forecastService: ForecastService) {
 
-  constructor() {
-    // this.cacheSpan('productId', d => d.productId);
-    // this.cacheSpan('productName', d => d.productName);
-    // this.cacheSpan('description', d => d.description);
   }
 
   ngOnInit() {
-    this.populateData(DATA);
+    this.populateData();
     // console.log(this.dataSource);
     // console.log(this.displayedColumns);
   }
 
-  populateData(data: any) {
-    data.forEach(productSet => {
-      productSet.products.forEach(product => {
-        this.subColumns.forEach(column => {
-  
-          let temp: any = {
-            "productId": product.productId,
-            "productName": product.productName,
-            "description": product.description,
-            "values": column,
-            "color": product.color,
-            "setColor": productSet.color,
-            "setName": productSet.productName
-  
-          }
-          product.values.forEach(dateItem => {
-            temp[this.getDateString(dateItem.date)] = dateItem[column];
-  
-          });
-          this.dataSource.push(temp);
-        })
+  populateData() {
+    this.progress = true;
+    // this.progress = false;
+    this.forecastService.getProductForecast().pipe(takeUntil(this.unsub)).subscribe(data => {
+      this.addColumnsToTables(data[0].products[0].values);
+      this.productForecast = data;
+      console.log(this.productForecast);
+      let setcount = 0;
+      let productcount = 0;
+      let tempdata:any[]= [];
+      data.forEach(productSet => {
+        productSet.products.forEach(product => {
+          this.subColumns.forEach(column => {
+
+            let temp: any = {
+              "setId": productSet.productId,
+              "setObicNo": productSet.obicNo,
+              "setName": productSet.productName,
+              "setDescription": productSet.description,
+              "setColor": setcount % 2 == 0 ? "#E8EAF6" : "#C5CAE9",
+
+              "productId": product.productId,
+              "obicNo": product.obicNo,
+              "productName": product.productName,
+              "description": product.description,
+              "color": productcount % 2 == 0 ? "#E0F2F1" : "#B2DFDB",
+              "values": column.value,
+
+            }
+            product.values.forEach(dateItem => {
+              if ((column.key === "incomingQuantity" || column.key === "requiredQuantity") && (dateItem[column.key]==0)) {
+                temp[this.getDateString(dateItem.date)] = "";
+              } else {
+                temp[this.getDateString(dateItem.date)] = dateItem[column.key];
+              }
+            });
+            tempdata.push(temp);
+            // this.dataSource.push(temp);
+            
+          })
+          productcount++;
+        });
+        setcount++;
         
       });
+      this.dataSource = tempdata;
+      
+      console.log(this.dataSource);
+      this.progress = false;
+      this.unsub.next();
+      this.unsub.complete();
+      console.log(this.progress);
+    },error=>{
+      this.progress = false;
     });
-    this.addColumnsToTables(data[0].products[0].values);
+
   }
   addColumnsToTables(dateArray) {
-
+ 
     dateArray.forEach(element => {
       const date = element.date;
       this.displayedColumns.push(this.getDateString(date));
@@ -80,430 +126,42 @@ export class TableComponent implements OnInit {
   }
 
   changeColor(data, set?) {
-    if(set) 
-      return { 'background-color': data.setColor};
-    
-    return { 'background-color': data.color};
+    if (set)
+      return { 'background-color': data.setColor };
+
+    return { 'background-color': data.color };
   }
 
-  // /**
-  //  * Evaluated and store an evaluation of the rowspan for each row.
-  //  * The key determines the column it affects, and the accessor determines the
-  //  * value that should be checked for spanning.
-  //  */
-  // cacheSpan(key, accessor) {
-  //   for (let i = 0; i < this.dataSource.length;) {
-  //     let currentValue = accessor(this.dataSource[i]);
-  //     let count = 1;
-
-  //     // Iterate through the remaining rows to see how many match
-  //     // the current value as retrieved through the accessor.
-  //     for (let j = i + 1; j < this.dataSource.length; j++) {        
-  //       if (currentValue != accessor(this.dataSource[j])) {
-  //         break;
-  //       }
-
-  //       count++;
-  //     } 
-
-  //     if (!this.spans[i]) {
-  //       this.spans[i] = {};
-  //     }
-
-  //     // Store the number of similar values that were found (the span)
-  //     // and skip i to the next unique row.
-  //     this.spans[i][key] = count;
-  //     i += count;
-  //   }
-  // }
-
   getRowSpanSet(col, index) {
-    console.log(col,index);
+    // console.log(col,index);
     const rowVal = this.dataSource[index];
     const cellVal = rowVal[col];
     let count = 0;
     for (let row of this.dataSource) {
-      if(cellVal == row[col])
-      count++;
+      if (cellVal == row[col])
+        count++;
     }
     return count;
   }
   getRowSpan(col, index) {
-    
-    return 5;
+
+    return 4;
   }
 
-  isTheSame(column,index) {
+  isTheSame(column, index) {
     let result = false;
     const i = index;
-    if (i==0){
+    if (i == 0) {
       result = false;
-    }else{
-    const valObj = this.dataSource[i];
-    const preObj = this.dataSource[i-1];
+    } else {
+      const valObj = this.dataSource[i];
+      const preObj = this.dataSource[i - 1];
 
-    if(valObj[column]==preObj[column]){
-      result = true;
-    } 
-    // console.log (valObj[column],preObj[column]);
-  }
+      if (valObj[column] == preObj[column]) {
+        result = true;
+      }
+      // console.log (valObj[column],preObj[column]);
+    }
     return result;
   }
 }
-
-const DATA = [
-  {
-    productId: "1",
-    productName: "sample set 1",
-    color: "#4db6ac",
-    products: [
-      {
-        "productId": 315,
-        "productName": "Sensor",
-        "description": "Vehicle sensor",
-        "color": "#c5cae9",
-        "values":
-          [
-            {
-              "date": "2019-12-06T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-07T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-08T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-09T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-10T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-11T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-12T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-13T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-14T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-15T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-16T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-17T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-          ]
-    
-      },
-      {
-        "productId": 316,
-        "productName": "Camera",
-        "description": "Front Camera",
-        "color": "#81c784",
-        "values":
-          [
-            {
-              "date": "2019-12-06T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-07T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-08T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-09T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-          ]
-    
-      },
-    ]
-  },
-  {
-    productId: "2",
-    productName: "sample set 2",
-    color: "#fff176",
-    products: [
-      {
-        "productId": 315,
-        "productName": "Sensor",
-        "description": "Vehicle sensor",
-        "color": "#c5cae9",
-        "values":
-          [
-            {
-              "date": "2019-12-06T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-07T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-08T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-09T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-10T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-11T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-12T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-13T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-14T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-15T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-16T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-17T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-          ]
-    
-      },
-      {
-        "productId": 316,
-        "productName": "Camera",
-        "description": "Front Camera",
-        "color": "#81c784",
-        "values":
-          [
-            {
-              "date": "2019-12-06T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-07T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-08T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-09T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-          ]
-    
-      },
-      {
-        "productId": 317,
-        "productName": "test",
-        "description": "test Camera",
-        "color": "#81c784",
-        "values":
-          [
-            {
-              "date": "2019-12-06T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-07T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-08T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-            {
-              "date": "2019-12-09T01:08:08",
-              "price": 32553,
-              "moq": 30,
-              "leadTime": 20,
-              "obicNo": "30",
-              "quantity": 94,
-            },
-          ]
-    
-      },
-    ]
-  }
- 
-
-]

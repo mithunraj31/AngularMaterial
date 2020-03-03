@@ -4,7 +4,8 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   TemplateRef,
-  OnInit
+  OnInit,
+  OnDestroy
 } from '@angular/core';
 import {
   startOfDay,
@@ -29,6 +30,7 @@ import { ForecastService } from 'src/app/services/ForecastService';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Order } from 'src/app/models/Order';
 import { ForecastDialogComponent } from 'src/app/dialogs/forecast-dialog/forecast-dialog.component';
+import { takeUntil } from 'rxjs/operators';
 
 const colors: any = {
   red: {
@@ -53,9 +55,9 @@ const colors: any = {
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnDestroy {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-
+  unsub = new Subject();
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
@@ -72,40 +74,46 @@ export class CalendarComponent implements OnInit {
   events: CustomCalendarEvent[];
 
   activeDayIsOpen: boolean = true;
-  forecasts : Order[];
+  forecasts: Order[];
   progress;
   constructor(
     public dialog: MatDialog,
     private forecastService: ForecastService,
-    iconRegistry: MatIconRegistry, 
+    iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer
-    ) {
-      iconRegistry.addSvgIcon(
-        'info',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/icon/info.svg'));
-    }
+  ) {
+    iconRegistry.addSvgIcon(
+      'info',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icon/info.svg'));
+  }
 
   ngOnInit() {
     this.events = [];
     this.getForecastdata();
+    this.getProductForecastData();
   }
-  getForecastdata(){
+  ngOnDestroy() {
+    this.unsub.next();
+    this.unsub.complete();
+  }
+  getForecastdata() {
     this.progress = true;
-    this.forecastService.getForecast().subscribe(result => {
-      this.forecasts = result;
-      this.populateCalender();
-      this.viewDate = new Date();
-      this.progress = false;
-    }, error => {
-      this.progress = false;
-      console.log(error);
-    })
+    this.forecastService.getForecast().pipe(takeUntil(this.unsub))
+      .subscribe(result => {
+        this.forecasts = result;
+        this.populateCalender();
+        this.viewDate = new Date();
+        this.progress = false;
+      }, error => {
+        this.progress = false;
+        console.log(error);
+      })
 
   }
 
-  populateCalender(){
-    this.forecasts.forEach((order)=>{
-      this.addEvent(order.proposalNo, new Date(order.dueDate),order.forecast?colors.green:colors.red, order);
+  populateCalender() {
+    this.forecasts.forEach((order) => {
+      this.addEvent(order.proposalNo, new Date(order.dueDate), order.forecast ? colors.green : colors.red, order);
     })
     this.refresh.next();
   }
@@ -179,6 +187,14 @@ export class CalendarComponent implements OnInit {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+  }
+
+  getProductForecastData() {
+    this.progress = true;
+    this.forecastService.getProductForecast().subscribe((data) => {
+      console.log(data);
+      this.progress = false;
+    })
   }
 }
 

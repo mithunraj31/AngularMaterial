@@ -2,9 +2,9 @@
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
   <div class="container" style="overflow-y: scroll; height:350px;">
     <mat-form-field>
-      <input matInput type="text" i18n-placeholder="@@productName" placeholder="Product Name"
+      <input matInput type="text" i18n-placeholder="@@productSetName" placeholder="Product Set Name"
         formControlName="productName">
-      <mat-error *ngIf="productForm.get('productName').hasError('required')" i18n="@@productNameRequired">Product Name
+      <mat-error *ngIf="productForm.get('productName').hasError('required')" i18n="@@productSetNameRequired">Product Set Name
         cannot be empty.</mat-error>
     </mat-form-field>
     <mat-form-field>

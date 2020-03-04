@@ -794,9 +794,9 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="dfulfillConfirmation" datatype="html">
+      <trans-unit id="fulfillConfirmation" datatype="html">
         <source>Fullment Confirmation</source>
-        <target>履行確認</target>
+        <target>出荷確認</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/fulfill-order-dialog/fulfill-order-dialog.component.html</context>
           <context context-type="linenumber">1</context>
@@ -804,7 +804,7 @@
       </trans-unit>
       <trans-unit id="fulfillConfirmationMassege" datatype="html">
         <source>Are you sure you want to fulfill</source>
-        <target>を入荷済みに変更します</target>
+        <target>を出荷済みに変更します</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/fulfill-order-dialog/fulfill-order-dialog.component.html</context>
           <context context-type="linenumber">3</context>
@@ -813,6 +813,18 @@
           <context context-type="sourcefile">src/app/dialogs/arrival-order-dialog/arrival-order-dialog.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="arrivalConfirmationMassege" datatype="html">
+        <source>Are you sure you want to fulfill</source>
+        <target>を入荷済みに変更します</target>
+      </trans-unit>
+      <trans-unit id="unfulfillConfirmation" datatype="html">
+        <source>Are you sure! you want to Unfulfill</source>
+        <target>訂正確認</target>
+      </trans-unit>
+      <trans-unit id="unfulfillConfirmationMassege" datatype="html">
+        <source>Are you sure! you want to fulfill</source>
+        <target>を未出荷に変更します</target>
       </trans-unit>
       <trans-unit id="fullfill" datatype="html">
         <source>Fulfill</source>

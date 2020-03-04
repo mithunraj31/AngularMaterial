@@ -1,16 +1,15 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
-import { ForecastService } from 'src/app/services/ForecastService';
-import { Subject } from 'rxjs';
+import { ForecastService } from './../../../services/ForecastService';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-
+import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-forcast',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['forcast.component.scss'],
-  templateUrl: 'forcast.component.html'
+  selector: 'app-table',
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss']
 })
-export class ForcastComponent implements OnInit, OnDestroy{
+export class TableComponent implements OnInit {
+  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   displayedColumns: string[] = [
     'setName',
     'productId',
@@ -54,10 +53,6 @@ export class ForcastComponent implements OnInit, OnDestroy{
     this.populateData();
     // console.log(this.dataSource);
     // console.log(this.displayedColumns);
-  }
-  ngOnDestroy(){
-    this.unsub.next();
-    this.unsub.complete();
   }
 
   populateData() {
@@ -169,5 +164,4 @@ export class ForcastComponent implements OnInit, OnDestroy{
     }
     return result;
   }
- 
 }

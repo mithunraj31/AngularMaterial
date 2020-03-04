@@ -30,6 +30,7 @@
   <mat-form-field class="inline">
     <mat-label i18n="@@selectProduct">Select a product</mat-label>
     <mat-select [(value)]="selected">
+        <input (keyup)="onKey($event.target.value)">
       <mat-option i18n="@@none"> None</mat-option>
       <mat-option value="{{i}}" *ngFor="let product of products; let i = index">{{product.productName}}</mat-option>
 

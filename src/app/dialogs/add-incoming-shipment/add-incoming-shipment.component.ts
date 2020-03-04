@@ -23,6 +23,7 @@ export class AddIncomingShipmentComponent implements OnInit {
   priceError = false;
   viewSelectd: { productId: number, productName: String, quantity: number, price: number, currency: string }[] = [];
   products: Product[] = [];
+  _products: Product[] = [];
   saveIncomingShipment: SaveIncomingShipment;
   saveShipmentProducts: SaveShipmentProduct[] = [];
   constructor(
@@ -49,6 +50,7 @@ export class AddIncomingShipmentComponent implements OnInit {
   getProductData() {
     this.productService.getProducts().subscribe(result => {
       this.products = result;
+      this._products = result;
     })
   }
   onCancelClick(): void {
@@ -117,5 +119,13 @@ export class AddIncomingShipmentComponent implements OnInit {
   removeComponent(id: number) {
     this.viewSelectd.splice(id, 1);
     this.saveShipmentProducts.splice(id, 1);
+  }
+  onKey(value) {
+    this.products = this.search(value);
+  }
+  search(value: string) {
+    let filter = value.toLowerCase();
+    this.products = this._products;
+    return this.products.filter(option => option.productName.toLowerCase().startsWith(filter));
   }
 }

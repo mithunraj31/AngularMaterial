@@ -14,16 +14,17 @@ import { ProductService } from 'src/app/services/ProductService';
 })
 export class EditIncomingShipmentComponent implements OnInit {
   incomingShipmentForm: FormGroup;
-  selected: number=null;
-  qty=null;
-  qtyError=false;
-  price=null;
-  priceError=false;
+  selected: number = null;
+  qty = null;
+  qtyError = false;
+  price = null;
+  priceError = false;
   currency = "JPY";
-  viewSelectd: {productId: number,productName: String,quantity: number, price:number, currency: string}[] = [];
+  viewSelectd: { productId: number, productName: String, quantity: number, price: number, currency: string }[] = [];
   products: Product[] = [];
-  saveIncomingShipment:SaveIncomingShipment;
-  saveShipmentProducts: SaveShipmentProduct [] = [];
+  _products: Product[] = [];
+  saveIncomingShipment: SaveIncomingShipment;
+  saveShipmentProducts: SaveShipmentProduct[] = [];
   alreadyExistsError: boolean;
   constructor(
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
@@ -33,31 +34,31 @@ export class EditIncomingShipmentComponent implements OnInit {
 
 
   ngOnInit() {
-   this.initializeShipmentForm();
+    this.initializeShipmentForm();
     this.getProductData();
-    
+
   }
-  initializeShipmentForm(){
+  initializeShipmentForm() {
     const aDate = new Date(this.data.arrivalDate).toISOString().substring(0, 10);
     this.incomingShipmentForm = new FormGroup({
-      "shipmentNo": new FormControl(this.data.shipmentNo,[
+      "shipmentNo": new FormControl(this.data.shipmentNo, [
         Validators.required
       ]),
-      "arrivalDate": new FormControl(aDate,[
+      "arrivalDate": new FormControl(aDate, [
         Validators.required
       ]),
     })
-    for(let product of this.data.products) {
+    for (let product of this.data.products) {
       const saveShipmentProduct: SaveShipmentProduct = {
-        productId : product.product.productId,
-        quantity : product.quantity,
+        productId: product.product.productId,
+        quantity: product.quantity,
         price: product.price
       }
       this.saveShipmentProducts.push(saveShipmentProduct);
       this.viewSelectd.push({
         productId: product.product.productId,
         productName: product.product.productName,
-        quantity : product.quantity,
+        quantity: product.quantity,
         price: product.price,
         currency: product.currency
       })
@@ -65,15 +66,16 @@ export class EditIncomingShipmentComponent implements OnInit {
 
   }
   getProductData() {
-    this.productService.getProducts().subscribe(result=>{
+    this.productService.getProducts().subscribe(result => {
       this.products = result;
+      this._products = result;
     })
   }
   onCancelClick(): void {
     this.dialogRef.close(null);
   }
-  onSubmit(){
-    if(this.incomingShipmentForm.valid){
+  onSubmit() {
+    if (this.incomingShipmentForm.valid) {
       this.saveIncomingShipment = this.incomingShipmentForm.value;
       this.saveIncomingShipment.products = this.saveShipmentProducts;
       this.saveIncomingShipment.arrivalDate = new Date(this.incomingShipmentForm.value.arrivalDate).toISOString();
@@ -82,30 +84,30 @@ export class EditIncomingShipmentComponent implements OnInit {
       this.dialogRef.close(this.saveIncomingShipment);
     }
   }
-  getErrorMessage(attribute:string) {
-    return this.incomingShipmentForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
+  getErrorMessage(attribute: string) {
+    return this.incomingShipmentForm.get(attribute).hasError('required') ? 'You must enter a value' : '';
     // switch (attribute) {
     //   case "name":
     //       return this.productForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
     //     break;
-    
+
     //   default:
     //     break;
     // }
   }
-  addComponent(){
-    if(this.selected && this.qty && this.price){
+  addComponent() {
+    if (this.selected && this.qty && this.price) {
       console.log(this.selected);
-      
+
       const saveShipmentProduct: SaveShipmentProduct = {
-        productId : this.products[this.selected].productId,
-        quantity : this.qty,
+        productId: this.products[this.selected].productId,
+        quantity: this.qty,
         price: this.price,
         currency: this.currency
       }
-       //check the product is already exists
-       this.alreadyExistsError= false;
-       this.saveShipmentProducts.forEach(product => {
+      //check the product is already exists
+      this.alreadyExistsError = false;
+      this.saveShipmentProducts.forEach(product => {
         if (product.productId == saveShipmentProduct.productId)
           this.alreadyExistsError = true;
       })
@@ -124,16 +126,24 @@ export class EditIncomingShipmentComponent implements OnInit {
         this.qty = null;
         this.price = null;
         this.priceError = false;
-        this.alreadyExistsError= false;
+        this.alreadyExistsError = false;
       }
-    } else if(!this.qty){
+    } else if (!this.qty) {
       this.qtyError = true;
-    } else if(!this.price){
-      this.priceError =true;
+    } else if (!this.price) {
+      this.priceError = true;
     }
   }
-  removeComponent(id: number){
-    this.viewSelectd.splice(id,1);
-    this.saveShipmentProducts.splice(id,1);
+  removeComponent(id: number) {
+    this.viewSelectd.splice(id, 1);
+    this.saveShipmentProducts.splice(id, 1);
+  }
+  onKey(value) {
+    this.products = this.search(value);
+  }
+  search(value: string) {
+    let filter = value.toLowerCase();
+    this.products = this._products;
+    return this.products.filter(option => option.productName.toLowerCase().startsWith(filter));
   }
 }

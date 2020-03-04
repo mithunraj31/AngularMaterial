@@ -4,7 +4,7 @@
     <body>
       <trans-unit id="login" datatype="html">
         <source>Login</source>
-        <target>Login</target>        
+        <target>Login</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
           <context context-type="linenumber">3</context>
@@ -46,7 +46,7 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-            <trans-unit id="email" datatype="html">
+      <trans-unit id="email" datatype="html">
         <source>Email</source>
         <target>Email</target>
         <context-group purpose="location">
@@ -70,7 +70,7 @@
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
-       <trans-unit id="products" datatype="html">
+      <trans-unit id="products" datatype="html">
         <source>Products</source>
         <target>Products</target>
         <context-group purpose="location">
@@ -143,6 +143,14 @@
         </context-group>
       </trans-unit>
       <trans-unit id="quantity" datatype="html">
+        <source> Current QTY </source>
+        <target> Current QTY </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="qty" datatype="html">
         <source> QTY </source>
         <target> QTY </target>
         <context-group purpose="location">
@@ -160,7 +168,7 @@
       </trans-unit>
       <trans-unit id="moq" datatype="html">
         <source> MOQ </source>
-         <target> MOQ </target>
+        <target> MOQ </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/products/products.component.html</context>
           <context context-type="linenumber">34</context>
@@ -198,7 +206,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-       <trans-unit id="proposalNo" datatype="html">
+      <trans-unit id="proposalNo" datatype="html">
         <source> Proposal No </source>
         <target> Proposal No </target>
         <context-group purpose="location">
@@ -294,7 +302,7 @@
           <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
-       <trans-unit id="addNewOrder" datatype="html">
+      <trans-unit id="addNewOrder" datatype="html">
         <source>Add new Order</source>
         <target> Add new Order </target>
         <context-group purpose="location">
@@ -369,7 +377,7 @@
       <trans-unit id="salesDestinationRequired" datatype="html">
         <source>Sales Destination cannot be empty.
             </source>
-            <target> Sales Destination cannot be empty. </target>
+        <target> Sales Destination cannot be empty. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">28</context>
@@ -386,7 +394,7 @@
       <trans-unit id="contractorRequired" datatype="html">
         <source>Contractor cannot be empty.
             </source>
-            <target> Contractor cannot be empty. </target>
+        <target> Contractor cannot be empty. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">40</context>
@@ -419,7 +427,7 @@
       <trans-unit id="salesUserRequired" datatype="html">
         <source>Sales user cannot be empty.
             </source>
-            <target> Sales user cannot be empty. </target>
+        <target> Sales user cannot be empty. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">60</context>
@@ -537,6 +545,38 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="productSetName" datatype="html">
+        <source>Product Set Name</source>
+        <target>Product Set Name </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-product-set-dialog/add-product-set-dialog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="productSetNameRequired" datatype="html">
+        <source>Product Set Name cannot be empty.</source>
+        <target>Product Set Name cannot be empty. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-product-dialog/add-product-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/update-product-dialog/update-product-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/add-product-set-dialog/add-product-set-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="descriptionRequired" datatype="html">
         <source>Description cannot be empty.</source>
         <target>Description cannot be empty. </target>
@@ -569,7 +609,7 @@
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
-       <trans-unit id="leadTimeRequired" datatype="html">
+      <trans-unit id="leadTimeRequired" datatype="html">
         <source>Lead Time cannot be empty.</source>
         <target>Lead Time cannot be empty. </target>
         <context-group purpose="location">
@@ -605,7 +645,7 @@
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
-       <trans-unit id="updateProductSet" datatype="html">
+      <trans-unit id="updateProductSet" datatype="html">
         <source>Edit product set</source>
         <target>Edit product set</target>
         <context-group purpose="location">
@@ -629,7 +669,7 @@
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
-        <trans-unit id="amount" datatype="html">
+      <trans-unit id="amount" datatype="html">
         <source>Amount</source>
         <target>Amount</target>
         <context-group purpose="location">
@@ -789,13 +829,21 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="shipped" datatype="html">
+        <source>Shipped</source>
+        <target>Shipped</target>
+      </trans-unit>
+      <trans-unit id="waitToShip" datatype="html">
+        <source>Wait</source>
+        <target>Wait</target>
+      </trans-unit>
+      <trans-unit id="notInStock" datatype="html">
+        <source>Not in stock</source>
+        <target>Not in stock</target>
+      </trans-unit>
       <trans-unit id="arrived" datatype="html">
         <source>Arrived</source>
         <target>Arrived</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/shipments/incoming-shipments/incoming-shipments.component.html</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="forecastInformation" datatype="html">
         <source>Forecast Information</source>
@@ -840,6 +888,18 @@
       <trans-unit id="requiredQty" datatype="html">
         <source>Required QTY</source>
         <target>Required QTY</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="requiredQtySet" datatype="html">
+        <source>Required QTY of Sets</source>
+        <target>Required QTY of Sets</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/forecast-dialog/forecast-dialog.component.html</context>
           <context context-type="linenumber">31</context>
@@ -896,8 +956,8 @@
           <context context-type="sourcefile">src/app/dialogs/add-customer/add-customer.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
-        </trans-unit>
-         <trans-unit id="selectAType" datatype="html">
+      </trans-unit>
+      <trans-unit id="selectAType" datatype="html">
         <source>Select a Type</source>
         <target>Select a Type</target>
         <context-group purpose="location">
@@ -945,7 +1005,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-       <trans-unit id="oldPassword" datatype="html">
+      <trans-unit id="oldPassword" datatype="html">
         <source>Old Password</source>
         <target>Old Password</target>
         <context-group purpose="location">
@@ -1068,6 +1128,42 @@
           <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
           <context context-type="linenumber">68</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="invalidCharacters" datatype="html">
+        <source>Invalid Characters</source>
+        <target>Invalid Characters</target>
+      </trans-unit>
+      <trans-unit id="invalidPostal" datatype="html">
+        <source>Invalid Characters</source>
+        <target>Invalid Postal Code.</target>
+      </trans-unit>
+      <trans-unit id="invalidTP" datatype="html">
+        <source>Invalid Characters</source>
+        <target>Invalid telephone number</target>
+      </trans-unit>
+      <trans-unit id="customerNameRequired" datatype="html">
+        <source>Customer Name is required.</source>
+        <target>Customer Name is required.</target>
+      </trans-unit>
+      <trans-unit id="maxLength8" datatype="html">
+        <source>Max length should be 8.</source>
+        <target>Max length should be 8.</target>
+      </trans-unit>
+      <trans-unit id="contactNameRequired" datatype="html">
+        <source>Contact Name is Required.</source>
+        <target>Contact Name is Required.</target>
+      </trans-unit>
+      <trans-unit id="typeRequired" datatype="html">
+        <source>Type is Required.</source>
+        <target>Type is Required.</target>
+      </trans-unit>
+      <trans-unit id="shipmentNoRequired" datatype="html">
+        <source>Shipment No cannot be empty.</source>
+        <target>Shipment No cannot be empty.</target>
+      </trans-unit>
+      <trans-unit id="arrivalDateRequired" datatype="html">
+        <source>Arrival Date cannot be empty.</source>
+        <target>Arrival Date cannot be empty.</target>
       </trans-unit>
     </body>
   </file>

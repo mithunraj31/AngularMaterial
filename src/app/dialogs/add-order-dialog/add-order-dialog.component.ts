@@ -25,10 +25,15 @@ export class AddOrderDialogComponent implements OnInit {
   saveProducts: SaveProductComponent[] = [];
   orderForm: FormGroup;
   customers: Customer[] = [];
+  salesD: Customer[] = [];
+  contractors: Customer[] = [];
+  _customers: Customer[] = [];
   products: Product[] = [];
   productSets: ProductSet[] = [];
+  _productSets: ProductSet[] = [];
   saveOrder: SaveOrder;
   users: User[] = [];
+  _users: User[] = [];
   productSearch = "";
   selectedProductSets = [];
   constructor(
@@ -48,12 +53,17 @@ export class AddOrderDialogComponent implements OnInit {
   getCustomerData() {
     this.customerService.getCustomers().subscribe(result => {
       this.customers = result;
+      this._customers = result;
+      this.contractors = result;
+      this.salesD = result;
       console.log(this.customers)
     })
   }
   getUserData() {
     this.userService.getUsers().subscribe(result => {
       this.users = result;
+      this._users = result;
+
     })
   }
 
@@ -91,7 +101,7 @@ export class AddOrderDialogComponent implements OnInit {
     if (this.orderForm.valid) {
       this.saveOrder = this.orderForm.value;
       this.saveOrder.orderedProducts = this.saveProducts;
-      const date:Date  = new Date(this.saveOrder.receivedDate);
+      const date: Date = new Date(this.saveOrder.receivedDate);
       console.log(date);
       this.saveOrder.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
       this.saveOrder.dueDate = new Date(this.orderForm.value.dueDate).toISOString();
@@ -143,41 +153,99 @@ export class AddOrderDialogComponent implements OnInit {
     this.productService.getProductSets().subscribe(result => {
       this.productSets = result;
       this.productService.getProducts().subscribe(presult => {
-        for(let product of presult){
-          const p: ProductSet ={
-            
-            active:product.active,
-            productId :product.productId,
-            price :product.price,
+        for (let product of presult) {
+          const p: ProductSet = {
+
+            active: product.active,
+            productId: product.productId,
+            price: product.price,
             currency: product.currency,
-            productName :product.productName,
-            createdAt:product.createdAt,
-            description:product.description,
-            isSet:product.isSet,
-            leadTime:product.leadTime,
-            moq:product.moq,
-            obicNo:product.obicNo,
-            products:null,
-            quantity:product.quantity,
-            updatedAt:product.updatedAt,
-            userId:product.userId
+            productName: product.productName,
+            createdAt: product.createdAt,
+            description: product.description,
+            isSet: product.isSet,
+            leadTime: product.leadTime,
+            moq: product.moq,
+            obicNo: product.obicNo,
+            products: null,
+            quantity: product.quantity,
+            updatedAt: product.updatedAt,
+            userId: product.userId
           };
           this.productSets.push(p);
         }
       })
       this.selectedProductSets = this.productSets;
+      this._productSets = this.productSets;
     })
   }
   // Receive user input and send to search method**
-  onKey(value) { 
-  this.selectedProductSets = this.search(value);
+  onKey(value, key) {
+    switch (key) {
+      case 'products':
+        this.selectedProductSets = this.searchProducts(value);
+        break;
+      case 'customers':
+        this.customers = this.searchCustomers(value);
+        break;
+      case 'salesD':
+        this.salesD = this.searchSalesD(value);
+        break;
+      case 'contractors':
+        this.contractors = this.searchContractors(value);
+        break;
+
+      case 'users':
+        this.users = this.searchUsers(value);
+        break;
+
+      default:
+        break;
+    }
   }
-  search(value: string) { 
+  onClick(key) {
+    switch (key) {
+      case 'products':
+        this.selectedProductSets = this._productSets;
+        break;
+      case 'customers':
+        this.customers = this._customers;
+        break;
+      case 'users':
+        this.users = this._users;
+        break;
+
+      default:
+        break;
+    }
+  }
+  searchProducts(value: string) {
     let filter = value.toLowerCase();
-    return this.productSets.filter(option => option.productName.toLowerCase().startsWith(filter));
+    this.selectedProductSets = this._productSets;
+    return this.selectedProductSets.filter(option => option.productName.toLowerCase().startsWith(filter));
+  }
+  searchUsers(value: string) {
+    let filter = value.toLowerCase();
+    this.users = this._users;
+    return this.users.filter(option => option.firstName.toLowerCase().startsWith(filter));
+  }
+  searchCustomers(value: string) {
+    let filter = value.toLowerCase();
+    this.customers = this._customers;
+    return this.customers.filter(option => option.customerName.toLowerCase().startsWith(filter));
+  }
+  searchContractors(value: string) {
+    let filter = value.toLowerCase();
+    this.contractors = this._customers;
+    return this.contractors.filter(option => option.customerName.toLowerCase().startsWith(filter));
+  }
+  searchSalesD(value: string) {
+    let filter = value.toLowerCase();
+    this.salesD = this._customers;
+    return this.salesD.filter(option => option.customerName.toLowerCase().startsWith(filter));
   }
 
-  resetP(){
+  resetP() {
     this.productSearch = "";
     this.selectedProductSets = this.productSets;
   }

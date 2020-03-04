@@ -33,6 +33,7 @@ import {MatToolbarModule,
         MatPaginatorIntl,
         MatSnackBarModule,
         MatTooltipModule,
+        MatSortModule,
         
 } from '@angular/material';
 
@@ -163,7 +164,8 @@ import { ProductForecastService } from './services/ProductForecastService';
     MatGridListModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSortModule
   ],
   exports: [ 
      

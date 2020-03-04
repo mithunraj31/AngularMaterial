@@ -21,6 +21,7 @@ export class EditProductSetDialogComponent implements OnInit {
   saveProducts: SaveProductComponent[] = [];
   viewSelectd: { productId: number, productName: String, quantity: number }[] = [];
   products: Product[] = [];
+  _products : Product[] = [];
   constructor(
     public dialogRef: MatDialogRef<EditProductSetDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProductSet,
@@ -35,6 +36,7 @@ export class EditProductSetDialogComponent implements OnInit {
   getProductData() {
     this.productService.getProducts().subscribe(result => {
       this.products = result;
+      this._products = result;
     })
   }
   initializeProductForm() {
@@ -130,4 +132,12 @@ export class EditProductSetDialogComponent implements OnInit {
     }
   }
 
+  onKey(value) {
+    this.products = this.search(value);
+  }
+  search(value: string) {
+    let filter = value.toLowerCase();
+    this.products = this._products;
+    return this.products.filter(option => option.productName.toLowerCase().startsWith(filter));
+  }
 }

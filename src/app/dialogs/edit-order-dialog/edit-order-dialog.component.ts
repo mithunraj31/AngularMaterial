@@ -26,9 +26,14 @@ export class EditOrderDialogComponent implements OnInit {
   saveProducts: SaveProductComponent[] = [];
   orderForm: FormGroup;
   customers: Customer[] = [];
+  salesD: Customer[] = [];
+  contractors: Customer[] = [];
+  _customers: Customer[] = [];
   products: Product[] = [];
   productSets: ProductSet[] = [];
-  users: User[] = []
+  _productSets: ProductSet[] = [];
+  users: User[] = [];
+  _users:User[] =[];
   constructor(
     public dialogRef: MatDialogRef<EditOrderDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Order,
@@ -46,12 +51,16 @@ export class EditOrderDialogComponent implements OnInit {
   getCustomerData() {
     this.customerService.getCustomers().subscribe(result => {
       this.customers = result;
+      this._customers = result;
+      this.contractors = result;
+      this.salesD = result;
       console.log(this.customers)
     })
   }
   getUserData() {
     this.userService.getUsers().subscribe(result => {
       this.users = result;
+      this._users = result;
     })
   }
 
@@ -59,8 +68,8 @@ export class EditOrderDialogComponent implements OnInit {
     console.log("popup data");
     console.log(this.data);
     const rDate = new Date(this.data.receivedDate).toISOString().substring(0, 10);
-    const dDate =new Date(this.data.dueDate).toISOString().substring(0, 10);
-    
+    const dDate = new Date(this.data.dueDate).toISOString().substring(0, 10);
+
     this.orderForm = new FormGroup({
       "proposalNo": new FormControl(this.data.proposalNo, [
         Validators.required
@@ -161,28 +170,92 @@ export class EditOrderDialogComponent implements OnInit {
     this.productService.getProductSets().subscribe(result => {
       this.productSets = result;
       this.productService.getProducts().subscribe(presult => {
-        for(let product of presult){
-          const p: ProductSet ={
-            
-            active:product.active,
-            productId :product.productId,
-            price :product.price,
-            productName :product.productName,
-            createdAt:product.createdAt,
-            description:product.description,
-            isSet:product.isSet,
-            leadTime:product.leadTime,
-            moq:product.moq,
-            obicNo:product.obicNo,
-            products:null,
-            quantity:product.quantity,
-            updatedAt:product.updatedAt,
-            userId:product.userId
+        for (let product of presult) {
+          const p: ProductSet = {
+
+            active: product.active,
+            productId: product.productId,
+            price: product.price,
+            productName: product.productName,
+            createdAt: product.createdAt,
+            description: product.description,
+            isSet: product.isSet,
+            leadTime: product.leadTime,
+            moq: product.moq,
+            obicNo: product.obicNo,
+            products: null,
+            quantity: product.quantity,
+            updatedAt: product.updatedAt,
+            userId: product.userId
           };
           this.productSets.push(p);
         }
+        this._productSets = this.productSets; 
       })
     })
   }
+  onKey(value, key) {
+    switch (key) {
+      case 'products':
+        this.productSets = this.searchProducts(value);
+        break;
+      case 'customers':
+        this.customers = this.searchCustomers(value);
+        break;
+      case 'salesD':
+        this.salesD = this.searchSalesD(value);
+        break;
+      case 'contractors':
+        this.contractors = this.searchContractors(value);
+        break;
 
+      case 'users':
+        this.users = this.searchUsers(value);
+        break;
+
+      default:
+        break;
+    }
+  }
+  onClick(key) {
+    switch (key) {
+      case 'products':
+        this.productSets = this._productSets;
+        break;
+      case 'customers':
+        this.customers = this._customers;
+        break;
+      case 'users':
+        this.users = this._users;
+        break;
+
+      default:
+        break;
+    }
+  }
+  searchProducts(value: string) {
+    let filter = value.toLowerCase();
+    this.productSets = this._productSets;
+    return this.productSets.filter(option => option.productName.toLowerCase().startsWith(filter));
+  }
+  searchUsers(value: string) {
+    let filter = value.toLowerCase();
+    this.users = this._users;
+    return this.users.filter(option => option.firstName.toLowerCase().startsWith(filter));
+  }
+  searchCustomers(value: string) {
+    let filter = value.toLowerCase();
+    this.customers = this._customers;
+    return this.customers.filter(option => option.customerName.toLowerCase().startsWith(filter));
+  }
+  searchContractors(value: string) {
+    let filter = value.toLowerCase();
+    this.contractors = this._customers;
+    return this.contractors.filter(option => option.customerName.toLowerCase().startsWith(filter));
+  }
+  searchSalesD(value: string) {
+    let filter = value.toLowerCase();
+    this.salesD = this._customers;
+    return this.salesD.filter(option => option.customerName.toLowerCase().startsWith(filter));
+  }
 }

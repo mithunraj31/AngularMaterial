@@ -16,3 +16,14 @@ table {
     justify-content: flex-end;
 
   }
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+
+  tr.element-row:not(.expanded-row):hover {
+    background: #c8e6c9;
+  }
+  
+  tr.element-row:not(.expanded-row):active {
+    background: #a4dda6;
+  }

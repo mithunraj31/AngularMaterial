@@ -1,17 +1,23 @@
 <h1 mat-dialog-title i18n="@@addNewProductSet">Add new product set</h1>
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-  <div class="container" style="overflow-y: scroll; height:350px;" >
+  <div class="container" style="overflow-y: scroll; height:350px;">
     <mat-form-field>
-      <input matInput type="text" i18n-placeholder="@@productName" placeholder="Product Name" formControlName="productName">
-      <mat-error *ngIf="productForm.get('productName').hasError('required')" i18n="@@productNameRequired">Product Name cannot be empty.</mat-error>
+      <input matInput type="text" i18n-placeholder="@@productName" placeholder="Product Name"
+        formControlName="productName">
+      <mat-error *ngIf="productForm.get('productName').hasError('required')" i18n="@@productNameRequired">Product Name
+        cannot be empty.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="text" i18n-placeholder="@@description"  placeholder="Description" formControlName="description">
-      <mat-error *ngIf="productForm.get('description').hasError('required')" i18n="@@descriptionRequired">Description cannot be empty.</mat-error>
+      <input matInput type="text" i18n-placeholder="@@description" placeholder="Description"
+        formControlName="description">
+      <mat-error *ngIf="productForm.get('description').hasError('required')" i18n="@@descriptionRequired">Description
+        cannot be empty.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="number" min="1" i18n-placeholder="@@price"  placeholder="Price" formControlName="price" class="inline">
-      <mat-error *ngIf="productForm.get('price').hasError('required')" i18n="@@priceRequired">Price cannot be empty.</mat-error>
+      <input matInput type="number" min="1" i18n-placeholder="@@price" placeholder="Price" formControlName="price"
+        class="inline">
+      <mat-error *ngIf="productForm.get('price').hasError('required')" i18n="@@priceRequired">Price cannot be empty.
+      </mat-error>
     </mat-form-field>
     <mat-form-field class="inline">
       <mat-select formControlName="currency">
@@ -32,33 +38,37 @@
       <mat-error *ngIf="productForm.get('moq').hasError('required')" i18n="@@moqRequired">MOQ cannot be empty.</mat-error>
     </mat-form-field> -->
     <mat-form-field>
-      <input matInput type="text" i18n-placeholder="@@obicNo"  placeholder="Obic No" formControlName="obicNo">
-      <mat-error *ngIf="productForm.get('obicNo').hasError('required')" i18n="@@obicNoRequired">Obic No cannot be empty.</mat-error>
+      <input matInput type="text" i18n-placeholder="@@obicNo" placeholder="Obic No" formControlName="obicNo">
+      <mat-error *ngIf="productForm.get('obicNo').hasError('required')" i18n="@@obicNoRequired">Obic No cannot be empty.
+      </mat-error>
     </mat-form-field>
 
   </div>
   <div style="overflow-y: scroll; height:100px;" *ngIf="viewSelectd.length > 0">
     <mat-card class="productList" *ngFor="let element of viewSelectd; let i = index">
       {{element.productName}} : {{element.quantity}}
-      
 
-      <button align="end" mat-stroked-button color="warn"  type="button" (click)="removeComponent(i)" i18n="@@remove">Remove</button>
+
+      <button align="end" mat-stroked-button color="warn" type="button" (click)="removeComponent(i)"
+        i18n="@@remove">Remove</button>
 
     </mat-card>
-    </div>
-    <mat-form-field class="inline">
-      <mat-label i18n="@@selectProduct">Select a product</mat-label>
-      <mat-select [(value)]="selected">
-        <mat-option i18n="@@none">None</mat-option>
-        <mat-option value="{{i}}" *ngFor="let product of products; let i = index">{{product.productName}}</mat-option>
+  </div>
+  <mat-form-field class="inline">
+    <mat-label i18n="@@selectProduct">Select a product</mat-label>
+    <mat-select [(value)]="selected">
+      <input (keyup)="onKey($event.target.value)">
+      <mat-option i18n="@@none">None</mat-option>
+      <mat-option value="{{i}}" *ngFor="let product of products; let i = index">{{product.productName}}</mat-option>
 
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="inline">
-      <input matInput type="number" min="1" i18n-placeholder="@@quantity" placeholder="QTY" [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
-    </mat-form-field>
-    <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
-    <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="inline">
+    <input matInput type="number" min="1" i18n-placeholder="@@quantity" placeholder="QTY" [(ngModel)]="qty"
+      [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
+  <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>
 
   <div mat-dialog-actions>
     <button mat-button (click)="onCancelClick()" i18n="@@cancel">Cancel</button>

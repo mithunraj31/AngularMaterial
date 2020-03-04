@@ -4,7 +4,7 @@ import { ProductService } from './../../services/ProductService';
 import { AddProductDialogComponent } from './../../dialogs/add-product-dialog/add-product-dialog.component';
 import { Product } from './../../models/Product';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatTable, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTable, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { UpdateProductDialogComponent } from 'src/app/dialogs/update-product-dialog/update-product-dialog.component';
 
 
@@ -18,10 +18,10 @@ import { UpdateProductDialogComponent } from 'src/app/dialogs/update-product-dia
 export class ProductsComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'name',
+    'productName',
     'description',
     'price',
-    'qty',
+    'quantity',
     'leadTime',
     'moq',
     'obicNo',
@@ -30,9 +30,11 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
   productName: string;
   dataSource = new MatTableDataSource<Product>();
-  progress=false;
+  progress = false;
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
+  @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(
     public dialog: MatDialog,
     public productService: ProductService,
@@ -40,19 +42,44 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     this.getProductData();
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginatorTop;
+    this.dataSource.sort = this.sort;
+    
   }
   getProductData() {
     this.progress = true;
     this.productService.getProducts().subscribe(result => {
-      console.log(result);
       this.products = result;
       this.dataSource.data = this.products;
       this.progress = false;
-    }, error=>{
+      this.onTopPaginateChange();
+    }, error => {
       this.progress = false;
     })
   }
+
+  onTopPaginateChange(){
+    this.paginatorBottom.length = this.dataSource.data.length;
+    this.paginatorBottom.pageSize = this.paginatorTop.pageSize;
+    this.paginatorBottom.pageIndex = this.paginatorTop.pageIndex;
+  }
+  onBottomPaginateChange(event){
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex==1) {
+      this.paginatorTop.nextPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.pageIndex-event.previousPageIndex==-1) {
+      this.paginatorTop.previousPage();
+    }
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex>1) {
+      this.paginatorTop.lastPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.previousPageIndex-event.pageIndex>1) {
+      this.paginatorTop.firstPage();
+    }
+    this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
+
+  }
+
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddProductDialogComponent, {
@@ -60,7 +87,7 @@ export class ProductsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+
       if (result) {
         const product: Product = result;
 
@@ -68,37 +95,33 @@ export class ProductsComponent implements OnInit {
         this.progress = true;
         this.productService.saveProduct(product).subscribe(result => {
           this.getProductData();
-          console.log(result);
-        },error=>{
+        }, error => {
           this.progress = false;
         })
-      
+
       }
     });
   }
 
   editProduct(i: any) {
-    const data =this.products[this.products.indexOf(i)];
-    console.log(this.products[i]);
+    const data = this.products[this.products.indexOf(i)];
     const dialogRef = this.dialog.open(UpdateProductDialogComponent, {
       width: '600px',
       data: data
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      
-      console.log('The dialog was closed');
       if (result) {
         this.progress = true;
         const product: Product = result;
         product.productId = data.productId;
         // change concat to replace when using real api
-        this.productService.updateProduct(product).subscribe((result)=>{
+        this.productService.updateProduct(product).subscribe((result) => {
           this.getProductData();
-        },error=>{
+        }, error => {
           this.progress = false;
         })
-        
+
       }
     });
   }
@@ -113,9 +136,9 @@ export class ProductsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.progress = true;
-        this.productService.deleteProduct(data.productId).subscribe(result=>{
+        this.productService.deleteProduct(data.productId).subscribe(result => {
           this.getProductData();
-        },error=>{
+        }, error => {
           this.progress = false;
         })
       }

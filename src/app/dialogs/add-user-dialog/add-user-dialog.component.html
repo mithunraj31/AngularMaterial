@@ -1,5 +1,5 @@
 <h1 mat-dialog-title i18n="@@addNewUser">Add new User</h1>
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+<form (keydown.enter)="$event.preventDefault()" [formGroup]="userForm" (ngSubmit)="onSubmit()">
   <div mat-dialog-content class="example-container">
     <mat-form-field>
       <input matInput type="text" i18n-placeholder="@@firstName" placeholder="First Name"

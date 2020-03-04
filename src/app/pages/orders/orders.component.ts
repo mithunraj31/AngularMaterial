@@ -6,7 +6,7 @@ import { AddOrderDialogComponent } from './../../dialogs/add-order-dialog/add-or
 import { OrderedProduct } from './../../models/OrderedProduct';
 import { Customer } from 'src/app/models/Customer';
 import { OrderService } from './../../services/OrderService';
-import { MatTableDataSource, MatTable, MatPaginator, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatTable, MatPaginator, MatDialog, MatSort } from '@angular/material';
 import { Order } from './../../models/Order';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ViewCustomerDialogComponent } from 'src/app/dialogs/view-customer-dialog/view-customer-dialog.component';
@@ -22,16 +22,17 @@ import { UnfulfillConfirmationComponent } from 'src/app/dialogs/unfulfill-confir
   styleUrls: ['./orders.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      state('collapsed, void', style({ height: '0px', minHeight: '0', display: 'none' })),
+  state('expanded', style({ height: '*' })),
+  transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+  transition('expanded <=> void', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
     ]),]
 })
 export class OrdersComponent implements OnInit {
   expandedElement;
   columnsToDisplay: string[] = [
     'proposalNo',
-    'customer',
+    'customerName',
     'salesDestination',
     'contractor',
     'receivedDate',
@@ -45,7 +46,9 @@ export class OrdersComponent implements OnInit {
   private searchSub: any;
   dataSource = new MatTableDataSource<Order>();
   @ViewChild(MatTable, { static: true }) table: MatTable<any>
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
+  @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -54,14 +57,58 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit() {
     this.getOrderData();
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginatorTop;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch(property) {
+        case 'customerName': return item.customer.customerName;
+        case 'salesDestination': return item.salesDestination.customerName;
+        case 'contractor': return item.contractor.customerName;
+        case 'salesUser': return item.salesUser.firstName;
+        default: return item[property];
+      }
+    };
     this.searchSub = this.route.params.subscribe(params => {
       this.id = params['id'];
       if (this.id) {
 
         this.applyFilter(this.id);
       }
-    })
+    });
+    this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate = (data, filter: string)  => {
+      const accumulator = (currentTerm, key) => {
+        return key === 'contractor' ? currentTerm + data.contractor.customerName : 
+        key === 'salesUser' ? currentTerm + data.salesUser.firstName : 
+        key === 'salesDestination' ? currentTerm + data.salesDestination.customerName :
+        key === 'customer' ? currentTerm + data.customer.customerName :currentTerm + data[key];
+      };
+      const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+      // Transform the filter by converting it to lowercase and removing whitespace.
+      const transformedFilter = filter.trim().toLowerCase();
+      return dataStr.indexOf(transformedFilter) !== -1;
+    };
+  }
+
+  onTopPaginateChange(){
+    this.paginatorBottom.length = this.dataSource.data.length;
+    this.paginatorBottom.pageSize = this.paginatorTop.pageSize;
+    this.paginatorBottom.pageIndex = this.paginatorTop.pageIndex;
+  }
+  onBottomPaginateChange(event){
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex==1) {
+      this.paginatorTop.nextPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.pageIndex-event.previousPageIndex==-1) {
+      this.paginatorTop.previousPage();
+    }
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex>1) {
+      this.paginatorTop.lastPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.previousPageIndex-event.pageIndex>1) {
+      this.paginatorTop.firstPage();
+    }
+    this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
+
   }
 
   getOrderData() {
@@ -71,6 +118,7 @@ export class OrdersComponent implements OnInit {
       this.dataSource.data = this.orders;
       console.log(this.orders);
       this.progress = false;
+      this.onTopPaginateChange();
     }, error => {
       this.progress = false;
       console.log(error);

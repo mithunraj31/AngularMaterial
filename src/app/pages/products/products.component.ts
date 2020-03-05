@@ -3,10 +3,13 @@ import { DeleteConfirmationDialogComponent } from './../../dialogs/delete-confir
 import { ProductService } from './../../services/ProductService';
 import { AddProductDialogComponent } from './../../dialogs/add-product-dialog/add-product-dialog.component';
 import { Product } from './../../models/Product';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog, MatTable, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { UpdateProductDialogComponent } from 'src/app/dialogs/update-product-dialog/update-product-dialog.component';
+import * as XLSX from 'xlsx';
+import { nextTick } from 'q';
 
+type AOA = any[][];
 
 
 @Component({
@@ -31,10 +34,12 @@ export class ProductsComponent implements OnInit {
   productName: string;
   dataSource = new MatTableDataSource<Product>();
   progress = false;
+  data: AOA = [[1, 2], [3, 4]];
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
   @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('importFile', { static: true }) importFile: ElementRef;
   constructor(
     public dialog: MatDialog,
     public productService: ProductService,
@@ -44,7 +49,7 @@ export class ProductsComponent implements OnInit {
     this.getProductData();
     this.dataSource.paginator = this.paginatorTop;
     this.dataSource.sort = this.sort;
-    
+
   }
   getProductData() {
     this.progress = true;
@@ -58,22 +63,22 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  onTopPaginateChange(){
+  onTopPaginateChange() {
     this.paginatorBottom.length = this.dataSource.data.length;
     this.paginatorBottom.pageSize = this.paginatorTop.pageSize;
     this.paginatorBottom.pageIndex = this.paginatorTop.pageIndex;
   }
-  onBottomPaginateChange(event){
-    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex==1) {
+  onBottomPaginateChange(event) {
+    if (event.previousPageIndex < event.pageIndex && event.pageIndex - event.previousPageIndex == 1) {
       this.paginatorTop.nextPage();
     }
-    if(event.previousPageIndex>event.pageIndex && event.pageIndex-event.previousPageIndex==-1) {
+    if (event.previousPageIndex > event.pageIndex && event.pageIndex - event.previousPageIndex == -1) {
       this.paginatorTop.previousPage();
     }
-    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex>1) {
+    if (event.previousPageIndex < event.pageIndex && event.pageIndex - event.previousPageIndex > 1) {
       this.paginatorTop.lastPage();
     }
-    if(event.previousPageIndex>event.pageIndex && event.previousPageIndex-event.pageIndex>1) {
+    if (event.previousPageIndex > event.pageIndex && event.previousPageIndex - event.pageIndex > 1) {
       this.paginatorTop.firstPage();
     }
     this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
@@ -148,5 +153,66 @@ export class ProductsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onFileChange(evt: any) {
+    /* wire up file reader */
+    const target: DataTransfer = <DataTransfer>(evt.target);
+    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+    const reader: FileReader = new FileReader();
+    reader.onload = (e: any) => {
+      /* read workbook */
+      const bstr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+
+      /* grab first sheet */
+      const wsname: string = wb.SheetNames[0];
+      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+      /* save data */
+      this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
+      console.log(this.data);
+      this.insertDataAsAnArray(this.data);
+    };
+    reader.readAsBinaryString(target.files[0]);
+  }
+  insertDataAsAnArray(excelData: any[]) {
+    let productArray: Product[] = [];
+    let promiseArray: Promise<any>[] = [];
+    excelData.slice(0).forEach((row) => {
+      let valid = true;
+      let tempProduct: Product = {
+
+        obicNo: row[0] ? row[0] : " ",
+        productName: row[1] ? row[1] : (valid = false),
+        description: row[2] ? row[2] : (valid = false),
+        currency: (row[3] == "USD" || row[3] == "JPY") ? row[3] : (valid = false),
+        price: row[4] ? row[4] : (valid = false),
+        moq: row[5] ? row[5] : (valid = false),
+        quantity: row[6] ? row[6] : (valid = false),
+        leadTime: row[7] ? row[7] : (valid = false),
+      };
+      if (valid) {
+        let promise = new Promise((resolve, reject) => {
+
+          this.productService.saveProduct(tempProduct).toPromise().then(() => {
+            resolve();
+          }).catch(() => {
+            reject();
+          })
+        })
+        promiseArray.push(promise);
+      }
+    })
+    Promise.all(promiseArray).then(() => {
+      this.getProductData();
+    });
+    console.log(productArray);
+  }
+  downloadTemplate() {
+    window.location.href = "assets/downloads/Product-Import-Template.xlsx";
+  }
+  clickImport() {
+    this.importFile.nativeElement.click();
   }
 }

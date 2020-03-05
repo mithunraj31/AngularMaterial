@@ -34,3 +34,12 @@ tr.element-row:not(.expanded-row):hover {
 tr.element-row:not(.expanded-row):active {
   background: #a4dda6;
 }
+.mat-column-description 
+{
+
+  min-width: 200px !important;
+  max-width: 500px !important;
+}
+.topButton {
+  margin: 5px;
+}

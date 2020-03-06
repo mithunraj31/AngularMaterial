@@ -40,6 +40,12 @@ tr.element-row:not(.expanded-row):active {
   min-width: 200px !important;
   max-width: 500px !important;
 }
+.mat-column-price 
+{
+
+  min-width: 150px !important;
+  max-width: 300px !important;
+}
 .topButton {
   margin: 5px;
 }

@@ -58,6 +58,12 @@
                 (click)="expandedElement = expandedElement === element ? null : element">
                 {{element.dueDate | date:'shortDate'}} </td>
         </ng-container>
+        <ng-container matColumnDef="deliveryDate">
+                <th mat-header-cell *matHeaderCellDef i18n="@@deliveryDate" mat-sort-header> Delivery Date </th>
+                <td mat-cell *matCellDef="let element"
+                    (click)="expandedElement = expandedElement === element ? null : element">
+                    {{element.deliveryDate | date:'shortDate'}} </td>
+            </ng-container>
         <ng-container matColumnDef="salesUser">
             <th mat-header-cell *matHeaderCellDef i18n="@@salesUser" mat-sort-header> Sales User</th>
             <td mat-cell *matCellDef="let element"

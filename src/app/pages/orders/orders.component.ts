@@ -37,6 +37,7 @@ export class OrdersComponent implements OnInit {
     'contractor',
     'receivedDate',
     'dueDate',
+    'deliveryDate',
     'salesUser',
     'actions'
   ];

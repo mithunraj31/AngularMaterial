@@ -1200,6 +1200,14 @@
         <source>Arrival Date cannot be empty.</source>
         <target>到着日を空欄にすることはできません。</target>
       </trans-unit>
+      <trans-unit id="deliveryDateRequired" datatype="html">
+        <source>Delivery Date cannot be empty.</source>
+        <target>納期を空欄にすることはできません。</target>
+      </trans-unit>
+      <trans-unit id="deliveryDate" datatype="html">
+        <source>Delivery Date</source>
+        <target>納期</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

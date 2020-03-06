@@ -87,6 +87,9 @@ export class AddOrderDialogComponent implements OnInit {
       "dueDate": new FormControl("", [
         Validators.required
       ]),
+      "deliveryDate": new FormControl("", [
+        Validators.required
+      ]),
       "salesUserId": new FormControl("", [
         Validators.required
       ]),
@@ -248,5 +251,13 @@ export class AddOrderDialogComponent implements OnInit {
   resetP() {
     this.productSearch = "";
     this.selectedProductSets = this.productSets;
+  }
+
+  calculateDelivery(value) {
+    const dueDate = new Date(value);
+    const deliveryDate = dueDate;
+    deliveryDate.setDate(dueDate.getDate()-14);
+    console.log(deliveryDate);
+    this.orderForm.get("deliveryDate").setValue(deliveryDate.toISOString().substring(0,10));
   }
 }

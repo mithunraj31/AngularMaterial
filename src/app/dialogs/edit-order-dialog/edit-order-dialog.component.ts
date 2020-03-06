@@ -69,6 +69,7 @@ export class EditOrderDialogComponent implements OnInit {
     console.log(this.data);
     const rDate = new Date(this.data.receivedDate).toISOString().substring(0, 10);
     const dDate = new Date(this.data.dueDate).toISOString().substring(0, 10);
+    const delDate = new Date(this.data.deliveryDate).toISOString().substring(0, 10);
 
     this.orderForm = new FormGroup({
       "proposalNo": new FormControl(this.data.proposalNo, [
@@ -87,6 +88,9 @@ export class EditOrderDialogComponent implements OnInit {
         Validators.required
       ]),
       "dueDate": new FormControl(dDate, [
+        Validators.required
+      ]),
+      "deliveryDate": new FormControl(delDate, [
         Validators.required
       ]),
       "salesUserId": new FormControl(this.data.salesUser.userId, [
@@ -257,5 +261,12 @@ export class EditOrderDialogComponent implements OnInit {
     let filter = value.toLowerCase();
     this.salesD = this._customers;
     return this.salesD.filter(option => option.customerName.toLowerCase().startsWith(filter));
+  }
+  calculateDelivery(value) {
+    const dueDate = new Date(value);
+    const deliveryDate = dueDate;
+    deliveryDate.setDate(dueDate.getDate()-14);
+    console.log(deliveryDate);
+    this.orderForm.get("deliveryDate").setValue(deliveryDate.toISOString().substring(0,10));
   }
 }

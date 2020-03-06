@@ -1165,6 +1165,14 @@
         <source>Arrival Date cannot be empty.</source>
         <target>Arrival Date cannot be empty.</target>
       </trans-unit>
+      <trans-unit id="deliveryDateRequired" datatype="html">
+        <source>Delivery Date cannot be empty.</source>
+        <target>Delivery Date cannot be empty.</target>
+      </trans-unit>
+      <trans-unit id="deliveryDate" datatype="html">
+        <source>Delivery Date</source>
+        <target>Delivery Date</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

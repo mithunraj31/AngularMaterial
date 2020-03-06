@@ -125,7 +125,7 @@ export class EditOrderDialogComponent implements OnInit {
       order.orderedProducts = this.saveProducts;
       order.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
       order.dueDate = new Date(this.orderForm.value.dueDate).toISOString();
-
+      order.deliveryDate = new Date(this.orderForm.value.deliveryDate).toISOString();
       this.dialogRef.close(order);
     }
   }

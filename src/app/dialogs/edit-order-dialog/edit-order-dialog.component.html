@@ -51,15 +51,19 @@
                 <mat-error *ngIf="orderForm.get('receivedDate').invalid">{{getErrorMessage('receivedDate')}}</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input matInput type="date" placeholder="Due Date" formControlName="dueDate">
-                <mat-error *ngIf="orderForm.get('dueDate').invalid">{{getErrorMessage('dueDate')}}</mat-error>
-            </mat-form-field>
-            <mat-form-field>
                 <input matInput type="date" #dueDateBox (keydown.enter)="calculateDelivery(dueDateBox.value)"
                     (blur)="calculateDelivery(dueDateBox.value)" i18n-placeholder="@@dueDate" placeholder="Due Date"
                     formControlName="dueDate">
                 <mat-error *ngIf="orderForm.get('dueDate').hasError('required')" i18n="@@dueDateRequired">Due Date
                     cannot be
+                    empty.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="date" i18n-placeholder="@@deliveryDate" placeholder="Delivery Date"
+                    formControlName="deliveryDate">
+                <mat-error *ngIf="orderForm.get('deliveryDate').hasError('required')" i18n="@@deliveryDateRequired">
+                    Delivery
+                    Date cannot be
                     empty.</mat-error>
             </mat-form-field>
             <mat-form-field>

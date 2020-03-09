@@ -8,6 +8,7 @@
         <button mat-raised-button color="primary" class="topButton" (click)="clickImport()" i18n="@@importProductsviaExcel">Import Products via Excel</button>
         <input type="file" #importFile style="display:none" class="topButton" data-buttonText="Import Products via Excel" (change)="onFileChange($event)" multiple="false" />
         <button mat-raised-button color="primary" class="topButton" (click)="downloadTemplate()" i18n="@@downloadTemplate">Download Template</button>
+        <button mat-raised-button color="primary" class="topButton" (click)="clickExport()" i18n="@@export">Export</button>
     </div>
 
     <mat-form-field>

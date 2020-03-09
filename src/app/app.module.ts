@@ -89,6 +89,8 @@ import { CalendarComponent } from './pages/forcast/calendar/calendar.component';
 import { TableComponent } from './pages/forcast/table/table.component';
 import { ProductForecastComponent } from './pages/forcast/product-forecast/product-forecast.component';
 import { ProductForecastService } from './services/ProductForecastService';
+import { ExcelServices } from './services/ExcelService';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -206,6 +208,8 @@ import { ProductForecastService } from './services/ProductForecastService';
     ForecastService,
     ProductForecastService,
     UtilService,
+    ExcelServices,
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

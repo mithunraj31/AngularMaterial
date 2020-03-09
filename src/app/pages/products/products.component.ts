@@ -1,3 +1,4 @@
+import { ExcelServices } from './../../services/ExcelService';
 import { UtilService } from './../../services/UtilService';
 import { DeleteConfirmationDialogComponent } from './../../dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { ProductService } from './../../services/ProductService';
@@ -43,7 +44,8 @@ export class ProductsComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public productService: ProductService,
-    public util: UtilService) { }
+    public util: UtilService,
+    private excel: ExcelServices) { }
 
   ngOnInit() {
     this.getProductData();
@@ -214,5 +216,9 @@ export class ProductsComponent implements OnInit {
   }
   clickImport() {
     this.importFile.nativeElement.click();
+  }
+
+  clickExport() {
+    this.excel.generateExcel(this.products);
   }
 }

@@ -1,0 +1,21 @@
+import { async, TestBed } from '@angular/core/testing';
+import { AddCustomerComponent } from './add-customer.component';
+describe('AddCustomerComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [AddCustomerComponent]
+        })
+            .compileComponents();
+    }));
+    beforeEach(() => {
+        fixture = TestBed.createComponent(AddCustomerComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+});
+//# sourceMappingURL=add-customer.component.spec.js.map

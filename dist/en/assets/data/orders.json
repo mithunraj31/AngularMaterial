@@ -1,0 +1,136 @@
+[
+    {
+        "orderId": 1230,
+        "dueDate": "2019-11-12T17:00:00",
+        "customer": {
+            "customerId": 1,
+            "customerName": "sample name A",
+            "zip": "1753254",
+            "address": "東京都港区東麻布1-8-1 東麻布ISビル4F",
+            "tel": "+81-426-32-8510",
+            "contactName": "John doe",
+            "type": "Customer"
+        },
+        "salesDestination": {
+            "customerId": 2,
+            "customerName": "sample name B",
+            "zip": "1753254",
+            "address": "東京都港区東麻布1-8-1 東麻布ISビル4F",
+            "tel": "+81-426-32-8510",
+            "contactName": "John doe",
+            "type": "Sales Destination"
+        },
+        "contractor": {
+            "customerId": 3,
+            "customerName": "sample name C",
+            "zip": "1753254",
+            "address": "東京都港区東麻布1-8-1 東麻布ISビル4F",
+            "tel": "+81-426-32-8510",
+            "contactName": "John doe",
+            "type": "Contractor"
+        },
+        "recievedDate": "2019-11-12T17:00:00",
+        "proposalNo": "123abc",
+        "createdAt": "2019-11-12T17:00:00",
+        "updatedAt": "2019-11-12T17:00:00",
+        "user": {
+            "userId": 1234,
+            "firstName": "John",
+            "lastName": "Doe",
+            "email": "john@mbel.co.jp",
+            "role": {
+                "roleName": "sales",
+                "description": "Sales"
+            }
+        },
+        "salesUser": {
+            "userId": 1234,
+            "firstName": "John",
+            "lastName": "Doe",
+            "email": "john@mbel.co.jp",
+            "role": {
+                "roleName": "sales",
+                "description": "Sales"
+            }
+        },
+        "editReason": null,
+        "active": true,
+        "forcast": true,
+        "orderedProducts": [
+            {
+                "product": {
+                    "productId": 100,
+                    "productName": "MbelPackage A",
+                    "description": "Mbel Advanced Package",
+                    "price": 5434,
+                    "moq": 68,
+                    "leadTime": 22,
+                    "obicNo": "8",
+                    "quantity": 70,
+                    "active": true,
+                    "createdAtDateTime": "2019-11-12T17:00:00",
+                    "updatedAtDateTime": "2019-11-12T17:00:00",
+                    "userId": 1,
+                    "set": true,
+                    "products": [
+                        {
+                            "product": {
+                                "productId": 3,
+                                "productName": "camera",
+                                "description": "product-HDCAM",
+                                "price": 3000,
+                                "moq": 300,
+                                "leadTime": 30,
+                                "obicNo": "3",
+                                "quantity": 30,
+                                "active": true,
+                                "createdAtDateTime": "2019-11-13T17:00:00",
+                                "updatedAtDateTime": "2019-11-13T17:00:00",
+                                "userId": 2,
+                                "set": false
+                            },
+                            "quantity": 3
+                        },
+                        {
+                            "product": {
+                                "productId": 4,
+                                "productName": "displayscreen",
+                                "description": "product-Videodisplay",
+                                "price": 45000,
+                                "moq": 30,
+                                "leadTime": 322,
+                                "obicNo": "13",
+                                "quantity": 312,
+                                "active": true,
+                                "createdAtDateTime": "2019-11-13T17:00:00",
+                                "updatedAtDateTime": "2019-11-13T17:00:00",
+                                "userId": 3,
+                                "set": false
+                            },
+                            "quantity": 1
+                        }
+                    ]
+                },
+                "quantity": 2
+            },
+            {
+                "product": {
+                    "productId": 1,
+                    "productName": "sesor",
+                    "description": "sensor product",
+                    "price": 5434,
+                    "moq": 68,
+                    "leadTime": 22,
+                    "obicNo": "8",
+                    "quantity": 70,
+                    "active": true,
+                    "createdAtDateTime": "2019-11-12T17:00:00",
+                    "updatedAtDateTime": "2019-11-12T17:00:00",
+                    "userId": 1,
+                    "set": false
+                },
+                "quantity": 3
+            }
+        ]
+    }
+]

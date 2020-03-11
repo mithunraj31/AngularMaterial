@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Edit customer</h1>
-<form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+<form (keydown.enter)="$event.preventDefault()" [formGroup]="customerForm" (ngSubmit)="onSubmit()">
 <div mat-dialog-content class="example-container">
   <mat-form-field>
     <input matInput type="text" placeholder="Customer Name" formControlName="customerName">

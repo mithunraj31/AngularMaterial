@@ -1,8 +1,8 @@
-<h1 mat-dialog-title i18n="@@deleteConfirmation">Undo Fulfillment Confirmation</h1>
+<h1 mat-dialog-title i18n="@@unfulfillConfirmation">Undo Fulfillment Confirmation</h1>
 <div mat-dialog-content>
-    <h3 ><span i18n="@@deleteConfirmationMassege">Are you sure you want to undo fulfillment</span> "{{data}}"?</h3>
+    <h3 >"{{data}}" <span i18n="@@unfulfillConfirmationMassege">Are you sure you want to undo fulfillment</span></h3>
   </div>
   <div mat-dialog-actions>
     <button mat-button [mat-dialog-close]="false" i18n="@@cancel">Cancel</button>
-    <button mat-raised-button color="warn" [mat-dialog-close]="true" cdkFocusInitial i18n="@@undo">Undo</button>
+    <button mat-raised-button color="warn" [mat-dialog-close]="true" cdkFocusInitial i18n="@@ok">OK</button>
   </div>

@@ -1,99 +1,117 @@
 <h1 mat-dialog-title>Edit Order</h1>
 
-<form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+<form (keydown.enter)="$event.preventDefault()" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
     <div mat-dialog-content>
-    <div class="container" style="overflow-y: scroll; height:350px;">
-        <mat-form-field>
-            <input matInput type="text" placeholder="Proposal Number" formControlName="proposalNo">
-            <mat-error *ngIf="orderForm.get('proposalNo').invalid">{{getErrorMessage('proposalNo')}}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Select a customer</mat-label>
-            <mat-select formControlName="customerId">
-                <mat-option>None</mat-option>
-                <div *ngFor="let customer of customers">
-                    <mat-option [value]="customer.customerId" *ngIf="customer.type=='Customer'">
-                        {{customer.customerName}}
-                    </mat-option>
-                </div>
-            </mat-select>
-            <mat-error *ngIf="orderForm.get('customerId').invalid">{{getErrorMessage('customerId')}}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Select a Sales Destination</mat-label>
-            <mat-select formControlName="salesDestinationId">
-                <mat-option>None</mat-option>
-                <div *ngFor="let customer of customers">
-                    <mat-option [value]="customer.customerId" *ngIf="customer.type=='Sales Destination'">
-                        {{customer.customerName}}</mat-option>
-                </div>
-            </mat-select>
-            <mat-error *ngIf="orderForm.get('salesDestinationId').invalid">{{getErrorMessage('salesDestinationId')}}
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Select a Contractor</mat-label>
-            <mat-select formControlName="contractorId">
-                <mat-option>None</mat-option>
-                <div *ngFor="let customer of customers">
-                    <mat-option [value]="customer.customerId" *ngIf="customer.type=='Contractor'">
-                        {{customer.customerName}}</mat-option>
-                </div>
-            </mat-select>
-            <mat-error *ngIf="orderForm.get('contractorId').invalid">{{getErrorMessage('contractorId')}}
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput type="date" placeholder="Received Date" formControlName="receivedDate">
-            <mat-error *ngIf="orderForm.get('receivedDate').invalid">{{getErrorMessage('receivedDate')}}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput type="date" placeholder="Due Date" formControlName="dueDate">
-            <mat-error *ngIf="orderForm.get('dueDate').invalid">{{getErrorMessage('dueDate')}}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Select a Sales User</mat-label>
-            <mat-select formControlName="salesUserId">
-                <mat-option>None</mat-option>
-                <div *ngFor="let user of users">
-                    <mat-option [value]="user.userId">{{user.firstName}} {{user.lastName}}</mat-option>
+        <div class="container" style="overflow-y: scroll; height:350px;">
+            <mat-form-field>
+                <input matInput type="text" placeholder="Proposal Number" formControlName="proposalNo">
+                <mat-error *ngIf="orderForm.get('proposalNo').invalid">{{getErrorMessage('proposalNo')}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Select a customer</mat-label>
+                <mat-select formControlName="customerId">
+                    <input (keyup)="onKey($event.target.value,'customers')">
+                    <mat-option>None</mat-option>
+                    <div *ngFor="let customer of customers">
+                        <mat-option [value]="customer.customerId" *ngIf="customer.type=='Customer'">
+                            {{customer.customerName}}
+                        </mat-option>
+                    </div>
+                </mat-select>
+                <mat-error *ngIf="orderForm.get('customerId').invalid">{{getErrorMessage('customerId')}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Select a Sales Destination</mat-label>
+                <mat-select formControlName="salesDestinationId">
+                    <input (keyup)="onKey($event.target.value,'salesD')">
+                    <mat-option>None</mat-option>
+                    <div *ngFor="let customer of salesD">
+                        <mat-option [value]="customer.customerId" *ngIf="customer.type=='Sales Destination'">
+                            {{customer.customerName}}</mat-option>
+                    </div>
+                </mat-select>
+                <mat-error *ngIf="orderForm.get('salesDestinationId').invalid">{{getErrorMessage('salesDestinationId')}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Select a Contractor</mat-label>
+                <mat-select formControlName="contractorId">
+                    <input (keyup)="onKey($event.target.value,'contractors')">
+                    <mat-option>None</mat-option>
+                    <div *ngFor="let customer of contractors">
+                        <mat-option [value]="customer.customerId" *ngIf="customer.type=='Contractor'">
+                            {{customer.customerName}}</mat-option>
+                    </div>
+                </mat-select>
+                <mat-error *ngIf="orderForm.get('contractorId').invalid">{{getErrorMessage('contractorId')}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="date" placeholder="Received Date" formControlName="receivedDate">
+                <mat-error *ngIf="orderForm.get('receivedDate').invalid">{{getErrorMessage('receivedDate')}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="date" #dueDateBox (keydown.enter)="calculateDelivery(dueDateBox.value)"
+                    (blur)="calculateDelivery(dueDateBox.value)" i18n-placeholder="@@dueDate" placeholder="Due Date"
+                    formControlName="dueDate">
+                <mat-error *ngIf="orderForm.get('dueDate').hasError('required')" i18n="@@dueDateRequired">Due Date
+                    cannot be
+                    empty.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="date" i18n-placeholder="@@deliveryDate" placeholder="Delivery Date"
+                    formControlName="deliveryDate">
+                <mat-error *ngIf="orderForm.get('deliveryDate').hasError('required')" i18n="@@deliveryDateRequired">
+                    Delivery
+                    Date cannot be
+                    empty.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Select a Sales User</mat-label>
+                <mat-select formControlName="salesUserId">
+                    <input (keyup)="onKey($event.target.value,'users')">
+                    <mat-option>None</mat-option>
+                    <div *ngFor="let user of users">
+                        <mat-option [value]="user.userId">{{user.firstName}} {{user.lastName}}</mat-option>
 
-                </div>
+                    </div>
+                </mat-select>
+                <mat-error *ngIf="orderForm.get('salesUserId').invalid">{{getErrorMessage('salesUserId')}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div style="overflow-y: scroll; height:100px;" *ngIf="viewSelectd.length > 0">
+            <mat-card class="productList" *ngFor="let element of viewSelectd; let i = index">
+                {{element.productName}} : {{element.quantity}}
+
+
+                <button align="end" mat-stroked-button color="warn" type="button"
+                    (click)="removeComponent(i)">Remove</button>
+
+            </mat-card>
+        </div>
+        <mat-form-field class="inline">
+            <mat-label>Select a product</mat-label>
+            <mat-select [(value)]="selected">
+                <input (keyup)="onKey($event.target.value,'products')">
+                <mat-option>None</mat-option>
+                <mat-option value="{{i}}" *ngFor="let product of productSets; let i = index">{{product.productName}}
+                </mat-option>
             </mat-select>
-            <mat-error *ngIf="orderForm.get('salesUserId').invalid">{{getErrorMessage('salesUserId')}}
-            </mat-error>
         </mat-form-field>
-    </div>
-    <div style="overflow-y: scroll; height:100px;" *ngIf="viewSelectd.length > 0">
-        <mat-card class="productList" *ngFor="let element of viewSelectd; let i = index">
-            {{element.productName}} : {{element.quantity}}
-
-
-            <button align="end" mat-stroked-button color="warn" type="button"
-                (click)="removeComponent(i)">Remove</button>
-
-        </mat-card>
-    </div>
-    <mat-form-field class="inline">
-        <mat-label>Select a product</mat-label>
-        <mat-select [(value)]="selected">
-            <mat-option>None</mat-option>
-            <mat-option value="{{i}}" *ngFor="let product of productSets; let i = index">{{product.productName}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field class="inline">
-        <input matInput type="number" min="1" placeholder="QTY" [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
-        <mat-error>QTY cannot be empty</mat-error>
-    </mat-form-field>
-    <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()">Add</button>
-    <br><span class="qtyError" *ngIf="qtyError" color="red">QTY cannot be empty</span>
-    <mat-form-field class="inline">
-            <input matInput type="text" placeholder="Edit Reason" formControlName="editReason" >
+        <mat-form-field class="inline">
+            <input matInput type="number" min="1" placeholder="QTY" [(ngModel)]="qty"
+                [ngModelOptions]="{standalone: true}">
+            <mat-error>QTY cannot be empty</mat-error>
+        </mat-form-field>
+        <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()">Add</button>
+        <br><span class="qtyError" *ngIf="qtyError" color="red">QTY cannot be empty</span>
+        <mat-form-field class="inline">
+            <input matInput type="text" placeholder="Edit Reason" formControlName="editReason">
             <mat-error>Edit Reason cannot be empty</mat-error>
         </mat-form-field>
-    
-</div>
+
+    </div>
     <div mat-dialog-actions>
         <button mat-button (click)="onCancelClick()">Cancel</button>
         <button mat-button type="submit" [disabled]="!orderForm.valid">Ok</button>

@@ -5,6 +5,7 @@ import { User } from './User';
 export interface SaveOrder {
     orderId: number;
     dueDate: string;
+    deliveryDate: string;
     customerId: number;
     salesDestinationId: number;
     contractorId: number;

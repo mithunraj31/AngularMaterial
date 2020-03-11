@@ -1,18 +1,19 @@
 <h1 mat-dialog-title i18n="@@forecastInformation">Forecast Information</h1>
 
+<h5 [routerLink]= "['orders',data.proposalNo]" [mat-dialog-close]="true"><span i18n="@@proposalNo1">Proposal No</span> "{{data.proposalNo}}"?</h5>
+
+<span i18n="@@recievedDate">Recieved Date</span><span> : {{data.receivedDate | date:'shortDate'}}</span><br>
+<span i18n="@@dueDate">Due Date</span><span> : {{data.dueDate | date:'shortDate'}}</span><br>
 <div mat-dialog-content>
     <div class="scroll">
-    <h5 [routerLink]= "['orders',data.proposalNo]" [mat-dialog-close]="true"><span i18n="@@proposalNo1">Proposal No</span> "{{data.proposalNo}}"?</h5>
-
-  <span i18n="@@recievedDate">Recieved Date</span><span> : {{data.receivedDate | date:'shortDate'}}</span><br>
-  <span i18n="@@dueDate">Due Date</span><span> : {{data.dueDate | date:'shortDate'}}</span><br>
   <mat-card  *ngFor="let product of data.orderedProducts" 
   [ngClass]="{'products': product.forecast,'productsRed': !product.forecast}">
       <h4>{{product.product.productName}}</h4>
     <span>{{product.product.description}}</span><br>
     <span i18n="@@obicNo">Obic No</span><span>: {{product.product.obicNo}}</span><br>
-    <span *ngIf="!product.product.set" i18n="@@quantity">Stock QTY</span><span *ngIf="!product.product.set">: {{product.product.quantity}}</span><br>
-    <span *ngIf="!product.product.set" i18n="@@moq">MOQ</span><span *ngIf="!product.product.set">: {{product.product.moq}}</span><br>
+    <span *ngIf="!product.product.set" i18n="@@quantity">Stock QTY</span><span *ngIf="!product.product.set">: {{product.product.quantity}}</span><br *ngIf="!product.product.set">
+    <span *ngIf="!product.product.set" i18n="@@moq">MOQ</span><span *ngIf="!product.product.set">: {{product.product.moq}}</span><br *ngIf="!product.product.set">
+    <span *ngIf="product.product.set" class="bold" i18n="@@requiredQtySet"> Required QTY of Sets </span><span *ngIf="product.product.set">: {{product.quantity}}</span><br *ngIf="product.product.set">
     <mat-accordion *ngIf="product.product.set">
         <mat-expansion-panel *ngFor="let sub of product.product.products" 
         [ngClass]="{'products': sub.forecast,'productsDark': !sub.forecast}">
@@ -22,7 +23,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <span>{{sub.product.description}}</span><br>
-            <span i18n="@@price">Price</span><span> : {{sub.product.price}}</span><br>
+            <span i18n="@@price">Price</span><span> : {{util.getCurrencySign(sub.product.currency)}} {{sub.product.price}}</span><br>
             <span i18n="@@obicNo">Obic No</span><span>: {{sub.product.obicNo}}</span><br>
             <span i18n="@@quantity">Stock QTY</span><span>: {{sub.product.quantity}}</span><br>
             <span i18n="@@leadTime">Lead Time</span><span>: {{sub.product.leadTime}}w</span><br>
@@ -33,9 +34,9 @@
             <span class="bold" i18n="@@minimumOrderDate">Minimum Order Date</span><span>: {{sub.mod | date:'shortDate'}}</span><br>
         </mat-expansion-panel>
     </mat-accordion>
-    <span class="bold" i18n="@@requiredQty"> Required QTY</span><span>: {{product.quantity}}</span><br>
-    <span *ngIf="!product.product.set" class="bold" i18n="@@estimatedQty">Estimated available QTY</span><span *ngIf="!product.product.set" >: {{product.currentQuantity}}</span><br>
-    <span *ngIf="!product.product.set && !product.forecast" class="bold" i18n="@@minimumOrderDate">Minimum Order Date</span><span *ngIf="!product.product.set && !product.forecast">: {{product.mod | date:'shortDate'}}</span><br>
+    <span *ngIf="!product.product.set" class="bold" i18n="@@requiredQty"> Required QTY </span><span *ngIf="!product.product.set">: {{product.quantity}}</span><br *ngIf="!product.product.set">
+    <span *ngIf="!product.product.set" class="bold" i18n="@@estimatedQty">Estimated available QTY</span><span *ngIf="!product.product.set" >: {{product.currentQuantity}}</span><br *ngIf="!product.product.set">
+    <span *ngIf="!product.product.set && !product.forecast" class="bold" i18n="@@minimumOrderDate">Minimum Order Date</span><span *ngIf="!product.product.set && !product.forecast">: {{product.mod | date:'shortDate'}}</span><br *ngIf="!product.product.set && !product.forecast">
   </mat-card>
 
 </div>

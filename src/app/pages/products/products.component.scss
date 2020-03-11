@@ -22,3 +22,30 @@ table {
   top: -4px;
   justify-content: flex-end;
 }
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: #c8e6c9;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #a4dda6;
+}
+.mat-column-description 
+{
+
+  min-width: 200px !important;
+  max-width: 500px !important;
+}
+.mat-column-price 
+{
+
+  min-width: 150px !important;
+  max-width: 300px !important;
+}
+.topButton {
+  margin: 5px;
+}

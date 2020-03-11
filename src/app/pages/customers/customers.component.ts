@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomerService } from 'src/app/services/CustomerService';
 import { Customer } from 'src/app/models/Customer';
-import { MatTableDataSource, MatTable, MatPaginator, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatTable, MatPaginator, MatDialog, MatSort } from '@angular/material';
 import { Product } from 'src/app/models/Product';
 import { AddCustomerComponent } from 'src/app/dialogs/add-customer/add-customer.component';
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
@@ -26,7 +26,9 @@ export class CustomersComponent implements OnInit {
   customers: Customer[] = [];
   dataSource = new MatTableDataSource<Customer>();
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
+  @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(
     public dialog: MatDialog,
     private customerService: CustomerService
@@ -34,7 +36,8 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit() {
     this.getCustomers();
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginatorTop;
+    this.dataSource.sort = this.sort;
   }
 
   getCustomers() {
@@ -43,10 +46,32 @@ export class CustomersComponent implements OnInit {
       this.customers = result;
       this.dataSource.data = this.customers;
       this.progress = false;
-
+      this.onTopPaginateChange();
     }, error => {
       this.progress = false;
     })
+  }
+
+  onTopPaginateChange(){
+    this.paginatorBottom.length = this.dataSource.data.length;
+    this.paginatorBottom.pageSize = this.paginatorTop.pageSize;
+    this.paginatorBottom.pageIndex = this.paginatorTop.pageIndex;
+  }
+  onBottomPaginateChange(event){
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex==1) {
+      this.paginatorTop.nextPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.pageIndex-event.previousPageIndex==-1) {
+      this.paginatorTop.previousPage();
+    }
+    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex>1) {
+      this.paginatorTop.lastPage();
+    }
+    if(event.previousPageIndex>event.pageIndex && event.previousPageIndex-event.pageIndex>1) {
+      this.paginatorTop.firstPage();
+    }
+    this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
+
   }
 
   applyFilter(filterValue: string) {

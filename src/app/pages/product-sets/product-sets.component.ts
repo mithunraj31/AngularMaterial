@@ -4,7 +4,7 @@ import { AddProductSetDialogComponent } from './../../dialogs/add-product-set-di
 import { ProductSet } from './../../models/ProductSet';
 import { ProductService } from './../../services/ProductService';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatTable, MatPaginator, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatTable, MatPaginator, MatDialog, MatSort } from '@angular/material';
 import { Product } from 'src/app/models/Product';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { EditProductSetDialogComponent } from 'src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component';
@@ -16,9 +16,10 @@ import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confir
   styleUrls: ['./product-sets.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('collapsed, void', style({ height: '0px', minHeight: '0', display: 'none' })),
       state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      transition('expanded <=> void', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
     ]),]
 })
 export class ProductSetsComponent implements OnInit {
@@ -36,7 +37,9 @@ export class ProductSetsComponent implements OnInit {
   dataSource = new MatTableDataSource<Product>();
   productSets: ProductSet[];
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
+  @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   expandedElement: ProductSet | null;
   constructor(
     private productService: ProductService,
@@ -46,19 +49,19 @@ export class ProductSetsComponent implements OnInit {
 
   ngOnInit() {
     this.getProductSetData();
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginatorTop;
+    this.dataSource.sort = this.sort;
   }
 
   getProductSetData() {
     this.progress = true;
     this.productService.getProductSets().subscribe(result => {
       this.productSets = result;
-      console.log(this.productSets);
       this.dataSource.data = this.productSets;
       this.progress = false;
+      this.onTopPaginateChange();
     }, error => {
       this.progress = false;
-      console.log(error);
     })
   }
   deleteProduct(i: any) {
@@ -126,6 +129,27 @@ export class ProductSetsComponent implements OnInit {
         })
       }
     });
+  }
+  onTopPaginateChange() {
+    this.paginatorBottom.length = this.dataSource.data.length;
+    this.paginatorBottom.pageSize = this.paginatorTop.pageSize;
+    this.paginatorBottom.pageIndex = this.paginatorTop.pageIndex;
+  }
+  onBottomPaginateChange(event) {
+    if (event.previousPageIndex < event.pageIndex && event.pageIndex - event.previousPageIndex == 1) {
+      this.paginatorTop.nextPage();
+    }
+    if (event.previousPageIndex > event.pageIndex && event.pageIndex - event.previousPageIndex == -1) {
+      this.paginatorTop.previousPage();
+    }
+    if (event.previousPageIndex < event.pageIndex && event.pageIndex - event.previousPageIndex > 1) {
+      this.paginatorTop.lastPage();
+    }
+    if (event.previousPageIndex > event.pageIndex && event.previousPageIndex - event.pageIndex > 1) {
+      this.paginatorTop.firstPage();
+    }
+    this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
+
   }
 
 }

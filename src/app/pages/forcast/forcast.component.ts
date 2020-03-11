@@ -1,52 +1,8 @@
-import { Order } from './../../models/Order';
-import { ForecastDialogComponent } from './../../dialogs/forecast-dialog/forecast-dialog.component';
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewChild,
-  TemplateRef,
-  OnInit
-} from '@angular/core';
-import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours
-} from 'date-fns';
-import { Subject } from 'rxjs';
-import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
-  CalendarView
-} from 'angular-calendar';
-import { MatDialog, MatIconRegistry } from '@angular/material';
-import { EditOrderDialogComponent } from 'src/app/dialogs/edit-order-dialog/edit-order-dialog.component';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { ForecastService } from 'src/app/services/ForecastService';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  },
-  green: {
-    primary: '#006400',
-    secondary: '#006400'
-  }
-};
 
 @Component({
   selector: 'app-forcast',
@@ -54,135 +10,164 @@ const colors: any = {
   styleUrls: ['forcast.component.scss'],
   templateUrl: 'forcast.component.html'
 })
-export class ForcastComponent implements OnInit{
-  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+export class ForcastComponent implements OnInit, OnDestroy{
+  displayedColumns: string[] = [
+    'setName',
+    'productId',
+    'productName',
+    'description',
+    'values',
 
-  view: CalendarView = CalendarView.Month;
-
-  CalendarView = CalendarView;
-
-  viewDate: Date = new Date();
-
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
-
-  refresh: Subject<any> = new Subject();
-
-  events: CustomCalendarEvent[];
-
-  activeDayIsOpen: boolean = true;
-  forecasts : Order[];
+  ];
+  columnsToDisplay: string[] = this.displayedColumns.slice();
+  subColumns: any[] = [
+    {
+      value: "in qty",
+      key: "incomingQuantity"
+    },
+    {
+      value: "out qty",
+      key: "requiredQuantity"
+    },
+    {
+      value: "predicted stock",
+      key: "currentQuantity"
+    },
+    {
+      value: "stock",
+      key: "quantity"
+    },
+  ]
+  dataSource: Array<any> = [];
+  spans = [];
+  spanningColumns = ['productId', 'productName', 'description'];
+  tempRowId = null;
+  tempRowCount = null;
+  productForecast;
   progress;
-  constructor(
-    public dialog: MatDialog,
-    private forecastService: ForecastService,
-    iconRegistry: MatIconRegistry, 
-    sanitizer: DomSanitizer
-    ) {
-      iconRegistry.addSvgIcon(
-        'info',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/icon/info.svg'));
-    }
+  unsub = new Subject();
+  constructor(private forecastService: ForecastService) {
+
+  }
 
   ngOnInit() {
-    this.events = [];
-    this.getForecastdata();
+    this.populateData();
+    // console.log(this.dataSource);
+    // console.log(this.displayedColumns);
   }
-  getForecastdata(){
+  ngOnDestroy(){
+    this.unsub.next();
+    this.unsub.complete();
+  }
+
+  populateData() {
     this.progress = true;
-    this.forecastService.getForecast().subscribe(result => {
-      this.forecasts = result;
-      this.populateCalender();
-      this.viewDate = new Date();
+    // this.progress = false;
+    this.forecastService.getProductForecast().pipe(takeUntil(this.unsub)).subscribe(data => {
+      this.addColumnsToTables(data[0].products[0].values);
+      this.productForecast = data;
+      console.log(this.productForecast);
+      let setcount = 0;
+      let productcount = 0;
+      let tempdata:any[]= [];
+      data.forEach(productSet => {
+        productSet.products.forEach(product => {
+          this.subColumns.forEach(column => {
+
+            let temp: any = {
+              "setId": productSet.productId,
+              "setObicNo": productSet.obicNo,
+              "setName": productSet.productName,
+              "setDescription": productSet.description,
+              "setColor": setcount % 2 == 0 ? "#E8EAF6" : "#C5CAE9",
+
+              "productId": product.productId,
+              "obicNo": product.obicNo,
+              "productName": product.productName,
+              "description": product.description,
+              "color": productcount % 2 == 0 ? "#E0F2F1" : "#B2DFDB",
+              "values": column.value,
+
+            }
+            product.values.forEach(dateItem => {
+              if ((column.key === "incomingQuantity" || column.key === "requiredQuantity") && (dateItem[column.key]==0)) {
+                temp[this.getDateString(dateItem.date)] = "";
+              } else {
+                temp[this.getDateString(dateItem.date)] = dateItem[column.key];
+              }
+            });
+            tempdata.push(temp);
+            // this.dataSource.push(temp);
+            
+          })
+          productcount++;
+        });
+        setcount++;
+        
+      });
+      this.dataSource = tempdata;
+      
+      console.log(this.dataSource);
       this.progress = false;
-    }, error => {
+      this.unsub.next();
+      this.unsub.complete();
+      console.log(this.progress);
+    },error=>{
       this.progress = false;
-      console.log(error);
-    })
+    });
 
   }
-
-  populateCalender(){
-    this.forecasts.forEach((order)=>{
-      this.addEvent(order.proposalNo, new Date(order.dueDate),order.forecast?colors.green:colors.red, order);
-    })
-    this.refresh.next();
+  addColumnsToTables(dateArray) {
+ 
+    dateArray.forEach(element => {
+      const date = element.date;
+      this.displayedColumns.push(this.getDateString(date));
+    });
+    this.columnsToDisplay = this.displayedColumns.slice();
+    // console.log(this.columnsToDisplay);
   }
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-      this.viewDate = date;
+  getDateString(date: string) {
+    return new Date(date).toLocaleDateString("en-US", { month: "numeric", day: "numeric" });
+  }
+
+  changeColor(data, set?) {
+    if (set)
+      return { 'background-color': data.setColor };
+
+    return { 'background-color': data.color };
+  }
+
+  getRowSpanSet(col, index) {
+    // console.log(col,index);
+    const rowVal = this.dataSource[index];
+    const cellVal = rowVal[col];
+    let count = 0;
+    for (let row of this.dataSource) {
+      if (cellVal == row[col])
+        count++;
     }
+    return count;
+  }
+  getRowSpan(col, index) {
+
+    return 4;
   }
 
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd
-  }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map(iEvent => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd
-        };
+  isTheSame(column, index) {
+    let result = false;
+    const i = index;
+    if (i == 0) {
+      result = false;
+    } else {
+      const valObj = this.dataSource[i];
+      const preObj = this.dataSource[i - 1];
+
+      if (valObj[column] == preObj[column]) {
+        result = true;
       }
-      return iEvent;
-    });
-    this.handleEvent('Dropped or resized', event);
+      // console.log (valObj[column],preObj[column]);
+    }
+    return result;
   }
-
-  handleEvent(action: string, event: CustomCalendarEvent): void {
-    console.log(event);
-    const dialogRef = this.dialog.open(ForecastDialogComponent, {
-      width: '600px',
-      data: event.data
-    });
-  }
-  handleListItem(data: Order): void {
-    console.log(event);
-    const dialogRef = this.dialog.open(ForecastDialogComponent, {
-      width: '600px',
-      data: data
-    });
-  }
-
-  addEvent(title: string, start: Date, color: any, data: Order): void {
-    this.events = [
-      ...this.events,
-      {
-        title: title,
-        start: start,
-        color: color,
-        data: data
-      }
-    ];
-
-  }
-
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter(event => event !== eventToDelete);
-  }
-
-  setView(view: CalendarView) {
-    this.view = view;
-  }
-
-  closeOpenMonthViewDay() {
-    this.activeDayIsOpen = false;
-  }
-}
-
-export interface CustomCalendarEvent extends CalendarEvent {
-  data?: Order;
+ 
 }

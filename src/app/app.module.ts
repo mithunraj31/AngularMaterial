@@ -32,6 +32,8 @@ import {MatToolbarModule,
         MatProgressBarModule,
         MatPaginatorIntl,
         MatSnackBarModule,
+        MatTooltipModule,
+        MatSortModule,
         
 } from '@angular/material';
 
@@ -83,6 +85,12 @@ import { UnfulfillConfirmationComponent } from './dialogs/unfulfill-confirmation
 import { ProfileComponent } from './pages/my-page/profile/profile.component';
 import { UsersComponent } from './pages/my-page/users/users.component';
 import { AddUserDialogComponent } from './dialogs/add-user-dialog/add-user-dialog.component';
+import { CalendarComponent } from './pages/forcast/calendar/calendar.component';
+import { TableComponent } from './pages/forcast/table/table.component';
+import { ProductForecastComponent } from './pages/forcast/product-forecast/product-forecast.component';
+import { ProductForecastService } from './services/ProductForecastService';
+import { ExcelServices } from './services/ExcelService';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -124,6 +132,9 @@ import { AddUserDialogComponent } from './dialogs/add-user-dialog/add-user-dialo
     ProfileComponent,
     UsersComponent,
     AddUserDialogComponent,
+    CalendarComponent,
+    TableComponent,
+    ProductForecastComponent,
 
   ],
   imports: [
@@ -154,7 +165,9 @@ import { AddUserDialogComponent } from './dialogs/add-user-dialog/add-user-dialo
     MatProgressBarModule,
     MatGridListModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule,
+    MatSortModule
   ],
   exports: [ 
      
@@ -193,7 +206,10 @@ import { AddUserDialogComponent } from './dialogs/add-user-dialog/add-user-dialo
     OutgoingShipmentService,
     UserService,
     ForecastService,
+    ProductForecastService,
     UtilService,
+    ExcelServices,
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

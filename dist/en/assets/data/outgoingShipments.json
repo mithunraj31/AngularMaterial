@@ -1,0 +1,119 @@
+[{
+    "outgoingShipmentId": 414,
+    "shipmentDate": "2019-12-01T05:28:15",
+    "shipmentNo": "abc",
+    "createdAt": "2019-12-11T00:47:51",
+    "updatedAt": "2019-12-11T00:47:51",
+    "salesDestination" : {
+        "customerName": "hellow"
+    },
+    "user": {
+      "userId": 1,
+      "firstName": "mithun",
+      "lastName": "raj",
+      "email": "mithunmiru@gmail.com",
+      "roleId": 7,
+      "roles": [
+        {
+          "roleId": 7,
+          "roleName": "ADMIN",
+          "description": "ADMIN_ACESS"
+        }
+      ]
+    },
+    "products": [
+      {
+        "product": {
+          "productId": 322,
+          "productName": "Charger",
+          "description": "Dr.Charger for Monitor",
+          "price": 45654,
+          "moq": 1,
+          "leadTime": 3,
+          "obicNo": "32",
+          "quantity": 34,
+          "active": true,
+          "createdAtDateTime": "2019-12-06T01:14:39",
+          "updatedAtDateTime": "2019-12-06T01:14:39",
+          "userId": 2,
+          "products": [],
+          "set": false
+        },
+        "quantity": 7
+      },
+      {
+        "product": {
+          "productId": 343,
+          "productName": "Camera Package",
+          "description": "All cameras",
+          "price": 2221,
+          "moq": 1,
+          "leadTime": 1,
+          "obicNo": "2",
+          "quantity": 34,
+          "active": true,
+          "createdAtDateTime": "2019-12-06T01:25:02",
+          "updatedAtDateTime": "2019-12-06T01:25:02",
+          "userId": 2,
+          "products": [
+            {
+              "product": {
+                "productId": 318,
+                "productName": "Video Recorder",
+                "description": "Records Driving Video",
+                "price": 34445,
+                "moq": 54,
+                "leadTime": 65,
+                "obicNo": "54",
+                "quantity": 67,
+                "active": true,
+                "createdAtDateTime": "2019-12-06T01:10:32",
+                "updatedAtDateTime": "2019-12-06T01:22:37",
+                "userId": 2,
+                "set": false
+              },
+              "quantity": 2
+            },
+            {
+              "product": {
+                "productId": 314,
+                "productName": "Camera AB",
+                "description": "HD-CAM ",
+                "price": 235667,
+                "moq": 5,
+                "leadTime": 34,
+                "obicNo": "65",
+                "quantity": 70,
+                "active": false,
+                "createdAtDateTime": "2019-12-06T01:07:07",
+                "updatedAtDateTime": "2019-12-06T02:49:28",
+                "userId": 2,
+                "set": false
+              },
+              "quantity": 2
+            },
+            {
+              "product": {
+                "productId": 319,
+                "productName": "Cables",
+                "description": "All connecting cables",
+                "price": 2343,
+                "moq": 43,
+                "leadTime": 546,
+                "obicNo": "45",
+                "quantity": 34,
+                "active": true,
+                "createdAtDateTime": "2019-12-06T01:11:17",
+                "updatedAtDateTime": "2019-12-06T01:11:17",
+                "userId": 2,
+                "set": false
+              },
+              "quantity": 3
+            }
+          ],
+          "set": true
+        },
+        "quantity": 8
+      }
+    ]
+  }]

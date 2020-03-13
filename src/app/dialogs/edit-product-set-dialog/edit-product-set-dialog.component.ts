@@ -65,6 +65,12 @@ export class EditProductSetDialogComponent implements OnInit {
       "obicNo": new FormControl(this.data.obicNo, [
         Validators.required
       ]),
+      "sort": new FormControl(this.data.sort,[
+        
+      ]),
+      "color": new FormControl(this.data.color,[
+        
+      ]),
 
     })
   }

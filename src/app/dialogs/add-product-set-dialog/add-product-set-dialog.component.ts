@@ -66,7 +66,12 @@ export class AddProductSetDialogComponent implements OnInit {
       "obicNo": new FormControl("", [
         Validators.required
       ]),
-
+      "sort": new FormControl(this.data,[
+        
+      ]),
+      "color": new FormControl("",[
+        
+      ]),
     })
   }
   onCancelClick(): void {

@@ -19,7 +19,7 @@
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
         <ng-container matColumnDef="productName">
             <th mat-header-cell *matHeaderCellDef i18n="@@productName" mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+            <td mat-cell *matCellDef="let element" (click)="editProduct(element)" > {{element.productName}} </td>
         </ng-container>
         <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef i18n="@@description" mat-sort-header> Description </th>
@@ -47,14 +47,24 @@
         </ng-container>
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element;">
-                <button mat-button color="primary" (click)="editProduct(element)" i18n="@@edit">Edit</button>
-                <button mat-button color="warn" (click)="deleteProduct(element)" i18n="@@delete">Delete</button>
+            <td mat-cell *matCellDef="let element;" [ngStyle]="{'background-color': element.color}">
+                <button class="tablebtn" mat-icon-button color="primary" (click)="editProduct(element)" i18n-aria-label="@@edit">
+                        <mat-icon>edit</mat-icon>
+                </button>
+                <button class="tablebtn" mat-icon-button  color="warn" (click)="deleteProduct(element)" i18n="@@delete">
+                        <mat-icon color="warn">delete</mat-icon>
+                </button>
+                <button class="tablebtn" *ngIf="!element.display" mat-icon-button (click)="clickDisplay(element,true)" i18n="@@hidden">
+                        <mat-icon color="warn">block</mat-icon>
+                </button>
+                <button class="tablebtn" *ngIf="element.display" mat-icon-button style="color: #558b2f;" (click)="clickDisplay(element,false)" i18n="@@display">
+                    <mat-icon>remove_red_eye</mat-icon>
+                </button>
             </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editProduct(row)" class="element-row">
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row" >
         </tr>
 
     </table>

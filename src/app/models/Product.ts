@@ -13,4 +13,7 @@ export interface Product {
     createdAt?: Date;
     updatedAt?: Date;
     userId?: number;
+    color?: string;
+    sort?: number;
+    display?: boolean;
 }

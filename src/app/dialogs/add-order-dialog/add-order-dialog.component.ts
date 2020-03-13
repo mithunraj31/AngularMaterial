@@ -174,7 +174,9 @@ export class AddOrderDialogComponent implements OnInit {
             products: null,
             quantity: product.quantity,
             updatedAt: product.updatedAt,
-            userId: product.userId
+            userId: product.userId,
+            sort: product.sort,
+            display: product.display
           };
           this.productSets.push(p);
         }

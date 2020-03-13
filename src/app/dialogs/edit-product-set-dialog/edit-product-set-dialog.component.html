@@ -1,30 +1,32 @@
 <h1 mat-dialog-title i18n="@@updateProductSet">Edit product set</h1>
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-  <div class="container" style="overflow-y: scroll; height:350px;">
-    <mat-form-field>
-      <input matInput type="text" i18n-placeholder="@@productSetName" placeholder="Product Name" placeholder="Product Set Name"
-        formControlName="productName">
-      <mat-error *ngIf="productForm.get('productName').hasError('required')" i18n="@@productSetNameRequired">Product Set Name
-        cannot be empty.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="text" i18n-placeholder="@@description" placeholder="Product Name" placeholder="Description"
-        formControlName="description">
-      <mat-error *ngIf="productForm.get('description').hasError('required')" i18n="@@descriptionRequired">
-        {{getErrorMessage('description')}}</mat-error>
-    </mat-form-field>
-    <mat-form-field class="inline">
-      <input matInput type="number" min="1" i18n-placeholder="@@price" placeholder="Price" formControlName="price">
-      <mat-error *ngIf="productForm.get('price').hasError('required')" i18n="@@priceRequired">Price cannot be empty.
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="inline">
-      <mat-select formControlName="currency">
-        <mat-option se value="JPY">JPY</mat-option>
-        <mat-option value="USD">USD</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <!-- <mat-form-field>
+  <div mat-dialog-content class="example-container">
+    <div class="container" style="overflow-y: scroll; height:350px;">
+      <mat-form-field>
+        <input matInput type="text" i18n-placeholder="@@productSetName" placeholder="Product Name"
+          placeholder="Product Set Name" formControlName="productName">
+        <mat-error *ngIf="productForm.get('productName').hasError('required')" i18n="@@productSetNameRequired">Product
+          Set Name
+          cannot be empty.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" i18n-placeholder="@@description" placeholder="Product Name"
+          placeholder="Description" formControlName="description">
+        <mat-error *ngIf="productForm.get('description').hasError('required')" i18n="@@descriptionRequired">
+          {{getErrorMessage('description')}}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="inline">
+        <input matInput type="number" min="1" i18n-placeholder="@@price" placeholder="Price" formControlName="price">
+        <mat-error *ngIf="productForm.get('price').hasError('required')" i18n="@@priceRequired">Price cannot be empty.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="inline">
+        <mat-select formControlName="currency">
+          <mat-option se value="JPY">JPY</mat-option>
+          <mat-option value="USD">USD</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <mat-form-field>
       <input matInput type="number" i18n-placeholder="@@quantity" placeholder="Product Name" placeholder="QTY" formControlName="quantity">
       <mat-error *ngIf="productForm.get('quantity').hasError('required')" i18n="@@qtyRequired">{{getErrorMessage('quantity')}}</mat-error>
     </mat-form-field>
@@ -36,40 +38,69 @@
       <input matInput type="text" i18n-placeholder="@@moq" placeholder="Product Name" placeholder="MOQ" formControlName="moq">
       <mat-error *ngIf="productForm.get('moq').hasError('required')" i18n="@@moqRequired">{{getErrorMessage('moq')}}</mat-error>
     </mat-form-field> -->
-    <mat-form-field>
-      <input matInput type="text" i18n-placeholder="@@obicNo" placeholder="Product Name" placeholder="Obic No"
-        formControlName="obicNo">
-      <mat-error *ngIf="productForm.get('obicNo').hasError('required')" i18n="@@obicNoRequired">
-        {{getErrorMessage('obicNo')}}</mat-error>
+      <mat-form-field>
+        <input matInput type="text" i18n-placeholder="@@obicNo" placeholder="Product Name" placeholder="Obic No"
+          formControlName="obicNo">
+        <mat-error *ngIf="productForm.get('obicNo').hasError('required')" i18n="@@obicNoRequired">
+          {{getErrorMessage('obicNo')}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" min="1" i18n-placeholder="@@sort" placeholder="Sort" formControlName="sort">
+        <!-- <mat-error *ngIf="productForm.get('obicNo').hasError('required')" i18n="@@obicNoRequired">Obic No cannot be empty. -->
+        <!-- </mat-error> -->
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label i18n="@@selectColor">Select a color</mat-label>
+        <mat-select formControlName="color">
+          <mat-option style="background-color: #ffffff;" value="#ffffff">DEFAULT</mat-option>
+          <mat-option style="background-color: #ef9a9a;" value="#ef9a9a">RED</mat-option>
+          <mat-option style="background-color: #f48fb1;" value="#f48fb1">PINK</mat-option>
+          <mat-option style="background-color: #ce93d8;" value="#ce93d8">PURPLE</mat-option>
+          <mat-option style="background-color: #b39ddb;" value="#b39ddb">DEEP PURPLE</mat-option>
+          <mat-option style="background-color: #9fa8da;" value="#9fa8da">INDIGO</mat-option>
+          <mat-option style="background-color: #90caf9;" value="#90caf9">BLUE</mat-option>
+          <mat-option style="background-color: #81d4fa;" value="#81d4fa">LIGHT BLUE</mat-option>
+          <mat-option style="background-color: #80deea;" value="#80deea">CYAN</mat-option>
+          <mat-option style="background-color: #80cbc4;" value="#80cbc4">TEAL</mat-option>
+          <mat-option style="background-color: #a5d6a7;" value="#a5d6a7">GREEN</mat-option>
+          <mat-option style="background-color: #c5e1a5;" value="#c5e1a5">LIGHT GREEN</mat-option>
+          <mat-option style="background-color: #e6ee9c;" value="#e6ee9c">LIME</mat-option>
+          <mat-option style="background-color: #fff59d;" value="#fff59d">YELLOW</mat-option>
+          <mat-option style="background-color: #ffe082;" value="#ffe082">AMBER</mat-option>
+          <mat-option style="background-color: #ffcc80;" value="#ffcc80">ORANGE</mat-option>
+          <mat-option style="background-color: #ffab91;" value="#ffab91">DEEP ORANGE</mat-option>
+          <mat-option style="background-color: #bcaaa4;" value="#bcaaa4">BROWN</mat-option>
+          <mat-option style="background-color: #eeeeee;" value="#eeeeee">GRAY</mat-option>
+          <mat-option style="background-color: #b0bec5;" value="#b0bec5">BLUE GRAY</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div style="overflow-y: scroll; height:100px;" *ngIf="viewSelectd.length > 0">
+      <mat-card class="productList" *ngFor="let element of viewSelectd; let i = index">
+        {{element.productName}} : {{element.quantity}}
+
+
+        <button align="end" mat-stroked-button color="warn" type="button" (click)="removeComponent(i)"
+          i18n="@@remove">Remove</button>
+
+      </mat-card>
+    </div>
+    <mat-form-field class="inline">
+      <mat-label i18n="@@selectProduct">Select a product</mat-label>
+      <mat-select [(value)]="selected">
+        <input (keyup)="onKey($event.target.value)">
+        <mat-option i18n="@@none">None</mat-option>
+        <mat-option value="{{i}}" *ngFor="let product of products; let i = index">{{product.productName}}</mat-option>
+
+      </mat-select>
     </mat-form-field>
-
+    <mat-form-field class="inline">
+      <input matInput type="number" min="1" i18n-placeholder="@@quantity" placeholder="QTY" [(ngModel)]="qty"
+        [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+    <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
+    <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>
   </div>
-  <div style="overflow-y: scroll; height:100px;" *ngIf="viewSelectd.length > 0">
-    <mat-card class="productList" *ngFor="let element of viewSelectd; let i = index">
-      {{element.productName}} : {{element.quantity}}
-
-
-      <button align="end" mat-stroked-button color="warn" type="button" (click)="removeComponent(i)"
-        i18n="@@remove">Remove</button>
-
-    </mat-card>
-  </div>
-  <mat-form-field class="inline">
-    <mat-label i18n="@@selectProduct">Select a product</mat-label>
-    <mat-select [(value)]="selected">
-      <input (keyup)="onKey($event.target.value)">
-      <mat-option i18n="@@none">None</mat-option>
-      <mat-option value="{{i}}" *ngFor="let product of products; let i = index">{{product.productName}}</mat-option>
-
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field class="inline">
-    <input matInput type="number" min="1" i18n-placeholder="@@quantity" placeholder="QTY" [(ngModel)]="qty"
-      [ngModelOptions]="{standalone: true}">
-  </mat-form-field>
-  <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
-  <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>
-
   <div mat-dialog-actions>
     <button mat-button (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
     <button mat-button type="submit" [disabled]="!productForm.valid" i18n="@@ok">Ok</button>

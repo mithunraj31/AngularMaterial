@@ -1,5 +1,5 @@
 <h1 mat-dialog-title i18n="@@addNewOrder">Add new Order</h1>
-<form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+<form (keydown.enter)="$event.preventDefault()" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
     <div class="container" style="overflow-y: scroll; height:350px;">
         <mat-form-field>
             <input matInput type="text" i18n-placeholder="@@proposalNumber" placeholder="Proposal Number"
@@ -13,7 +13,7 @@
                 <input (keyup)="onKey($event.target.value,'customers')">
                 <mat-option i18n="@@none" (click)="onClick('customers')">None</mat-option>
                 <div *ngFor="let customer of customers" (click)="onClick('customers')">
-                    <mat-option value="{{customer.customerId}}" *ngIf="customer.type=='Customer'">
+                    <mat-option value="{{customer.customerId}}" *ngIf="isItType(customer.type,'Customer')">
                         {{customer.customerName}}
                     </mat-option>
                 </div>
@@ -27,7 +27,7 @@
                 <input (keyup)="onKey($event.target.value,'salesD')">
                 <mat-option i18n="@@none" (click)="onClick('salesD')">None</mat-option>
                 <div *ngFor="let customer of salesD" (click)="onClick('salesD')">
-                    <mat-option value="{{customer.customerId}}" *ngIf="customer.type=='Sales Destination'">
+                    <mat-option value="{{customer.customerId}}" *ngIf="isItType(customer.type,'Sales Destination')">
                         {{customer.customerName}}</mat-option>
                 </div>
             </mat-select>
@@ -41,7 +41,7 @@
                 <input (keyup)="onKey($event.target.value,'contractors')">
                 <mat-option i18n="@@none" (click)="onClick('contractors')">None</mat-option>
                 <div *ngFor="let customer of contractors" (click)="onClick('contractors')">
-                    <mat-option value="{{customer.customerId}}" *ngIf="customer.type=='Contractor'">
+                    <mat-option value="{{customer.customerId}}" *ngIf="isItType(customer.type,'Contractor')">
                         {{customer.customerName}}</mat-option>
                 </div>
             </mat-select>
@@ -104,10 +104,10 @@
         </mat-select>
     </mat-form-field>
     <mat-form-field class="inline">
-        <input matInput type="number" min="1" placeholder="QTY" [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
+        <input matInput type="number" min="1" i18n-placeholder="@@qty" placeholder="QTY" [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
         <mat-error i18n="@@qtyRequired">QTY cannot be empty</mat-error>
     </mat-form-field>
-    <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()">Add</button>
+    <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
     <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>
 
     <div mat-dialog-actions>

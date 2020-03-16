@@ -269,4 +269,8 @@ export class EditOrderDialogComponent implements OnInit {
     console.log(deliveryDate);
     this.orderForm.get("deliveryDate").setValue(deliveryDate.toISOString().substring(0,10));
   }
+
+  isItType(customer:string[],type:string){
+    return customer.includes(type);
+  }
 }

@@ -19,5 +19,6 @@ export interface SaveOrder {
     active: boolean;
     forcast: boolean;
     orderedProducts: SaveProductComponent[];
+    fixed: boolean;
     
 }

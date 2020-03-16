@@ -15,6 +15,7 @@ import { EditOrderDialogComponent } from 'src/app/dialogs/edit-order-dialog/edit
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { ActivatedRoute } from '@angular/router';
 import { UnfulfillConfirmationComponent } from 'src/app/dialogs/unfulfill-confirmation/unfulfill-confirmation.component';
+import { TransferToConfirmedOrderComponent } from 'src/app/dialogs/transfer-to-confirmed-order/transfer-to-confirmed-order.component';
 
 @Component({
   selector: 'app-orders',
@@ -132,9 +133,10 @@ export class OrdersComponent implements OnInit {
       data: customer
     });
   }
-  openDialog() {
+  openDialog(isFixed: boolean) {
     const dialogRef = this.dialog.open(AddOrderDialogComponent, {
       width: '600px',
+      data: isFixed
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -143,6 +145,7 @@ export class OrdersComponent implements OnInit {
         console.log(result);
         this.progress = true;
         const order: SaveOrder = result;
+        order.fixed = isFixed;
         // change concat to replace when using real api
         this.orderService.addOrder(order).subscribe(result => {
           this.getOrderData();
@@ -239,6 +242,27 @@ export class OrdersComponent implements OnInit {
       }
     });
   }
+  transferToConfirmedOrder(order: Order) {
+    const dialogRef = this.dialog.open(TransferToConfirmedOrderComponent, {
+      width: '600px',
+      data: order
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result) {
+        this.progress = true;
+        const order: SaveOrder = result;
+        order.orderId = order.orderId;
+        order.fixed = true;
+        order.editReason = "Transfer to Confirmed";
+        this.orderService.editOrder(order).subscribe(result => {
+          this.getOrderData();
+        }, error => {
+          this.progress = false;
+        })
+      }
+    });
+  }
 
 }

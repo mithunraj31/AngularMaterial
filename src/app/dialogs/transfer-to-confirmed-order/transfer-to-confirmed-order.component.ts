@@ -1,27 +1,24 @@
 import { User } from './../../models/User';
-import { SaveOrder } from './../../models/SaveOrder';
-import { Order } from './../../models/Order';
 import { Component, OnInit, Inject } from '@angular/core';
 import { SaveProductComponent } from 'src/app/models/saveProductComponent';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Customer } from 'src/app/models/Customer';
-import { Product } from 'src/app/models/Product';
-import { ProductSet } from 'src/app/models/ProductSet';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { EditOrderDialogComponent } from '../edit-order-dialog/edit-order-dialog.component';
+import { Order } from 'src/app/models/Order';
 import { CustomerService } from 'src/app/services/CustomerService';
 import { ProductService } from 'src/app/services/ProductService';
 import { UserService } from 'src/app/services/UserService';
+import { SaveOrder } from 'src/app/models/SaveOrder';
+import { ProductSet } from 'src/app/models/ProductSet';
 
 @Component({
-  selector: 'app-edit-order-dialog',
-  templateUrl: './edit-order-dialog.component.html',
-  styleUrls: ['./edit-order-dialog.component.scss']
+  selector: 'app-transfer-to-confirmed-order',
+  templateUrl: './transfer-to-confirmed-order.component.html',
+  styleUrls: ['./transfer-to-confirmed-order.component.scss']
 })
-export class EditOrderDialogComponent implements OnInit {
+export class TransferToConfirmedOrderComponent implements OnInit {
 
-  selected: number = null;
-  qty = null;
-  qtyError = false;
   viewSelectd: { productId: number, productName: String, quantity: number }[] = [];
   saveProducts: SaveProductComponent[] = [];
   orderForm: FormGroup;
@@ -29,11 +26,7 @@ export class EditOrderDialogComponent implements OnInit {
   salesD: Customer[] = [];
   contractors: Customer[] = [];
   _customers: Customer[] = [];
-  products: Product[] = [];
-  productSets: ProductSet[] = [];
-  _productSets: ProductSet[] = [];
-  users: User[] = [];
-  _users:User[] =[];
+  users: User [] = [];
   constructor(
     public dialogRef: MatDialogRef<EditOrderDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Order,
@@ -44,9 +37,8 @@ export class EditOrderDialogComponent implements OnInit {
 
   ngOnInit() {
     this.getCustomerData();
-    this.initializeCustomerForm();
-    this.getProductData();
     this.getUserData();
+    this.initializeCustomerForm();
   }
   getCustomerData() {
     this.customerService.getCustomers().subscribe(result => {
@@ -60,7 +52,6 @@ export class EditOrderDialogComponent implements OnInit {
   getUserData() {
     this.userService.getUsers().subscribe(result => {
       this.users = result;
-      this._users = result;
     })
   }
 
@@ -97,11 +88,11 @@ export class EditOrderDialogComponent implements OnInit {
         Validators.required
       ]),
 
-      "editReason": new FormControl("", [
-        Validators.required
-      ]),
-
     });
+    this.orderForm.get('proposalNo').disable();
+    this.orderForm.get('customerId').disable();
+    this.orderForm.get('dueDate').disable();
+    this.orderForm.get('salesUserId').disable();
     //this.orderForm.controls['customer'].setValue(this.data.customer.customerId,{onlySelf: true})
     for (let product of this.data.orderedProducts) {
       this.viewSelectd.push({
@@ -129,80 +120,10 @@ export class EditOrderDialogComponent implements OnInit {
       this.dialogRef.close(order);
     }
   }
-  getErrorMessage(attribute: string) {
-    return this.orderForm.get(attribute).hasError('required') ? 'You must enter a value' : '';
-    // switch (attribute) {
-    //   case "zip":
-    //       // return this.customerForm.get(attribute).hasError('required') ? 'You must enter a value':
-    //       // this.customerForm.get(attribute).hasError('maxlength') ? 'zip code length must be 7': 
-    //       // this.customerForm.get(attribute).hasError('minlength') ? 'zip code length must be 7': '';
-    //     break;
 
-    //   default:
-    //       return this.orderForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
-    //     break;
-    // }
-  }
-  addComponent() {
-    if (this.selected && this.qty) {
-      console.log(this.selected);
-
-      const saveProductComponent: SaveProductComponent = {
-        productId: this.productSets[this.selected].productId,
-        quantity: this.qty
-      }
-      this.saveProducts.push(saveProductComponent);
-      this.viewSelectd.push({
-        productId: this.productSets[this.selected].productId,
-        productName: this.productSets[this.selected].productName,
-        quantity: this.qty
-      })
-      console.log(this.viewSelectd);
-      this.qtyError = false;
-      this.selected = null;
-      this.qty = null;
-    } else {
-      this.qtyError = true;
-    }
-  }
-
-  removeComponent(id: number) {
-    this.viewSelectd.splice(id, 1);
-    this.saveProducts.splice(id, 1);
-  }
-  getProductData() {
-    this.productService.getProductSets().subscribe(result => {
-      this.productSets = result;
-      this.productService.getProducts().subscribe(presult => {
-        for (let product of presult) {
-          const p: ProductSet = {
-
-            active: product.active,
-            productId: product.productId,
-            price: product.price,
-            productName: product.productName,
-            createdAt: product.createdAt,
-            description: product.description,
-            isSet: product.isSet,
-            leadTime: product.leadTime,
-            moq: product.moq,
-            obicNo: product.obicNo,
-            products: null,
-            quantity: product.quantity,
-            updatedAt: product.updatedAt,
-            userId: product.userId
-          };
-          this.productSets.push(p);
-        }
-        this._productSets = this.productSets; 
-      })
-    })
-  }
   onKey(value, key) {
     switch (key) {
-      case 'products':
-        this.productSets = this.searchProducts(value);
-        break;
+
       case 'customers':
         this.customers = this.searchCustomers(value);
         break;
@@ -213,39 +134,19 @@ export class EditOrderDialogComponent implements OnInit {
         this.contractors = this.searchContractors(value);
         break;
 
-      case 'users':
-        this.users = this.searchUsers(value);
-        break;
-
       default:
         break;
     }
   }
   onClick(key) {
     switch (key) {
-      case 'products':
-        this.productSets = this._productSets;
-        break;
       case 'customers':
         this.customers = this._customers;
-        break;
-      case 'users':
-        this.users = this._users;
         break;
 
       default:
         break;
     }
-  }
-  searchProducts(value: string) {
-    let filter = value.toLowerCase();
-    this.productSets = this._productSets;
-    return this.productSets.filter(option => option.productName.toLowerCase().startsWith(filter));
-  }
-  searchUsers(value: string) {
-    let filter = value.toLowerCase();
-    this.users = this._users;
-    return this.users.filter(option => option.firstName.toLowerCase().startsWith(filter));
   }
   searchCustomers(value: string) {
     let filter = value.toLowerCase();
@@ -275,4 +176,5 @@ export class EditOrderDialogComponent implements OnInit {
   isItType(customer:string[],type:string){
     return customer.includes(type);
   }
+
 }

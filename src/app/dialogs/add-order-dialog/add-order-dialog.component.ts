@@ -38,7 +38,7 @@ export class AddOrderDialogComponent implements OnInit {
   selectedProductSets = [];
   constructor(
     public dialogRef: MatDialogRef<AddOrderDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: boolean,
     private customerService: CustomerService,
     private productService: ProductService,
     private userService: UserService
@@ -76,19 +76,19 @@ export class AddOrderDialogComponent implements OnInit {
         Validators.required
       ]),
       "salesDestinationId": new FormControl("", [
-        Validators.required
+        this.data ? Validators.required : Validators.nullValidator
       ]),
       "contractorId": new FormControl("", [
-        Validators.required
+        this.data ? Validators.required : Validators.nullValidator
       ]),
       "receivedDate": new FormControl("", [
-        Validators.required
+        this.data ? Validators.required : Validators.nullValidator
       ]),
       "dueDate": new FormControl("", [
         Validators.required
       ]),
       "deliveryDate": new FormControl("", [
-        Validators.required
+        this.data ? Validators.required : Validators.nullValidator
       ]),
       "salesUserId": new FormControl("", [
         Validators.required
@@ -257,13 +257,15 @@ export class AddOrderDialogComponent implements OnInit {
   }
 
   calculateDelivery(value) {
-    const dueDate = new Date(value);
-    const deliveryDate = dueDate;
-    deliveryDate.setDate(dueDate.getDate()-14);
-    console.log(deliveryDate);
-    this.orderForm.get("deliveryDate").setValue(deliveryDate.toISOString().substring(0,10));
+    if (value) {
+      const dueDate = new Date(value);
+      const deliveryDate = dueDate;
+      deliveryDate.setDate(dueDate.getDate() - 14);
+      console.log(deliveryDate);
+      this.orderForm.get("deliveryDate").setValue(deliveryDate.toISOString().substring(0, 10));
+    }
   }
-  isItType(customer:string[],type:string){
+  isItType(customer: string[], type: string) {
     return customer.includes(type);
   }
 }

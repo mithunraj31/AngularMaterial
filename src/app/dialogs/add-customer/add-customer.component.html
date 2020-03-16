@@ -26,8 +26,8 @@
   </mat-form-field>
   <mat-form-field >
     <mat-label i18n="@@selectAType">Select a Type</mat-label>
-    <mat-select formControlName="type">
-      <mat-option i18n="@@none">None</mat-option>
+    <mat-select formControlName="type" multiple>
+      <!-- <mat-option i18n="@@none">None</mat-option> -->
       <mat-option value="Customer" i18n="@@customer">Customer</mat-option>
       <mat-option value="Sales Destination" i18n="@@salesDestination">Sales Destination</mat-option>
       <mat-option value="Contractor" i18n="@@contractor">Contractor</mat-option>

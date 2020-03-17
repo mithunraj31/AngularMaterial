@@ -252,14 +252,19 @@ export class OrdersComponent implements OnInit {
       console.log('The dialog was closed');
       if (result) {
         this.progress = true;
-        const order: SaveOrder = result;
-        order.orderId = order.orderId;
-        order.fixed = true;
-        order.editReason = "Transfer to Confirmed";
-        this.orderService.editOrder(order).subscribe(result => {
+        const orderUpdate: SaveOrder = result;
+        orderUpdate.fixed = true;
+        orderUpdate.editReason = "Transfer to Confirmed";
+        orderUpdate.proposalNo = order.proposalNo;
+        orderUpdate.customerId = order.customer.customerId;
+        orderUpdate.userId = order.user.userId;
+        orderUpdate.dueDate = new Date(order.dueDate).toISOString();
+        this.orderService.editOrder(orderUpdate).subscribe(result => {
           this.getOrderData();
+          console.log(result);
         }, error => {
           this.progress = false;
+          console.log(error);
         })
       }
     });

@@ -191,8 +191,8 @@ export class ProductsComponent implements OnInit {
         description: row[2] ? row[2] : (valid = false),
         currency: (row[3] == "USD" || row[3] == "JPY") ? row[3] : (valid = false),
         price: row[4] ? row[4] : (valid = false),
-        moq: row[5] ? row[5] : (valid = false),
-        quantity: row[6] ? row[6] : (valid = false),
+        moq: row[5] ? row[5] : 0,
+        quantity: row[6] ? row[6] : 0,
         leadTime: row[7] ? row[7] : (valid = false),
         
       };

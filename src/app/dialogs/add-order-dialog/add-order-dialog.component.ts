@@ -1,3 +1,4 @@
+import { UtilService } from './../../services/UtilService';
 import { User } from './../../models/User';
 import { SaveOrder } from './../../models/SaveOrder';
 import { ProductSet } from './../../models/ProductSet';
@@ -38,10 +39,11 @@ export class AddOrderDialogComponent implements OnInit {
   selectedProductSets = [];
   constructor(
     public dialogRef: MatDialogRef<AddOrderDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: boolean,
     private customerService: CustomerService,
     private productService: ProductService,
-    private userService: UserService
+    private userService: UserService,
+    private util: UtilService
   ) { }
 
   ngOnInit() {
@@ -76,19 +78,19 @@ export class AddOrderDialogComponent implements OnInit {
         Validators.required
       ]),
       "salesDestinationId": new FormControl("", [
-        Validators.required
+        this.data ? Validators.required : Validators.nullValidator
       ]),
       "contractorId": new FormControl("", [
-        Validators.required
+        this.data ? Validators.required : Validators.nullValidator
       ]),
       "receivedDate": new FormControl("", [
-        Validators.required
+        this.data ? Validators.required : Validators.nullValidator
       ]),
       "dueDate": new FormControl("", [
         Validators.required
       ]),
       "deliveryDate": new FormControl("", [
-        Validators.required
+        this.data ? Validators.required : Validators.nullValidator
       ]),
       "salesUserId": new FormControl("", [
         Validators.required
@@ -105,10 +107,16 @@ export class AddOrderDialogComponent implements OnInit {
       this.saveOrder = this.orderForm.value;
       this.saveOrder.orderedProducts = this.saveProducts;
       const date: Date = new Date(this.saveOrder.receivedDate);
-      console.log(date);
-      this.saveOrder.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
-      this.saveOrder.dueDate = new Date(this.orderForm.value.dueDate).toISOString();
-      this.saveOrder.deliveryDate = new Date(this.orderForm.value.deliveryDate).toISOString();
+      console.log(this.saveOrder.receivedDate);
+      if (this.saveOrder.receivedDate) {
+        this.saveOrder.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
+      }
+      if (this.saveOrder.dueDate) {
+        this.saveOrder.dueDate = new Date(this.orderForm.value.dueDate).toISOString();
+      }
+      if (this.saveOrder.deliveryDate) {
+        this.saveOrder.deliveryDate = new Date(this.orderForm.value.deliveryDate).toISOString();
+      }
       this.dialogRef.close(this.saveOrder);
     }
   }
@@ -174,7 +182,9 @@ export class AddOrderDialogComponent implements OnInit {
             products: null,
             quantity: product.quantity,
             updatedAt: product.updatedAt,
-            userId: product.userId
+            userId: product.userId,
+            sort: product.sort,
+            display: product.display
           };
           this.productSets.push(p);
         }
@@ -255,10 +265,16 @@ export class AddOrderDialogComponent implements OnInit {
   }
 
   calculateDelivery(value) {
-    const dueDate = new Date(value);
-    const deliveryDate = dueDate;
-    deliveryDate.setDate(dueDate.getDate()-14);
-    console.log(deliveryDate);
-    this.orderForm.get("deliveryDate").setValue(deliveryDate.toISOString().substring(0,10));
+    if (value) {
+      const dueDate = new Date(value);
+      const deliveryDate = dueDate;
+      deliveryDate.setDate(dueDate.getDate() - 14);
+      console.log(deliveryDate);
+      this.orderForm.get("deliveryDate").setValue(deliveryDate.toISOString().substring(0, 10));
+    }
   }
+  isItType(customer: string[], type: string) {
+    return customer.includes(type);
+  }
+
 }

@@ -92,6 +92,7 @@ export class ProductSetsComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddProductSetDialogComponent, {
       width: '600px',
+      data: this.productSets.length+1
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -150,6 +151,12 @@ export class ProductSetsComponent implements OnInit {
     }
     this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
 
+  }
+  clickDisplay(product: SaveProductSet, val: boolean) {
+    product.display = val;
+    this.productService.editProductSet(product).subscribe(()=> {
+      this.getProductSetData();
+    })
   }
 
 }

@@ -19,4 +19,5 @@ export interface Order {
     forecast: boolean;
     fulfilled: boolean;
     orderedProducts: OrderedProduct[];
+    fixed: boolean;
 }

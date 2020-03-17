@@ -91,6 +91,7 @@ export class ProductsComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddProductDialogComponent, {
       width: '600px',
+      data: this.products.length
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -193,6 +194,7 @@ export class ProductsComponent implements OnInit {
         moq: row[5] ? row[5] : (valid = false),
         quantity: row[6] ? row[6] : (valid = false),
         leadTime: row[7] ? row[7] : (valid = false),
+        
       };
       if (valid) {
         let promise = new Promise((resolve, reject) => {
@@ -220,5 +222,11 @@ export class ProductsComponent implements OnInit {
 
   clickExport() {
     this.excel.generateExcel(this.products);
+  }
+  clickDisplay(product: Product, val: boolean) {
+    product.display = val;
+    this.productService.updateProduct(product).subscribe(()=> {
+      this.getProductData();
+    })
   }
 }

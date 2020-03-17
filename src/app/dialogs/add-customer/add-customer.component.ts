@@ -78,6 +78,7 @@ export class AddCustomerComponent implements OnInit {
   }
   onSubmit() {
     if (this.customerForm.valid) {
+      console.log(this.customerForm.value);
       this.dialogRef.close(this.customerForm.value);
     }
   }

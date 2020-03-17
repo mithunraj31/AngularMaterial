@@ -91,6 +91,7 @@ import { ProductForecastComponent } from './pages/forcast/product-forecast/produ
 import { ProductForecastService } from './services/ProductForecastService';
 import { ExcelServices } from './services/ExcelService';
 import { DatePipe } from '@angular/common';
+import { TransferToConfirmedOrderComponent } from './dialogs/transfer-to-confirmed-order/transfer-to-confirmed-order.component';
 
 
 @NgModule({
@@ -135,6 +136,7 @@ import { DatePipe } from '@angular/common';
     CalendarComponent,
     TableComponent,
     ProductForecastComponent,
+    TransferToConfirmedOrderComponent,
 
   ],
   imports: [
@@ -193,7 +195,8 @@ import { DatePipe } from '@angular/common';
     ArrivalOrderDialogComponent,
     UnfulfilledProductsComponent,
     UnfulfillConfirmationComponent,
-    AddUserDialogComponent
+    AddUserDialogComponent,
+    TransferToConfirmedOrderComponent
   ],
   providers: [
     ProductService,

@@ -1208,6 +1208,18 @@
         <source>Delivery Date</source>
         <target>納期</target>
       </trans-unit>
+      <trans-unit id="addForecast" datatype="html">
+        <source>Add Forecast</source>
+        <target>フォーキャスト追加</target>
+      </trans-unit>
+      <trans-unit id="addConfirmed" datatype="html">
+        <source>Add Confirmed</source>
+        <target>注文追加</target>
+      </trans-unit>
+      <trans-unit id="transferToConfirmed" datatype="html">
+        <source>Transfer to Confirmed</source>
+        <target>確定注文へ移行</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

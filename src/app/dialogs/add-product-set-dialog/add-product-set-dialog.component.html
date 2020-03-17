@@ -1,5 +1,6 @@
 <h1 mat-dialog-title i18n="@@addNewProductSet">Add new product set</h1>
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div mat-dialog-content class="example-container">
   <div class="container" style="overflow-y: scroll; height:350px;">
     <mat-form-field>
       <input matInput type="text" i18n-placeholder="@@productSetName" placeholder="Product Set Name"
@@ -42,7 +43,36 @@
       <mat-error *ngIf="productForm.get('obicNo').hasError('required')" i18n="@@obicNoRequired">Obic No cannot be empty.
       </mat-error>
     </mat-form-field>
-
+    <mat-form-field>
+        <input matInput type="number" min="1" i18n-placeholder="@@sort" placeholder="Sort" formControlName="sort">
+        <!-- <mat-error *ngIf="productForm.get('obicNo').hasError('required')" i18n="@@obicNoRequired">Obic No cannot be empty. -->
+        <!-- </mat-error> -->
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label i18n="@@selectColor">Select a color</mat-label>
+        <mat-select formControlName="color">
+          <mat-option style="background-color: #ffffff;" value="#ffffff">DEFAULT</mat-option>
+          <mat-option style="background-color: #ef9a9a;" value="#ef9a9a">RED</mat-option>
+          <mat-option style="background-color: #f48fb1;" value="#f48fb1">PINK</mat-option>
+          <mat-option style="background-color: #ce93d8;" value="#ce93d8">PURPLE</mat-option>
+          <mat-option style="background-color: #b39ddb;" value="#b39ddb">DEEP PURPLE</mat-option>
+          <mat-option style="background-color: #9fa8da;" value="#9fa8da">INDIGO</mat-option>
+          <mat-option style="background-color: #90caf9;" value="#90caf9">BLUE</mat-option>
+          <mat-option style="background-color: #81d4fa;" value="#81d4fa">LIGHT BLUE</mat-option>
+          <mat-option style="background-color: #80deea;" value="#80deea">CYAN</mat-option>
+          <mat-option style="background-color: #80cbc4;" value="#80cbc4">TEAL</mat-option>
+          <mat-option style="background-color: #a5d6a7;" value="#a5d6a7">GREEN</mat-option>
+          <mat-option style="background-color: #c5e1a5;" value="#c5e1a5">LIGHT GREEN</mat-option>
+          <mat-option style="background-color: #e6ee9c;" value="#e6ee9c">LIME</mat-option>
+          <mat-option style="background-color: #fff59d;" value="#fff59d">YELLOW</mat-option>
+          <mat-option style="background-color: #ffe082;" value="#ffe082">AMBER</mat-option>
+          <mat-option style="background-color: #ffcc80;" value="#ffcc80">ORANGE</mat-option>
+          <mat-option style="background-color: #ffab91;" value="#ffab91">DEEP ORANGE</mat-option>
+          <mat-option style="background-color: #bcaaa4;" value="#bcaaa4">BROWN</mat-option>
+          <mat-option style="background-color: #eeeeee;" value="#eeeeee">GRAY</mat-option>
+          <mat-option style="background-color: #b0bec5;" value="#b0bec5">BLUE GRAY</mat-option>
+        </mat-select>
+      </mat-form-field>
   </div>
   <div style="overflow-y: scroll; height:100px;" *ngIf="viewSelectd.length > 0">
     <mat-card class="productList" *ngFor="let element of viewSelectd; let i = index">
@@ -69,7 +99,8 @@
   </mat-form-field>
   <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
   <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>
-
+ 
+    </div>
   <div mat-dialog-actions>
     <button mat-button (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
     <button mat-button type="submit" [disabled]="!productForm.valid" i18n-placeholder="@@ok">Ok</button>

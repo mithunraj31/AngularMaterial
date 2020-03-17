@@ -45,6 +45,7 @@ export class CustomersComponent implements OnInit {
     this.customerService.getCustomers().subscribe(result => {
       this.customers = result;
       this.dataSource.data = this.customers;
+      console.log(this.customers);
       this.progress = false;
       this.onTopPaginateChange();
     }, error => {

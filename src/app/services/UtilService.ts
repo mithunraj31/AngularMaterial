@@ -14,7 +14,7 @@ export class UtilService {
                 break;
             case "USD":
                 return "$";
-                break;            
+                break;
             default:
                 return "¥";
                 break;
@@ -41,24 +41,27 @@ export class UtilService {
             'ﾜ': 'ワ', 'ｦ': 'ヲ', 'ﾝ': 'ン',
             'ｧ': 'ァ', 'ｨ': 'ィ', 'ｩ': 'ゥ', 'ｪ': 'ェ', 'ｫ': 'ォ',
             'ｯ': 'ッ', 'ｬ': 'ャ', 'ｭ': 'ュ', 'ｮ': 'ョ',
-            '｡': '.','。':'.', '､':',', '、':',', 'ｰ':'ー','−':'-','－':'-', '｢':'(', '「':'(', '｣':')', '」':')', '･':'/', '・':'/',
+            '｡': '.', '。': '.', '､': ',', '、': ',', 'ｰ': 'ー', '−': '-', '－': '-', '｢': '(', '「': '(', '｣': ')', '」': ')', '･': '/', '・': '/',
             // 'ａ':'a','ｂ':'b','ｃ':'c','ｄ':'d','ｅ':'e','ｆ':'f','ｇ':'g','ｈ':'h',
             // 'ｉ':'i','ｊ':'j','ｋ':'k','ｌ':'l','ｍ':'m','ｎ':'n','ｏ':'o','ｐ':'p',
             // 'ｑ':'q','ｒ':'r','ｓ':'s','ｔ':'t','ｕ':'u','ｖ':'v','ｗ':'w','ｘ':'x',
             // 'ｙ':'y','ｚ':'z'
         };
-    
+
         var reg = new RegExp('(' + Object.keys(kanaMap).join('|') + ')', 'g');
         return str
-                .replace(reg, function (match) {
-                    return kanaMap[match];
-                })
-                .replace(/ﾞ/g, '゛')
-                .replace(/ﾟ/g, '゜');
+            .replace(reg, function (match) {
+                return kanaMap[match];
+            })
+            .replace(/ﾞ/g, '゛')
+            .replace(/ﾟ/g, '゜');
     };
     hankaku2ZenkakuEN(str) {
-        return str.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
+        return str.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) {
             return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
         });
+    }
+    isEmptyString(str: string) {
+        return str && str.length > 0
     }
 }

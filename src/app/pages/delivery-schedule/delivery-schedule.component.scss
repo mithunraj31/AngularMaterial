@@ -23,26 +23,33 @@ p {
   }
   .mat-column-productId 
 {
-  left: 125px !important;
+  // left: 125px !important;
+  max-width: 100px !important;
+  min-width: 100px !important;
+
+}
+.mat-column-obicNo 
+{
+  // left: 125px !important;
   max-width: 100px !important;
   min-width: 100px !important;
 
 }
 .mat-column-productName 
 {
-  left: 226px !important;
+  // left: 222px !important;
   width: 100px !important;
   min-width: 100px !important;
 }
 .mat-column-description 
 {
-  left: 327px !important;
+  // left: 327px !important;
   width: 200px !important;
   min-width: 200px !important;
 }
 .mat-column-values 
 {
-  left: 528px !important;
+  // left: 528px !important;
   width: 70px !important;
   min-width: 70px !important;
 }

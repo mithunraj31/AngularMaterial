@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ForecastService } from 'src/app/services/ForecastService';
 import { takeUntil } from 'rxjs/operators';
@@ -9,29 +9,10 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./delivery-schedule.component.scss']
 })
 export class DeliveryScheduleComponent implements OnInit {
-  displayedColumns: string[] = [
-    'setName',
-    'obicNo',
-    'productName',
-    'description',
-    'values',
+  displayedColumns: string[] = []
 
-  ];
-  columnsToDisplay: string[] = this.displayedColumns.slice();
-  subColumns: any[] = [
-    {
-      value: "in qty",
-      key: "incomingQuantity"
-    },
-    {
-      value: "out qty",
-      key: "requiredQuantity"
-    },
-    {
-      value: "predicted stock",
-      key: "currentQuantity"
-    },
-  ]
+  columnsToDisplay: string[] = []
+  subColumns: any[] = [];
   dataSource: Array<any> = [];
   spans = [];
   spanningColumns = ['obicNo', 'productName', 'description'];
@@ -41,14 +22,47 @@ export class DeliveryScheduleComponent implements OnInit {
   progress;
   unsub = new Subject();
   viewDate = new Date();
-  constructor(private forecastService: ForecastService) {
-
+  constructor(private forecastService: ForecastService,
+    @Inject(LOCALE_ID) public localeId: string) {
+      this.localizeSubColumns();
   }
 
   ngOnInit() {
     this.populateData();
   }
-
+  localizeSubColumns(){
+    if(this.localeId==="ja"){
+      this.subColumns = [
+        {
+          value: "入荷",
+          key: "incomingQuantity"
+        },
+        {
+          value: "出荷",
+          key: "requiredQuantity"
+        },
+        {
+          value: "在庫",
+          key: "currentQuantity"
+        },
+      ];
+    }else {
+      this.subColumns = [
+        {
+          value: "in qty",
+          key: "incomingQuantity"
+        },
+        {
+          value: "out qty",
+          key: "requiredQuantity"
+        },
+        {
+          value: "predicted stock",
+          key: "currentQuantity"
+        },
+      ];
+    }
+  }
   clickPrevious() {
     this.viewDate = new Date(
       this.viewDate.getFullYear(),
@@ -73,10 +87,12 @@ export class DeliveryScheduleComponent implements OnInit {
   populateData() {
     this.progress = true;
     // this.progress = false;
-    this.forecastService.getProductForecast(this.viewDate.getFullYear(),this.viewDate.getMonth()).pipe(takeUntil(this.unsub)).subscribe(data => {
+
+    this.forecastService.getProductForecast(this.viewDate.getFullYear(),this.viewDate.getMonth()).subscribe(data => {
+      
       this.addColumnsToTables(data[0].products[0].values);
       this.productForecast = data;
-      console.log(this.productForecast);
+      // console.log(this.productForecast);
       let setcount = 0;
       let productcount = 0;
       let tempdata:any[]= [];
@@ -117,24 +133,36 @@ export class DeliveryScheduleComponent implements OnInit {
       });
       this.dataSource = tempdata;
       
-      console.log(this.dataSource);
+      // console.log(this.dataSource);
       this.progress = false;
       this.unsub.next();
       this.unsub.complete();
-      console.log(this.progress);
+      // console.log(this.progress);
     },error=>{
       this.progress = false;
     });
 
   }
   addColumnsToTables(dateArray) {
- 
+    this.displayedColumns = new Array<string>();
+    this.columnsToDisplay = new Array<string>();
+    this.displayedColumns = [
+      'setName',
+      'obicNo',
+      'productName',
+      'description',
+      'values',
+  
+    ];
+    this.columnsToDisplay = this.displayedColumns.slice();
     dateArray.forEach(element => {
       const date = element.date;
       this.displayedColumns.push(this.getDateString(date));
     });
     this.columnsToDisplay = this.displayedColumns.slice();
     // console.log(this.columnsToDisplay);
+
+    // console.log(this.displayedColumns);
   }
   getDateString(date: string) {
     return new Date(date).toLocaleDateString("en-US", { month: "numeric", day: "numeric" });

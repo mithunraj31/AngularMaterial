@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 export class ForecastService {
 
     private forecastUrl = environment.APIURL + "/order/forecast/";
-    private forecastProductUrl = environment.APIURL + "/product/forecast/";
+    private forecastProductUrl = environment.APIURL + "/product/forecast/2020/03";
     // private forecastUrl ="assets/data/foreccast.json";
     constructor(private http: HttpClient) {
 
@@ -15,10 +15,7 @@ export class ForecastService {
     getForecast() {
         return this.http.get<Order[]>(this.forecastUrl);
     }
-    getProductForecast() {
-        const date = new Date();
-        const year = date.getFullYear();
-        const month = date.getMonth();
+    getProductForecast(year:number,month:number) {
         return this.http.get<any[]>(this.forecastProductUrl);
     }
 

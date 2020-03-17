@@ -90,7 +90,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.events = [];
     this.getForecastdata();
-    this.getProductForecastData();
   }
   ngOnDestroy() {
     this.unsub.next();
@@ -187,14 +186,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
-  }
-
-  getProductForecastData() {
-    this.progress = true;
-    this.forecastService.getProductForecast().subscribe((data) => {
-      console.log(data);
-      this.progress = false;
-    })
   }
 }
 

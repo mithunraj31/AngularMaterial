@@ -122,6 +122,7 @@ export class ProductSetsComponent implements OnInit {
         console.log(result);
         const productset: SaveProductSet = result;
         productset.productId = data.productId;
+        productset.display = data.display;
         this.productService.editProductSet(productset).subscribe(result => {
           console.log(result);
           this.getProductSetData();

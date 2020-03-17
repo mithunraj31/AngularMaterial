@@ -86,12 +86,11 @@ import { ProfileComponent } from './pages/my-page/profile/profile.component';
 import { UsersComponent } from './pages/my-page/users/users.component';
 import { AddUserDialogComponent } from './dialogs/add-user-dialog/add-user-dialog.component';
 import { CalendarComponent } from './pages/forcast/calendar/calendar.component';
-import { TableComponent } from './pages/forcast/table/table.component';
-import { ProductForecastComponent } from './pages/forcast/product-forecast/product-forecast.component';
 import { ProductForecastService } from './services/ProductForecastService';
 import { ExcelServices } from './services/ExcelService';
 import { DatePipe } from '@angular/common';
 import { TransferToConfirmedOrderComponent } from './dialogs/transfer-to-confirmed-order/transfer-to-confirmed-order.component';
+import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-schedule.component';
 
 
 @NgModule({
@@ -134,9 +133,8 @@ import { TransferToConfirmedOrderComponent } from './dialogs/transfer-to-confirm
     UsersComponent,
     AddUserDialogComponent,
     CalendarComponent,
-    TableComponent,
-    ProductForecastComponent,
     TransferToConfirmedOrderComponent,
+    DeliveryScheduleComponent,
 
   ],
   imports: [

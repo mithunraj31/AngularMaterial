@@ -1,18 +1,17 @@
-import { ForecastService } from './../../../services/ForecastService';
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { ForecastService } from 'src/app/services/ForecastService';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  selector: 'app-delivery-schedule',
+  templateUrl: './delivery-schedule.component.html',
+  styleUrls: ['./delivery-schedule.component.scss']
 })
-export class TableComponent implements OnInit {
-  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+export class DeliveryScheduleComponent implements OnInit {
   displayedColumns: string[] = [
     'setName',
-    'productId',
+    'obicNo',
     'productName',
     'description',
     'values',
@@ -32,33 +31,49 @@ export class TableComponent implements OnInit {
       value: "predicted stock",
       key: "currentQuantity"
     },
-    {
-      value: "stock",
-      key: "quantity"
-    },
   ]
   dataSource: Array<any> = [];
   spans = [];
-  spanningColumns = ['productId', 'productName', 'description'];
+  spanningColumns = ['obicNo', 'productName', 'description'];
   tempRowId = null;
   tempRowCount = null;
   productForecast;
   progress;
   unsub = new Subject();
+  viewDate = new Date();
   constructor(private forecastService: ForecastService) {
 
   }
 
   ngOnInit() {
     this.populateData();
-    // console.log(this.dataSource);
-    // console.log(this.displayedColumns);
+  }
+
+  clickPrevious() {
+    this.viewDate = new Date(
+      this.viewDate.getFullYear(),
+      this.viewDate.getMonth()-1,
+      this.viewDate.getDate()
+    )
+    this.populateData();
+  }
+  clickNext() {
+    this.viewDate = new Date(
+      this.viewDate.getFullYear(),
+      this.viewDate.getMonth()+1,
+      this.viewDate.getDate()
+    )
+    this.populateData();
+  }
+  clickToday(){
+    this.viewDate = new Date();
+    this.populateData();
   }
 
   populateData() {
     this.progress = true;
     // this.progress = false;
-    this.forecastService.getProductForecast().pipe(takeUntil(this.unsub)).subscribe(data => {
+    this.forecastService.getProductForecast(this.viewDate.getFullYear(),this.viewDate.getMonth()).pipe(takeUntil(this.unsub)).subscribe(data => {
       this.addColumnsToTables(data[0].products[0].values);
       this.productForecast = data;
       console.log(this.productForecast);
@@ -74,13 +89,13 @@ export class TableComponent implements OnInit {
               "setObicNo": productSet.obicNo,
               "setName": productSet.productName,
               "setDescription": productSet.description,
-              "setColor": setcount % 2 == 0 ? "#E8EAF6" : "#C5CAE9",
+              "setColor": productSet.color? productSet.color : "#ffffff",
 
               "productId": product.productId,
               "obicNo": product.obicNo,
               "productName": product.productName,
               "description": product.description,
-              "color": productcount % 2 == 0 ? "#E0F2F1" : "#B2DFDB",
+              "color": product.color? product.color : "#ffffff",
               "values": column.value,
 
             }
@@ -145,7 +160,7 @@ export class TableComponent implements OnInit {
   }
   getRowSpan(col, index) {
 
-    return 4;
+    return 3;
   }
 
   isTheSame(column, index) {
@@ -164,4 +179,5 @@ export class TableComponent implements OnInit {
     }
     return result;
   }
+
 }

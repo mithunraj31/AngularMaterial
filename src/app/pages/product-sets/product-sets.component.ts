@@ -1,3 +1,4 @@
+import { ProductComponent } from './../../models/ProductComponent';
 import { UtilService } from './../../services/UtilService';
 import { SaveProductSet } from './../../models/saveProductSet';
 import { AddProductSetDialogComponent } from './../../dialogs/add-product-set-dialog/add-product-set-dialog.component';
@@ -9,6 +10,7 @@ import { Product } from 'src/app/models/Product';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { EditProductSetDialogComponent } from 'src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component';
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { SaveProductComponent } from 'src/app/models/saveProductComponent';
 
 @Component({
   selector: 'app-product-sets',
@@ -153,9 +155,35 @@ export class ProductSetsComponent implements OnInit {
     this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
 
   }
-  clickDisplay(product: SaveProductSet, val: boolean) {
-    product.display = val;
-    this.productService.editProductSet(product).subscribe(()=> {
+  clickDisplay(product: ProductSet, val: boolean) {
+    let ps: SaveProductComponent[]=[];
+    product.products.forEach((e)=>{
+      const x :SaveProductComponent = {
+        productId: e.product.productId,
+        quantity: e.product.quantity
+      }
+      ps.push(x);
+    })
+
+    const p:SaveProductSet = {
+    color : product.color,
+    currency: product.currency,
+    description: product.description,
+    display: val,
+    leadTime: product.leadTime,
+    moq: product.moq,
+    obicNo :product.obicNo,
+    price: product.price,
+    productId: product.productId,
+    productName :product.productName,
+    quantity: product.quantity,
+    userId: product.userId,
+    products : ps,
+    sort : product.sort
+  }
+    
+
+    this.productService.editProductSet(p).subscribe(()=> {
       this.getProductSetData();
     })
   }

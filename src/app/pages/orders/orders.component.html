@@ -34,18 +34,22 @@
         <ng-container matColumnDef="salesDestination">
             <th mat-header-cell *matHeaderCellDef i18n="@@salesDestination" mat-sort-header> Sales Destination </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-button [color]="!element.salesDestination.active ? 'warn':''" class="customerBtn"
-                    (click)="viewCustomer(element.salesDestination)">{{element.salesDestination.customerName}}
-                </button>
+                <div *ngIf="element.salesDestination">
+                    <button mat-button [color]="!element.salesDestination.active ? 'warn':''" class="customerBtn"
+                        (click)="viewCustomer(element.salesDestination)">{{element.salesDestination.customerName}}
+                    </button>
+                </div>
             </td>
         </ng-container>
         <ng-container matColumnDef="contractor">
             <th mat-header-cell *matHeaderCellDef i18n="@@contractor" mat-sort-header> Contractor </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-button [color]="!element.contractor.active ? 'warn':''" class="customerBtn"
-                    (click)="viewCustomer(element.contractor)">
-                    {{element.contractor.customerName}}
-                </button>
+                <div *ngIf="element.contractor">
+                    <button *ngIf="element.contractor" mat-button [color]="!element.contractor.active ? 'warn':''"
+                        class="customerBtn" (click)="viewCustomer(element.contractor)">
+                        {{element.contractor.customerName}}
+                    </button>
+                </div>
             </td>
         </ng-container>
         <ng-container matColumnDef="receivedDate">

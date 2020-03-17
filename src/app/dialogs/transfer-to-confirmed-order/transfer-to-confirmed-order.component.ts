@@ -58,21 +58,21 @@ export class TransferToConfirmedOrderComponent implements OnInit {
   initializeCustomerForm() {
     console.log("popup data");
     console.log(this.data);
-    const rDate = new Date(this.data.receivedDate).toISOString().substring(0, 10);
-    const dDate = new Date(this.data.dueDate).toISOString().substring(0, 10);
-    const delDate = new Date(this.data.deliveryDate).toISOString().substring(0, 10);
+    const rDate = this.data.receivedDate?new Date(this.data.receivedDate).toISOString().substring(0, 10):"";
+    const dDate = this.data.dueDate?new Date(this.data.dueDate).toISOString().substring(0, 10):"";
+    const delDate = this.data.deliveryDate?new Date(this.data.deliveryDate).toISOString().substring(0, 10):"";
 
     this.orderForm = new FormGroup({
       "proposalNo": new FormControl(this.data.proposalNo, [
         Validators.required
       ]),
-      "customerId": new FormControl(this.data.customer.customerId, [
+      "customerId": new FormControl(this.data.customer.customerId?this.data.customer.customerId:"", [
         Validators.required
       ]),
-      "salesDestinationId": new FormControl(this.data.salesDestination.customerId, [
+      "salesDestinationId": new FormControl(this.data.salesDestination?this.data.salesDestination.customerId:"", [
         this.data.fixed?Validators.required:Validators.nullValidator
       ]),
-      "contractorId": new FormControl(this.data.contractor.customerId, [
+      "contractorId": new FormControl(this.data.contractor?this.data.contractor.customerId:"", [
         this.data.fixed?Validators.required:Validators.nullValidator
       ]),
       "receivedDate": new FormControl(rDate, [
@@ -114,9 +114,11 @@ export class TransferToConfirmedOrderComponent implements OnInit {
     if (this.orderForm.valid) {
       const order: SaveOrder = this.orderForm.value;
       order.orderedProducts = this.saveProducts;
+      // console.log(this.orderForm.value.receivedDate,this.orderForm.value.dueDate,this.orderForm.value.deliveryDate)
       order.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
-      order.dueDate = new Date(this.orderForm.value.dueDate).toISOString();
+      order.dueDate = new Date(this.data.dueDate).toISOString();
       order.deliveryDate = new Date(this.orderForm.value.deliveryDate).toISOString();
+      order.orderId = this.data.orderId;
       this.dialogRef.close(order);
     }
   }

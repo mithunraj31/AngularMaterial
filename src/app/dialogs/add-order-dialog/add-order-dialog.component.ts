@@ -1,3 +1,4 @@
+import { UtilService } from './../../services/UtilService';
 import { User } from './../../models/User';
 import { SaveOrder } from './../../models/SaveOrder';
 import { ProductSet } from './../../models/ProductSet';
@@ -41,7 +42,8 @@ export class AddOrderDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: boolean,
     private customerService: CustomerService,
     private productService: ProductService,
-    private userService: UserService
+    private userService: UserService,
+    private util: UtilService
   ) { }
 
   ngOnInit() {
@@ -105,10 +107,16 @@ export class AddOrderDialogComponent implements OnInit {
       this.saveOrder = this.orderForm.value;
       this.saveOrder.orderedProducts = this.saveProducts;
       const date: Date = new Date(this.saveOrder.receivedDate);
-      console.log(date);
-      this.saveOrder.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
-      this.saveOrder.dueDate = new Date(this.orderForm.value.dueDate).toISOString();
-      this.saveOrder.deliveryDate = new Date(this.orderForm.value.deliveryDate).toISOString();
+      console.log(this.saveOrder.receivedDate);
+      if (this.saveOrder.receivedDate) {
+        this.saveOrder.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
+      }
+      if (this.saveOrder.dueDate) {
+        this.saveOrder.dueDate = new Date(this.orderForm.value.dueDate).toISOString();
+      }
+      if (this.saveOrder.deliveryDate) {
+        this.saveOrder.deliveryDate = new Date(this.orderForm.value.deliveryDate).toISOString();
+      }
       this.dialogRef.close(this.saveOrder);
     }
   }
@@ -268,4 +276,5 @@ export class AddOrderDialogComponent implements OnInit {
   isItType(customer: string[], type: string) {
     return customer.includes(type);
   }
+
 }

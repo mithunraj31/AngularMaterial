@@ -1220,6 +1220,10 @@
         <source>Transfer to Confirmed</source>
         <target>確定注文へ移行</target>
       </trans-unit>
+      <trans-unit id="deliverySchedule" datatype="html">
+        <source>Schedule</source>
+        <target>入出荷予定</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

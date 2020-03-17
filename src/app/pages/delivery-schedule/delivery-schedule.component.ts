@@ -1,67 +1,98 @@
-import { ForecastService } from './../../../services/ForecastService';
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { Subject } from 'rxjs';
+import { ForecastService } from 'src/app/services/ForecastService';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  selector: 'app-delivery-schedule',
+  templateUrl: './delivery-schedule.component.html',
+  styleUrls: ['./delivery-schedule.component.scss']
 })
-export class TableComponent implements OnInit {
-  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-  displayedColumns: string[] = [
-    'setName',
-    'productId',
-    'productName',
-    'description',
-    'values',
+export class DeliveryScheduleComponent implements OnInit {
+  displayedColumns: string[] = []
 
-  ];
-  columnsToDisplay: string[] = this.displayedColumns.slice();
-  subColumns: any[] = [
-    {
-      value: "in qty",
-      key: "incomingQuantity"
-    },
-    {
-      value: "out qty",
-      key: "requiredQuantity"
-    },
-    {
-      value: "predicted stock",
-      key: "currentQuantity"
-    },
-    {
-      value: "stock",
-      key: "quantity"
-    },
-  ]
+  columnsToDisplay: string[] = []
+  subColumns: any[] = [];
   dataSource: Array<any> = [];
   spans = [];
-  spanningColumns = ['productId', 'productName', 'description'];
+  spanningColumns = ['obicNo', 'productName', 'description'];
   tempRowId = null;
   tempRowCount = null;
   productForecast;
   progress;
   unsub = new Subject();
-  constructor(private forecastService: ForecastService) {
-
+  viewDate = new Date();
+  constructor(private forecastService: ForecastService,
+    @Inject(LOCALE_ID) public localeId: string) {
+      this.localizeSubColumns();
   }
 
   ngOnInit() {
     this.populateData();
-    // console.log(this.dataSource);
-    // console.log(this.displayedColumns);
+  }
+  localizeSubColumns(){
+    if(this.localeId==="ja"){
+      this.subColumns = [
+        {
+          value: "入荷",
+          key: "incomingQuantity"
+        },
+        {
+          value: "出荷",
+          key: "requiredQuantity"
+        },
+        {
+          value: "在庫",
+          key: "currentQuantity"
+        },
+      ];
+    }else {
+      this.subColumns = [
+        {
+          value: "in qty",
+          key: "incomingQuantity"
+        },
+        {
+          value: "out qty",
+          key: "requiredQuantity"
+        },
+        {
+          value: "predicted stock",
+          key: "currentQuantity"
+        },
+      ];
+    }
+  }
+  clickPrevious() {
+    this.viewDate = new Date(
+      this.viewDate.getFullYear(),
+      this.viewDate.getMonth()-1,
+      this.viewDate.getDate()
+    )
+    this.populateData();
+  }
+  clickNext() {
+    this.viewDate = new Date(
+      this.viewDate.getFullYear(),
+      this.viewDate.getMonth()+1,
+      this.viewDate.getDate()
+    )
+    this.populateData();
+  }
+  clickToday(){
+    this.viewDate = new Date();
+    this.populateData();
   }
 
   populateData() {
     this.progress = true;
     // this.progress = false;
-    this.forecastService.getProductForecast().pipe(takeUntil(this.unsub)).subscribe(data => {
+
+    this.forecastService.getProductForecast(this.viewDate.getFullYear(),this.viewDate.getMonth()).subscribe(data => {
+      
       this.addColumnsToTables(data[0].products[0].values);
       this.productForecast = data;
-      console.log(this.productForecast);
+      // console.log(this.productForecast);
       let setcount = 0;
       let productcount = 0;
       let tempdata:any[]= [];
@@ -74,13 +105,13 @@ export class TableComponent implements OnInit {
               "setObicNo": productSet.obicNo,
               "setName": productSet.productName,
               "setDescription": productSet.description,
-              "setColor": setcount % 2 == 0 ? "#E8EAF6" : "#C5CAE9",
+              "setColor": productSet.color? productSet.color : "#ffffff",
 
               "productId": product.productId,
               "obicNo": product.obicNo,
               "productName": product.productName,
               "description": product.description,
-              "color": productcount % 2 == 0 ? "#E0F2F1" : "#B2DFDB",
+              "color": product.color? product.color : "#ffffff",
               "values": column.value,
 
             }
@@ -102,24 +133,36 @@ export class TableComponent implements OnInit {
       });
       this.dataSource = tempdata;
       
-      console.log(this.dataSource);
+      // console.log(this.dataSource);
       this.progress = false;
       this.unsub.next();
       this.unsub.complete();
-      console.log(this.progress);
+      // console.log(this.progress);
     },error=>{
       this.progress = false;
     });
 
   }
   addColumnsToTables(dateArray) {
- 
+    this.displayedColumns = new Array<string>();
+    this.columnsToDisplay = new Array<string>();
+    this.displayedColumns = [
+      'setName',
+      'obicNo',
+      'productName',
+      'description',
+      'values',
+  
+    ];
+    this.columnsToDisplay = this.displayedColumns.slice();
     dateArray.forEach(element => {
       const date = element.date;
       this.displayedColumns.push(this.getDateString(date));
     });
     this.columnsToDisplay = this.displayedColumns.slice();
     // console.log(this.columnsToDisplay);
+
+    // console.log(this.displayedColumns);
   }
   getDateString(date: string) {
     return new Date(date).toLocaleDateString("en-US", { month: "numeric", day: "numeric" });
@@ -145,7 +188,7 @@ export class TableComponent implements OnInit {
   }
   getRowSpan(col, index) {
 
-    return 4;
+    return 3;
   }
 
   isTheSame(column, index) {
@@ -164,4 +207,5 @@ export class TableComponent implements OnInit {
     }
     return result;
   }
+
 }

@@ -123,6 +123,7 @@ export class ProductsComponent implements OnInit {
         this.progress = true;
         const product: Product = result;
         product.productId = data.productId;
+        product.display = data.display;
         // change concat to replace when using real api
         this.productService.updateProduct(product).subscribe((result) => {
           this.getProductData();

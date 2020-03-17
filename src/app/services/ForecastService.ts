@@ -15,11 +15,8 @@ export class ForecastService {
     getForecast() {
         return this.http.get<Order[]>(this.forecastUrl);
     }
-    getProductForecast() {
-        const date = new Date();
-        const year = date.getFullYear();
-        const month = date.getMonth();
-        return this.http.get<any[]>(this.forecastProductUrl);
+    getProductForecast(year:number,month:number) {
+        return this.http.get<any[]>(this.forecastProductUrl+year+"/"+(month+1));
     }
 
 }

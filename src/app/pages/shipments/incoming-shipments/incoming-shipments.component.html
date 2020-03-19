@@ -8,12 +8,44 @@
   </mat-paginator>
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
     <ng-container matColumnDef="shipmentNo">
-      <th mat-header-cell *matHeaderCellDef i18n="@@shipmentNo" mat-sort-header> Shipment No </th>
+      <th mat-header-cell *matHeaderCellDef i18n="@@shipmentNo" mat-sort-header> Order No </th>
       <td mat-cell *matCellDef="let element"> {{element.shipmentNo}} </td>
     </ng-container>
-    <ng-container matColumnDef="arrivalDate">
-      <th mat-header-cell *matHeaderCellDef i18n="@@arrivalDate" mat-sort-header> Arrival Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.arrivalDate | date:'shortDate'}} </td>
+    <ng-container matColumnDef="branch">
+      <th mat-header-cell *matHeaderCellDef i18n="@@branch" mat-sort-header> Branch </th>
+      <td mat-cell *matCellDef="let element"> {{element.branch}} </td>
+    </ng-container>
+    <ng-container matColumnDef="vendor">
+      <th mat-header-cell *matHeaderCellDef i18n="@@vendor" mat-sort-header> Vendor </th>
+      <td mat-cell *matCellDef="let element"> {{element.vendor}} </td>
+    </ng-container>
+    <ng-container matColumnDef="productName">
+      <th mat-header-cell *matHeaderCellDef i18n="@@productName" mat-sort-header> Product Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.product.productName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="orderDate">
+      <th mat-header-cell *matHeaderCellDef i18n="@@orderDate" mat-sort-header> Order Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.orderDate | date:'yy/M/d'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef i18n="@@orderedQty" mat-sort-header> Ordered Qty </th>
+      <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+    </ng-container>
+    <ng-container matColumnDef="pendingQty">
+      <th mat-header-cell *matHeaderCellDef i18n="@@pendingQty" mat-sort-header> Pending QTY </th>
+      <td mat-cell *matCellDef="let element"> {{element.pendingQty}} </td>
+    </ng-container>
+    <ng-container matColumnDef="desiredDeliveryDate">
+      <th mat-header-cell *matHeaderCellDef i18n="@@desiredDeliveryDate" mat-sort-header> Delivery Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.desiredDeliveryDate | date:'yy/M/d'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="confirmedQty">
+      <th mat-header-cell *matHeaderCellDef i18n="@@confirmedQty" mat-sort-header> Confirmed Qty </th>
+      <td mat-cell *matCellDef="let element"> {{element.confirmedQty}} </td>
+    </ng-container>
+    <ng-container matColumnDef="fixedDeliveryDate">
+      <th mat-header-cell *matHeaderCellDef i18n="@@confirmedDeliveryDate" mat-sort-header> Confirmed Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.fixedDeliveryDate | date:'yy/M/d'}} </td>
     </ng-container>
     <ng-container matColumnDef="user">
       <th mat-header-cell *matHeaderCellDef i18n="@@salesUser" mat-sort-header> User </th>
@@ -23,10 +55,10 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element;">
-        <button mat-raised-button class="fullfillBtn" *ngIf="element.arrived" (click)="fullFillArrival(element)" [disabled]="element.arrived"
-          i18n="@@arrived">Arrived</button>
-        <button mat-raised-button class="fullfillBtn" *ngIf="!element.arrived" (click)="fullFillArrival(element)" [disabled]="element.arrived"
-          i18n="@@notInStock">Not in stock</button>
+        <button mat-raised-button class="fullfillBtn" *ngIf="element.arrived" (click)="fullFillArrival(element)"
+          [disabled]="element.arrived" i18n="@@arrived">Arrived</button>
+        <button mat-raised-button class="fullfillBtn" *ngIf="!element.arrived" (click)="fullFillArrival(element)"
+          [disabled]="element.arrived" i18n="@@notInStock">Not in stock</button>
         <button mat-button color="primary" (click)="editShipment(element)" i18n="@@edit">Edit</button>
         <button mat-button color="warn" (click)="deleteShipment(element)" i18n="@@delete">Delete</button>
       </td>

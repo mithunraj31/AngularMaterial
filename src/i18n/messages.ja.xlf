@@ -699,7 +699,7 @@
       </trans-unit>
       <trans-unit id="shipmentNo" datatype="html">
         <source>Shipment No</source>
-        <target>入荷番号</target>
+        <target>発注番号</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
           <context context-type="linenumber">5</context>
@@ -1223,6 +1223,54 @@
       <trans-unit id="deliverySchedule" datatype="html">
         <source>Schedule</source>
         <target>入出荷予定</target>
+      </trans-unit>
+      <trans-unit id="branch" datatype="html">
+        <source>Branch</source>
+        <target>枝番</target>
+      </trans-unit>
+      <trans-unit id="vendor" datatype="html">
+        <source>Vendor</source>
+        <target>ベンダー</target>
+      </trans-unit>
+      <trans-unit id="orderDate" datatype="html">
+        <source>Order Date</source>
+        <target>発注日</target>
+      </trans-unit>
+      <trans-unit id="orderedQty" datatype="html">
+        <source>Ordered QTY</source>
+        <target>発注数</target>
+      </trans-unit>
+      <trans-unit id="pendingQty" datatype="html">
+        <source>Remaining QTY</source>
+        <target>発注残</target>
+      </trans-unit>
+      <trans-unit id="desiredDeliveryDate" datatype="html">
+        <source>Delivery Date</source>
+        <target>希望納期</target>
+      </trans-unit>
+      <trans-unit id="confirmedQty" datatype="html">
+        <source>Confirmed Qty</source>
+        <target>確定数量</target>
+      </trans-unit>
+      <trans-unit id="confirmedDeliveryDate" datatype="html">
+        <source>Confirmed Delivery Date</source>
+        <target>確定納期</target>
+      </trans-unit>
+      <trans-unit id="orderDateRequired" datatype="html">
+        <source>Received Date cannot be empty.</source>
+        <target> 発注日を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="desiredDeliveryDateRequired" datatype="html">
+        <source>Received Date cannot be empty.</source>
+        <target> 希望納期を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="productRequired" datatype="html">
+        <source>Received Date cannot be empty.</source>
+        <target> 製品を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="orderQtyRequired" datatype="html">
+        <source>Received Date cannot be empty.</source>
+        <target> 発注数を空欄にすることはできません。 </target>
       </trans-unit>
     </body>
   </file>

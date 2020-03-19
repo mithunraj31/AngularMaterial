@@ -25,7 +25,15 @@ import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confir
 export class IncomingShipmentsComponent implements OnInit {
   columnsToDisplay: string[] = [
     'shipmentNo',
-    'arrivalDate',
+    'branch',
+    'vendor',
+    'productName',
+    'orderDate',
+    'quantity',
+    'pendingQty',
+    'desiredDeliveryDate',
+    'confirmedQty',
+    'fixedDeliveryDate',
     'user',
     'actions'
   ];
@@ -47,6 +55,7 @@ export class IncomingShipmentsComponent implements OnInit {
     this.dataSource.sortingDataAccessor = (item, property) => {
       switch (property) {
         case 'user': return item.user.firstName;
+        case 'productName': return item.product.productName;
         default: return item[property];
       }
     };

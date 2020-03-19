@@ -49,9 +49,26 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
       "shipmentNo": new FormControl("", [
         Validators.required
       ]),
-      "arrivalDate": new FormControl("", [
+      "branch": new FormControl("", [
+
+      ]),
+      "vendor": new FormControl("", [
+
+      ]),
+      "orderDate": new FormControl("", [
         Validators.required
       ]),
+      "desiredDeliveryDate": new FormControl("", [
+        Validators.required
+      ]),
+      "productId": new FormControl("", [
+        Validators.required
+      ]),
+      "quantity": new FormControl("", [
+        Validators.required
+      ]),
+
+      
     })
   }
   getProductData() {
@@ -66,67 +83,13 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (this.incomingShipmentForm.valid) {
       this.saveIncomingShipment = this.incomingShipmentForm.value;
-      this.saveIncomingShipment.products = this.saveShipmentProducts;
-      this.saveIncomingShipment.arrivalDate = new Date(this.incomingShipmentForm.value.arrivalDate).toISOString();
-      console.log(new Date(this.incomingShipmentForm.value.arrivalDate).toISOString());
+      this.saveIncomingShipment.orderDate = new Date(this.incomingShipmentForm.value.orderDate).toISOString();
+      this.saveIncomingShipment.desiredDeliveryDate = new Date(this.incomingShipmentForm.value.desiredDeliveryDate).toISOString();
+      
       this.dialogRef.close(this.saveIncomingShipment);
     }
   }
-  getErrorMessage(attribute: string) {
-    return this.incomingShipmentForm.get(attribute).hasError('required') ? 'You must enter a value' : '';
-    // switch (attribute) {
-    //   case "name":
-    //       return this.productForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
-    //     break;
 
-    //   default:
-    //     break;
-    // }
-  }
-  addComponent() {
-    if (this.selected && this.qty && this.price) {
-      console.log(this.selected);
-
-      const saveShipmentProduct: SaveShipmentProduct = {
-        productId: this.products[this.selected].productId,
-        quantity: this.qty,
-        price: this.price,
-        currency: this.currency
-      }
-
-      //check the product is already exists
-      this.alreadyExistsError= false;
-      this.saveShipmentProducts.forEach(product => {
-        if (product.productId == saveShipmentProduct.productId)
-          this.alreadyExistsError = true;
-      })
-      if (!this.alreadyExistsError) {
-        this.saveShipmentProducts.push(saveShipmentProduct);
-        this.viewSelectd.push({
-          productId: this.products[this.selected].productId,
-          productName: this.products[this.selected].productName,
-          quantity: this.qty,
-          price: this.price,
-          currency: this.currency
-        })
-        console.log(this.viewSelectd);
-        this.qtyError = false;
-        this.selected = null;
-        this.qty = null;
-        this.price = null;
-        this.priceError = false;
-        this.alreadyExistsError= false;
-      }
-    } else if (!this.qty) {
-      this.qtyError = true;
-    } else if (!this.price) {
-      this.priceError = true;
-    }
-  }
-  removeComponent(id: number) {
-    this.viewSelectd.splice(id, 1);
-    this.saveShipmentProducts.splice(id, 1);
-  }
   onKey(value) {
     this.products = this.search(value);
   }

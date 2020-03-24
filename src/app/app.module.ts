@@ -34,6 +34,7 @@ import {MatToolbarModule,
         MatSnackBarModule,
         MatTooltipModule,
         MatSortModule,
+        MatCheckboxModule,
         
 } from '@angular/material';
 
@@ -91,6 +92,7 @@ import { ExcelServices } from './services/ExcelService';
 import { DatePipe } from '@angular/common';
 import { TransferToConfirmedOrderComponent } from './dialogs/transfer-to-confirmed-order/transfer-to-confirmed-order.component';
 import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-schedule.component';
+import { ConfirmIncomingShipmentComponent } from './dialogs/confirm-incoming-shipment/confirm-incoming-shipment.component';
 
 
 @NgModule({
@@ -135,6 +137,7 @@ import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-sc
     CalendarComponent,
     TransferToConfirmedOrderComponent,
     DeliveryScheduleComponent,
+    ConfirmIncomingShipmentComponent,
 
   ],
   imports: [
@@ -167,7 +170,8 @@ import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-sc
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     MatSnackBarModule,
     MatTooltipModule,
-    MatSortModule
+    MatSortModule,
+    MatCheckboxModule
   ],
   exports: [ 
      
@@ -194,7 +198,8 @@ import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-sc
     UnfulfilledProductsComponent,
     UnfulfillConfirmationComponent,
     AddUserDialogComponent,
-    TransferToConfirmedOrderComponent
+    TransferToConfirmedOrderComponent,
+    ConfirmIncomingShipmentComponent
   ],
   providers: [
     ProductService,

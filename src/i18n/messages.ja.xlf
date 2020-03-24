@@ -1272,6 +1272,18 @@
         <source>Received Date cannot be empty.</source>
         <target> 発注数を空欄にすることはできません。 </target>
       </trans-unit>
+      <trans-unit id="confirmedQtyRequired" datatype="html">
+        <source>Confirmed QTY cannot be empty.</source>
+        <target> 確定数量を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="confirmedDeliveryDateRequired" datatype="html">
+        <source>Confirmed QTY cannot be empty.</source>
+        <target> 確定納期を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="partial" datatype="html">
+        <source>Partial Order</source>
+        <target> 分納 </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

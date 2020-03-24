@@ -85,7 +85,7 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
       this.saveIncomingShipment = this.incomingShipmentForm.value;
       this.saveIncomingShipment.orderDate = new Date(this.incomingShipmentForm.value.orderDate).toISOString();
       this.saveIncomingShipment.desiredDeliveryDate = new Date(this.incomingShipmentForm.value.desiredDeliveryDate).toISOString();
-      
+      this.saveIncomingShipment.pendingQty = this.saveIncomingShipment.quantity;
       this.dialogRef.close(this.saveIncomingShipment);
     }
   }

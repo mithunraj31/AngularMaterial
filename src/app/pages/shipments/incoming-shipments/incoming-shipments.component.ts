@@ -1,3 +1,4 @@
+import { SaveIncomingShipment } from 'src/app/models/SaveIncomingShipment';
 import { UtilService } from './../../../services/UtilService';
 import { ArrivalOrderDialogComponent } from './../../../dialogs/arrival-order-dialog/arrival-order-dialog.component';
 import { EditIncomingShipmentComponent } from './../../../dialogs/edit-incoming-shipment/edit-incoming-shipment.component';
@@ -9,6 +10,7 @@ import { IncomingShipment } from './../../../models/IncomingShipment';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { ConfirmIncomingShipmentComponent } from 'src/app/dialogs/confirm-incoming-shipment/confirm-incoming-shipment.component';
 
 @Component({
   selector: 'app-incoming-shipments',
@@ -107,17 +109,17 @@ export class IncomingShipmentsComponent implements OnInit {
       width: '600px',
       data: element
     });
-    console.log(element);
+    // console.log(element);
 
     dialogRef.afterClosed().subscribe(result => {
 
-      console.log(result);
+      // console.log(result);
       if (result) {
         this.progress = true;
         this.shipmentService.editShipment(result).subscribe(result => {
           this.getShipments();
         }, error => {
-          console.log(error);
+          // console.log(error);
           this.progress = false;
         })
       }
@@ -182,5 +184,37 @@ export class IncomingShipmentsComponent implements OnInit {
       }
     });
   }
+  confirmOrder(shipment: IncomingShipment){
+    const dialogRef = this.dialog.open(ConfirmIncomingShipmentComponent, {
+      width: '600px',
+      data: shipment
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result) {
+        console.log(result);
+        const results:SaveIncomingShipment[] = result;
+        this.progress = true;
+        if(results[0]){
+          this.shipmentService.addShipment(results[0]).subscribe(result => {
+            this.shipmentService.addShipment(results[1]).subscribe(()=>{
+              this.getShipments();
+
+            })
+          }, error => {
+            this.progress = false;
+          })
+
+        }else{
+          this.shipmentService.addShipment(results[1]).subscribe(result => {
+            this.getShipments();
+          }, error => {
+            console.log(error);
+            this.progress = false;
+          })
+        }
+      }
+    });
+  }
 }

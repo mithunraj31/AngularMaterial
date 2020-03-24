@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .inline{
+      display: inline-block;
+  }
+  .qtyError {
+      color: red;
+  }
+
+  .productList {
+      background-color: #c9d3db;
+      padding: 3px;
+      margin: 3px;
+  }
+  .example-viewport {
+    height: 200px;
+    width: 200px;
+    border: 1px solid black;
+  }
+  .spacer {
+    flex: 1 1 auto;
+  }
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }

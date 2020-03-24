@@ -1284,6 +1284,10 @@
         <source>Partial Order</source>
         <target> 分納 </target>
       </trans-unit>
+      <trans-unit id="confirmInOrder" datatype="html">
+        <source>Confirm</source>
+        <target> 納期確定 </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

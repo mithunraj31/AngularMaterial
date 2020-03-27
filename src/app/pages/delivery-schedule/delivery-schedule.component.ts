@@ -140,7 +140,7 @@ export class DeliveryScheduleComponent implements OnInit {
 
       });
       this.dataSource = tempdata;
-      console.log(tempdata);
+      // console.log(tempdata);
       // console.log(this.dataSource);
       this.progress = false;
       this.unsub.next();
@@ -181,7 +181,7 @@ export class DeliveryScheduleComponent implements OnInit {
       return { 'background-color': data.setColor };
       
     } else if (set && data[set]) {
-      console.log(data[set]);
+      // console.log(data[set]);
       return { 'background-color': !data[set].fixed || data[set].quantity < 0 ? '#ef5350' : data.setColor };
     }
 

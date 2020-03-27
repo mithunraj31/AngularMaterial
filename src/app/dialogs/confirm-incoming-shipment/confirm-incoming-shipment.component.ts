@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { IncomingShipment } from 'src/app/models/IncomingShipment';
 import { ProductService } from 'src/app/services/ProductService';
+import { max } from 'date-fns';
 
 @Component({
   selector: 'app-confirm-incoming-shipment',
@@ -36,9 +37,10 @@ export class ConfirmIncomingShipmentComponent implements OnInit {
         Validators.required
       ]),
       "confirmedQty": new FormControl(this.data.pendingQty > 0 ? this.data.pendingQty : this.data.quantity, [
-        Validators.required
+        Validators.required,
+        Validators.max(this.data.pendingQty)
       ]),
-    })
+    });
 
     this.incomingShipmentForm.get("confirmedQty").disable();
 

@@ -179,10 +179,15 @@ export class DeliveryScheduleComponent implements OnInit {
   changeColor(data, set?) {
     if (set && set === 'set') {
       return { 'background-color': data.setColor };
-      
+
     } else if (set && data[set]) {
       // console.log(data[set]);
-      return { 'background-color': !data[set].fixed || data[set].quantity < 0 ? '#ef5350' : data.Color };
+      if (!data[set].fixed || data[set].quantity < 0) {
+
+        return { 'background-color': '#ef5350' };
+      } else {
+        return { 'background-color': data.color };
+      }
     }
 
     return { 'background-color': data.color };

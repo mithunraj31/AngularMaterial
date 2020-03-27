@@ -182,7 +182,7 @@ export class DeliveryScheduleComponent implements OnInit {
       
     } else if (set && data[set]) {
       // console.log(data[set]);
-      return { 'background-color': !data[set].fixed || data[set].quantity < 0 ? '#ef5350' : data.setColor };
+      return { 'background-color': !data[set].fixed || data[set].quantity < 0 ? '#ef5350' : data.Color };
     }
 
     return { 'background-color': data.color };

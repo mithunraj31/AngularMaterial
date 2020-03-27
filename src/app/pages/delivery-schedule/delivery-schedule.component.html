@@ -18,7 +18,7 @@
                         <th mat-header-cell *matHeaderCellDef i18n="@@productSetName"> Set Name </th>
                         <td mat-cell *matCellDef="let data;let i = index" [attr.rowspan]="getRowSpanSet('setName', i)"
                             [style.display]="!isTheSame('setName', i) ? '' : 'none'"
-                            [ngStyle]="changeColor(data,'set')">
+                            [ngStyle]="changeColor(data,'1')">
                             {{ data.setName}} </td>
                         <!-- <td mat-foote  r-cell *matFooterCellDef> Total </td> -->
                     </ng-container>
@@ -52,8 +52,8 @@
 
                     <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns.slice(5)">
                         <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-                        <td mat-cell *matCellDef="let element" class="dates" [ngStyle]="changeColor(element)">
-                            {{element[column]}}
+                        <td mat-cell *matCellDef="let element" class="dates" [ngStyle]="changeColor(element,column)">
+                            {{element[column].quantity}}
                         </td>
                         <!-- <td mat-footer-cell *matFooterCellDef matTooltip="My Name is Khaan" class="forecastOrders"> My
                             Name is Khaan

@@ -24,37 +24,37 @@ export class DeliveryScheduleComponent implements OnInit {
   viewDate = new Date();
   constructor(private forecastService: ForecastService,
     @Inject(LOCALE_ID) public localeId: string) {
-      this.localizeSubColumns();
+    this.localizeSubColumns();
   }
 
   ngOnInit() {
     this.populateData();
   }
-  localizeSubColumns(){
-    if(this.localeId==="ja"){
+  localizeSubColumns() {
+    if (this.localeId === "ja") {
       this.subColumns = [
         {
           value: "入荷",
-          key: "incomingQuantity"
+          key: "incoming"
         },
         {
           value: "出荷",
-          key: "requiredQuantity"
+          key: "outgoing"
         },
         {
           value: "在庫",
           key: "currentQuantity"
         },
       ];
-    }else {
+    } else {
       this.subColumns = [
         {
           value: "in qty",
-          key: "incomingQuantity"
+          key: "incoming"
         },
         {
           value: "out qty",
-          key: "requiredQuantity"
+          key: "outgoing"
         },
         {
           value: "predicted stock",
@@ -66,7 +66,7 @@ export class DeliveryScheduleComponent implements OnInit {
   clickPrevious() {
     this.viewDate = new Date(
       this.viewDate.getFullYear(),
-      this.viewDate.getMonth()-1,
+      this.viewDate.getMonth() - 1,
       this.viewDate.getDate()
     )
     this.populateData();
@@ -74,12 +74,12 @@ export class DeliveryScheduleComponent implements OnInit {
   clickNext() {
     this.viewDate = new Date(
       this.viewDate.getFullYear(),
-      this.viewDate.getMonth()+1,
+      this.viewDate.getMonth() + 1,
       this.viewDate.getDate()
     )
     this.populateData();
   }
-  clickToday(){
+  clickToday() {
     this.viewDate = new Date();
     this.populateData();
   }
@@ -88,14 +88,14 @@ export class DeliveryScheduleComponent implements OnInit {
     this.progress = true;
     // this.progress = false;
 
-    this.forecastService.getProductForecast(this.viewDate.getFullYear(),this.viewDate.getMonth()).subscribe(data => {
-      
+    this.forecastService.getProductForecast(this.viewDate.getFullYear(), this.viewDate.getMonth()).subscribe(data => {
+
       this.addColumnsToTables(data[0].products[0].values);
       this.productForecast = data;
       // console.log(this.productForecast);
       let setcount = 0;
       let productcount = 0;
-      let tempdata:any[]= [];
+      let tempdata: any[] = [];
       data.forEach(productSet => {
         productSet.products.forEach(product => {
           this.subColumns.forEach(column => {
@@ -105,40 +105,48 @@ export class DeliveryScheduleComponent implements OnInit {
               "setObicNo": productSet.obicNo,
               "setName": productSet.productName,
               "setDescription": productSet.description,
-              "setColor": productSet.color? productSet.color : "#ffffff",
+              "setColor": productSet.color ? productSet.color : "#ffffff",
 
               "productId": product.productId,
               "obicNo": product.obicNo,
               "productName": product.productName,
               "description": product.description,
-              "color": product.color? product.color : "#ffffff",
+              "color": product.color ? product.color : "#ffffff",
               "values": column.value,
 
-            }
+            };
             product.values.forEach(dateItem => {
-              if ((column.key === "incomingQuantity" || column.key === "requiredQuantity") && (dateItem[column.key]==0)) {
-                temp[this.getDateString(dateItem.date)] = "";
+              if ((column.key === "incoming" || column.key === "outgoing") && (dateItem[column.key].quantity === 0)) {
+                temp[this.getDateString(dateItem.date)] = {
+                  "quantity": "",
+                  "fixed": true
+                };
+              } else if (column.key === "currentQuantity") {
+                temp[this.getDateString(dateItem.date)] = {
+                  "quantity": dateItem[column.key],
+                  "fixed": true
+                };
               } else {
                 temp[this.getDateString(dateItem.date)] = dateItem[column.key];
               }
             });
             tempdata.push(temp);
             // this.dataSource.push(temp);
-            
+
           })
           productcount++;
         });
         setcount++;
-        
+
       });
       this.dataSource = tempdata;
-      
+      console.log(tempdata);
       // console.log(this.dataSource);
       this.progress = false;
       this.unsub.next();
       this.unsub.complete();
       // console.log(this.progress);
-    },error=>{
+    }, error => {
       this.progress = false;
     });
 
@@ -152,7 +160,7 @@ export class DeliveryScheduleComponent implements OnInit {
       'productName',
       'description',
       'values',
-  
+
     ];
     this.columnsToDisplay = this.displayedColumns.slice();
     dateArray.forEach(element => {
@@ -169,8 +177,13 @@ export class DeliveryScheduleComponent implements OnInit {
   }
 
   changeColor(data, set?) {
-    if (set)
+    if (set && set === 1) {
       return { 'background-color': data.setColor };
+      
+    } else if (set && data[set]) {
+      console.log(data[set]);
+      return { 'background-color': !data[set].fixed || data[set].quantity < 0 ? '#ef5350' : data.setColor };
+    }
 
     return { 'background-color': data.color };
   }

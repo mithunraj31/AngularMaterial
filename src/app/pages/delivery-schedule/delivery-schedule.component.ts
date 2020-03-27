@@ -177,7 +177,7 @@ export class DeliveryScheduleComponent implements OnInit {
   }
 
   changeColor(data, set?) {
-    if (set && set === 1) {
+    if (set && set === 'set') {
       return { 'background-color': data.setColor };
       
     } else if (set && data[set]) {

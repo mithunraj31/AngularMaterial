@@ -93,6 +93,7 @@ import { DatePipe } from '@angular/common';
 import { TransferToConfirmedOrderComponent } from './dialogs/transfer-to-confirmed-order/transfer-to-confirmed-order.component';
 import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-schedule.component';
 import { ConfirmIncomingShipmentComponent } from './dialogs/confirm-incoming-shipment/confirm-incoming-shipment.component';
+import { AddCustomerConfirmationComponent } from './dialogs/add-customer-confirmation/add-customer-confirmation.component';
 
 
 @NgModule({
@@ -138,6 +139,7 @@ import { ConfirmIncomingShipmentComponent } from './dialogs/confirm-incoming-shi
     TransferToConfirmedOrderComponent,
     DeliveryScheduleComponent,
     ConfirmIncomingShipmentComponent,
+    AddCustomerConfirmationComponent,
 
   ],
   imports: [
@@ -199,7 +201,8 @@ import { ConfirmIncomingShipmentComponent } from './dialogs/confirm-incoming-shi
     UnfulfillConfirmationComponent,
     AddUserDialogComponent,
     TransferToConfirmedOrderComponent,
-    ConfirmIncomingShipmentComponent
+    ConfirmIncomingShipmentComponent,
+    AddCustomerConfirmationComponent
   ],
   providers: [
     ProductService,

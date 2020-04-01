@@ -1288,6 +1288,18 @@
         <source>Confirm</source>
         <target> 納期確定 </target>
       </trans-unit>
+      <trans-unit id="confirmInput" datatype="html">
+        <source>Confirm input contents</source>
+        <target> 入力内容確認 </target>
+      </trans-unit>
+      <trans-unit id="return" datatype="html">
+        <source>Return</source>
+        <target> 戻る </target>
+      </trans-unit>
+      <trans-unit id="doYouWantToContinue" datatype="html">
+        <source>Do you want to continue?</source>
+        <target> この内容でよろしいでしょうか？ </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

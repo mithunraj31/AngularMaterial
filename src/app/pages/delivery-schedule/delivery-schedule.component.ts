@@ -139,6 +139,7 @@ export class DeliveryScheduleComponent implements OnInit {
         setcount++;
 
       });
+      // this.dataSource = tempdata.slice(0, 9);
       this.dataSource = tempdata;
       // console.log(tempdata);
       // console.log(this.dataSource);
@@ -189,6 +190,7 @@ export class DeliveryScheduleComponent implements OnInit {
         return { 'background-color': data.color };
       }
     }
+
 
     return { 'background-color': data.color };
   }

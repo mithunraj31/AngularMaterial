@@ -37,7 +37,7 @@ import {MatToolbarModule,
         MatCheckboxModule,
         
 } from '@angular/material';
-
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import { SidebarComponent } from './components/sidebar/sidebar.component'; 
 import {MatGridListModule} from '@angular/material/grid-list';
 import { HomeComponent } from './pages/home/home.component';
@@ -94,6 +94,7 @@ import { TransferToConfirmedOrderComponent } from './dialogs/transfer-to-confirm
 import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-schedule.component';
 import { ConfirmIncomingShipmentComponent } from './dialogs/confirm-incoming-shipment/confirm-incoming-shipment.component';
 import { AddCustomerConfirmationComponent } from './dialogs/add-customer-confirmation/add-customer-confirmation.component';
+import { OrderInfoComponent } from './dialogs/order-info/order-info.component';
 
 
 @NgModule({
@@ -140,6 +141,7 @@ import { AddCustomerConfirmationComponent } from './dialogs/add-customer-confirm
     DeliveryScheduleComponent,
     ConfirmIncomingShipmentComponent,
     AddCustomerConfirmationComponent,
+    OrderInfoComponent,
 
   ],
   imports: [
@@ -173,7 +175,8 @@ import { AddCustomerConfirmationComponent } from './dialogs/add-customer-confirm
     MatSnackBarModule,
     MatTooltipModule,
     MatSortModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    DragDropModule,
   ],
   exports: [ 
      
@@ -202,7 +205,8 @@ import { AddCustomerConfirmationComponent } from './dialogs/add-customer-confirm
     AddUserDialogComponent,
     TransferToConfirmedOrderComponent,
     ConfirmIncomingShipmentComponent,
-    AddCustomerConfirmationComponent
+    AddCustomerConfirmationComponent,
+    OrderInfoComponent
   ],
   providers: [
     ProductService,

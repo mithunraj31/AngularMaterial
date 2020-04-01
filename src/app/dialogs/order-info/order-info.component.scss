@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  .normal{
+    background-color: #dddddd;
+  }
+  .fixed{
+    background-color: #ef5350;
+  }
+  .order{
+    cursor: pointer;
+  }
+  [mat-dialog-title] {
+    margin: -24px -24px 0px -24px !important;
+    padding: 10px 24px;
+    background: #369;
+    color: #fff;
+    cursor: move;
+  }

@@ -1,0 +1,20 @@
+<h1 mat-dialog-title i18n="@@orderInformation" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>Order Information</h1>
+<div class="container" mat-dialog-content>
+    <table>
+        <tr>
+            <th i18n="@@proposalNo">Proposal No</th>
+            <th i18n="@@customer">Customer Name</th>
+            <th i18n="@@QTY">QTY</th>
+        </tr>
+        <tr *ngFor="let order of data" [ngClass]="order.fixed?'normal':'fixed'">
+            <td [routerLink]= "['orders',order.proposalNo]" class="order">{{order.proposalNo}}</td>
+            <td>{{order.customer}}</td>
+            <td>{{order.quantity}}</td>
+        </tr>
+
+
+    </table>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="onOkClick()" i18n="@@ok">Ok</button>
+</div>

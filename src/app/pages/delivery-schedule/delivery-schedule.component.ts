@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ForecastService } from 'src/app/services/ForecastService';
 import { takeUntil } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+import { OrderInfoComponent } from 'src/app/dialogs/order-info/order-info.component';
 
 @Component({
   selector: 'app-delivery-schedule',
@@ -9,9 +11,9 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./delivery-schedule.component.scss']
 })
 export class DeliveryScheduleComponent implements OnInit {
-  displayedColumns: string[] = []
+  displayedColumns: string[] = [];
 
-  columnsToDisplay: string[] = []
+  columnsToDisplay: string[] = [];
   subColumns: any[] = [];
   dataSource: Array<any> = [];
   spans = [];
@@ -23,7 +25,8 @@ export class DeliveryScheduleComponent implements OnInit {
   unsub = new Subject();
   viewDate = new Date();
   constructor(private forecastService: ForecastService,
-    @Inject(LOCALE_ID) public localeId: string) {
+              @Inject(LOCALE_ID) public localeId: string,
+              public dialog: MatDialog, ) {
     this.localizeSubColumns();
   }
 
@@ -31,34 +34,34 @@ export class DeliveryScheduleComponent implements OnInit {
     this.populateData();
   }
   localizeSubColumns() {
-    if (this.localeId === "ja") {
+    if (this.localeId === 'ja') {
       this.subColumns = [
         {
-          value: "入荷",
-          key: "incoming"
+          value: '入荷',
+          key: 'incoming'
         },
         {
-          value: "出荷",
-          key: "outgoing"
+          value: '出荷',
+          key: 'outgoing'
         },
         {
-          value: "在庫",
-          key: "currentQuantity"
+          value: '在庫',
+          key: 'currentQuantity'
         },
       ];
     } else {
       this.subColumns = [
         {
-          value: "in qty",
-          key: "incoming"
+          value: 'in qty',
+          key: 'incoming'
         },
         {
-          value: "out qty",
-          key: "outgoing"
+          value: 'out qty',
+          key: 'outgoing'
         },
         {
-          value: "predicted stock",
-          key: "currentQuantity"
+          value: 'predicted stock',
+          key: 'currentQuantity'
         },
       ];
     }
@@ -68,7 +71,7 @@ export class DeliveryScheduleComponent implements OnInit {
       this.viewDate.getFullYear(),
       this.viewDate.getMonth() - 1,
       this.viewDate.getDate()
-    )
+    );
     this.populateData();
   }
   clickNext() {
@@ -76,7 +79,7 @@ export class DeliveryScheduleComponent implements OnInit {
       this.viewDate.getFullYear(),
       this.viewDate.getMonth() + 1,
       this.viewDate.getDate()
-    )
+    );
     this.populateData();
   }
   clickToday() {
@@ -95,36 +98,36 @@ export class DeliveryScheduleComponent implements OnInit {
       // console.log(this.productForecast);
       let setcount = 0;
       let productcount = 0;
-      let tempdata: any[] = [];
+      const tempdata: any[] = [];
       data.forEach(productSet => {
         productSet.products.forEach(product => {
           this.subColumns.forEach(column => {
 
-            let temp: any = {
-              "setId": productSet.productId,
-              "setObicNo": productSet.obicNo,
-              "setName": productSet.productName,
-              "setDescription": productSet.description,
-              "setColor": productSet.color ? productSet.color : "#ffffff",
+            const temp: any = {
+              setId: productSet.productId,
+              setObicNo: productSet.obicNo,
+              setName: productSet.productName,
+              setDescription: productSet.description,
+              setColor: productSet.color ? productSet.color : '#ffffff',
 
-              "productId": product.productId,
-              "obicNo": product.obicNo,
-              "productName": product.productName,
-              "description": product.description,
-              "color": product.color ? product.color : "#ffffff",
-              "values": column.value,
+              productId: product.productId,
+              obicNo: product.obicNo,
+              productName: product.productName,
+              description: product.description,
+              color: product.color ? product.color : '#ffffff',
+              values: column.value,
 
             };
             product.values.forEach(dateItem => {
-              if ((column.key === "incoming" || column.key === "outgoing") && (dateItem[column.key].quantity === 0)) {
+              if ((column.key === 'incoming' || column.key === 'outgoing') && (dateItem[column.key].quantity === 0)) {
                 temp[this.getDateString(dateItem.date)] = {
-                  "quantity": "",
-                  "fixed": true
+                  quantity: '',
+                  fixed: true
                 };
-              } else if (column.key === "currentQuantity") {
+              } else if (column.key === 'currentQuantity') {
                 temp[this.getDateString(dateItem.date)] = {
-                  "quantity": dateItem[column.key],
-                  "fixed": true
+                  quantity: dateItem[column.key],
+                  fixed: true
                 };
               } else {
                 temp[this.getDateString(dateItem.date)] = dateItem[column.key];
@@ -133,7 +136,7 @@ export class DeliveryScheduleComponent implements OnInit {
             tempdata.push(temp);
             // this.dataSource.push(temp);
 
-          })
+          });
           productcount++;
         });
         setcount++;
@@ -174,25 +177,33 @@ export class DeliveryScheduleComponent implements OnInit {
     // console.log(this.displayedColumns);
   }
   getDateString(date: string) {
-    return new Date(date).toLocaleDateString("en-US", { month: "numeric", day: "numeric" });
+    return new Date(date).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' });
   }
 
   changeColor(data, set?) {
+    const DateCss = {
+      'background-color': data.color,
+      cursor: 'default'
+    };
+
     if (set && set === 'set') {
-      return { 'background-color': data.setColor };
+      DateCss['background-color'] = data.setColor;
 
     } else if (set && data[set]) {
       // console.log(data[set]);
       if (!data[set].fixed || data[set].quantity < 0) {
 
-        return { 'background-color': '#ef5350' };
+        DateCss['background-color'] = '#ef5350';
       } else {
-        return { 'background-color': data.color };
+        DateCss['background-color'] = data.color;
+      }
+      if (data[set].orders) {
+        DateCss.cursor = 'pointer';
       }
     }
 
 
-    return { 'background-color': data.color };
+    return DateCss;
   }
 
   getRowSpanSet(col, index) {
@@ -200,9 +211,10 @@ export class DeliveryScheduleComponent implements OnInit {
     const rowVal = this.dataSource[index];
     const cellVal = rowVal[col];
     let count = 0;
-    for (let row of this.dataSource) {
-      if (cellVal == row[col])
+    for (const row of this.dataSource) {
+      if (cellVal === row[col]) {
         count++;
+      }
     }
     return count;
   }
@@ -214,13 +226,13 @@ export class DeliveryScheduleComponent implements OnInit {
   isTheSame(column, index) {
     let result = false;
     const i = index;
-    if (i == 0) {
+    if (i === 0) {
       result = false;
     } else {
       const valObj = this.dataSource[i];
       const preObj = this.dataSource[i - 1];
 
-      if (valObj[column] == preObj[column]) {
+      if (valObj[column] === preObj[column]) {
         result = true;
       }
       // console.log (valObj[column],preObj[column]);
@@ -228,4 +240,16 @@ export class DeliveryScheduleComponent implements OnInit {
     return result;
   }
 
+  clickOrder(data) {
+    if (data.orders) {
+      const confirmDialogRef = this.dialog.open(OrderInfoComponent, {
+        width: '700px',
+        data: data.orders,
+      });
+      console.log(data);
+    }
+  }
+
 }
+
+

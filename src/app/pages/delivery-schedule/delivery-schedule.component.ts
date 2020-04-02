@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, HostListener } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ForecastService } from 'src/app/services/ForecastService';
 import { takeUntil } from 'rxjs/operators';
@@ -24,9 +24,11 @@ export class DeliveryScheduleComponent implements OnInit {
   progress;
   unsub = new Subject();
   viewDate = new Date();
+
   constructor(private forecastService: ForecastService,
               @Inject(LOCALE_ID) public localeId: string,
-              public dialog: MatDialog, ) {
+              public dialog: MatDialog,
+              ) {
     this.localizeSubColumns();
   }
 
@@ -245,9 +247,15 @@ export class DeliveryScheduleComponent implements OnInit {
       const confirmDialogRef = this.dialog.open(OrderInfoComponent, {
         width: '700px',
         data: data.orders,
+        disableClose: true,
+        hasBackdrop: false
       });
       console.log(data);
     }
+  }
+
+  onScroll(event) {
+    console.log(event);
   }
 
 }

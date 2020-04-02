@@ -1,5 +1,5 @@
 <mat-tab-group>
-    <mat-tab i18n-label="@@deliverySchedule" label="Delivery Schedule">
+    <mat-tab  i18n-label="@@deliverySchedule" label="Delivery Schedule">
         <ng-template matTabContent>
             <mat-progress-bar mode="indeterminate" *ngIf="progress"></mat-progress-bar>
             <!-- Date navigation start -->
@@ -12,8 +12,8 @@
                 i18n="@@next">Next</button>
             <h3> {{ viewDate | date:'MMMM yyyy'}}</h3>
             <!-- Date Navigation end -->
-            <div class="table-container mat-elevation-z8">
-                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <div  class="table-container mat-elevation-z8" (scroll)="onScroll($event)">
+                <table  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                     <ng-container matColumnDef="setName" sticky>
                         <th mat-header-cell *matHeaderCellDef i18n="@@productSetName"> Set Name </th>
                         <td mat-cell *matCellDef="let data;let i = index" [attr.rowspan]="getRowSpanSet('setName', i)"

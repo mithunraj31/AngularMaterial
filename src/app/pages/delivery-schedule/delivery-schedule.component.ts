@@ -250,7 +250,7 @@ export class DeliveryScheduleComponent implements OnInit {
         disableClose: true,
         hasBackdrop: false
       });
-      console.log(data);
+      // console.log(data);
     }
   }
 

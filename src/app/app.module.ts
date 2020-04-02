@@ -95,6 +95,7 @@ import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-sc
 import { ConfirmIncomingShipmentComponent } from './dialogs/confirm-incoming-shipment/confirm-incoming-shipment.component';
 import { AddCustomerConfirmationComponent } from './dialogs/add-customer-confirmation/add-customer-confirmation.component';
 import { OrderInfoComponent } from './dialogs/order-info/order-info.component';
+import { AddProductConfirmationComponent } from './dialogs/add-product-confirmation/add-product-confirmation.component';
 
 
 @NgModule({
@@ -142,6 +143,7 @@ import { OrderInfoComponent } from './dialogs/order-info/order-info.component';
     ConfirmIncomingShipmentComponent,
     AddCustomerConfirmationComponent,
     OrderInfoComponent,
+    AddProductConfirmationComponent,
 
   ],
   imports: [
@@ -206,7 +208,8 @@ import { OrderInfoComponent } from './dialogs/order-info/order-info.component';
     TransferToConfirmedOrderComponent,
     ConfirmIncomingShipmentComponent,
     AddCustomerConfirmationComponent,
-    OrderInfoComponent
+    OrderInfoComponent,
+    AddProductConfirmationComponent
   ],
   providers: [
     ProductService,

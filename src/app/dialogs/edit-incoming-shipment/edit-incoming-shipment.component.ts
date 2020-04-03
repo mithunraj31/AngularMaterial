@@ -36,11 +36,8 @@ export class EditIncomingShipmentComponent implements OnInit {
     this.incomingShipmentForm = new FormGroup({
       "shipmentNo": new FormControl(this.data
         .shipmentNo, [
-        Validators.required
-      ]),
-      "branch": new FormControl(this.data.branch, [
-
-      ]),
+          Validators.required
+        ]),
       "vendor": new FormControl(this.data.vendor, [
 
       ]),
@@ -57,9 +54,9 @@ export class EditIncomingShipmentComponent implements OnInit {
         Validators.required
       ]),
 
-      
+
     })
-   
+
 
   }
   getProductData() {
@@ -77,10 +74,14 @@ export class EditIncomingShipmentComponent implements OnInit {
       this.saveIncomingShipment.orderDate = new Date(this.incomingShipmentForm.value.orderDate).toISOString();
       this.saveIncomingShipment.desiredDeliveryDate = new Date(this.incomingShipmentForm.value.desiredDeliveryDate).toISOString();
       this.saveIncomingShipment.incomingShipmentId = this.data.incomingShipmentId;
+      this.saveIncomingShipment.branch = this.data.branch;
+      // if (!this.data.fixed) {
+      //   this.saveIncomingShipment.pendingQty = this.data.pendingQty + (this.saveIncomingShipment.quantity - this.data.quantity);
+      // }
       this.dialogRef.close(this.saveIncomingShipment);
     }
   }
-  
+
   onKey(value) {
     this.products = this.search(value);
   }

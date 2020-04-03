@@ -38,7 +38,7 @@ export class ConfirmIncomingShipmentComponent implements OnInit {
       ]),
       "confirmedQty": new FormControl(this.data.pendingQty > 0 ? this.data.pendingQty : this.data.quantity, [
         Validators.required,
-        Validators.max(this.data.pendingQty)
+        Validators.max(this.data.pendingQty - 1)
       ]),
     });
 

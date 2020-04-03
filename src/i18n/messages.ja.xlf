@@ -1300,6 +1300,10 @@
         <source>Do you want to continue?</source>
         <target> この内容でよろしいでしょうか？ </target>
       </trans-unit>
+      <trans-unit id="product" datatype="html">
+        <source>products</source>
+        <target> 製品 </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

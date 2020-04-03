@@ -1,0 +1,47 @@
+<h1 mat-dialog-title i18n="@@confirmInput">Confirm input contents</h1>
+<div class="container" mat-dialog-content>
+    <table>
+        <tr>
+            <td i18n="@@productName">Product Name</td>
+            <td>{{data.productSet.productName}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@description">Description</td>
+            <td>{{data.productSet.description}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@price">Price</td>
+            <td>{{data.productSet.price}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@currency">Currency</td>
+            <td>{{data.productSet.currency}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@obicNo">Obic No</td>
+            <td>{{data.productSet.obicNo}}</td>
+        </tr>
+        <tr>
+            <td>Sort</td>
+            <td>{{data.productSet.sort}}</td>
+        </tr>
+        <tr>
+            <td>Color</td>
+            <td [style.backgroundColor]="data.productSet.color"></td>
+        </tr>
+
+    </table>
+    <h5 i18n="@@product">Products</h5>
+    <table>
+        <tr *ngFor="let product of products">
+            <td>{{product.productName}}</td>
+            <td>{{product.quantity}}</td>
+        </tr>
+    </table>
+    <p style="color: #FF0000;" i18n="@@doYouWantToContinue">Do you want to continue?</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
+    <button mat-raised-button color="accent" (click)="onReturnClick()" i18n="@@return">Return</button>
+    <button mat-raised-button color="primary" (click)="onOkClick()" i18n="@@ok">Ok</button>
+</div>

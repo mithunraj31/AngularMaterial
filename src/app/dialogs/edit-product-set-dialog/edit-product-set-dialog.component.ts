@@ -4,8 +4,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SaveProductSet } from 'src/app/models/saveProductSet';
 import { SaveProductComponent } from 'src/app/models/saveProductComponent';
 import { Product } from 'src/app/models/Product';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { ProductService } from 'src/app/services/ProductService';
+import { AddProductSetConfirmationComponent } from '../add-product-set-confirmation/add-product-set-confirmation.component';
 
 @Component({
   selector: 'app-edit-product-set-dialog',
@@ -25,7 +26,8 @@ export class EditProductSetDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<EditProductSetDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProductSet,
-    private productService: ProductService
+    private productService: ProductService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -72,7 +74,7 @@ export class EditProductSetDialogComponent implements OnInit {
         
       ]),
 
-    })
+    });
   }
   onCancelClick(): void {
     this.dialogRef.close(null);
@@ -81,7 +83,28 @@ export class EditProductSetDialogComponent implements OnInit {
     if (this.productForm.valid) {
       this.saveProductSet = this.productForm.value;
       this.saveProductSet.products = this.saveProducts;
-      this.dialogRef.close(this.saveProductSet);
+      // open confimation dialog
+      const confirmDialogRef = this.dialog.open(AddProductSetConfirmationComponent, {
+        width: '600px',
+        data: {
+          productSet: this.saveProductSet,
+          productsData: this._products
+        },
+        disableClose: true
+      });
+      confirmDialogRef.afterClosed().subscribe(result => {
+        // console.log('The dialog was closed');
+        switch (result) {
+          case 0:
+            this.onCancelClick();
+            break;
+          case 1:
+            this.dialogRef.close(this.saveProductSet);
+            break;
+          default:
+            break;
+        }
+      });
     }
   }
   getErrorMessage(attribute: string) {

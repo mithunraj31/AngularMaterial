@@ -1,0 +1,50 @@
+<h1 mat-dialog-title i18n="@@confirmInput">Confirm input contents</h1>
+<div class="container" mat-dialog-content>
+    <table>
+        <tr>
+            <td i18n="@@proposalNo">Proposal No</td>
+            <td>{{data.order.proposalNo}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@customer">Customer</td>
+            <td>{{customerName}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@salesDestination">Sales Destination</td>
+            <td>{{salesDestination}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@contractor">Contractor</td>
+            <td>{{contractor}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@recievedDate">Received Date</td>
+            <td>{{data.order.receivedDate | date:'shortDate'}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@dueDate">Due Date</td>
+            <td>{{data.order.dueDate | date:'shortDate'}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@deliveryDate">Delivery Date</td>
+            <td>{{data.order.deliveryDate | date:'shortDate'}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@salesUser">Sales User</td>
+            <td>{{salesUser}}</td>
+        </tr>
+    </table>
+    <h5 i18n="@@product">Products</h5>
+    <table>
+        <tr *ngFor="let product of products">
+            <td>{{product.productName}}</td>
+            <td>{{product.quantity}}</td>
+        </tr>
+    </table>
+    <p style="color: #FF0000;" i18n="@@doYouWantToContinue">Do you want to continue?</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
+    <button mat-raised-button color="accent" (click)="onReturnClick()" i18n="@@return">Return</button>
+    <button mat-raised-button color="primary" (click)="onOkClick()" i18n="@@ok">Ok</button>
+</div>

@@ -119,6 +119,8 @@ export class TransferToConfirmedOrderComponent implements OnInit {
       order.dueDate = new Date(this.data.dueDate).toISOString();
       order.deliveryDate = new Date(this.orderForm.value.deliveryDate).toISOString();
       order.orderId = this.data.orderId;
+      order.salesUserId = this.data.salesUser.userId;
+      // console.log(order);
       this.dialogRef.close(order);
     }
   }

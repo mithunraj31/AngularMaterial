@@ -98,6 +98,7 @@ import { OrderInfoComponent } from './dialogs/order-info/order-info.component';
 import { AddProductConfirmationComponent } from './dialogs/add-product-confirmation/add-product-confirmation.component';
 import { AddProductSetConfirmationComponent } from './dialogs/add-product-set-confirmation/add-product-set-confirmation.component';
 import { AddOrderConfirmationComponent } from './dialogs/add-order-confirmation/add-order-confirmation.component';
+import { AddIncomingShipmentConfirmationComponent } from './dialogs/add-incoming-shipment-confirmation/add-incoming-shipment-confirmation.component';
 
 
 @NgModule({
@@ -148,6 +149,7 @@ import { AddOrderConfirmationComponent } from './dialogs/add-order-confirmation/
     AddProductConfirmationComponent,
     AddProductSetConfirmationComponent,
     AddOrderConfirmationComponent,
+    AddIncomingShipmentConfirmationComponent,
 
   ],
   imports: [
@@ -215,7 +217,8 @@ import { AddOrderConfirmationComponent } from './dialogs/add-order-confirmation/
     OrderInfoComponent,
     AddProductConfirmationComponent,
     AddProductSetConfirmationComponent,
-    AddOrderConfirmationComponent
+    AddOrderConfirmationComponent,
+    AddIncomingShipmentConfirmationComponent
   ],
   providers: [
     ProductService,

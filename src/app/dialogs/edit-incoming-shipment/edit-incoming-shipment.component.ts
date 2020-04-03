@@ -4,9 +4,10 @@ import { SaveShipmentProduct } from 'src/app/models/SaveShipmentProduct';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Product } from 'src/app/models/Product';
 import { SaveIncomingShipment } from 'src/app/models/SaveIncomingShipment';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { ProductService } from 'src/app/services/ProductService';
+import { AddIncomingShipmentConfirmationComponent } from '../add-incoming-shipment-confirmation/add-incoming-shipment-confirmation.component';
 
 @Component({
   selector: 'app-edit-incoming-shipment',
@@ -21,7 +22,8 @@ export class EditIncomingShipmentComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IncomingShipment,
-    private productService: ProductService
+    private productService: ProductService,
+    public dialog: MatDialog
   ) { }
 
 
@@ -75,10 +77,38 @@ export class EditIncomingShipmentComponent implements OnInit {
       this.saveIncomingShipment.desiredDeliveryDate = new Date(this.incomingShipmentForm.value.desiredDeliveryDate).toISOString();
       this.saveIncomingShipment.incomingShipmentId = this.data.incomingShipmentId;
       this.saveIncomingShipment.branch = this.data.branch;
-      // if (!this.data.fixed) {
-      //   this.saveIncomingShipment.pendingQty = this.data.pendingQty + (this.saveIncomingShipment.quantity - this.data.quantity);
-      // }
-      this.dialogRef.close(this.saveIncomingShipment);
+      if (!this.data.fixed) {
+        this.saveIncomingShipment.pendingQty = this.data.pendingQty + (this.saveIncomingShipment.quantity - this.data.quantity);
+      } else {
+        this.saveIncomingShipment.fixedDeliveryDate = new Date(this.data.fixedDeliveryDate).toISOString();
+        this.saveIncomingShipment.confirmedQty = this.data.confirmedQty;
+      }
+      this.saveIncomingShipment.fixed = this.data.fixed;
+      this.saveIncomingShipment.partial = this.data.partial;
+      this.saveIncomingShipment.arrived = this.data.arrived;
+
+      // open confimation dialog
+      const confirmDialogRef = this.dialog.open(AddIncomingShipmentConfirmationComponent, {
+        width: '600px',
+        data: {
+          order: this.saveIncomingShipment,
+          products: this._products
+        },
+        disableClose: true
+      });
+      confirmDialogRef.afterClosed().subscribe(result => {
+        // console.log('The dialog was closed');
+        switch (result) {
+          case 0:
+            this.onCancelClick();
+            break;
+          case 1:
+            this.dialogRef.close(this.saveIncomingShipment);
+            break;
+          default:
+            break;
+        }
+      });
     }
   }
 

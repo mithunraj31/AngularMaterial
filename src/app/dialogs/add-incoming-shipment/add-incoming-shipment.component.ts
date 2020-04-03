@@ -2,12 +2,13 @@ import { SaveShipmentProduct } from './../../models/SaveShipmentProduct';
 import { SaveIncomingShipment } from './../../models/SaveIncomingShipment';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { Product } from 'src/app/models/Product';
 import { ProductService } from 'src/app/services/ProductService';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { AddIncomingShipmentConfirmationComponent } from '../add-incoming-shipment-confirmation/add-incoming-shipment-confirmation.component';
 
 @Component({
   selector: 'app-add-incoming-shipment',
@@ -32,7 +33,8 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private productService: ProductService
+    private productService: ProductService,
+    public dialog: MatDialog,
   ) { }
 
 
@@ -86,7 +88,28 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
       this.saveIncomingShipment.orderDate = new Date(this.incomingShipmentForm.value.orderDate).toISOString();
       this.saveIncomingShipment.desiredDeliveryDate = new Date(this.incomingShipmentForm.value.desiredDeliveryDate).toISOString();
       this.saveIncomingShipment.pendingQty = this.saveIncomingShipment.quantity;
-      this.dialogRef.close(this.saveIncomingShipment);
+      // open confimation dialog
+      const confirmDialogRef = this.dialog.open(AddIncomingShipmentConfirmationComponent, {
+        width: '600px',
+        data: {
+         order: this.saveIncomingShipment,
+         products: this._products
+        },
+        disableClose: true
+      });
+      confirmDialogRef.afterClosed().subscribe(result => {
+        // console.log('The dialog was closed');
+        switch (result) {
+          case 0:
+            this.onCancelClick();
+            break;
+          case 1:
+            this.dialogRef.close(this.saveIncomingShipment);
+            break;
+          default:
+            break;
+        }
+      });
     }
   }
 

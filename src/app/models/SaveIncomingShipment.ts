@@ -1,10 +1,11 @@
 import { User } from './User';
 import { SaveShipmentProduct } from './SaveShipmentProduct';
 export interface SaveIncomingShipment {
+    arrived: boolean;
     incomingShipmentId: number;
     shipmentNo: string;
-    branch:string;
-    vendor:string;
+    branch: string;
+    vendor: string;
     orderDate: string;
     pendingQty: number;
     fixedDeliveryDate: string;

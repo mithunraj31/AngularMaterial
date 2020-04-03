@@ -98,7 +98,7 @@ export class ConfirmIncomingShipmentComponent implements OnInit {
     }
   }
   createSaveIn(): SaveIncomingShipment {
-    console.log("test");
+    // console.log("test");
     const object: SaveIncomingShipment = {
       branch: this.data.branch,
       confirmedQty: this.data.confirmedQty,

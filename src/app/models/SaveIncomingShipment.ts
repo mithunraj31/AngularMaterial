@@ -1,7 +1,7 @@
 import { User } from './User';
 import { SaveShipmentProduct } from './SaveShipmentProduct';
 export interface SaveIncomingShipment {
-    arrived: boolean;
+    arrived?: boolean;
     incomingShipmentId: number;
     shipmentNo: string;
     branch: string;

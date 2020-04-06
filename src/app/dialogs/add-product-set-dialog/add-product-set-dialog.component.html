@@ -94,7 +94,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field class="inline">
-    <input matInput type="number" min="1" i18n-placeholder="@@quantity" placeholder="QTY" [(ngModel)]="qty"
+    <input matInput type="number" min="1" i18n-placeholder="@@amount" placeholder="Amount" [(ngModel)]="qty"
       [ngModelOptions]="{standalone: true}">
   </mat-form-field>
   <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>

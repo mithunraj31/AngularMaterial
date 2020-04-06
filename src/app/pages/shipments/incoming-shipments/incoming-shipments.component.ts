@@ -62,6 +62,11 @@ export class IncomingShipmentsComponent implements OnInit {
       }
     };
     this.dataSource.sort = this.sort;
+
+    this.dataSource.filterPredicate = (data, filter: string) => {
+      const dataStr = JSON.stringify(data).toLowerCase();
+      return dataStr.indexOf(filter) !== -1;
+    };
   }
 
   onTopPaginateChange() {
@@ -184,7 +189,7 @@ export class IncomingShipmentsComponent implements OnInit {
       }
     });
   }
-  confirmOrder(shipment: IncomingShipment){
+  confirmOrder(shipment: IncomingShipment) {
     const dialogRef = this.dialog.open(ConfirmIncomingShipmentComponent, {
       width: '600px',
       data: shipment
@@ -194,11 +199,11 @@ export class IncomingShipmentsComponent implements OnInit {
       console.log('The dialog was closed');
       if (result) {
         console.log(result);
-        const results:SaveIncomingShipment[] = result;
+        const results: SaveIncomingShipment[] = result;
         this.progress = true;
-        if(results[0]){
+        if (results[0]) {
           this.shipmentService.addShipment(results[0]).subscribe(result => {
-            this.shipmentService.addShipment(results[1]).subscribe(()=>{
+            this.shipmentService.addShipment(results[1]).subscribe(() => {
               this.getShipments();
 
             })
@@ -206,7 +211,7 @@ export class IncomingShipmentsComponent implements OnInit {
             this.progress = false;
           })
 
-        }else{
+        } else {
           this.shipmentService.addShipment(results[1]).subscribe(result => {
             this.getShipments();
           }, error => {

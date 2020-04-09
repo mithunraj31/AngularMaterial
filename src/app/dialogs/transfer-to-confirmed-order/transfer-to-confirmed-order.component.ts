@@ -73,7 +73,6 @@ export class TransferToConfirmedOrderComponent implements OnInit {
         this.data.fixed?Validators.required:Validators.nullValidator
       ]),
       "contractorId": new FormControl(this.data.contractor?this.data.contractor.customerId:"", [
-        this.data.fixed?Validators.required:Validators.nullValidator
       ]),
       "receivedDate": new FormControl(rDate, [
         this.data.fixed?Validators.required:Validators.nullValidator

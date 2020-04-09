@@ -83,7 +83,7 @@ export class AddOrderDialogComponent implements OnInit {
         this.data ? Validators.required : Validators.nullValidator
       ]),
       "contractorId": new FormControl("", [
-        this.data ? Validators.required : Validators.nullValidator
+
       ]),
       "receivedDate": new FormControl("", [
         this.data ? Validators.required : Validators.nullValidator

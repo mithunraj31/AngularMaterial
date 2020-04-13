@@ -25,21 +25,21 @@
                     <ng-container matColumnDef="obicNo" sticky>
                         <th mat-header-cell *matHeaderCellDef i18n="@@obicNo"> Obic No </th>
                         <td mat-cell *matCellDef="let data;let i = index" [attr.rowspan]="getRowSpan('obicNo', i)"
-                            [style.display]="!isTheSame('obicNo', i) ? '' : 'none'" [ngStyle]="changeColor(data)">
+                            [style.display]="!isTheSameI('obicNo', i) ? '' : 'none'" [ngStyle]="changeColor(data)">
                             {{ data.obicNo }} </td>
                         <!-- <td mat-footer-cell *matFooterCellDef> null </td> -->
                     </ng-container>
                     <ng-container matColumnDef="productName" sticky>
                         <th mat-header-cell *matHeaderCellDef i18n="@@productName"> Product Name </th>
                         <td mat-cell *matCellDef="let data;let i = index" [attr.rowspan]="getRowSpan('productName', i)"
-                            [style.display]="!isTheSame('productName', i) ? '' : 'none'" [ngStyle]="changeColor(data)">
+                            [style.display]="!isTheSameI('productName', i) ? '' : 'none'" [ngStyle]="changeColor(data)">
                             {{ data.productName }} </td>
                         <!-- <td mat-footer-cell *matFooterCellDef> null </td> -->
                     </ng-container>
                     <ng-container matColumnDef="description" sticky>
                         <th mat-header-cell *matHeaderCellDef i18n="@@description"> Description </th>
                         <td mat-cell *matCellDef="let data;let i = index" [attr.rowspan]="getRowSpan('description', i)"
-                            [style.display]="!isTheSame('description', i) ? '' : 'none'" [ngStyle]="changeColor(data)">
+                            [style.display]="!isTheSameI('description', i) ? '' : 'none'" [ngStyle]="changeColor(data)">
                             {{ data.description }} </td>
                         <!-- <td mat-footer-cell *matFooterCellDef> null </td> -->
                     </ng-container>

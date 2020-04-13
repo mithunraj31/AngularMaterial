@@ -26,9 +26,9 @@ export class DeliveryScheduleComponent implements OnInit {
   viewDate = new Date();
 
   constructor(private forecastService: ForecastService,
-              @Inject(LOCALE_ID) public localeId: string,
-              public dialog: MatDialog,
-              ) {
+    @Inject(LOCALE_ID) public localeId: string,
+    public dialog: MatDialog,
+  ) {
     this.localizeSubColumns();
   }
 
@@ -219,7 +219,7 @@ export class DeliveryScheduleComponent implements OnInit {
       }
     }
     return count;
-  }
+  }//
   getRowSpan(col, index) {
 
     return 3;
@@ -233,8 +233,25 @@ export class DeliveryScheduleComponent implements OnInit {
     } else {
       const valObj = this.dataSource[i];
       const preObj = this.dataSource[i - 1];
-
       if (valObj[column] === preObj[column]) {
+        result = true;
+      }
+      // console.log (valObj[column],preObj[column]);
+    }
+    return result;
+  }
+
+  isTheSameI(column, index) {
+    let result = false;
+    const i = index;
+    if (i === 0) {
+      result = false;
+    } else {
+      const valObj = this.dataSource[i];
+      const preObj = this.dataSource[i - 1];
+      const compare1 = valObj[column] + valObj.productId + valObj.setId;
+      const compare2 = preObj[column] + preObj.productId + preObj.setId;
+      if (compare1 === compare2) {
         result = true;
       }
       // console.log (valObj[column],preObj[column]);

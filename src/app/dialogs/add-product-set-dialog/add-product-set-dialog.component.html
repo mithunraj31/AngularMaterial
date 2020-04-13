@@ -98,7 +98,7 @@
       [ngModelOptions]="{standalone: true}">
   </mat-form-field>
   <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
-  <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>
+  <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@amountRequired">QTY cannot be empty</span>
  
     </div>
   <div mat-dialog-actions>

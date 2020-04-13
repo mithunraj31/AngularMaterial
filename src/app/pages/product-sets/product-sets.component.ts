@@ -160,7 +160,7 @@ export class ProductSetsComponent implements OnInit {
     product.products.forEach((e)=>{
       const x :SaveProductComponent = {
         productId: e.product.productId,
-        quantity: e.product.quantity
+        quantity: e.quantity
       }
       ps.push(x);
     })

@@ -50,13 +50,13 @@ export class AddOrderConfirmationComponent implements OnInit {
   populateNames() {
     this.data.customers.forEach(c => {
       if (c.customerId == this.data.order.customerId) {
-        this.customerName = c.contactName;
+        this.customerName = c.customerName;
       }
       if (c.customerId == this.data.order.contractorId) {
         this.contractor = c.customerName;
       }
       if (c.customerId == this.data.order.salesDestinationId) {
-        this.salesDestination = c.contactName;
+        this.salesDestination = c.customerName;
       }
     });
     const user = this.data.users.filter(u => u.userId == this.data.order.salesUserId);

@@ -1308,7 +1308,15 @@
         <source>Amount cannot be empty.</source>
         <target> 1セットあたりの数量を空欄にすることはできません。 </target>
       </trans-unit>
-      
+      <trans-unit id="editReasonRequired" datatype="html">
+        <source>Edit Reason cannot be empty.</source>
+        <target> 編集の理由を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="editReason" datatype="html">
+        <source>Edit Reason.</source>
+        <target>編集の理由</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
+editReasonRequired

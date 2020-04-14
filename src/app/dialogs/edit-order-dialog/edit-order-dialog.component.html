@@ -103,7 +103,7 @@
             </mat-card>
         </div>
         <mat-form-field class="inline">
-            <mat-label>Select a product</mat-label>
+            <mat-label i18n="@@selectProduct">Select a product</mat-label>
             <mat-select [(value)]="selected">
                 <input (keyup)="onKey($event.target.value,'products')">
                 <mat-option>None</mat-option>
@@ -119,8 +119,8 @@
         <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
         <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>
         <mat-form-field class="inline">
-            <input matInput type="text" placeholder="Edit Reason" formControlName="editReason">
-            <mat-error>Edit Reason cannot be empty</mat-error>
+            <input matInput type="text" i18n-placeholder="@@editReason" placeholder="Edit Reason" formControlName="editReason">
+            <mat-error i18n="@@editReasonRequired">Edit Reason cannot be empty</mat-error>
         </mat-form-field>
 
     </div>

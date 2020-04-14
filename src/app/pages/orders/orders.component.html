@@ -139,7 +139,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row"
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row pointer"
             [class.expanded-row]="expandedElement === element">
         </tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>

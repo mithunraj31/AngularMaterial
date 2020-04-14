@@ -163,28 +163,16 @@ export class IncomingShipmentsComponent implements OnInit {
       if (result) {
 
         this.progress = true;
-        let promiseArray: Promise<any>[] = [];
-        result.forEach(shipment => {
-          let promise = new Promise((resolve, reject) => {
 
-            this.shipmentService.addShipment(shipment).subscribe(resultShipment => {
-              resolve(resultShipment);
-            }, error => {
-              // console.log(error);
-              reject(error);
-            });
-          });
-          promiseArray.push(promise);
-        });
-        Promise.all(promiseArray).then(() => {
+        this.shipmentService.addShipment(result).subscribe(resultShipment => {
           this.getShipments();
 
-        }).catch(() => {
+        }, error => {
           this.progress = false;
 
         });
-      }
-    });
+
+      });
   }
   fullFillArrival(data: IncomingShipment) {
     const dialogRef = this.dialog.open(ArrivalOrderDialogComponent, {

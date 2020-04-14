@@ -26,8 +26,8 @@ export class DeliveryScheduleComponent implements OnInit {
   viewDate = new Date();
 
   constructor(private forecastService: ForecastService,
-    @Inject(LOCALE_ID) public localeId: string,
-    public dialog: MatDialog,
+              @Inject(LOCALE_ID) public localeId: string,
+              public dialog: MatDialog,
   ) {
     this.localizeSubColumns();
   }

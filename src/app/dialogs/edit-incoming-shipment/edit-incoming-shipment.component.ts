@@ -59,6 +59,7 @@ export class EditIncomingShipmentComponent implements OnInit {
 
     });
     this.incomingShipmentForm.get("shipmentNo").disable();
+    this.incomingShipmentForm.get("productId").disable();
 
 
   }
@@ -75,6 +76,7 @@ export class EditIncomingShipmentComponent implements OnInit {
     if (this.incomingShipmentForm.valid) {
       this.saveIncomingShipment = this.incomingShipmentForm.value;
       this.saveIncomingShipment.shipmentNo = this.data.shipmentNo;
+      this.saveIncomingShipment.productId = this.data.product.productId;
       this.saveIncomingShipment.orderDate = new Date(this.incomingShipmentForm.value.orderDate).toISOString();
       this.saveIncomingShipment.desiredDeliveryDate = new Date(this.incomingShipmentForm.value.desiredDeliveryDate).toISOString();
       this.saveIncomingShipment.incomingShipmentId = this.data.incomingShipmentId;

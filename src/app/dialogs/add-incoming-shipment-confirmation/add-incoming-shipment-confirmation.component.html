@@ -9,7 +9,7 @@
             <td i18n="@@vendor">Vendor</td>
             <td>{{data.order.vendor}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="!data.selected">
             <td i18n="@@productName">Product Name</td>
             <td>{{productName}}</td>
         </tr>
@@ -18,10 +18,20 @@
             <td>{{data.order.orderDate | date:'yy/M/d'}}</td>
         </tr>
         <tr>
+            <td i18n="@@desiredDeliveryDate">Delivery Date</td>
+            <td>{{data.order.desiredDeliveryDate | date:'yy/M/d'}}</td>
+        </tr>
+        <tr *ngIf="!data.selected">
             <td i18n="@@orderedQty">Ordered Qty</td>
             <td>{{data.order.quantity}}</td>
         </tr>
-        
+        <h5 *ngIf="data.selected" i18n="@@product">Products</h5>
+        <table *ngIf="data.selected">
+            <tr *ngFor="let product of data.selected">
+                <td>{{product.productName}}</td>
+                <td>{{product.quantity}}</td>
+            </tr>
+        </table>
 
     </table>
     <p style="color: #FF0000;" i18n="@@doYouWantToContinue">Do you want to continue?</p>

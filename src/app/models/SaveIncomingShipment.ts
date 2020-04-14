@@ -2,19 +2,19 @@ import { User } from './User';
 import { SaveShipmentProduct } from './SaveShipmentProduct';
 export interface SaveIncomingShipment {
     arrived?: boolean;
-    incomingShipmentId: number;
+    incomingShipmentId?: number;
     shipmentNo: string;
-    branch: string;
+    branch?: string;
     vendor: string;
     orderDate: string;
     pendingQty: number;
-    fixedDeliveryDate: string;
+    fixedDeliveryDate?: string;
     desiredDeliveryDate: string;
     productId: number;
     quantity: number;
-    confirmedQty: number;
-    price: number;
+    confirmedQty?: number;
+    price?: number;
     currency?: string;
-    partial: boolean;
-    fixed: boolean;
+    partial?: boolean;
+    fixed?: boolean;
 }

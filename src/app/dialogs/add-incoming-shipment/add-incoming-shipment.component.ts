@@ -20,16 +20,14 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
   selected: number = null;
   qty = null;
   qtyError = false;
+  viewSelectd: { productId: number, productName: string, quantity: number }[] = [];
   alreadyExistsError = false;
-  price = null;
-  currency = "JPY";
-  priceError = false;
-  viewSelectd: { productId: number, productName: String, quantity: number, price: number, currency: string }[] = [];
   products: Product[] = [];
   _products: Product[] = [];
   saveIncomingShipment: SaveIncomingShipment;
   saveShipmentProducts: SaveShipmentProduct[] = [];
   unsub = new Subject();
+  emptyProducts = false;
   constructor(
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -42,7 +40,7 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
     this.initializeShipmentForm();
     this.getProductData();
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.unsub.next();
     this.unsub.complete();
   }
@@ -63,14 +61,8 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
       "desiredDeliveryDate": new FormControl("", [
         Validators.required
       ]),
-      "productId": new FormControl("", [
-        Validators.required
-      ]),
-      "quantity": new FormControl("", [
-        Validators.required
-      ]),
 
-      
+
     })
   }
   getProductData() {
@@ -83,17 +75,21 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
     this.dialogRef.close(null);
   }
   onSubmit() {
-    if (this.incomingShipmentForm.valid) {
+    this.emptyProducts = false;
+    if (this.viewSelectd.length === 0) {
+      this.emptyProducts = true;
+    }
+    if (this.incomingShipmentForm.valid && this.viewSelectd.length > 0) {
       this.saveIncomingShipment = this.incomingShipmentForm.value;
       this.saveIncomingShipment.orderDate = new Date(this.incomingShipmentForm.value.orderDate).toISOString();
       this.saveIncomingShipment.desiredDeliveryDate = new Date(this.incomingShipmentForm.value.desiredDeliveryDate).toISOString();
-      this.saveIncomingShipment.pendingQty = this.saveIncomingShipment.quantity;
       // open confimation dialog
       const confirmDialogRef = this.dialog.open(AddIncomingShipmentConfirmationComponent, {
         width: '600px',
         data: {
-         order: this.saveIncomingShipment,
-         products: this._products
+          order: this.saveIncomingShipment,
+          products: this._products,
+          selected: this.viewSelectd
         },
         disableClose: true
       });
@@ -104,7 +100,25 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
             this.onCancelClick();
             break;
           case 1:
-            this.dialogRef.close(this.saveIncomingShipment);
+            const shipments: SaveIncomingShipment[] = [];
+            for (let c = 0; c < this.viewSelectd.length; c++) {
+              const shipment: SaveIncomingShipment = {
+                branch: this.saveIncomingShipment.branch,
+                desiredDeliveryDate: this.saveIncomingShipment.desiredDeliveryDate,
+                orderDate: this.saveIncomingShipment.orderDate,
+                pendingQty: this.viewSelectd[c].quantity,
+                productId: this.viewSelectd[c].productId,
+                quantity: this.viewSelectd[c].quantity,
+                shipmentNo: this.saveIncomingShipment.shipmentNo,
+                vendor: this.saveIncomingShipment.vendor,
+              }
+              shipment.productId = this.viewSelectd[c].productId;
+              shipment.quantity = this.viewSelectd[c].quantity;
+              shipment.pendingQty = this.viewSelectd[c].quantity;
+              shipments.push(shipment);
+            }
+            // console.log(shipments);
+            this.dialogRef.close(shipments);
             break;
           default:
             break;
@@ -120,5 +134,27 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
     let filter = value.toLowerCase();
     this.products = this._products;
     return this.products.filter(option => option.productName.toLowerCase().startsWith(filter));
+  }
+  onClick() {
+    this.products = this._products;
+  }
+  addComponent() {
+    if (this.selected && this.qty) {
+      // console.log(this.selected);
+      this.viewSelectd.push({
+        productId: this.products[this.selected].productId,
+        productName: this.products[this.selected].productName,
+        quantity: this.qty
+      });
+      // console.log(this.viewSelectd);
+      this.qtyError = false;
+      this.selected = null;
+      this.qty = null;
+    } else {
+      this.qtyError = true;
+    }
+  }
+  removeComponent(id: number) {
+    this.viewSelectd.splice(id, 1);
   }
 }

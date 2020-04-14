@@ -98,7 +98,7 @@ export class IncomingShipmentsComponent implements OnInit {
       this.shipments = result;
       this.dataSource.data = this.shipments;
       this.dataSource.paginator = this.paginatorTop;
-      console.log(result);
+      // console.log(result);
       this.onTopPaginateChange();
       this.progress = false;
     }, error => {
@@ -146,8 +146,8 @@ export class IncomingShipmentsComponent implements OnInit {
 
         }, error => {
           this.progress = true;
-          console.log(error);
-        })
+          // console.log(error);
+        });
       }
     });
 
@@ -159,15 +159,30 @@ export class IncomingShipmentsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
 
-      console.log(result);
+
       if (result) {
+
         this.progress = true;
-        this.shipmentService.addShipment(result).subscribe(result => {
+        let promiseArray: Promise<any>[] = [];
+        result.forEach(shipment => {
+          let promise = new Promise((resolve, reject) => {
+
+            this.shipmentService.addShipment(shipment).subscribe(resultShipment => {
+              resolve(resultShipment);
+            }, error => {
+              // console.log(error);
+              reject(error);
+            });
+          });
+          promiseArray.push(promise);
+        });
+        Promise.all(promiseArray).then(() => {
           this.getShipments();
-        }, error => {
-          console.log(error);
+
+        }).catch(() => {
           this.progress = false;
-        })
+
+        });
       }
     });
   }
@@ -198,7 +213,7 @@ export class IncomingShipmentsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result) {
-        console.log(result);
+        // console.log(result);
         const results: SaveIncomingShipment[] = result;
         this.progress = true;
         if (results[0]) {
@@ -215,7 +230,7 @@ export class IncomingShipmentsComponent implements OnInit {
           this.shipmentService.addShipment(results[1]).subscribe(result => {
             this.getShipments();
           }, error => {
-            console.log(error);
+            // console.log(error);
             this.progress = false;
           })
         }

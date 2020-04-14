@@ -17,7 +17,10 @@ export class AddIncomingShipmentConfirmationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.populateProducts();
+    if (!this.data.selected) {
+
+      this.populateProducts();
+    }
     // console.log(this.data);
     // console.log(this.products);
   }
@@ -33,8 +36,8 @@ export class AddIncomingShipmentConfirmationComponent implements OnInit {
 
   populateProducts() {
 
-      const found = this.data.products.filter(pr => pr.productId == this.data.order.productId);
-      this.productName = found[0].productName;
+    const found = this.data.products.filter(pr => pr.productId == this.data.order.productId);
+    this.productName = found[0].productName;
   }
 
 }
@@ -42,6 +45,7 @@ export class AddIncomingShipmentConfirmationComponent implements OnInit {
 interface ProductSetConfimationData {
   order: SaveIncomingShipment;
   products: Product[];
+  selected: any;
 
 }
 

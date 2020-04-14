@@ -1316,6 +1316,14 @@
         <source>Edit Reason.</source>
         <target>編集の理由</target>
       </trans-unit>
+      <trans-unit id="selectColor" datatype="html">
+        <source>Select a color.</source>
+        <target>色の選択</target>
+      </trans-unit>
+      <trans-unit id="sort" datatype="html">
+        <source>Sort.</source>
+        <target>順番</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

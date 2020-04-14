@@ -205,8 +205,8 @@ export class IncomingShipmentsComponent implements OnInit {
         const results: SaveIncomingShipment[] = result;
         this.progress = true;
         if (results[0]) {
-          this.shipmentService.addShipment(results[0]).subscribe(result => {
-            this.shipmentService.addShipment(results[1]).subscribe(() => {
+          this.shipmentService.addShipment([results[0]]).subscribe(result => {
+            this.shipmentService.addShipment([results[1]]).subscribe(() => {
               this.getShipments();
 
             })
@@ -215,7 +215,7 @@ export class IncomingShipmentsComponent implements OnInit {
           })
 
         } else {
-          this.shipmentService.addShipment(results[1]).subscribe(result => {
+          this.shipmentService.addShipment([results[1]]).subscribe(result => {
             this.getShipments();
           }, error => {
             // console.log(error);

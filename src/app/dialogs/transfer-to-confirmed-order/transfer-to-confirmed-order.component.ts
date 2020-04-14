@@ -70,7 +70,7 @@ export class TransferToConfirmedOrderComponent implements OnInit {
         Validators.required
       ]),
       "salesDestinationId": new FormControl(this.data.salesDestination?this.data.salesDestination.customerId:"", [
-        this.data.fixed?Validators.required:Validators.nullValidator
+
       ]),
       "contractorId": new FormControl(this.data.contractor?this.data.contractor.customerId:"", [
       ]),

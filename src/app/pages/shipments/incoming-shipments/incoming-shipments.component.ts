@@ -171,8 +171,8 @@ export class IncomingShipmentsComponent implements OnInit {
           this.progress = false;
 
         });
-
-      });
+      }
+    });
   }
   fullFillArrival(data: IncomingShipment) {
     const dialogRef = this.dialog.open(ArrivalOrderDialogComponent, {

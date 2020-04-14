@@ -162,6 +162,7 @@ export class OrdersComponent implements OnInit {
   }
 
   editOrder(data: Order) {
+    console.log(data);
     const dialogRef = this.dialog.open(EditOrderDialogComponent, {
       width: '600px',
       data: data
@@ -174,6 +175,7 @@ export class OrdersComponent implements OnInit {
         const order: SaveOrder = result;
         order.orderId = data.orderId;
         order.forcast = data.forecast;
+        order.fixed = data.fixed;
         this.orderService.editOrder(order).subscribe(result => {
           this.getOrderData();
         }, error => {

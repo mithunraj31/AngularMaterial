@@ -173,6 +173,7 @@ export class OrdersComponent implements OnInit {
         this.progress = true;
         const order: SaveOrder = result;
         order.orderId = data.orderId;
+        order.forcast = data.forecast;
         this.orderService.editOrder(order).subscribe(result => {
           this.getOrderData();
         }, error => {

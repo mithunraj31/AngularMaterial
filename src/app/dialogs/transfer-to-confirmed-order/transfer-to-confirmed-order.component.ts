@@ -88,11 +88,7 @@ export class TransferToConfirmedOrderComponent implements OnInit {
       ]),
 
     });
-    this.orderForm.get('proposalNo').disable();
-    this.orderForm.get('customerId').disable();
-    this.orderForm.get('dueDate').disable();
-    this.orderForm.get('salesUserId').disable();
-    //this.orderForm.controls['customer'].setValue(this.data.customer.customerId,{onlySelf: true})
+
     for (let product of this.data.orderedProducts) {
       this.viewSelectd.push({
         productId: product.product.productId,
@@ -115,10 +111,9 @@ export class TransferToConfirmedOrderComponent implements OnInit {
       order.orderedProducts = this.saveProducts;
       // console.log(this.orderForm.value.receivedDate,this.orderForm.value.dueDate,this.orderForm.value.deliveryDate)
       order.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
-      order.dueDate = new Date(this.data.dueDate).toISOString();
+      order.dueDate = new Date(this.orderForm.value.dueDate).toISOString();
       order.deliveryDate = new Date(this.orderForm.value.deliveryDate).toISOString();
       order.orderId = this.data.orderId;
-      order.salesUserId = this.data.salesUser.userId;
       // console.log(order);
       this.dialogRef.close(order);
     }
@@ -168,11 +163,6 @@ export class TransferToConfirmedOrderComponent implements OnInit {
   }
   calculateDelivery(value) {
     if(value){
-    const dueDate = new Date(value);
-    const deliveryDate = dueDate;
-    deliveryDate.setDate(dueDate.getDate()-14);
-    console.log(deliveryDate);
-    this.orderForm.get("deliveryDate").setValue(deliveryDate.toISOString().substring(0,10));
     }
   }
 

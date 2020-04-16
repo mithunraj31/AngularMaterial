@@ -64,7 +64,7 @@
         <button mat-raised-button class="fullfillBtn" *ngIf="element.fixed && !element.arrived" (click)="fullFillArrival(element)"
           [disabled]="element.arrived" i18n="@@notInStock">Not in stock</button>
         <button mat-button color="primary" (click)="editShipment(element)" i18n="@@edit">Edit</button>
-        <button mat-button color="warn" (click)="deleteShipment(element)" i18n="@@delete">Delete</button>
+        <button mat-button color="warn" (click)="deleteShipment(element)" [disabled]="isDeletable(element)" i18n="@@delete">Delete</button>
       </td>
     </ng-container>
 

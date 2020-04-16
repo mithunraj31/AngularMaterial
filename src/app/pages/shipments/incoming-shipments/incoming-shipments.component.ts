@@ -225,4 +225,48 @@ export class IncomingShipmentsComponent implements OnInit {
       }
     });
   }
+
+  isDeletable(shipment: IncomingShipment) {
+    let can = false;
+    // if it partial order
+    if (shipment.partial && !shipment.arrived) {
+      const main = this.findMain(shipment.shipmentNo, shipment.product.productId);
+      if (!main.fixed) {
+        can = true;
+      }
+    } else { // if it is main order
+      const partials = this.findPatials(shipment.shipmentNo, shipment.product.productId);
+      let partialNotInStock = false;
+      let partialArrived = false;
+      partials.forEach(partial => {
+        if (partial.arrived) {
+          partialArrived = true;
+        } else {
+          partialNotInStock = true;
+        }
+      });
+      // if main is not confirmed or confirmed but not arrived
+      if (!shipment.arrived) {
+        if ((!partialArrived && !partialNotInStock) || (partialNotInStock && !partialArrived)) {
+          can = true;
+        }
+      } else { // arrieved main order
+        if ((!partialArrived && !partialNotInStock) || (!partialNotInStock && partialArrived)) {
+          can = true;
+        }
+      }
+    }
+    // console.log(shipment)
+    return !can;
+  }
+  findMain(shipmentNo: string, productId: number): IncomingShipment {
+    const found = this.shipments.filter(option =>
+      option.shipmentNo === shipmentNo && option.product.productId === productId && !option.partial);
+    return found[0];
+  }
+  findPatials(shipmentNo: string, productId: number): IncomingShipment[] {
+    const found = this.shipments.filter(option =>
+      option.shipmentNo === shipmentNo && option.product.productId === productId && option.partial);
+    return found;
+  }
 }

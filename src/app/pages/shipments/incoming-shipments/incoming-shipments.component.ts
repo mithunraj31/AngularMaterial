@@ -230,7 +230,7 @@ export class IncomingShipmentsComponent implements OnInit {
     let can = false;
     // if it partial order
     if (shipment.partial) {
-      const main = this.findMain(shipment.shipmentNo, shipment.product.productId);
+      const main = this.findMain(shipment.shipmentNo, shipment.product.productId, shipment.branch);
       if (!main.fixed) {
         can = true;
       }
@@ -239,7 +239,7 @@ export class IncomingShipmentsComponent implements OnInit {
       }
 
     } else { // if it is main order
-      const partials = this.findPatials(shipment.shipmentNo, shipment.product.productId);
+      const partials = this.findPatials(shipment.shipmentNo, shipment.product.productId, shipment.branch);
       let partialNotInStock = false;
       let partialArrived = false;
       partials.forEach(partial => {
@@ -263,14 +263,14 @@ export class IncomingShipmentsComponent implements OnInit {
     // console.log(shipment)
     return !can;
   }
-  findMain(shipmentNo: string, productId: number): IncomingShipment {
+  findMain(shipmentNo: string, productId: number, branch: string): IncomingShipment {
     const found = this.shipments.filter(option =>
-      option.shipmentNo === shipmentNo && option.product.productId === productId && !option.partial);
+      option.shipmentNo === shipmentNo && option.product.productId === productId && option.branch === branch && !option.partial);
     return found[0];
   }
-  findPatials(shipmentNo: string, productId: number): IncomingShipment[] {
+  findPatials(shipmentNo: string, productId: number, branch: string): IncomingShipment[] {
     const found = this.shipments.filter(option =>
-      option.shipmentNo === shipmentNo && option.product.productId === productId && option.partial);
+      option.shipmentNo === shipmentNo && option.product.productId === productId && option.branch === branch  && option.partial);
     return found;
   }
 }

@@ -229,11 +229,15 @@ export class IncomingShipmentsComponent implements OnInit {
   isDeletable(shipment: IncomingShipment) {
     let can = false;
     // if it partial order
-    if (shipment.partial && !shipment.arrived) {
+    if (shipment.partial) {
       const main = this.findMain(shipment.shipmentNo, shipment.product.productId);
       if (!main.fixed) {
         can = true;
       }
+      if (shipment.arrived){
+        can = false;
+      }
+
     } else { // if it is main order
       const partials = this.findPatials(shipment.shipmentNo, shipment.product.productId);
       let partialNotInStock = false;

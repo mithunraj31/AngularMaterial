@@ -14,7 +14,7 @@ export interface SaveOrder {
     createdAt: Date;
     updatedAt: Date;
     userId: number;
-    salesUserId: User;
+    salesUserId: number;
     editReason: string;
     active: boolean;
     forcast: boolean;

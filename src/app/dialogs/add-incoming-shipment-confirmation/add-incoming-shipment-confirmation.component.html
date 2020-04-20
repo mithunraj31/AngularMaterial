@@ -1,0 +1,43 @@
+<h1 mat-dialog-title i18n="@@confirmInput">Confirm input contents</h1>
+<div class="container" mat-dialog-content>
+    <table>
+        <tr>
+            <td i18n="@@shipmentNo">Order No</td>
+            <td>{{data.order.shipmentNo}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@vendor">Vendor</td>
+            <td>{{data.order.vendor}}</td>
+        </tr>
+        <tr *ngIf="!data.selected">
+            <td i18n="@@productName">Product Name</td>
+            <td>{{productName}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@orderDate">Order Date</td>
+            <td>{{data.order.orderDate | date:'yy/M/d'}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@desiredDeliveryDate">Delivery Date</td>
+            <td>{{data.order.desiredDeliveryDate | date:'yy/M/d'}}</td>
+        </tr>
+        <tr *ngIf="!data.selected">
+            <td i18n="@@orderedQty">Ordered Qty</td>
+            <td>{{data.order.quantity}}</td>
+        </tr>
+        <h5 *ngIf="data.selected" i18n="@@product">Products</h5>
+        <table *ngIf="data.selected">
+            <tr *ngFor="let product of data.selected">
+                <td>{{product.productName}}</td>
+                <td>{{product.quantity}}</td>
+            </tr>
+        </table>
+
+    </table>
+    <p style="color: #FF0000;" i18n="@@doYouWantToContinue">Do you want to continue?</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
+    <button mat-raised-button color="accent" (click)="onReturnClick()" i18n="@@return">Return</button>
+    <button mat-raised-button color="primary" (click)="onOkClick()" i18n="@@ok">Ok</button>
+</div>

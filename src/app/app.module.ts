@@ -34,9 +34,10 @@ import {MatToolbarModule,
         MatSnackBarModule,
         MatTooltipModule,
         MatSortModule,
+        MatCheckboxModule,
         
 } from '@angular/material';
-
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import { SidebarComponent } from './components/sidebar/sidebar.component'; 
 import {MatGridListModule} from '@angular/material/grid-list';
 import { HomeComponent } from './pages/home/home.component';
@@ -91,6 +92,13 @@ import { ExcelServices } from './services/ExcelService';
 import { DatePipe } from '@angular/common';
 import { TransferToConfirmedOrderComponent } from './dialogs/transfer-to-confirmed-order/transfer-to-confirmed-order.component';
 import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-schedule.component';
+import { ConfirmIncomingShipmentComponent } from './dialogs/confirm-incoming-shipment/confirm-incoming-shipment.component';
+import { AddCustomerConfirmationComponent } from './dialogs/add-customer-confirmation/add-customer-confirmation.component';
+import { OrderInfoComponent } from './dialogs/order-info/order-info.component';
+import { AddProductConfirmationComponent } from './dialogs/add-product-confirmation/add-product-confirmation.component';
+import { AddProductSetConfirmationComponent } from './dialogs/add-product-set-confirmation/add-product-set-confirmation.component';
+import { AddOrderConfirmationComponent } from './dialogs/add-order-confirmation/add-order-confirmation.component';
+import { AddIncomingShipmentConfirmationComponent } from './dialogs/add-incoming-shipment-confirmation/add-incoming-shipment-confirmation.component';
 
 
 @NgModule({
@@ -135,6 +143,13 @@ import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-sc
     CalendarComponent,
     TransferToConfirmedOrderComponent,
     DeliveryScheduleComponent,
+    ConfirmIncomingShipmentComponent,
+    AddCustomerConfirmationComponent,
+    OrderInfoComponent,
+    AddProductConfirmationComponent,
+    AddProductSetConfirmationComponent,
+    AddOrderConfirmationComponent,
+    AddIncomingShipmentConfirmationComponent,
 
   ],
   imports: [
@@ -167,7 +182,9 @@ import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-sc
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     MatSnackBarModule,
     MatTooltipModule,
-    MatSortModule
+    MatSortModule,
+    MatCheckboxModule,
+    DragDropModule,
   ],
   exports: [ 
      
@@ -194,7 +211,14 @@ import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-sc
     UnfulfilledProductsComponent,
     UnfulfillConfirmationComponent,
     AddUserDialogComponent,
-    TransferToConfirmedOrderComponent
+    TransferToConfirmedOrderComponent,
+    ConfirmIncomingShipmentComponent,
+    AddCustomerConfirmationComponent,
+    OrderInfoComponent,
+    AddProductConfirmationComponent,
+    AddProductSetConfirmationComponent,
+    AddOrderConfirmationComponent,
+    AddIncomingShipmentConfirmationComponent
   ],
   providers: [
     ProductService,

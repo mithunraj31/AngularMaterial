@@ -3,9 +3,10 @@ import { Product } from 'src/app/models/Product';
 import { SaveProductComponent } from './../../models/saveProductComponent';
 import { SaveProductSet } from './../../models/saveProductSet';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AddProductSetConfirmationComponent } from '../add-product-set-confirmation/add-product-set-confirmation.component';
 
 @Component({
   selector: 'app-add-product-set-dialog',
@@ -23,6 +24,7 @@ export class AddProductSetDialogComponent implements OnInit {
   products: Product[] = [];
   _products: Product[] = [];
   constructor(
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private productService: ProductService
@@ -66,11 +68,11 @@ export class AddProductSetDialogComponent implements OnInit {
       "obicNo": new FormControl("", [
         Validators.required
       ]),
-      "sort": new FormControl(this.data,[
-        
+      "sort": new FormControl(this.data, [
+
       ]),
-      "color": new FormControl("",[
-        
+      "color": new FormControl("", [
+
       ]),
     })
   }
@@ -81,7 +83,28 @@ export class AddProductSetDialogComponent implements OnInit {
     if (this.productForm.valid) {
       this.saveProductSet = this.productForm.value;
       this.saveProductSet.products = this.saveProducts;
-      this.dialogRef.close(this.saveProductSet);
+      // open confimation dialog
+      const confirmDialogRef = this.dialog.open(AddProductSetConfirmationComponent, {
+        width: '600px',
+        data: {
+          productSet: this.saveProductSet,
+          productsData: this._products
+        },
+        disableClose: true
+      });
+      confirmDialogRef.afterClosed().subscribe(result => {
+        // console.log('The dialog was closed');
+        switch (result) {
+          case 0:
+            this.onCancelClick();
+            break;
+          case 1:
+            this.dialogRef.close(this.saveProductSet);
+            break;
+          default:
+            break;
+        }
+      });
     }
   }
   getErrorMessage(attribute: string) {
@@ -97,7 +120,7 @@ export class AddProductSetDialogComponent implements OnInit {
   }
   addComponent() {
     if (this.selected && this.qty) {
-      console.log(this.selected);
+      // console.log(this.selected);
 
       const saveProductComponent: SaveProductComponent = {
         productId: this.products[this.selected].productId,
@@ -108,8 +131,8 @@ export class AddProductSetDialogComponent implements OnInit {
         productId: this.products[this.selected].productId,
         productName: this.products[this.selected].productName,
         quantity: this.qty
-      })
-      console.log(this.viewSelectd);
+      });
+      // console.log(this.viewSelectd);
       this.qtyError = false;
       this.selected = null;
       this.qty = null;

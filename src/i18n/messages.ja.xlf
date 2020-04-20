@@ -248,7 +248,7 @@
       </trans-unit>
       <trans-unit id="dueDate" datatype="html">
         <source> Due Date </source>
-        <target> 期日 </target>
+        <target> 納期 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
           <context context-type="linenumber">54</context>
@@ -410,7 +410,7 @@
       </trans-unit>
       <trans-unit id="dueDateRequired" datatype="html">
         <source>Due Date cannot be empty.</source>
-        <target> 期日を空欄にすることはできません。 </target>
+        <target> 納期を空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">49</context>
@@ -699,7 +699,7 @@
       </trans-unit>
       <trans-unit id="shipmentNo" datatype="html">
         <source>Shipment No</source>
-        <target>入荷番号</target>
+        <target>発注番号</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component.html</context>
           <context context-type="linenumber">5</context>
@@ -1202,11 +1202,11 @@
       </trans-unit>
       <trans-unit id="deliveryDateRequired" datatype="html">
         <source>Delivery Date cannot be empty.</source>
-        <target>納期を空欄にすることはできません。</target>
+        <target>キッティング開始日を空欄にすることはできません。</target>
       </trans-unit>
       <trans-unit id="deliveryDate" datatype="html">
         <source>Delivery Date</source>
-        <target>納期</target>
+        <target>キッティング開始日</target>
       </trans-unit>
       <trans-unit id="addForecast" datatype="html">
         <source>Add Forecast</source>
@@ -1224,6 +1224,107 @@
         <source>Schedule</source>
         <target>入出荷予定</target>
       </trans-unit>
+      <trans-unit id="branch" datatype="html">
+        <source>Branch</source>
+        <target>枝番</target>
+      </trans-unit>
+      <trans-unit id="vendor" datatype="html">
+        <source>Vendor</source>
+        <target>ベンダー</target>
+      </trans-unit>
+      <trans-unit id="orderDate" datatype="html">
+        <source>Order Date</source>
+        <target>発注日</target>
+      </trans-unit>
+      <trans-unit id="orderedQty" datatype="html">
+        <source>Ordered QTY</source>
+        <target>発注数</target>
+      </trans-unit>
+      <trans-unit id="pendingQty" datatype="html">
+        <source>Remaining QTY</source>
+        <target>発注残</target>
+      </trans-unit>
+      <trans-unit id="desiredDeliveryDate" datatype="html">
+        <source>Delivery Date</source>
+        <target>希望納期</target>
+      </trans-unit>
+      <trans-unit id="confirmedQty" datatype="html">
+        <source>Confirmed Qty</source>
+        <target>確定数量</target>
+      </trans-unit>
+      <trans-unit id="confirmedDeliveryDate" datatype="html">
+        <source>Confirmed Delivery Date</source>
+        <target>確定納期</target>
+      </trans-unit>
+      <trans-unit id="orderDateRequired" datatype="html">
+        <source>Received Date cannot be empty.</source>
+        <target> 発注日を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="desiredDeliveryDateRequired" datatype="html">
+        <source>Received Date cannot be empty.</source>
+        <target> 希望納期を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="productRequired" datatype="html">
+        <source>Received Date cannot be empty.</source>
+        <target> 製品を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="orderQtyRequired" datatype="html">
+        <source>Received Date cannot be empty.</source>
+        <target> 発注数を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="confirmedQtyRequired" datatype="html">
+        <source>Confirmed QTY cannot be empty.</source>
+        <target> 確定数量を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="confirmedDeliveryDateRequired" datatype="html">
+        <source>Confirmed QTY cannot be empty.</source>
+        <target> 確定納期を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="partial" datatype="html">
+        <source>Partial Order</source>
+        <target> 分納 </target>
+      </trans-unit>
+      <trans-unit id="confirmInOrder" datatype="html">
+        <source>Confirm</source>
+        <target> 納期確定 </target>
+      </trans-unit>
+      <trans-unit id="confirmInput" datatype="html">
+        <source>Confirm input contents</source>
+        <target> 入力内容確認 </target>
+      </trans-unit>
+      <trans-unit id="return" datatype="html">
+        <source>Return</source>
+        <target> 戻る </target>
+      </trans-unit>
+      <trans-unit id="doYouWantToContinue" datatype="html">
+        <source>Do you want to continue?</source>
+        <target> この内容でよろしいでしょうか？ </target>
+      </trans-unit>
+      <trans-unit id="product" datatype="html">
+        <source>products</source>
+        <target> 製品 </target>
+      </trans-unit>
+      <trans-unit id="amountRequired" datatype="html">
+        <source>Amount cannot be empty.</source>
+        <target> 1セットあたりの数量を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="editReasonRequired" datatype="html">
+        <source>Edit Reason cannot be empty.</source>
+        <target> 編集の理由を空欄にすることはできません。 </target>
+      </trans-unit>
+      <trans-unit id="editReason" datatype="html">
+        <source>Edit Reason.</source>
+        <target>編集の理由</target>
+      </trans-unit>
+      <trans-unit id="selectColor" datatype="html">
+        <source>Select a color.</source>
+        <target>色の選択</target>
+      </trans-unit>
+      <trans-unit id="sort" datatype="html">
+        <source>Sort.</source>
+        <target>順番</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
+editReasonRequired

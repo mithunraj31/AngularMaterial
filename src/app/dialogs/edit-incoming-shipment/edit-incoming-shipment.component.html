@@ -1,47 +1,61 @@
 <h1 mat-dialog-title i18n="@@editIncomingShipment">Edit Incoming Shipment</h1>
 <form (keydown.enter)="$event.preventDefault()" [formGroup]="incomingShipmentForm" (ngSubmit)="onSubmit()">
-  <div class="container" style="overflow-y: scroll; height:300px;" >
-    <mat-form-field>
-      <input matInput type="text" i18n-placeholder="@@shipmentNo" placeholder="Shipment No" formControlName="shipmentNo">
-      <mat-error *ngIf="incomingShipmentForm.get('shipmentNo').invalid">{{getErrorMessage('shipmentNo')}}</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="date" i18n-placeholder="@@arrivalDate" placeholder="Arrival Date" formControlName="arrivalDate">
-      <mat-error *ngIf="incomingShipmentForm.get('arrivalDate').invalid">{{getErrorMessage('arrivalDate')}}</mat-error>
-    </mat-form-field>
-
-  </div>
-  <div style="overflow-y: scroll; height:100px;" *ngIf="viewSelectd.length > 0">
-    <mat-card class="productList" *ngFor="let element of viewSelectd; let i = index">
-      {{element.productName}} : {{element.quantity}}
-      
-
-      <button align="end" mat-stroked-button color="warn"  type="button" (click)="removeComponent(i)" i18n="@@remove">Remove</button>
-
-    </mat-card>
-    </div>
-    <mat-form-field class="inline">
-      <mat-label i18n="@@selectProduct">Select a product</mat-label>
-      <mat-select [(value)]="selected">
-          <input (keyup)="onKey($event.target.value)">
-        <mat-option i18n="@@none"> None</mat-option>
-        <mat-option value="{{i}}" *ngFor="let product of products; let i = index">{{product.productName}}</mat-option>
-
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="inline">
-      <input matInput type="number" min="1" i18n-placeholder="@@quantity" placeholder="QTY" [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
-    </mat-form-field>
-    <mat-form-field class="inline">
-        <input matInput type="number" min="1" i18n-placeholder="@@price" placeholder="Price" [(ngModel)]="price" [ngModelOptions]="{standalone: true}">
+    <div class="container">
+      <mat-form-field>
+        <input matInput required type="text" i18n-placeholder="@@shipmentNo" placeholder="Shipment No"
+          formControlName="shipmentNo">
+        <mat-error *ngIf="incomingShipmentForm.get('shipmentNo').hasError('required')" i18n="@@shipmentNoRequired">
+          Shipment No cannot be empty.
+        </mat-error>
       </mat-form-field>
-    <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
-    <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>
-    <span class="qtyError" *ngIf="priceError" color="red" i18n="@@priceRequired">Price cannot be empty</span>
-    <span class="qtyError" *ngIf="alreadyExistsError" color="red" i18n="@@productAlreadyExists">Product is already added to the list.</span>
-
-  <div mat-dialog-actions>
-    <button mat-button (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
-    <button mat-button type="submit" [disabled]="!incomingShipmentForm.valid" i18n="@@ok">Ok</button>
-  </div>
-</form>
+      <mat-form-field>
+        <input matInput type="text" i18n-placeholder="@@vendor" placeholder="Vendor" formControlName="vendor">
+      </mat-form-field>
+      <mat-form-field>
+        <input required matInput type="date" i18n-placeholder="@@orderDate" placeholder="Order Date" formControlName="orderDate">
+        <mat-error *ngIf="incomingShipmentForm.get('orderDate').hasError('required')" i18n="@@orderDateRequired">
+          Order Date cannot be empty.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input required matInput type="date" i18n-placeholder="@@desiredDeliveryDate" placeholder="Delivery Date"
+          formControlName="desiredDeliveryDate">
+        <mat-error *ngIf="incomingShipmentForm.get('desiredDeliveryDate').hasError('required')"
+          i18n="@@desiredDeliveryDateRequired">
+          Delivery Date cannot be empty.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="inline">
+        <mat-label i18n="@@selectProduct">Select a product</mat-label>
+        <mat-select required formControlName="productId">
+          <input (keyup)="onKey($event.target.value)">
+          <mat-option i18n="@@none"> None</mat-option>
+          <mat-option [value]="product.productId" *ngFor="let product of products;">{{product.productName}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="incomingShipmentForm.get('productId').hasError('required')" i18n="@@productRequired">
+          Product cannot be empty.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="inline">
+        <input required matInput type="number" min="1" i18n-placeholder="@@orderedQty" placeholder="Order QTY"
+          formControlName="quantity">
+        <mat-error *ngIf="incomingShipmentForm.get('quantity').hasError('required')" i18n="@@orderQtyRequired">
+          Order QTY cannot be empty.
+        </mat-error>
+      </mat-form-field>
+      <!-- <mat-form-field class="inline">
+      <input matInput type="number" min="1" i18n-placeholder="@@price" placeholder="Price" [(ngModel)]="price"
+        [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+    <mat-form-field class="inline">
+      <mat-select [(value)]="currency">
+        <mat-option se value="JPY">JPY</mat-option>
+        <mat-option value="USD">USD</mat-option>
+      </mat-select>
+    </mat-form-field> -->
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button type="button" (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
+      <button mat-button type="submit" [disabled]="!incomingShipmentForm.valid" i18n="@@ok">Ok</button>
+    </div>
+  </form>

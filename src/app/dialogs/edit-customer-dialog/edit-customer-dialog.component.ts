@@ -1,8 +1,9 @@
 import { Customer } from './../../models/Customer';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { UtilService } from 'src/app/services/UtilService';
+import { AddCustomerConfirmationComponent } from '../add-customer-confirmation/add-customer-confirmation.component';
 
 @Component({
   selector: 'app-edit-customer-dialog',
@@ -13,6 +14,7 @@ export class EditCustomerDialogComponent implements OnInit {
 
   customerForm: FormGroup;
   constructor(
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<EditCustomerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Customer,
     public util: UtilService
@@ -22,7 +24,7 @@ export class EditCustomerDialogComponent implements OnInit {
     this.initializeCustomerForm();
   }
 
-  initializeCustomerForm(){
+  initializeCustomerForm() {
     this.customerForm = new FormGroup({
       "customerName": new FormControl(this.data.contactName, [
         Validators.required,
@@ -58,23 +60,41 @@ export class EditCustomerDialogComponent implements OnInit {
     return true;
 
   }
-  
+
   onCancelClick(): void {
     this.dialogRef.close(null);
   }
-  onSubmit(){
-    if(this.customerForm.valid){
-      this.dialogRef.close(this.customerForm.value);
-      this.data = null;
+  onSubmit() {
+    if (this.customerForm.valid) {
+      // open confimation dialog
+      const confirmDialogRef = this.dialog.open(AddCustomerConfirmationComponent, {
+        width: '600px',
+        data: this.customerForm.value,
+        disableClose: true
+      });
+      confirmDialogRef.afterClosed().subscribe(result => {
+        // console.log('The dialog was closed');
+        switch (result) {
+          case 0:
+            this.onCancelClick();
+            break;
+          case 1:
+            this.dialogRef.close(this.customerForm.value);
+            this.data = null;
+            break;
+          default:
+            break;
+        }
+      });
     }
   }
-  getErrorMessage(attribute:string) {
-    return this.customerForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
+  getErrorMessage(attribute: string) {
+    return this.customerForm.get(attribute).hasError('required') ? 'You must enter a value' : '';
     // switch (attribute) {
     //   case "name":
     //       return this.productForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
     //     break;
-    
+
     //   default:
     //     break;
     // }
@@ -83,15 +103,15 @@ export class EditCustomerDialogComponent implements OnInit {
     let result = false;
     const charCode = (event.which) ? event.which : event.keyCode;
 
-    if (charCode == 45 || (charCode > 47 && charCode < 58)) {
+    if (charCode === 45 || (charCode > 47 && charCode < 58)) {
       result = true;
     }
     return result;
   }
-  hankana2Zenkana(str,key){
-    console.log(str,key);
+  hankana2Zenkana(str, key) {
+    console.log(str, key);
     let trnslated = this.util.hankaku2ZenkakuEN(this.util.hankana2Zenkana(str));
     this.customerForm.controls[key].setValue(trnslated);
-}
+  }
 
 }

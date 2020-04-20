@@ -18,7 +18,7 @@
 
 <mat-list role="list">
   <span *ngFor="let forecast of forecasts">
-  <mat-list-item role="listitem" *ngIf="!forecast.forecast" (click)="handleListItem(forecast)">
+  <mat-list-item role="listitem" *ngIf="!forecast.forecast" (click)="handleListItem(forecast)" class="pointer">
     <mat-icon svgIcon="info" aria-hidden="false"></mat-icon>
     {{forecast.proposalNo}}   <span class="forecastDate">{{forecast.dueDate | date:'shortDate'}}</span>
   </mat-list-item>

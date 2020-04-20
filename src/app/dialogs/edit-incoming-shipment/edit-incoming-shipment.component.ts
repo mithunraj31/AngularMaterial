@@ -1,11 +1,13 @@
+import { IncomingShipment } from './../../models/IncomingShipment';
 import { Component, OnInit, Inject } from '@angular/core';
 import { SaveShipmentProduct } from 'src/app/models/SaveShipmentProduct';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Product } from 'src/app/models/Product';
 import { SaveIncomingShipment } from 'src/app/models/SaveIncomingShipment';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { ProductService } from 'src/app/services/ProductService';
+import { AddIncomingShipmentConfirmationComponent } from '../add-incoming-shipment-confirmation/add-incoming-shipment-confirmation.component';
 
 @Component({
   selector: 'app-edit-incoming-shipment',
@@ -14,22 +16,14 @@ import { ProductService } from 'src/app/services/ProductService';
 })
 export class EditIncomingShipmentComponent implements OnInit {
   incomingShipmentForm: FormGroup;
-  selected: number = null;
-  qty = null;
-  qtyError = false;
-  price = null;
-  priceError = false;
-  currency = "JPY";
-  viewSelectd: { productId: number, productName: String, quantity: number, price: number, currency: string }[] = [];
   products: Product[] = [];
   _products: Product[] = [];
   saveIncomingShipment: SaveIncomingShipment;
-  saveShipmentProducts: SaveShipmentProduct[] = [];
-  alreadyExistsError: boolean;
   constructor(
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private productService: ProductService
+    @Inject(MAT_DIALOG_DATA) public data: IncomingShipment,
+    private productService: ProductService,
+    public dialog: MatDialog
   ) { }
 
 
@@ -39,30 +33,34 @@ export class EditIncomingShipmentComponent implements OnInit {
 
   }
   initializeShipmentForm() {
-    const aDate = new Date(this.data.arrivalDate).toISOString().substring(0, 10);
+    const oDate = new Date(this.data.orderDate).toISOString().substring(0, 10);
+    const dDate = new Date(this.data.desiredDeliveryDate).toISOString().substring(0, 10);
     this.incomingShipmentForm = new FormGroup({
-      "shipmentNo": new FormControl(this.data.shipmentNo, [
+      "shipmentNo": new FormControl(this.data
+        .shipmentNo, [
+          Validators.required
+        ]),
+      "vendor": new FormControl(this.data.vendor, [
+
+      ]),
+      "orderDate": new FormControl(oDate, [
         Validators.required
       ]),
-      "arrivalDate": new FormControl(aDate, [
+      "desiredDeliveryDate": new FormControl(dDate, [
         Validators.required
       ]),
-    })
-    for (let product of this.data.products) {
-      const saveShipmentProduct: SaveShipmentProduct = {
-        productId: product.product.productId,
-        quantity: product.quantity,
-        price: product.price
-      }
-      this.saveShipmentProducts.push(saveShipmentProduct);
-      this.viewSelectd.push({
-        productId: product.product.productId,
-        productName: product.product.productName,
-        quantity: product.quantity,
-        price: product.price,
-        currency: product.currency
-      })
-    }
+      "productId": new FormControl(this.data.product.productId, [
+        Validators.required
+      ]),
+      "quantity": new FormControl(this.data.quantity, [
+        Validators.required
+      ]),
+
+
+    });
+    this.incomingShipmentForm.get("shipmentNo").disable();
+    this.incomingShipmentForm.get("productId").disable();
+
 
   }
   getProductData() {
@@ -72,72 +70,52 @@ export class EditIncomingShipmentComponent implements OnInit {
     })
   }
   onCancelClick(): void {
-    this.dialogRef.close(null);
+    this.dialogRef.close(false);
   }
   onSubmit() {
     if (this.incomingShipmentForm.valid) {
       this.saveIncomingShipment = this.incomingShipmentForm.value;
-      this.saveIncomingShipment.products = this.saveShipmentProducts;
-      this.saveIncomingShipment.arrivalDate = new Date(this.incomingShipmentForm.value.arrivalDate).toISOString();
-      console.log(new Date(this.incomingShipmentForm.value.arrivalDate).toISOString());
+      this.saveIncomingShipment.shipmentNo = this.data.shipmentNo;
+      this.saveIncomingShipment.productId = this.data.product.productId;
+      this.saveIncomingShipment.orderDate = new Date(this.incomingShipmentForm.value.orderDate).toISOString();
+      this.saveIncomingShipment.desiredDeliveryDate = new Date(this.incomingShipmentForm.value.desiredDeliveryDate).toISOString();
       this.saveIncomingShipment.incomingShipmentId = this.data.incomingShipmentId;
-      this.dialogRef.close(this.saveIncomingShipment);
+      this.saveIncomingShipment.branch = this.data.branch;
+      if (!this.data.fixed) {
+        this.saveIncomingShipment.pendingQty = this.data.pendingQty + (this.saveIncomingShipment.quantity - this.data.quantity);
+      } else {
+        this.saveIncomingShipment.fixedDeliveryDate = new Date(this.data.fixedDeliveryDate).toISOString();
+        this.saveIncomingShipment.confirmedQty = this.data.confirmedQty;
+      }
+      this.saveIncomingShipment.fixed = this.data.fixed;
+      this.saveIncomingShipment.partial = this.data.partial;
+      this.saveIncomingShipment.arrived = this.data.arrived;
+
+      // open confimation dialog
+      const confirmDialogRef = this.dialog.open(AddIncomingShipmentConfirmationComponent, {
+        width: '600px',
+        data: {
+          order: this.saveIncomingShipment,
+          products: this._products
+        },
+        disableClose: true
+      });
+      confirmDialogRef.afterClosed().subscribe(result => {
+        // console.log('The dialog was closed');
+        switch (result) {
+          case 0:
+            this.onCancelClick();
+            break;
+          case 1:
+            this.dialogRef.close(this.saveIncomingShipment);
+            break;
+          default:
+            break;
+        }
+      });
     }
   }
-  getErrorMessage(attribute: string) {
-    return this.incomingShipmentForm.get(attribute).hasError('required') ? 'You must enter a value' : '';
-    // switch (attribute) {
-    //   case "name":
-    //       return this.productForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
-    //     break;
 
-    //   default:
-    //     break;
-    // }
-  }
-  addComponent() {
-    if (this.selected && this.qty && this.price) {
-      console.log(this.selected);
-
-      const saveShipmentProduct: SaveShipmentProduct = {
-        productId: this.products[this.selected].productId,
-        quantity: this.qty,
-        price: this.price,
-        currency: this.currency
-      }
-      //check the product is already exists
-      this.alreadyExistsError = false;
-      this.saveShipmentProducts.forEach(product => {
-        if (product.productId == saveShipmentProduct.productId)
-          this.alreadyExistsError = true;
-      })
-      if (!this.alreadyExistsError) {
-        this.saveShipmentProducts.push(saveShipmentProduct);
-        this.viewSelectd.push({
-          productId: this.products[this.selected].productId,
-          productName: this.products[this.selected].productName,
-          quantity: this.qty,
-          price: this.price,
-          currency: this.currency
-        })
-        console.log(this.viewSelectd);
-        this.qtyError = false;
-        this.selected = null;
-        this.qty = null;
-        this.price = null;
-        this.priceError = false;
-        this.alreadyExistsError = false;
-      }
-    } else if (!this.qty) {
-      this.qtyError = true;
-    } else if (!this.price) {
-      this.priceError = true;
-    }
-  }
-  removeComponent(id: number) {
-    this.viewSelectd.splice(id, 1);
-    this.saveShipmentProducts.splice(id, 1);
-  }
   onKey(value) {
     this.products = this.search(value);
   }

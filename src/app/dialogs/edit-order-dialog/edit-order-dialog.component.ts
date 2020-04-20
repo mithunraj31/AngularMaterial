@@ -7,10 +7,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Customer } from 'src/app/models/Customer';
 import { Product } from 'src/app/models/Product';
 import { ProductSet } from 'src/app/models/ProductSet';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { CustomerService } from 'src/app/services/CustomerService';
 import { ProductService } from 'src/app/services/ProductService';
 import { UserService } from 'src/app/services/UserService';
+import { AddOrderConfirmationComponent } from '../add-order-confirmation/add-order-confirmation.component';
 
 @Component({
   selector: 'app-edit-order-dialog',
@@ -39,7 +40,8 @@ export class EditOrderDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Order,
     private customerService: CustomerService,
     private productService: ProductService,
-    private userService: UserService
+    private userService: UserService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -79,10 +81,8 @@ export class EditOrderDialogComponent implements OnInit {
         Validators.required
       ]),
       "salesDestinationId": new FormControl(this.data.salesDestination?this.data.salesDestination.customerId:"", [
-        this.data.fixed?Validators.required:Validators.nullValidator
       ]),
       "contractorId": new FormControl(this.data.contractor?this.data.contractor.customerId:"", [
-        this.data.fixed?Validators.required:Validators.nullValidator
       ]),
       "receivedDate": new FormControl(rDate, [
         this.data.fixed?Validators.required:Validators.nullValidator
@@ -126,7 +126,30 @@ export class EditOrderDialogComponent implements OnInit {
       order.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
       order.dueDate = new Date(this.orderForm.value.dueDate).toISOString();
       order.deliveryDate = new Date(this.orderForm.value.deliveryDate).toISOString();
-      this.dialogRef.close(order);
+      // open confimation dialog
+      const confirmDialogRef = this.dialog.open(AddOrderConfirmationComponent, {
+        width: '600px',
+        data: {
+          order: order,
+          products: this._productSets,
+          customers: this._customers,
+          users: this._users
+        },
+        disableClose: true
+      });
+      confirmDialogRef.afterClosed().subscribe(result => {
+        // console.log('The dialog was closed');
+        switch (result) {
+          case 0:
+            this.onCancelClick();
+            break;
+          case 1:
+            this.dialogRef.close(order);
+            break;
+          default:
+            break;
+        }
+      });
     }
   }
   getErrorMessage(attribute: string) {

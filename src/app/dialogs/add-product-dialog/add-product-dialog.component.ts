@@ -1,7 +1,8 @@
 import { Product } from './../../models/Product';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AddProductConfirmationComponent } from '../add-product-confirmation/add-product-confirmation.component';
 
 @Component({
   selector: 'app-add-product-dialog',
@@ -12,6 +13,7 @@ export class AddProductDialogComponent implements OnInit {
   productForm: FormGroup;
 
   constructor(
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -19,54 +21,72 @@ export class AddProductDialogComponent implements OnInit {
 
   ngOnInit() {
     this.productForm = new FormGroup({
-      "productName": new FormControl("",[
+      "productName": new FormControl("", [
         Validators.required
       ]),
-      "description": new FormControl("",[
+      "description": new FormControl("", [
         Validators.required
       ]),
-      "price": new FormControl("",[
+      "price": new FormControl("", [
         Validators.required
       ]),
-      "currency": new FormControl("JPY",[
+      "currency": new FormControl("JPY", [
         Validators.required
       ]),
-      "quantity": new FormControl("",[
+      "quantity": new FormControl("", [
         Validators.required
       ]),
-      "leadTime": new FormControl("",[
+      "leadTime": new FormControl("", [
         Validators.required
       ]),
-      "moq": new FormControl("",[
+      "moq": new FormControl("", [
         Validators.required
       ]),
-      "obicNo": new FormControl("",[
+      "obicNo": new FormControl("", [
         Validators.required
       ]),
-      "sort": new FormControl(this.data,[
-        
+      "sort": new FormControl(this.data, [
+
       ]),
-      "color": new FormControl("",[
-        
+      "color": new FormControl("", [
+
       ]),
 
-    })
+    });
   }
   onCancelClick(): void {
     this.dialogRef.close(null);
   }
-  onSubmit(){
-    if(this.productForm.valid){
-      this.dialogRef.close(this.productForm.value);
+  onSubmit() {
+    if (this.productForm.valid) {
+      // open confimation dialog
+      const confirmDialogRef = this.dialog.open(AddProductConfirmationComponent, {
+        width: '600px',
+        data: this.productForm.value,
+        disableClose: true
+      });
+      confirmDialogRef.afterClosed().subscribe(result => {
+        // console.log('The dialog was closed');
+        switch (result) {
+          case 0:
+            this.onCancelClick();
+            break;
+          case 1:
+            this.dialogRef.close(this.productForm.value);
+            break;
+          default:
+            break;
+        }
+      });
     }
   }
-  getErrorMessage(attribute:string) {
-    return this.productForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
+  getErrorMessage(attribute: string) {
+    return this.productForm.get(attribute).hasError('required') ? 'You must enter a value' : '';
     // switch (attribute) {
     //   case "name":
     //       return this.productForm.get(attribute).hasError('required') ? 'You must enter a value':'' ;
     //     break;
-    
+
     //   default:
     //     break;
     // }

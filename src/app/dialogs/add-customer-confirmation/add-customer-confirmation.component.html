@@ -1,0 +1,36 @@
+<h1 mat-dialog-title i18n="@@confirmInput">Confirm input contents</h1>
+    <div class="container" mat-dialog-content>
+        <table>
+            <tr>
+                <td i18n="@@customerName">Customer Name</td>
+                <td>{{data.customerName}}</td>
+            </tr>
+            <tr>
+                <td i18n="@@zipCode">ZIP Code</td>
+                <td>{{data.zip}}</td>
+            </tr>
+            <tr>
+                <td i18n="@@address">Address</td>
+                <td>{{data.address}}</td>
+            </tr>
+            <tr>
+                <td i18n="@@tel">Tel</td>
+                <td>{{data.tel}}</td>
+            </tr>
+            <tr>
+                <td i18n="@@contactName">Contact Name</td>
+                <td>{{data.contactName}}</td>
+            </tr>
+            <tr>
+                <td i18n="@@type">Type</td>
+                <td>{{data.type}}</td>
+            </tr>
+
+        </table>
+        <p style="color: #FF0000;" i18n="@@doYouWantToContinue">Do you want to continue?</p> 
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button color="warn" (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
+        <button mat-raised-button color="accent" (click)="onReturnClick()" i18n="@@return">Return</button>
+        <button mat-raised-button color="primary" (click)="onOkClick()" i18n="@@ok">Ok</button>
+    </div>

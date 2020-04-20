@@ -18,7 +18,7 @@ export class IncomingShipmentService {
         return this.http.get<IncomingShipment[]>(this.incomingShipmentUrl);
     }
 
-    addShipment(shipment:SaveIncomingShipment){
+    addShipment(shipment:SaveIncomingShipment[]){
         return this.http.post<SaveIncomingShipment>(this.incomingShipmentUrl,shipment);
     }
     editShipment(shipment:SaveIncomingShipment){

@@ -6,11 +6,12 @@ import { CustomerService } from './../../services/CustomerService';
 import { Customer } from './../../models/Customer';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Product } from 'src/app/models/Product';
 import { SaveProductComponent } from 'src/app/models/saveProductComponent';
 import { ProductService } from 'src/app/services/ProductService';
 import { UserService } from 'src/app/services/UserService';
+import { AddOrderConfirmationComponent } from '../add-order-confirmation/add-order-confirmation.component';
 
 @Component({
   selector: 'app-add-order-dialog',
@@ -43,7 +44,8 @@ export class AddOrderDialogComponent implements OnInit {
     private customerService: CustomerService,
     private productService: ProductService,
     private userService: UserService,
-    private util: UtilService
+    private util: UtilService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -58,7 +60,7 @@ export class AddOrderDialogComponent implements OnInit {
       this._customers = result;
       this.contractors = result;
       this.salesD = result;
-      console.log(this.customers)
+      // console.log(this.customers)
     })
   }
   getUserData() {
@@ -78,10 +80,10 @@ export class AddOrderDialogComponent implements OnInit {
         Validators.required
       ]),
       "salesDestinationId": new FormControl("", [
-        this.data ? Validators.required : Validators.nullValidator
+        
       ]),
       "contractorId": new FormControl("", [
-        this.data ? Validators.required : Validators.nullValidator
+
       ]),
       "receivedDate": new FormControl("", [
         this.data ? Validators.required : Validators.nullValidator
@@ -107,7 +109,7 @@ export class AddOrderDialogComponent implements OnInit {
       this.saveOrder = this.orderForm.value;
       this.saveOrder.orderedProducts = this.saveProducts;
       const date: Date = new Date(this.saveOrder.receivedDate);
-      console.log(this.saveOrder.receivedDate);
+      // console.log(this.saveOrder.receivedDate);
       if (this.saveOrder.receivedDate) {
         this.saveOrder.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
       }
@@ -117,7 +119,30 @@ export class AddOrderDialogComponent implements OnInit {
       if (this.saveOrder.deliveryDate) {
         this.saveOrder.deliveryDate = new Date(this.orderForm.value.deliveryDate).toISOString();
       }
-      this.dialogRef.close(this.saveOrder);
+      // open confimation dialog
+      const confirmDialogRef = this.dialog.open(AddOrderConfirmationComponent, {
+        width: '600px',
+        data: {
+          order: this.saveOrder,
+          products: this._productSets,
+          customers: this._customers,
+          users: this._users
+        },
+        disableClose: true
+      });
+      confirmDialogRef.afterClosed().subscribe(result => {
+        // console.log('The dialog was closed');
+        switch (result) {
+          case 0:
+            this.onCancelClick();
+            break;
+          case 1:
+            this.dialogRef.close(this.saveOrder);
+            break;
+          default:
+            break;
+        }
+      });
     }
   }
   getErrorMessage(attribute: string) {
@@ -136,7 +161,7 @@ export class AddOrderDialogComponent implements OnInit {
   }
   addComponent() {
     if (this.selected && this.qty) {
-      console.log(this.selected);
+      // console.log(this.selected);
 
       const saveProductComponent: SaveProductComponent = {
         productId: this.productSets[this.selected].productId,
@@ -148,7 +173,7 @@ export class AddOrderDialogComponent implements OnInit {
         productName: this.productSets[this.selected].productName,
         quantity: this.qty
       })
-      console.log(this.viewSelectd);
+      // console.log(this.viewSelectd);
       this.qtyError = false;
       this.selected = null;
       this.qty = null;
@@ -269,7 +294,7 @@ export class AddOrderDialogComponent implements OnInit {
       const dueDate = new Date(value);
       const deliveryDate = dueDate;
       deliveryDate.setDate(dueDate.getDate() - 14);
-      console.log(deliveryDate);
+      // console.log(deliveryDate);
       this.orderForm.get("deliveryDate").setValue(deliveryDate.toISOString().substring(0, 10));
     }
   }

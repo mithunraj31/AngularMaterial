@@ -37,7 +37,7 @@
  
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
+  <button mat-button type="button" (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
   <button mat-button type="submit" [disabled]="!customerForm.valid" i18n="@@ok">Ok</button>
 </div>
 </form>

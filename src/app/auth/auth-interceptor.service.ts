@@ -9,31 +9,31 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>,
     next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("intercepter");
+    // console.log("intercepter");
 
-    
-      const idToken = localStorage.getItem("id_token");
-      if(idToken){
-        
-        const authReq = req.clone({
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + idToken,
-            'Access-Control-Allow-Origin': '*'
-          })
-        });
-    
-        return next.handle(authReq);
-      } else {
-        const authReq = req.clone({
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-          })
-        });
-    
-        return next.handle(authReq);
-      }
+
+    const idToken = localStorage.getItem("id_token");
+    if (idToken) {
+
+      const authReq = req.clone({
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + idToken,
+          'Access-Control-Allow-Origin': '*'
+        })
+      });
+
+      return next.handle(authReq);
+    } else {
+      const authReq = req.clone({
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        })
+      });
+
+      return next.handle(authReq);
+    }
   }
 }
 

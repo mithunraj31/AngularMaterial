@@ -14,6 +14,7 @@ export class OrderInfoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.data)
   }
 
   onOkClick() {

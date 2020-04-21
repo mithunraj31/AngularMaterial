@@ -5,11 +5,11 @@ import { User } from './User';
 export interface IncomingShipment {
     incomingShipmentId: number;
     shipmentNo: string;
-    branch?:string;
-    vendor?:string;
-    orderDate: Date;
-    fixedDeliveryDate?: Date;
-    desiredDeliveryDate?: Date;
+    branch?: string;
+    vendor?: string;
+    orderDate: string;
+    fixedDeliveryDate?: string;
+    desiredDeliveryDate?: string;
     createdAt?: Date;
     updatedAt?: Date;
     product: Product;
@@ -21,6 +21,6 @@ export interface IncomingShipment {
     arrived: boolean;
     fixed: boolean;
     partial: boolean;
-    user:User
+    user: User;
 
 }

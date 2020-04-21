@@ -41,7 +41,7 @@ export class EditOutgoingShipmentComponent implements OnInit {
   }
   initializeShipmentForm() {
     console.log(this.data);
-    const sDate = new Date(this.data.shipmentDate).toISOString().substring(0, 10);
+    const sDate = this.data.shipmentDate.substring(0, 10);
     this.outgoingShipmentForm = new FormGroup({
       "shipmentNo": new FormControl(this.data.shipmentNo, [
         Validators.required

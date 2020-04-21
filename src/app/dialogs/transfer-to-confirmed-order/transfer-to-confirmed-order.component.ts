@@ -26,7 +26,7 @@ export class TransferToConfirmedOrderComponent implements OnInit {
   salesD: Customer[] = [];
   contractors: Customer[] = [];
   _customers: Customer[] = [];
-  users: User [] = [];
+  users: User[] = [];
   constructor(
     public dialogRef: MatDialogRef<EditOrderDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Order,
@@ -58,24 +58,24 @@ export class TransferToConfirmedOrderComponent implements OnInit {
   initializeCustomerForm() {
     console.log("popup data");
     console.log(this.data);
-    const rDate = this.data.receivedDate?new Date(this.data.receivedDate).toISOString().substring(0, 10):"";
-    const dDate = this.data.dueDate?new Date(this.data.dueDate).toISOString().substring(0, 10):"";
-    const delDate = this.data.deliveryDate?new Date(this.data.deliveryDate).toISOString().substring(0, 10):"";
+    const rDate = this.data.receivedDate ? this.data.receivedDate.substring(0, 10) : "";
+    const dDate = this.data.dueDate ? this.data.dueDate.substring(0, 10) : "";
+    const delDate = this.data.deliveryDate ? this.data.deliveryDate.substring(0, 10) : "";
 
     this.orderForm = new FormGroup({
       "proposalNo": new FormControl(this.data.proposalNo, [
         Validators.required
       ]),
-      "customerId": new FormControl(this.data.customer.customerId?this.data.customer.customerId:"", [
+      "customerId": new FormControl(this.data.customer.customerId ? this.data.customer.customerId : "", [
         Validators.required
       ]),
-      "salesDestinationId": new FormControl(this.data.salesDestination?this.data.salesDestination.customerId:"", [
+      "salesDestinationId": new FormControl(this.data.salesDestination ? this.data.salesDestination.customerId : "", [
 
       ]),
-      "contractorId": new FormControl(this.data.contractor?this.data.contractor.customerId:"", [
+      "contractorId": new FormControl(this.data.contractor ? this.data.contractor.customerId : "", [
       ]),
       "receivedDate": new FormControl(rDate, [
-        this.data.fixed?Validators.required:Validators.nullValidator
+        this.data.fixed ? Validators.required : Validators.nullValidator
       ]),
       "dueDate": new FormControl(dDate, [
         Validators.required
@@ -162,11 +162,11 @@ export class TransferToConfirmedOrderComponent implements OnInit {
     return this.salesD.filter(option => option.customerName.toLowerCase().startsWith(filter));
   }
   calculateDelivery(value) {
-    if(value){
+    if (value) {
     }
   }
 
-  isItType(customer:string[],type:string){
+  isItType(customer: string[], type: string) {
     return customer.includes(type);
   }
 

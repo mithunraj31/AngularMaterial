@@ -33,8 +33,8 @@ export class EditIncomingShipmentComponent implements OnInit {
 
   }
   initializeShipmentForm() {
-    const oDate = new Date(this.data.orderDate).toISOString().substring(0, 10);
-    const dDate = new Date(this.data.desiredDeliveryDate).toISOString().substring(0, 10);
+    const oDate = this.data.orderDate.substring(0, 10);
+    const dDate = this.data.desiredDeliveryDate.substring(0, 10);
     this.incomingShipmentForm = new FormGroup({
       "shipmentNo": new FormControl(this.data
         .shipmentNo, [

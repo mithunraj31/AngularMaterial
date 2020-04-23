@@ -26,8 +26,8 @@ export class DeliveryScheduleComponent implements OnInit {
   viewDate = new Date();
 
   constructor(private forecastService: ForecastService,
-              @Inject(LOCALE_ID) public localeId: string,
-              public dialog: MatDialog,
+    @Inject(LOCALE_ID) public localeId: string,
+    public dialog: MatDialog,
   ) {
     this.localizeSubColumns();
   }
@@ -185,7 +185,8 @@ export class DeliveryScheduleComponent implements OnInit {
   changeColor(data, set?) {
     const DateCss = {
       'background-color': data.color,
-      cursor: 'default'
+      cursor: 'default',
+      color: '#212121'
     };
 
     if (set && set === 'set') {
@@ -193,13 +194,20 @@ export class DeliveryScheduleComponent implements OnInit {
 
     } else if (set && data[set]) {
       // console.log(data[set]);
-      if (!data[set].fixed || data[set].quantity < 0) {
+      if (data[set].fulfilled == 1) {
+        DateCss['background-color'] = '#536DFE';
+        DateCss.color = '#FFFFFF';
+      } else if (data[set].fulfilled == 2) {
+        DateCss['background-color'] = '#2196F3';
+        DateCss.color = '#FFFFFF';
+      } else if (!data[set].fixed || data[set].quantity < 0) {
 
         DateCss['background-color'] = '#ef5350';
+        DateCss.color = '#FFFFFF';
       } else {
         DateCss['background-color'] = data.color;
       }
-      if (data[set].orders) {
+      if (data[set].orders || data[set].incomingOrders) {
         DateCss.cursor = 'pointer';
       }
     }

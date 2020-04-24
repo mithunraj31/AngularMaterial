@@ -1,7 +1,7 @@
 import { MyPageComponent } from './pages/my-page/my-page.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ShipmentsComponent } from './pages/shipments/shipments.component';
-import { OrdersComponent } from './pages/orders/orders.component';
+import { OrdersContainerComponent } from './pages/orders/orders-container.component';
 import { ProductsContainerComponent } from './pages/products-container/products-container.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -27,11 +27,23 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'orders/:id', component: OrdersComponent,
+    path: 'orders/:fulfilled/:id', component: OrdersContainerComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'orders', component: OrdersComponent,
+    path: 'orders/:id', component: OrdersContainerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'orders', component: OrdersContainerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'shipments/:arrived/:id', component: ShipmentsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'shipments/:id', component: ShipmentsComponent,
     canActivate: [AuthGuard]
   },
   {

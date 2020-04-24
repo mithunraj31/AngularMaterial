@@ -1,35 +1,35 @@
-import { UtilService } from './../../services/UtilService';
-import { UnfulfilledProductsComponent } from './../../dialogs/unfulfilled-products/unfulfilled-products.component';
-import { FulfillOrderDialogComponent } from './../../dialogs/fulfill-order-dialog/fulfill-order-dialog.component';
-import { SaveOrder } from './../../models/SaveOrder';
-import { AddOrderDialogComponent } from './../../dialogs/add-order-dialog/add-order-dialog.component';
-import { OrderedProduct } from './../../models/OrderedProduct';
-import { Customer } from 'src/app/models/Customer';
-import { OrderService } from './../../services/OrderService';
-import { MatTableDataSource, MatTable, MatPaginator, MatDialog, MatSort } from '@angular/material';
-import { Order } from './../../models/Order';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ViewCustomerDialogComponent } from 'src/app/dialogs/view-customer-dialog/view-customer-dialog.component';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { EditOrderDialogComponent } from 'src/app/dialogs/edit-order-dialog/edit-order-dialog.component';
-import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { Order } from 'src/app/models/Order';
+import { MatTableDataSource, MatTable, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { OrderService } from 'src/app/services/OrderService';
+import { UtilService } from 'src/app/services/UtilService';
+import { Customer } from 'src/app/models/Customer';
+import { ViewCustomerDialogComponent } from 'src/app/dialogs/view-customer-dialog/view-customer-dialog.component';
+import { AddOrderDialogComponent } from 'src/app/dialogs/add-order-dialog/add-order-dialog.component';
+import { SaveOrder } from 'src/app/models/SaveOrder';
+import { EditOrderDialogComponent } from 'src/app/dialogs/edit-order-dialog/edit-order-dialog.component';
+import { FulfillOrderDialogComponent } from 'src/app/dialogs/fulfill-order-dialog/fulfill-order-dialog.component';
+import { UnfulfilledProductsComponent } from 'src/app/dialogs/unfulfilled-products/unfulfilled-products.component';
 import { UnfulfillConfirmationComponent } from 'src/app/dialogs/unfulfill-confirmation/unfulfill-confirmation.component';
+import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { TransferToConfirmedOrderComponent } from 'src/app/dialogs/transfer-to-confirmed-order/transfer-to-confirmed-order.component';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss'],
+  selector: 'app-fulfilled-orders',
+  templateUrl: './fulfilled-orders.component.html',
+  styleUrls: ['./fulfilled-orders.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed, void', style({ height: '0px', minHeight: '0', display: 'none' })),
-  state('expanded', style({ height: '*' })),
-  transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-  transition('expanded <=> void', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      transition('expanded <=> void', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
     ]),]
 })
-export class OrdersComponent implements OnInit {
+export class FulfilledOrdersComponent implements OnInit {
+
   expandedElement;
   columnsToDisplay: string[] = [
     'proposalNo',
@@ -40,14 +40,14 @@ export class OrdersComponent implements OnInit {
     'dueDate',
     'deliveryDate',
     'salesUser',
-    'actions'
+    // 'actions'
   ];
   progress = false;
   orders: Order[] = [];
   id: string;
   private searchSub: any;
   dataSource = new MatTableDataSource<Order>();
-  @ViewChild(MatTable, { static: true }) table: MatTable<any>
+  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
   @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -70,8 +70,8 @@ export class OrdersComponent implements OnInit {
       }
     };
     this.searchSub = this.route.params.subscribe(params => {
-      this.id = params['id'];
-      if (this.id) {
+      if (params.id && params.id !='fulfilled') {
+        this.id = params.id;
 
         this.applyFilter(this.id);
       }
@@ -268,7 +268,7 @@ export class OrdersComponent implements OnInit {
         }, error => {
           this.progress = false;
           console.log(error);
-        })
+        });
       }
     });
   }

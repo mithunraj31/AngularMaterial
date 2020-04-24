@@ -4,6 +4,7 @@ import { ForecastService } from 'src/app/services/ForecastService';
 import { takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { OrderInfoComponent } from 'src/app/dialogs/order-info/order-info.component';
+import { IncomingInfoComponent } from 'src/app/dialogs/incoming-info/incoming-info.component';
 
 @Component({
   selector: 'app-delivery-schedule',
@@ -276,6 +277,14 @@ export class DeliveryScheduleComponent implements OnInit {
         hasBackdrop: false
       });
       // console.log(data);
+    }
+    if (data.incomingOrders) {
+      const confirmDialogRef = this.dialog.open(IncomingInfoComponent, {
+        width: '700px',
+        data: data.incomingOrders,
+        disableClose: true,
+        hasBackdrop: false
+      });
     }
   }
 

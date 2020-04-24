@@ -1,22 +1,21 @@
-import { SaveIncomingShipment } from 'src/app/models/SaveIncomingShipment';
-import { UtilService } from './../../../services/UtilService';
-import { ArrivalOrderDialogComponent } from './../../../dialogs/arrival-order-dialog/arrival-order-dialog.component';
-import { EditIncomingShipmentComponent } from './../../../dialogs/edit-incoming-shipment/edit-incoming-shipment.component';
-import { AddIncomingShipmentComponent } from './../../../dialogs/add-incoming-shipment/add-incoming-shipment.component';
-import { IncomingShipmentService } from './../../../services/IncomingShipmentService';
-
-import { MatTableDataSource, MatTable, MatPaginator, MatDialog, MatSort } from '@angular/material';
-import { IncomingShipment } from './../../../models/IncomingShipment';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { MatTableDataSource, MatTable, MatPaginator, MatSort, MatDialog } from '@angular/material';
+import { IncomingShipment } from 'src/app/models/IncomingShipment';
+import { IncomingShipmentService } from 'src/app/services/IncomingShipmentService';
+import { UtilService } from 'src/app/services/UtilService';
+import { EditIncomingShipmentComponent } from 'src/app/dialogs/edit-incoming-shipment/edit-incoming-shipment.component';
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { AddIncomingShipmentComponent } from 'src/app/dialogs/add-incoming-shipment/add-incoming-shipment.component';
+import { ArrivalOrderDialogComponent } from 'src/app/dialogs/arrival-order-dialog/arrival-order-dialog.component';
 import { ConfirmIncomingShipmentComponent } from 'src/app/dialogs/confirm-incoming-shipment/confirm-incoming-shipment.component';
+import { SaveIncomingShipment } from 'src/app/models/SaveIncomingShipment';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-incoming-shipments',
-  templateUrl: './incoming-shipments.component.html',
-  styleUrls: ['./incoming-shipments.component.scss'],
+  selector: 'app-arrived-shipments',
+  templateUrl: './arrived-shipments.component.html',
+  styleUrls: ['./arrived-shipments.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed, void', style({ height: '0px', minHeight: '0', display: 'none' })),
@@ -25,7 +24,8 @@ import { ActivatedRoute } from '@angular/router';
       transition('expanded <=> void', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
     ]),]
 })
-export class IncomingShipmentsComponent implements OnInit {
+export class ArrivedShipmentsComponent implements OnInit {
+
   columnsToDisplay: string[] = [
     'shipmentNo',
     'branch',
@@ -38,7 +38,7 @@ export class IncomingShipmentsComponent implements OnInit {
     'confirmedQty',
     'fixedDeliveryDate',
     'user',
-    'actions'
+    // 'actions'
   ];
   id;
   searchSub;
@@ -72,8 +72,8 @@ export class IncomingShipmentsComponent implements OnInit {
       return dataStr.indexOf(filter) !== -1;
     };
     this.searchSub = this.route.params.subscribe(params => {
-      this.id = params.id;
-      if (this.id) {
+      if (params.id && params.id != 'arrived') {
+        this.id = params.id;
 
         this.applyFilter(this.id);
       }
@@ -245,7 +245,7 @@ export class IncomingShipmentsComponent implements OnInit {
       if (!main.fixed) {
         can = true;
       }
-      if (shipment.arrived){
+      if (shipment.arrived) {
         can = false;
       }
 
@@ -281,7 +281,8 @@ export class IncomingShipmentsComponent implements OnInit {
   }
   findPatials(shipmentNo: string, productId: number, branch: string): IncomingShipment[] {
     const found = this.shipments.filter(option =>
-      option.shipmentNo === shipmentNo && option.product.productId === productId && option.branch === branch  && option.partial);
+      option.shipmentNo === shipmentNo && option.product.productId === productId && option.branch === branch && option.partial);
     return found;
   }
+
 }

@@ -2,14 +2,12 @@
 <div class="container" mat-dialog-content>
     <table>
         <tr>
-            <th i18n="@@proposalNo">Proposal No</th>
-            <th i18n="@@customer">Customer Name</th>
-            <th i18n="@@QTY">QTY</th>
+            <th i18n="@@shipmentNo">Shipment No</th>
+            <th i18n="@@confirmedQty">Confirmed Qty</th>
         </tr>
         <tr *ngFor="let order of data" [ngClass]="getColor(order)">
-            <td *ngIf="order.fulfilled==false" [routerLink]= "['orders',order.proposalNo]" class="order">{{order.proposalNo}}</td>
-            <td *ngIf="order.fulfilled==true" [routerLink]= "['orders/fulfilled',order.proposalNo]" class="order">{{order.proposalNo}}</td>
-            <td>{{order.customer}}</td>
+            <td *ngIf="order.fulfilled==false" [routerLink]= "['shipments',order.shipmentNo]" class="order">{{order.shipmentNo}}</td>
+            <td *ngIf="order.fulfilled==true" [routerLink]= "['shipments/arrived',order.shipmentNo]" class="order">{{order.shipmentNo}}</td>
             <td>{{order.quantity}}</td>
         </tr>
 

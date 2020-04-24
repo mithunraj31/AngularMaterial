@@ -105,7 +105,7 @@ export class ArrivedShipmentsComponent implements OnInit {
 
   getShipments() {
     this.progress = true;
-    this.shipmentService.getShipments().subscribe(result => {
+    this.shipmentService.getArrivedShipments().subscribe(result => {
       this.shipments = result;
       this.dataSource.data = this.shipments;
       this.dataSource.paginator = this.paginatorTop;

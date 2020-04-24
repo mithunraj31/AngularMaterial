@@ -98,7 +98,7 @@ export class DeliveryScheduleComponent implements OnInit {
 
       this.addColumnsToTables(data[0].products[0].values);
       this.productForecast = data;
-      // console.log(this.productForecast);
+      console.log(this.productForecast);
       let setcount = 0;
       let productcount = 0;
       const tempdata: any[] = [];

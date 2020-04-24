@@ -50,18 +50,18 @@ export class FulfilledOrdersComponent implements OnInit {
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
   @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private orderService: OrderService,
-    public util: UtilService  ) { }
+    public util: UtilService) { }
 
   ngOnInit() {
     this.getOrderData();
     this.dataSource.paginator = this.paginatorTop;
     this.dataSource.sortingDataAccessor = (item, property) => {
-      switch(property) {
+      switch (property) {
         case 'customerName': return item.customer.customerName;
         case 'salesDestination': return item.salesDestination.customerName;
         case 'contractor': return item.contractor.customerName;
@@ -70,19 +70,19 @@ export class FulfilledOrdersComponent implements OnInit {
       }
     };
     this.searchSub = this.route.params.subscribe(params => {
-      if (params.id && params.id !='fulfilled') {
+      if (params.id && params.id != 'fulfilled') {
         this.id = params.id;
 
         this.applyFilter(this.id);
       }
     });
     this.dataSource.sort = this.sort;
-    this.dataSource.filterPredicate = (data, filter: string)  => {
+    this.dataSource.filterPredicate = (data, filter: string) => {
       const accumulator = (currentTerm, key) => {
-        return key === 'contractor' ? currentTerm + data.contractor.customerName : 
-        key === 'salesUser' ? currentTerm + data.salesUser.firstName : 
-        key === 'salesDestination' ? currentTerm + data.salesDestination.customerName :
-        key === 'customer' ? currentTerm + data.customer.customerName :currentTerm + data[key];
+        return key === 'contractor' ? currentTerm + data.contractor.customerName :
+          key === 'salesUser' ? currentTerm + data.salesUser.firstName :
+            key === 'salesDestination' ? currentTerm + data.salesDestination.customerName :
+              key === 'customer' ? currentTerm + data.customer.customerName : currentTerm + data[key];
       };
       const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
       // Transform the filter by converting it to lowercase and removing whitespace.
@@ -91,22 +91,22 @@ export class FulfilledOrdersComponent implements OnInit {
     };
   }
 
-  onTopPaginateChange(){
+  onTopPaginateChange() {
     this.paginatorBottom.length = this.dataSource.data.length;
     this.paginatorBottom.pageSize = this.paginatorTop.pageSize;
     this.paginatorBottom.pageIndex = this.paginatorTop.pageIndex;
   }
-  onBottomPaginateChange(event){
-    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex==1) {
+  onBottomPaginateChange(event) {
+    if (event.previousPageIndex < event.pageIndex && event.pageIndex - event.previousPageIndex == 1) {
       this.paginatorTop.nextPage();
     }
-    if(event.previousPageIndex>event.pageIndex && event.pageIndex-event.previousPageIndex==-1) {
+    if (event.previousPageIndex > event.pageIndex && event.pageIndex - event.previousPageIndex == -1) {
       this.paginatorTop.previousPage();
     }
-    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex>1) {
+    if (event.previousPageIndex < event.pageIndex && event.pageIndex - event.previousPageIndex > 1) {
       this.paginatorTop.lastPage();
     }
-    if(event.previousPageIndex>event.pageIndex && event.previousPageIndex-event.pageIndex>1) {
+    if (event.previousPageIndex > event.pageIndex && event.previousPageIndex - event.pageIndex > 1) {
       this.paginatorTop.firstPage();
     }
     this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
@@ -115,7 +115,7 @@ export class FulfilledOrdersComponent implements OnInit {
 
   getOrderData() {
     this.progress = true;
-    this.orderService.getOrders().subscribe(result => {
+    this.orderService.getFulfilledOrders().subscribe(result => {
       this.orders = result;
       this.dataSource.data = this.orders;
       console.log(this.orders);

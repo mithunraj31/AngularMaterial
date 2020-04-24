@@ -15,6 +15,9 @@ export class OrderService {
     getOrders() {
         return this.http.get<Order[]>(this.getOrdersUrl);
     }
+    getFulfilledOrders() {
+        return this.http.get<Order[]>(this.getOrdersUrl + 'fulfilled/');
+    }
 
     addOrder(order: SaveOrder) {
         return this.http.post<SaveOrder>(this.getOrdersUrl, order);

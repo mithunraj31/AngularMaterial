@@ -3,11 +3,13 @@
     <table>
         <tr>
             <th i18n="@@shipmentNo">Shipment No</th>
+            <th i18n="@@branch">Branch</th>
             <th i18n="@@confirmedQty">Confirmed Qty</th>
         </tr>
         <tr *ngFor="let order of data" [ngClass]="getColor(order)">
             <td *ngIf="order.fulfilled==false" [routerLink]= "['shipments',order.shipmentNo]" class="order">{{order.shipmentNo}}</td>
             <td *ngIf="order.fulfilled==true" [routerLink]= "['shipments/arrived',order.shipmentNo]" class="order">{{order.shipmentNo}}</td>
+            <td>{{order.branch}}</td>
             <td>{{order.quantity}}</td>
         </tr>
 

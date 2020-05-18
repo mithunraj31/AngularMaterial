@@ -15,6 +15,7 @@ import { UnfulfillConfirmationComponent } from 'src/app/dialogs/unfulfill-confir
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { TransferToConfirmedOrderComponent } from 'src/app/dialogs/transfer-to-confirmed-order/transfer-to-confirmed-order.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { OrderedProduct } from 'src/app/models/OrderedProduct';
 
 @Component({
   selector: 'app-fulfilled-orders',
@@ -36,6 +37,7 @@ export class FulfilledOrdersComponent implements OnInit {
     'customerName',
     'salesDestination',
     'contractor',
+    'amount',
     'receivedDate',
     'dueDate',
     'deliveryDate',
@@ -271,6 +273,15 @@ export class FulfilledOrdersComponent implements OnInit {
         });
       }
     });
+  }
+  getLTEAmount(products: OrderedProduct[]) {
+    let amount = 0;
+    products.forEach((product) => {
+      if (product.product.productName == '1315390MAF') {
+        amount = product.quantity;
+      }
+    });
+    return amount;
   }
 
 }

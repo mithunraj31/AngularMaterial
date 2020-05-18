@@ -15,6 +15,9 @@ import { UnfulfilledProductsComponent } from 'src/app/dialogs/unfulfilled-produc
 import { UnfulfillConfirmationComponent } from 'src/app/dialogs/unfulfill-confirmation/unfulfill-confirmation.component';
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { TransferToConfirmedOrderComponent } from 'src/app/dialogs/transfer-to-confirmed-order/transfer-to-confirmed-order.component';
+import { Product } from 'src/app/models/Product';
+import { ArgumentOutOfRangeError } from 'rxjs';
+import { OrderedProduct } from 'src/app/models/OrderedProduct';
 
 @Component({
   selector: 'app-orders',
@@ -35,6 +38,7 @@ export class OrdersComponent implements OnInit {
     'customerName',
     'salesDestination',
     'contractor',
+    'amount',
     'receivedDate',
     'dueDate',
     'deliveryDate',
@@ -49,18 +53,18 @@ export class OrdersComponent implements OnInit {
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
   @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private orderService: OrderService,
-    public util: UtilService  ) { }
+    public util: UtilService) { }
 
   ngOnInit() {
     this.getOrderData();
     this.dataSource.paginator = this.paginatorTop;
     this.dataSource.sortingDataAccessor = (item, property) => {
-      switch(property) {
+      switch (property) {
         case 'customerName': return item.customer.customerName;
         case 'salesDestination': return item.salesDestination.customerName;
         case 'contractor': return item.contractor.customerName;
@@ -76,12 +80,12 @@ export class OrdersComponent implements OnInit {
       }
     });
     this.dataSource.sort = this.sort;
-    this.dataSource.filterPredicate = (data, filter: string)  => {
+    this.dataSource.filterPredicate = (data, filter: string) => {
       const accumulator = (currentTerm, key) => {
-        return key === 'contractor' ? currentTerm + data.contractor.customerName : 
-        key === 'salesUser' ? currentTerm + data.salesUser.firstName : 
-        key === 'salesDestination' ? currentTerm + data.salesDestination.customerName :
-        key === 'customer' ? currentTerm + data.customer.customerName :currentTerm + data[key];
+        return key === 'contractor' ? currentTerm + data.contractor.customerName :
+          key === 'salesUser' ? currentTerm + data.salesUser.firstName :
+            key === 'salesDestination' ? currentTerm + data.salesDestination.customerName :
+              key === 'customer' ? currentTerm + data.customer.customerName : currentTerm + data[key];
       };
       const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
       // Transform the filter by converting it to lowercase and removing whitespace.
@@ -90,22 +94,22 @@ export class OrdersComponent implements OnInit {
     };
   }
 
-  onTopPaginateChange(){
+  onTopPaginateChange() {
     this.paginatorBottom.length = this.dataSource.data.length;
     this.paginatorBottom.pageSize = this.paginatorTop.pageSize;
     this.paginatorBottom.pageIndex = this.paginatorTop.pageIndex;
   }
-  onBottomPaginateChange(event){
-    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex==1) {
+  onBottomPaginateChange(event) {
+    if (event.previousPageIndex < event.pageIndex && event.pageIndex - event.previousPageIndex == 1) {
       this.paginatorTop.nextPage();
     }
-    if(event.previousPageIndex>event.pageIndex && event.pageIndex-event.previousPageIndex==-1) {
+    if (event.previousPageIndex > event.pageIndex && event.pageIndex - event.previousPageIndex == -1) {
       this.paginatorTop.previousPage();
     }
-    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex>1) {
+    if (event.previousPageIndex < event.pageIndex && event.pageIndex - event.previousPageIndex > 1) {
       this.paginatorTop.lastPage();
     }
-    if(event.previousPageIndex>event.pageIndex && event.previousPageIndex-event.pageIndex>1) {
+    if (event.previousPageIndex > event.pageIndex && event.previousPageIndex - event.pageIndex > 1) {
       this.paginatorTop.firstPage();
     }
     this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
@@ -270,5 +274,14 @@ export class OrdersComponent implements OnInit {
         });
       }
     });
+  }
+  getLTEAmount(products: OrderedProduct[]) {
+    let amount = 0;
+    products.forEach((product) => {
+      if (product.product.productName == '1315390MAF') {
+        amount = product.quantity;
+      }
+    });
+    return amount;
   }
 }

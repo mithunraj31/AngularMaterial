@@ -45,12 +45,19 @@ export class OrderService {
         const fmodel: FulfillOrderModel = {
             orderId: orderId,
             fulfillment: false,
-        }
+        };
         return this.http.post<FulfillOrderModel>(this.getOrdersUrl + "fulfillment/", fmodel);
+    }
+    display(orderIdIn: number, value: boolean){
+        const display = {
+            orderId : orderIdIn,
+            display : value
+        };
+        return this.http.post<FulfillOrderModel>(this.getOrdersUrl + "display/", display);
     }
 }
 
 export class FulfillOrderModel {
     orderId: number;
     fulfillment: boolean;
-}
+};

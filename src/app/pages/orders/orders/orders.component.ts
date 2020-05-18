@@ -284,4 +284,10 @@ export class OrdersComponent implements OnInit {
     });
     return amount;
   }
+  clickDisplay(order: Order, val: boolean) {
+    console.log(order.orderId, val);
+    this.orderService.display(order.orderId, val).subscribe(() => {
+      this.getOrderData();
+    });
+  }
 }

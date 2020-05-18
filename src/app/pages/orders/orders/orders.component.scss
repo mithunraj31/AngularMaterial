@@ -3,6 +3,7 @@ mat-card{
   }
   table {
     width: 100%;
+    font-size: small;
   }
   .right-button{
     text-align: right;
@@ -88,4 +89,10 @@ mat-card{
   }
   .topButton {
     margin-right: 5px;
+  }
+
+  .mat-column-actions {
+    left: 0px !important;
+    max-width: 200px !important;
+    min-width: 200px !important;
   }

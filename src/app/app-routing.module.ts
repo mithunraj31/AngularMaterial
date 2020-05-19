@@ -64,6 +64,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'delivery-schedule/:id', component: ScheduleComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'delivery-schedule', component: ScheduleComponent,
     canActivate: [AuthGuard]
   },

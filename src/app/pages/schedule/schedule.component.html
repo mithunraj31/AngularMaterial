@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group [selectedIndex]="tabIndex" (selectedTabChange)="tabClick($event)">
     <mat-tab i18n-label="@@all" label="All">
         <ng-template matTabContent>
             <app-delivery-schedule></app-delivery-schedule>

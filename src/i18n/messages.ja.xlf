@@ -1324,6 +1324,14 @@
         <source>Sort.</source>
         <target>順番</target>
       </trans-unit>
+      <trans-unit id="all" datatype="html">
+        <source>All</source>
+        <target>すべて</target>
+      </trans-unit>
+      <trans-unit id="kittingBase" datatype="html">
+        <source>Kitting Base</source>
+        <target>キッティングベース</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

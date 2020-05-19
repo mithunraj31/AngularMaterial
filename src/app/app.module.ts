@@ -99,6 +99,8 @@ import { OrdersComponent } from './pages/orders/orders/orders.component';
 import { FulfilledOrdersComponent } from './pages/orders/fulfilled-orders/fulfilled-orders.component';
 import { ArrivedShipmentsComponent } from './pages/shipments/arrived-shipments/arrived-shipments.component';
 import { IncomingInfoComponent } from './dialogs/incoming-info/incoming-info.component';
+import { ScheduleComponent } from './pages/schedule/schedule.component';
+import { KittingScheduleComponent } from './pages/kitting-schedule/kitting-schedule.component';
 
 
 @NgModule({
@@ -150,7 +152,9 @@ import { IncomingInfoComponent } from './dialogs/incoming-info/incoming-info.com
     OrdersComponent,
     FulfilledOrdersComponent,
     ArrivedShipmentsComponent,
-    IncomingInfoComponent
+    IncomingInfoComponent,
+    ScheduleComponent,
+    KittingScheduleComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ import { CustomersComponent } from './pages/customers/customers.component';
 import { AuthGuardService as AuthGuard } from "./auth/AuthGuardService";
 import { ForcastComponent } from './pages/forcast/forcast.component';
 import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-schedule.component';
+import { ScheduleComponent } from './pages/schedule/schedule.component';
 
 const routes: Routes = [
   {
@@ -63,7 +64,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'delivery-schedule', component: DeliveryScheduleComponent,
+    path: 'delivery-schedule', component: ScheduleComponent,
     canActivate: [AuthGuard]
   },
 ];

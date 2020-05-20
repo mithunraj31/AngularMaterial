@@ -101,6 +101,7 @@ import { ArrivedShipmentsComponent } from './pages/shipments/arrived-shipments/a
 import { IncomingInfoComponent } from './dialogs/incoming-info/incoming-info.component';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { KittingScheduleComponent } from './pages/kitting-schedule/kitting-schedule.component';
+import { ShukkaScheduleComponent } from './pages/shukka-schedule/shukka-schedule.component';
 
 
 @NgModule({
@@ -154,7 +155,8 @@ import { KittingScheduleComponent } from './pages/kitting-schedule/kitting-sched
     ArrivedShipmentsComponent,
     IncomingInfoComponent,
     ScheduleComponent,
-    KittingScheduleComponent
+    KittingScheduleComponent,
+    ShukkaScheduleComponent
   ],
   imports: [
     BrowserModule,

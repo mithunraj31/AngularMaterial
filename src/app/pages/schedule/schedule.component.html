@@ -10,4 +10,16 @@
             <app-kitting-schedule></app-kitting-schedule>
         </ng-template>
     </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <span *ngIf="shukkaCount==0" i18n-label="@@shukkaBase">Shukka Base</span>
+            <span *ngIf="shukkaCount>0"  matBadge="{{shukkaCount}}" matBadgeOverlap="false" matBadgeColor="warn" i18n-label="@@shukkaBase">Shukka Base</span>
+          </ng-template>
+        <ng-template matTabContent>
+            <app-shukka-schedule></app-shukka-schedule>
+        </ng-template>
+    </mat-tab>
+    
 </mat-tab-group>
+
+

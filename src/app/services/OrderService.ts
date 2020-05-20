@@ -48,16 +48,23 @@ export class OrderService {
         };
         return this.http.post<FulfillOrderModel>(this.getOrdersUrl + "fulfillment/", fmodel);
     }
-    display(orderIdIn: number, value: boolean){
+    display(orderIdIn: number, value: boolean) {
         const display = {
-            orderId : orderIdIn,
-            display : value
+            orderId: orderIdIn,
+            display: value
         };
         return this.http.post<FulfillOrderModel>(this.getOrdersUrl + "display/", display);
+    }
+    getDelayedCount() {
+        return this.http.get<ShukkaCountModel>(this.getOrdersUrl + 'delayed/count/');
     }
 }
 
 export class FulfillOrderModel {
     orderId: number;
     fulfillment: boolean;
-};
+}
+
+export class ShukkaCountModel {
+    count: number;
+}

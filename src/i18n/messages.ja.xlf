@@ -1332,7 +1332,10 @@
         <source>Kitting Base</source>
         <target>キッティングベース</target>
       </trans-unit>
+      <trans-unit id="nyuShukkaZumiBase" datatype="html">
+        <source>Nyu-Shukka-Zumi Base</source>
+      </trans-unit>
+        <target>入出荷済みベース</target>
     </body>
   </file>
 </xliff>
-editReasonRequired

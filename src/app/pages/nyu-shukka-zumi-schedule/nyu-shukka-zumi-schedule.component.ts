@@ -47,10 +47,10 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
           value: '出荷',
           key: 'outgoing'
         },
-        {
-          value: '在庫',
-          key: 'currentQuantity'
-        },
+        // {
+        //   value: '在庫',
+        //   key: 'currentQuantity'
+        // },
       ];
     } else {
       this.subColumns = [
@@ -62,10 +62,10 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
           value: 'out qty',
           key: 'outgoing'
         },
-        {
-          value: 'predicted stock',
-          key: 'currentQuantity'
-        },
+        // {
+        //   value: 'predicted stock',
+        //   key: 'currentQuantity'
+        // },
       ];
     }
   }
@@ -112,6 +112,7 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
               setName: productSet.productName,
               setDescription: productSet.description,
               setColor: productSet.color ? productSet.color : '#ffffff',
+              quantity: product.values[0].currentQuantity,
 
               productId: product.productId,
               obicNo: product.obicNo,
@@ -127,11 +128,11 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
                   quantity: '',
                   fixed: true
                 };
-              } else if (column.key === 'currentQuantity') {
-                temp[this.getDateString(dateItem.date)] = {
-                  quantity: dateItem[column.key],
-                  fixed: true
-                };
+              // } else if (column.key === 'currentQuantity') {
+              //   temp[this.getDateString(dateItem.date)] = {
+              //     quantity: dateItem[column.key],
+              //     fixed: true
+              //   };
               } else {
                 temp[this.getDateString(dateItem.date)] = dateItem[column.key];
               }
@@ -166,6 +167,7 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
       'obicNo',
       'productName',
       'description',
+      'qty',
       'values',
 
     ];
@@ -235,7 +237,7 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
   }//
   getRowSpan(col, index) {
 
-    return 3;
+    return 2;
   }
 
   isTheSame(column, index) {

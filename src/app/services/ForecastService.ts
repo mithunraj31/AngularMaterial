@@ -10,6 +10,7 @@ export class ForecastService {
     private forecastProductUrl = environment.APIURL + '/product/forecast/';
     private kittingUrl = environment.APIURL + '/kitting/forecast/';
     private shukkaUrl = environment.APIURL + '/shippingbase/forecast/';
+    private nyuShukkaUrl = environment.APIURL + '/shippedbase/forecast/';
     private forecastUrlTemp = 'assets/data/foreccast.json';
     constructor(private http: HttpClient) {
 
@@ -26,6 +27,9 @@ export class ForecastService {
     }
     getShukkaForcast(year: number, month: number) {
         return this.http.get<any[]>(this.shukkaUrl + year + '/' + (month + 1));
+    }
+    getNyuShukkaForcast(year: number, month: number) {
+        return this.http.get<any[]>(this.nyuShukkaUrl + year + '/' + (month + 1));
     }
 
 

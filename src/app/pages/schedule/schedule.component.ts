@@ -23,6 +23,8 @@ export class ScheduleComponent implements OnInit {
         this.tabIndex = 1;
       } else if (params['id'] == 'shukka') {
         this.tabIndex = 2;
+      } else if (params['id'] == 'nyu-shukka-zumi') {
+        this.tabIndex = 3;
       }
     });
     this.orderService.getDelayedCount().subscribe((val) => {
@@ -37,6 +39,8 @@ export class ScheduleComponent implements OnInit {
       this.router.navigate(['delivery-schedule/kitting']);
     } else if (event.index == 2) {
       this.router.navigate(['delivery-schedule/shukka']);
+    } else if (event.index == 3 ){
+      this.router.navigate(['delivery-schedule/nyu-shukka-zumi']);
     }
   }
 }

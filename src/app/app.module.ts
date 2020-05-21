@@ -102,6 +102,7 @@ import { IncomingInfoComponent } from './dialogs/incoming-info/incoming-info.com
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { KittingScheduleComponent } from './pages/kitting-schedule/kitting-schedule.component';
 import { ShukkaScheduleComponent } from './pages/shukka-schedule/shukka-schedule.component';
+import { NyuShukkaZumiScheduleComponent } from './pages/nyu-shukka-zumi-schedule/nyu-shukka-zumi-schedule.component';
 
 
 @NgModule({
@@ -156,7 +157,8 @@ import { ShukkaScheduleComponent } from './pages/shukka-schedule/shukka-schedule
     IncomingInfoComponent,
     ScheduleComponent,
     KittingScheduleComponent,
-    ShukkaScheduleComponent
+    ShukkaScheduleComponent,
+    NyuShukkaZumiScheduleComponent
   ],
   imports: [
     BrowserModule,

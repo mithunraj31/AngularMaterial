@@ -1334,8 +1334,8 @@
       </trans-unit>
       <trans-unit id="nyuShukkaZumiBase" datatype="html">
         <source>Nyu-Shukka-Zumi Base</source>
-      </trans-unit>
         <target>入出荷済みベース</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

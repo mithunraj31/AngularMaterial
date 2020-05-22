@@ -92,7 +92,7 @@
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button class="tablebtn" mat-icon-button color="warn" (click)="deleteOrder(element)" i18n="@@delete">
-                    <mat-icon color="warn">delete</mat-icon>
+                    <mat-icon color="warn">delete_sweep</mat-icon>
                 </button>
 
                 <button class="tablebtn" *ngIf="!element.display" mat-icon-button (click)="clickDisplay(element,true)"
@@ -102,6 +102,10 @@
                 <button class="tablebtn" *ngIf="element.display" mat-icon-button style="color: #558b2f;"
                     (click)="clickDisplay(element,false)" i18n="@@display">
                     <mat-icon>remove_red_eye</mat-icon>
+                </button>
+                <button class="tablebtn" *ngIf="!element.fulfilled && element.fixed" mat-icon-button style="color: #ffc107;"
+                    (click)="backToFCST(element)" i18n="@@undu">
+                    <mat-icon>undo</mat-icon>
                 </button>
             </td>
         </ng-container>

@@ -6,33 +6,33 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class OrderService {
-
+    
     private getOrdersUrl = environment.APIURL + "/order/"
     constructor(private http: HttpClient) {
-
+        
     }
-
+    
     getOrders() {
         return this.http.get<Order[]>(this.getOrdersUrl);
     }
     getFulfilledOrders() {
         return this.http.get<Order[]>(this.getOrdersUrl + 'fulfilled/');
     }
-
+    
     addOrder(order: SaveOrder) {
         return this.http.post<SaveOrder>(this.getOrdersUrl, order);
     }
-
+    
     deleteOrder(id: number) {
         return this.http.delete<any>(this.getOrdersUrl + id);
     }
-
+    
     editOrder(order: SaveOrder) {
         console.log(this.getOrdersUrl + order.orderId);
         console.log(order);
         return this.http.put<SaveOrder>(this.getOrdersUrl + order.orderId, order);
     }
-
+    
     fulfillOrder(id: number) {
         const fmodel: FulfillOrderModel = {
             orderId: id,
@@ -40,7 +40,7 @@ export class OrderService {
         }
         return this.http.post<FulfillOrderModel>(this.getOrdersUrl + "fulfillment/", fmodel);
     }
-
+    
     unFulfillOrder(orderId: number) {
         const fmodel: FulfillOrderModel = {
             orderId: orderId,
@@ -57,6 +57,20 @@ export class OrderService {
     }
     getDelayedCount() {
         return this.http.get<ShukkaCountModel>(this.getOrdersUrl + 'delayed/count/');
+    }
+    backToFCST(orderIdIn: number) {
+        const unconfirm = {
+            orderId: orderIdIn,
+            confirm: false
+        };
+        return this.http.post<FulfillOrderModel>(this.getOrdersUrl + "fcst/", unconfirm);
+    }
+    backToConfirm(orderIdIn: number) {
+        const confirm = {
+            orderId: orderIdIn,
+            fulfillment : false
+        };
+        return this.http.post<FulfillOrderModel>(this.getOrdersUrl + "fulfillment/", confirm);
     }
 }
 

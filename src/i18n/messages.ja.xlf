@@ -1336,6 +1336,10 @@
         <source>Nyu-Shukka-Zumi Base</source>
         <target>入出荷済みベース</target>
       </trans-unit>
+      <trans-unit id="undo" datatype="html">
+        <source>Undo</source>
+        <target>アンドゥ</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

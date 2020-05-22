@@ -42,7 +42,7 @@ export class FulfilledOrdersComponent implements OnInit {
     'dueDate',
     'deliveryDate',
     'salesUser',
-    // 'actions'
+    'actions'
   ];
   progress = false;
   orders: Order[] = [];
@@ -283,5 +283,9 @@ export class FulfilledOrdersComponent implements OnInit {
     });
     return amount;
   }
-
-}
+  backToConfirm(order: Order) {
+    this.orderService.backToConfirm(order.orderId).subscribe((val) => {
+      this.getOrderData();
+    });
+  }
+  }

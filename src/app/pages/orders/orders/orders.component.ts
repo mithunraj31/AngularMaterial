@@ -290,4 +290,9 @@ export class OrdersComponent implements OnInit {
       this.getOrderData();
     });
   }
+  backToFCST(order: Order) {
+    this.orderService.backToFCST(order.orderId).subscribe(() => {
+      this.getOrderData();
+    });
+  }
 }

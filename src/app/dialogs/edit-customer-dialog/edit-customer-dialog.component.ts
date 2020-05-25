@@ -26,7 +26,7 @@ export class EditCustomerDialogComponent implements OnInit {
 
   initializeCustomerForm() {
     this.customerForm = new FormGroup({
-      "customerName": new FormControl(this.data.contactName, [
+      "customerName": new FormControl(this.data.customerName, [
         Validators.required,
         Validators.pattern("^[a-zA-z0-9一-龠ぁ-ゔァ-ヴー!-/:-@\[-`{-~ 　]*$")
       ]),

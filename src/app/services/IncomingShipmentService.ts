@@ -37,6 +37,13 @@ export class IncomingShipmentService {
         }
         return this.http.post<ArrivalShipment>(this.incomingShipmentUrl + "arrival/", data);
     }
+    backToConfirm(incomingShipmentId: number) {
+        const model = {
+            incomingShipmentId : incomingShipmentId,
+            arrival : false
+        };
+        return this.http.post<any>(this.incomingShipmentUrl + "arrival/", model);
+    }
 }
 
 export class ArrivalShipment {

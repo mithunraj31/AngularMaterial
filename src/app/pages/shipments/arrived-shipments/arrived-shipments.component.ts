@@ -38,7 +38,7 @@ export class ArrivedShipmentsComponent implements OnInit {
     'confirmedQty',
     'fixedDeliveryDate',
     'user',
-    // 'actions'
+    'actions'
   ];
   id;
   searchSub;
@@ -114,7 +114,7 @@ export class ArrivedShipmentsComponent implements OnInit {
       this.progress = false;
     }, error => {
       this.progress = false;
-    })
+    });
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -283,6 +283,11 @@ export class ArrivedShipmentsComponent implements OnInit {
     const found = this.shipments.filter(option =>
       option.shipmentNo === shipmentNo && option.product.productId === productId && option.branch === branch && option.partial);
     return found;
+  }
+  backToConfirm(element: IncomingShipment) {
+    this.shipmentService.backToConfirm(element.incomingShipmentId).subscribe(() => {
+      this.getShipments();
+    });
   }
 
 }

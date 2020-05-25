@@ -63,7 +63,7 @@ export class OrderService {
             orderId: orderIdIn,
             confirm: false
         };
-        return this.http.post<FulfillOrderModel>(this.getOrdersUrl + "fcst/", unconfirm);
+        return this.http.post<FulfillOrderModel>(this.getOrdersUrl + "confirm/", unconfirm);
     }
     backToConfirm(orderIdIn: number) {
         const confirm = {

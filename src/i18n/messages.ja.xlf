@@ -1324,6 +1324,10 @@
         <source>Nyu-Shukka-Zumi Base</source>
         <target>入出荷済みベース</target>
       </trans-unit>
+      <trans-unit id="shukkaBase" datatype="html">
+        <source>Shukka Base</source>
+        <target>出荷ベース</target>
+      </trans-unit>
       <trans-unit id="undo" datatype="html">
         <source>Undo</source>
         <target>アンドゥ</target>

@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { OrderInfoComponent } from 'src/app/dialogs/order-info/order-info.component';
 import { IncomingInfoComponent } from 'src/app/dialogs/incoming-info/incoming-info.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-delivery-schedule',
@@ -29,12 +30,30 @@ export class DeliveryScheduleComponent implements OnInit {
   constructor(private forecastService: ForecastService,
     @Inject(LOCALE_ID) public localeId: string,
     public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
+
     this.localizeSubColumns();
+
   }
 
   ngOnInit() {
-    this.populateData();
+    try {
+      this.route.queryParams
+      .subscribe(params => {
+        console.log(params); // {order: "popular"}
+        if(params.year&&params.month){
+          this.viewDate = new Date(params.year+"-"+params.month);
+        }
+      });
+    } catch (error) {
+      // console.log(error)
+      this.viewDate = new Date();
+    } finally {
+
+      this.populateData();
+    }
   }
   localizeSubColumns() {
     if (this.localeId === 'ja') {
@@ -75,6 +94,7 @@ export class DeliveryScheduleComponent implements OnInit {
       this.viewDate.getMonth() - 1,
       this.viewDate.getDate()
     );
+    this.router.navigate(['delivery-schedule'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth()+1 } });
     this.populateData();
   }
   clickNext() {
@@ -83,10 +103,12 @@ export class DeliveryScheduleComponent implements OnInit {
       this.viewDate.getMonth() + 1,
       this.viewDate.getDate()
     );
+    this.router.navigate(['delivery-schedule'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth()+1 } });
     this.populateData();
   }
   clickToday() {
     this.viewDate = new Date();
+    this.router.navigate(['delivery-schedule'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth()+1 } });
     this.populateData();
   }
 
@@ -273,10 +295,15 @@ export class DeliveryScheduleComponent implements OnInit {
   }
 
   clickOrder(data) {
+    const backUrl = {
+      base : "delivery-schedule",
+      year : this.viewDate.getFullYear(),
+      month: this.viewDate.getMonth()+1
+    }
     if (data.orders) {
       const confirmDialogRef = this.dialog.open(OrderInfoComponent, {
         width: '700px',
-        data: data.orders,
+        data: [data.orders,backUrl],
         disableClose: true,
         hasBackdrop: false
       });
@@ -285,7 +312,7 @@ export class DeliveryScheduleComponent implements OnInit {
     if (data.incomingOrders) {
       const confirmDialogRef = this.dialog.open(IncomingInfoComponent, {
         width: '700px',
-        data: data.incomingOrders,
+        data: [data.incomingOrders,backUrl],
         disableClose: true,
         hasBackdrop: false
       });

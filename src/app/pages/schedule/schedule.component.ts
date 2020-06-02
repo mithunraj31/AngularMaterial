@@ -32,15 +32,31 @@ export class ScheduleComponent implements OnInit {
     });
   }
   tabClick(event) {
-    if (event.index == 0) {
+    this.route.queryParams.subscribe(params => {
+      if (params.month && params.year) {
+        if (event.index == 0) {
 
-      this.router.navigate(['delivery-schedule']);
-    } else if (event.index == 1) {
-      this.router.navigate(['delivery-schedule/kitting']);
-    } else if (event.index == 2) {
-      this.router.navigate(['delivery-schedule/shukka']);
-    } else if (event.index == 3 ){
-      this.router.navigate(['delivery-schedule/nyu-shukka-zumi']);
-    }
+          this.router.navigate(['delivery-schedule'], { queryParams: { year: params.year, month: params.month } });
+        } else if (event.index == 1) {
+          this.router.navigate(['delivery-schedule/kitting'], { queryParams: { year: params.year, month: params.month } });
+        } else if (event.index == 2) {
+          this.router.navigate(['delivery-schedule/shukka'], { queryParams: { year: params.year, month: params.month } });
+        } else if (event.index == 3) {
+          this.router.navigate(['delivery-schedule/nyu-shukka-zumi'], { queryParams: { year: params.year, month: params.month } });
+        }
+      } else {
+        if (event.index == 0) {
+
+          this.router.navigate(['delivery-schedule']);
+        } else if (event.index == 1) {
+          this.router.navigate(['delivery-schedule/kitting']);
+        } else if (event.index == 2) {
+          this.router.navigate(['delivery-schedule/shukka']);
+        } else if (event.index == 3) {
+          this.router.navigate(['delivery-schedule/nyu-shukka-zumi']);
+        }
+      }
+    });
+
   }
 }

@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ForecastService } from 'src/app/services/ForecastService';
@@ -30,12 +31,28 @@ export class ShukkaScheduleComponent implements OnInit {
   constructor(private forecastService: ForecastService,
     @Inject(LOCALE_ID) public localeId: string,
     public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.localizeSubColumns();
   }
 
   ngOnInit() {
-    this.populateData();
+    try {
+      this.route.queryParams
+      .subscribe(params => {
+        console.log(params); // {order: "popular"}
+        if(params.year&&params.month){
+          this.viewDate = new Date(params.year+"-"+params.month);
+        }
+      });
+    } catch (error) {
+      // console.log(error)
+      this.viewDate = new Date();
+    } finally {
+
+      this.populateData();
+    }
   }
   localizeSubColumns() {
     if (this.localeId === 'ja') {
@@ -76,6 +93,7 @@ export class ShukkaScheduleComponent implements OnInit {
       this.viewDate.getMonth() - 1,
       this.viewDate.getDate()
     );
+    this.router.navigate(['delivery-schedule/shukka'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth()+1 } });
     this.populateData();
   }
   clickNext() {
@@ -84,10 +102,12 @@ export class ShukkaScheduleComponent implements OnInit {
       this.viewDate.getMonth() + 1,
       this.viewDate.getDate()
     );
+    this.router.navigate(['delivery-schedule/shukka'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth()+1 } });
     this.populateData();
   }
   clickToday() {
     this.viewDate = new Date();
+    this.router.navigate(['delivery-schedule/shukka'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth()+1 } });
     this.populateData();
   }
 
@@ -278,10 +298,15 @@ export class ShukkaScheduleComponent implements OnInit {
   }
 
   clickOrder(data) {
+    const backUrl = {
+      base : "delivery-schedule/shukka",
+      year : this.viewDate.getFullYear(),
+      month: this.viewDate.getMonth()+1
+    }
     if (data.orders) {
       const confirmDialogRef = this.dialog.open(OrderInfoComponent, {
         width: '700px',
-        data: data.orders,
+        data: [data.orders,backUrl],
         disableClose: true,
         hasBackdrop: false
       });
@@ -290,7 +315,7 @@ export class ShukkaScheduleComponent implements OnInit {
     if (data.incomingOrders) {
       const confirmDialogRef = this.dialog.open(IncomingInfoComponent, {
         width: '700px',
-        data: data.incomingOrders,
+        data: [data.incomingOrders,backUrl],
         disableClose: true,
         hasBackdrop: false
       });

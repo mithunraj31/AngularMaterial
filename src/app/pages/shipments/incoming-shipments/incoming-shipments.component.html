@@ -65,6 +65,10 @@
           [disabled]="element.arrived" i18n="@@notInStock">Not in stock</button>
         <button mat-button color="primary" (click)="editShipment(element)" i18n="@@edit">Edit</button>
         <button mat-button color="warn" (click)="deleteShipment(element)" [disabled]="isDeletable(element)" i18n="@@delete">Delete</button>
+        <button *ngIf="element.fixed && !element.arrived && !isDeletable(element) && !element.partial" class="tablebtn"  mat-icon-button style="color: #ffc107;"
+                    (click)="backToUnConfirm(element)" i18n="@@undu">
+                    <mat-icon>undo</mat-icon>
+                </button>
       </td>
     </ng-container>
 

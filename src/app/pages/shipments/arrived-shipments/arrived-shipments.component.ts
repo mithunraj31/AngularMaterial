@@ -1,3 +1,4 @@
+import { UndoConfimationDialogComponent } from './../../../dialogs/undo-confimation-dialog/undo-confimation-dialog.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MatTableDataSource, MatTable, MatPaginator, MatSort, MatDialog } from '@angular/material';
@@ -285,9 +286,24 @@ export class ArrivedShipmentsComponent implements OnInit {
     return found;
   }
   backToConfirm(element: IncomingShipment) {
-    this.shipmentService.backToConfirm(element.incomingShipmentId).subscribe(() => {
-      this.getShipments();
+    const dialogRef = this.dialog.open(UndoConfimationDialogComponent, {
+      width: '600px',
+      data: "arrived"
     });
+    // console.log(element);
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      // console.log(result);
+      if (result) {
+        this.progress = true;
+        this.shipmentService.backToConfirm(element.incomingShipmentId).subscribe(() => {
+          this.getShipments();
+        });
+      }
+    });
+
+    
   }
 
 }

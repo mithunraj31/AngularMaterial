@@ -16,6 +16,7 @@ import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confir
 import { TransferToConfirmedOrderComponent } from 'src/app/dialogs/transfer-to-confirmed-order/transfer-to-confirmed-order.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { OrderedProduct } from 'src/app/models/OrderedProduct';
+import { UndoConfimationDialogComponent } from 'src/app/dialogs/undo-confimation-dialog/undo-confimation-dialog.component';
 
 @Component({
   selector: 'app-fulfilled-orders',
@@ -284,8 +285,22 @@ export class FulfilledOrdersComponent implements OnInit {
     return amount;
   }
   backToConfirm(order: Order) {
-    this.orderService.backToConfirm(order.orderId).subscribe((val) => {
-      this.getOrderData();
+    const dialogRef = this.dialog.open(UndoConfimationDialogComponent, {
+      width: '600px',
+      data: "shipped"
     });
+    // console.log(element);
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      // console.log(result);
+      if (result) {
+        this.progress = true;
+        this.orderService.backToConfirm(order.orderId).subscribe((val) => {
+          this.getOrderData();
+        });
+      }
+    });
+    
   }
   }

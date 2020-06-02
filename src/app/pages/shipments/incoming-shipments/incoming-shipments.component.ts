@@ -12,6 +12,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { ConfirmIncomingShipmentComponent } from 'src/app/dialogs/confirm-incoming-shipment/confirm-incoming-shipment.component';
 import { ActivatedRoute } from '@angular/router';
+import { UndoConfimationDialogComponent } from 'src/app/dialogs/undo-confimation-dialog/undo-confimation-dialog.component';
 
 @Component({
   selector: 'app-incoming-shipments',
@@ -283,5 +284,25 @@ export class IncomingShipmentsComponent implements OnInit {
     const found = this.shipments.filter(option =>
       option.shipmentNo === shipmentNo && option.product.productId === productId && option.branch === branch  && option.partial);
     return found;
+  }
+  backToUnConfirm(element: IncomingShipment) {
+    const dialogRef = this.dialog.open(UndoConfimationDialogComponent, {
+      width: '600px',
+      data: "notInStock"
+    });
+    // console.log(element);
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      // console.log(result);
+      if (result) {
+        this.progress = true;
+        this.shipmentService.backToUnConfirm(element.incomingShipmentId).subscribe(() => {
+          this.getShipments();
+        });
+      }
+    });
+
+    
   }
 }

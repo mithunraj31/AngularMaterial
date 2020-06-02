@@ -103,6 +103,7 @@ import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { KittingScheduleComponent } from './pages/kitting-schedule/kitting-schedule.component';
 import { ShukkaScheduleComponent } from './pages/shukka-schedule/shukka-schedule.component';
 import { NyuShukkaZumiScheduleComponent } from './pages/nyu-shukka-zumi-schedule/nyu-shukka-zumi-schedule.component';
+import { UndoConfimationDialogComponent } from './dialogs/undo-confimation-dialog/undo-confimation-dialog.component';
 
 
 @NgModule({
@@ -158,7 +159,8 @@ import { NyuShukkaZumiScheduleComponent } from './pages/nyu-shukka-zumi-schedule
     ScheduleComponent,
     KittingScheduleComponent,
     ShukkaScheduleComponent,
-    NyuShukkaZumiScheduleComponent
+    NyuShukkaZumiScheduleComponent,
+    UndoConfimationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -225,7 +227,8 @@ import { NyuShukkaZumiScheduleComponent } from './pages/nyu-shukka-zumi-schedule
     AddProductSetConfirmationComponent,
     AddOrderConfirmationComponent,
     AddIncomingShipmentConfirmationComponent,
-    IncomingInfoComponent
+    IncomingInfoComponent,
+    UndoConfimationDialogComponent
   ],
   providers: [
     ProductService,

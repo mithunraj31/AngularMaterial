@@ -44,6 +44,13 @@ export class IncomingShipmentService {
         };
         return this.http.post<any>(this.incomingShipmentUrl + "arrival/", model);
     }
+    backToUnConfirm(incomingShipmentId: number) {
+        const model = {
+            incomingShipmentId : incomingShipmentId,
+            confirm : false
+        };
+        return this.http.post<any>(this.incomingShipmentUrl + "confirm/", model);
+    }
 }
 
 export class ArrivalShipment {

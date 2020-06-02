@@ -18,6 +18,7 @@ import { TransferToConfirmedOrderComponent } from 'src/app/dialogs/transfer-to-c
 import { Product } from 'src/app/models/Product';
 import { ArgumentOutOfRangeError } from 'rxjs';
 import { OrderedProduct } from 'src/app/models/OrderedProduct';
+import { UndoConfimationDialogComponent } from 'src/app/dialogs/undo-confimation-dialog/undo-confimation-dialog.component';
 
 @Component({
   selector: 'app-orders',
@@ -291,8 +292,22 @@ export class OrdersComponent implements OnInit {
     });
   }
   backToFCST(order: Order) {
-    this.orderService.backToFCST(order.orderId).subscribe(() => {
-      this.getOrderData();
+    const dialogRef = this.dialog.open(UndoConfimationDialogComponent, {
+      width: '600px',
+      data: "notShipped"
     });
+    // console.log(element);
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      // console.log(result);
+      if (result) {
+        this.progress = true;
+        this.orderService.backToFCST(order.orderId).subscribe(() => {
+          this.getOrderData();
+        });
+      }
+    });
+    
   }
 }

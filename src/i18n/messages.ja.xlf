@@ -1332,6 +1332,26 @@
         <source>Undo</source>
         <target>アンドゥ</target>
       </trans-unit>
+      <trans-unit id="undoArrived" datatype="html">
+        <source>Return to "Not in stock".</source>
+        <target>未入荷に戻します。</target>
+      </trans-unit>
+      <trans-unit id="doYouWantToContinueUndo" datatype="html">
+        <source>Do you want to continue?</source>
+        <target>よろしいですか？</target>
+      </trans-unit>
+      <trans-unit id="undoShipped" datatype="html">
+        <source>Return to "Confirmed order".</source>
+        <target>未出荷に戻します。</target>
+      </trans-unit>
+      <trans-unit id="undoNotShipped" datatype="html">
+        <source>Return to "FCST order".</source>
+        <target>フォーキャストに戻します。</target>
+      </trans-unit>
+      <trans-unit id="undoNotInStock" datatype="html">
+        <source>Return to "Unconfirmed order".</source>
+        <target>納期未確定に戻します。</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

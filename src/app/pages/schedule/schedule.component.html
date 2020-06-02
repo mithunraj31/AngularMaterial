@@ -12,14 +12,14 @@
     </mat-tab>
     <mat-tab>
         <ng-template mat-tab-label>
-            <span *ngIf="shukkaCount==0" i18n="@@shukkaBase">Shukka Base</span>
-            <span *ngIf="shukkaCount>0"  matBadge="{{shukkaCount}}" matBadgeOverlap="false" matBadgeColor="warn" i18n-label="@@shukkaBase">Shukka Base</span>
+            <span *ngIf="shukkaCount==0" i18n="@@shukkaBase">Shipment Base</span>
+            <span *ngIf="shukkaCount>0"  matBadge="{{shukkaCount}}" matBadgeOverlap="false" matBadgeColor="warn" i18n="@@shukkaBase">Shipment Base</span>
           </ng-template>
         <ng-template matTabContent>
             <app-shukka-schedule></app-shukka-schedule>
         </ng-template>
     </mat-tab>
-    <mat-tab i18n-label="@@nyuShukkaZumiBase" label="Nyu-Shukka-Zumi Base">
+    <mat-tab i18n-label="@@nyuShukkaZumiBase" label="Shipped Base">
         <ng-template matTabContent>
             <app-nyu-shukka-zumi-schedule></app-nyu-shukka-zumi-schedule>
         </ng-template>

@@ -1352,6 +1352,14 @@
         <source>Return to "Unconfirmed order".</source>
         <target>納期未確定に戻します。</target>
       </trans-unit>
+      <trans-unit id="withKitting" datatype="html">
+        <source>With Kitting</source>
+        <target>キッティング有</target>
+      </trans-unit>
+      <trans-unit id="withoutKitting" datatype="html">
+        <source>Without Kitting</source>
+        <target>キッティング無</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

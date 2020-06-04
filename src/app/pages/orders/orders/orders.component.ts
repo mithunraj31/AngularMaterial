@@ -55,6 +55,7 @@ export class OrdersComponent implements OnInit {
   @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
   @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  sortCheckbox: SortCheckbox;
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -65,6 +66,7 @@ export class OrdersComponent implements OnInit {
     this.getOrderData();
     this.dataSource.paginator = this.paginatorTop;
     this.dataSource.sortingDataAccessor = (item, property) => {
+      console.log(property)
       switch (property) {
         case 'customerName': return item.customer.customerName;
         case 'salesDestination': return item.salesDestination.customerName;
@@ -116,10 +118,26 @@ export class OrdersComponent implements OnInit {
     this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
 
   }
-
+  onClickSortCheckbox() {
+    localStorage.setItem("ordersSortChecklist", JSON.stringify(this.sortCheckbox));
+    this.getOrderData();
+  }
   getOrderData() {
+    const ordersSortChecklist = localStorage.getItem("ordersSortChecklist");
+    if(ordersSortChecklist){
+      this.sortCheckbox = JSON.parse(ordersSortChecklist);
+    } else {
+      this.sortCheckbox = {
+        fcst: true,
+        withKitting: true,
+        withoutKitting: true,
+        wait: true
+      }
+      localStorage.setItem("ordersSortChecklist", JSON.stringify(this.sortCheckbox));
+
+    }
     this.progress = true;
-    this.orderService.getOrders().subscribe(result => {
+    this.orderService.getOrders(this.sortCheckbox).subscribe(result => {
       this.orders = result;
       this.dataSource.data = this.orders;
       console.log(this.orders);
@@ -308,6 +326,12 @@ export class OrdersComponent implements OnInit {
         });
       }
     });
-    
+
   }
+}
+export interface SortCheckbox {
+  fcst: boolean;
+  wait: boolean;
+  withKitting: boolean;
+  withoutKitting: boolean;
 }

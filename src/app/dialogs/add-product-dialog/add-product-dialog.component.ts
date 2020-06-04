@@ -28,7 +28,6 @@ export class AddProductDialogComponent implements OnInit {
         Validators.required
       ]),
       "price": new FormControl("", [
-        Validators.required
       ]),
       "currency": new FormControl("JPY", [
         Validators.required

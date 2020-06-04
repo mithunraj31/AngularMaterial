@@ -3,6 +3,7 @@ import { IncomingShipment } from './../models/IncomingShipment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { incomingSortCheckBox } from '../pages/shipments/incoming-shipments/incoming-shipments.component';
 
 @Injectable()
 export class IncomingShipmentService {
@@ -14,8 +15,9 @@ export class IncomingShipmentService {
 
     }
 
-    getShipments() {
-        return this.http.get<IncomingShipment[]>(this.incomingShipmentUrl);
+    getShipments(checkBox: incomingSortCheckBox) {
+        return this.http.get<IncomingShipment[]>
+        (this.incomingShipmentUrl+"?notConfirmed="+checkBox.notConfirmed+"&&?notInStock="+checkBox.notInStock+"&&?arrived="+checkBox.arrived);
     }
     getArrivedShipments() {
         return this.http.get<IncomingShipment[]>(this.incomingShipmentUrl + 'arrived/');

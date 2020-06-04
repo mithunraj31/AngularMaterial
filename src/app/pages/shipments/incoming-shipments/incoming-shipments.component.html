@@ -9,10 +9,9 @@
       </mat-form-field>
     </span>
     <span>
-        <!-- <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="sortCheckbox.fcst">FCST</mat-checkbox>
-        <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="sortCheckbox.withKitting" i18n="@@withKitting">With kitting </mat-checkbox><mat-icon style="color: #558b2f; font-size: 18px;">remove_red_eye</mat-icon><br>
-        <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="sortCheckbox.wait" i18n="@@waitToShip">Wait</mat-checkbox>
-        <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="sortCheckbox.withoutKitting" i18n="@@withoutKitting">Without kitting</mat-checkbox><mat-icon color="warn" style="font-size: 18px;">block</mat-icon> -->
+        <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="checkBoxSort.notConfirmed" i18n="@@confirmInOrder">Not Confirmed</mat-checkbox>
+        <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="checkBoxSort.notInStock" i18n="@@notInStock">Not In Stock </mat-checkbox>
+        <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="checkBoxSort.arrived" i18n="@@arrived">Arrived</mat-checkbox>
     </span>
 </section>
   <mat-paginator #paginatorTop (page)="onTopPaginateChange()" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons>

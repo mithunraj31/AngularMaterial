@@ -1,3 +1,4 @@
+import { SortCheckbox } from './../../orders/orders/orders.component';
 import { SaveIncomingShipment } from 'src/app/models/SaveIncomingShipment';
 import { UtilService } from './../../../services/UtilService';
 import { ArrivalOrderDialogComponent } from './../../../dialogs/arrival-order-dialog/arrival-order-dialog.component';
@@ -51,6 +52,7 @@ export class IncomingShipmentsComponent implements OnInit {
   @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   expandedElement: IncomingShipment | null;
+  checkBoxSort: incomingSortCheckBox;
   constructor(
     private shipmentService: IncomingShipmentService,
     private route: ActivatedRoute,
@@ -102,11 +104,26 @@ export class IncomingShipmentsComponent implements OnInit {
     this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
 
   }
-
+  onClickSortCheckbox() {
+    localStorage.setItem("incomingSortChecklist", JSON.stringify(this.checkBoxSort));
+    this.getShipments();
+  }
 
   getShipments() {
+    const ordersSortChecklist = localStorage.getItem("incomingSortChecklist");
+    if(ordersSortChecklist){
+      this.checkBoxSort = JSON.parse(ordersSortChecklist);
+    } else {
+      this.checkBoxSort = {
+        notInStock: true,
+        notConfirmed: true,
+        arrived: true
+      }
+      localStorage.setItem("incomingSortChecklist", JSON.stringify(this.checkBoxSort));
+
+    }
     this.progress = true;
-    this.shipmentService.getShipments().subscribe(result => {
+    this.shipmentService.getShipments(this.checkBoxSort).subscribe(result => {
       this.shipments = result;
       this.dataSource.data = this.shipments;
       this.dataSource.paginator = this.paginatorTop;
@@ -246,7 +263,7 @@ export class IncomingShipmentsComponent implements OnInit {
       if (!main.fixed) {
         can = true;
       }
-      if (shipment.arrived){
+      if (shipment.arrived) {
         can = false;
       }
 
@@ -282,7 +299,7 @@ export class IncomingShipmentsComponent implements OnInit {
   }
   findPatials(shipmentNo: string, productId: number, branch: string): IncomingShipment[] {
     const found = this.shipments.filter(option =>
-      option.shipmentNo === shipmentNo && option.product.productId === productId && option.branch === branch  && option.partial);
+      option.shipmentNo === shipmentNo && option.product.productId === productId && option.branch === branch && option.partial);
     return found;
   }
   backToUnConfirm(element: IncomingShipment) {
@@ -303,6 +320,11 @@ export class IncomingShipmentsComponent implements OnInit {
       }
     });
 
-    
+
   }
+}
+export interface incomingSortCheckBox {
+  notConfirmed:boolean;
+  notInStock:boolean;
+  arrived:boolean;
 }

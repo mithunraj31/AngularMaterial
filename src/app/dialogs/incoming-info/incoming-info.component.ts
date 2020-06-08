@@ -31,11 +31,11 @@ export class IncomingInfoComponent implements OnInit {
 
   getColor(order) {
     if (order.fulfilled) {
-      return 'fulfilled';
-    } else if (order.fixed) {
       return 'normal';
+    } else if (order.fixed) {
+      return 'blue';
     } else {
-      return 'fixed';
+      return 'red';
     }
   }
 }

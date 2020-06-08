@@ -218,8 +218,9 @@ export class DeliveryScheduleComponent implements OnInit {
     } else if (set && data[set]) {
       // console.log(data[set]);
       if (data[set].fulfilled == 1) {
-        DateCss['background-color'] = '#2196F3';
-        DateCss.color = '#FFFFFF';
+        // DateCss['background-color'] = '#2196F3';
+        // DateCss.color = '#FFFFFF';
+        DateCss['background-color'] = data.color;
       } else if (data[set].fulfilled == 2) {
         DateCss['background-color'] = '#7b1fa2';
         DateCss.color = '#FFFFFF';
@@ -227,7 +228,11 @@ export class DeliveryScheduleComponent implements OnInit {
 
         DateCss['background-color'] = '#ef5350';
         DateCss.color = '#FFFFFF';
-      } else {
+      } else if(data[set].fulfilled == 0 && data[set].fixed) {
+        DateCss['background-color'] = '#2196F3';
+        DateCss.color = '#FFFFFF';
+      }
+      else {
         DateCss['background-color'] = data.color;
       }
       if (data[set].quantity < 0) {

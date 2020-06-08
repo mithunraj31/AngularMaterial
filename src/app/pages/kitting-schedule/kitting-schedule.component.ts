@@ -28,10 +28,10 @@ export class KittingScheduleComponent implements OnInit {
   viewDate = new Date();
 
   constructor(private forecastService: ForecastService,
-              @Inject(LOCALE_ID) public localeId: string,
-              public dialog: MatDialog,
-              private route: ActivatedRoute,
-              private router: Router
+    @Inject(LOCALE_ID) public localeId: string,
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.localizeSubColumns();
   }
@@ -39,12 +39,12 @@ export class KittingScheduleComponent implements OnInit {
   ngOnInit() {
     try {
       this.route.queryParams
-      .subscribe(params => {
-        console.log(params); // {order: "popular"}
-        if(params.year&&params.month){
-          this.viewDate = new Date(params.year+"-"+params.month);
-        }
-      });
+        .subscribe(params => {
+          console.log(params); // {order: "popular"}
+          if (params.year && params.month) {
+            this.viewDate = new Date(params.year + "-" + params.month);
+          }
+        });
     } catch (error) {
       // console.log(error)
       this.viewDate = new Date();
@@ -92,7 +92,7 @@ export class KittingScheduleComponent implements OnInit {
       this.viewDate.getMonth() - 1,
       this.viewDate.getDate()
     );
-    this.router.navigate(['delivery-schedule/kitting'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth()+1 } });
+    this.router.navigate(['delivery-schedule/kitting'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth() + 1 } });
     this.populateData();
   }
   clickNext() {
@@ -101,12 +101,12 @@ export class KittingScheduleComponent implements OnInit {
       this.viewDate.getMonth() + 1,
       this.viewDate.getDate()
     );
-    this.router.navigate(['delivery-schedule/kitting'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth()+1 } });
+    this.router.navigate(['delivery-schedule/kitting'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth() + 1 } });
     this.populateData();
   }
   clickToday() {
     this.viewDate = new Date();
-    this.router.navigate(['delivery-schedule/kitting'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth()+1 } });
+    this.router.navigate(['delivery-schedule/kitting'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth() + 1 } });
     this.populateData();
   }
 
@@ -216,14 +216,18 @@ export class KittingScheduleComponent implements OnInit {
     } else if (set && data[set]) {
       // console.log(data[set]);
       if (data[set].fulfilled == 1) {
-        DateCss['background-color'] = '#2196F3';
-        DateCss.color = '#FFFFFF';
+        // DateCss['background-color'] = '#2196F3';
+        // DateCss.color = '#FFFFFF';
+        DateCss['background-color'] = data.color;
       } else if (data[set].fulfilled == 2) {
         DateCss['background-color'] = '#7b1fa2';
         DateCss.color = '#FFFFFF';
       } else if (!data[set].fixed) {
 
         DateCss['background-color'] = '#ef5350';
+        DateCss.color = '#FFFFFF';
+      } else if (data[set].fulfilled == 0 && data[set].fixed) {
+        DateCss['background-color'] = '#2196F3';
         DateCss.color = '#FFFFFF';
       } else {
         DateCss['background-color'] = data.color;
@@ -294,14 +298,14 @@ export class KittingScheduleComponent implements OnInit {
 
   clickOrder(data) {
     const backUrl = {
-      base : "delivery-schedule/kitting",
-      year : this.viewDate.getFullYear(),
-      month: this.viewDate.getMonth()+1
+      base: "delivery-schedule/kitting",
+      year: this.viewDate.getFullYear(),
+      month: this.viewDate.getMonth() + 1
     }
     if (data.orders) {
       const confirmDialogRef = this.dialog.open(OrderInfoComponent, {
         width: '700px',
-        data: [data.orders,backUrl],
+        data: [data.orders, backUrl],
         disableClose: true,
         hasBackdrop: false
       });
@@ -310,7 +314,7 @@ export class KittingScheduleComponent implements OnInit {
     if (data.incomingOrders) {
       const confirmDialogRef = this.dialog.open(IncomingInfoComponent, {
         width: '700px',
-        data: [data.incomingOrders,backUrl],
+        data: [data.incomingOrders, backUrl],
         disableClose: true,
         hasBackdrop: false
       });

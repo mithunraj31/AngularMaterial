@@ -260,7 +260,7 @@ export class IncomingShipmentsComponent implements OnInit {
     // if it partial order
     if (shipment.partial) {
       const main = this.findMain(shipment.shipmentNo, shipment.product.productId, shipment.branch);
-      if (!main.fixed) {
+      if (main && !main.fixed) {
         can = true;
       }
       if (shipment.arrived) {

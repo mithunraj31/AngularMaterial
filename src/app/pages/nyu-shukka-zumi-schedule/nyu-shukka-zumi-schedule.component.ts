@@ -64,10 +64,10 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
           value: '出荷',
           key: 'outgoing'
         },
-        // {
-        //   value: '在庫',
-        //   key: 'currentQuantity'
-        // },
+        {
+          value: '在庫',
+          key: 'currentQuantity'
+        },
       ];
     } else {
       this.subColumns = [
@@ -79,10 +79,10 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
           value: 'out qty',
           key: 'outgoing'
         },
-        // {
-        //   value: 'predicted stock',
-        //   key: 'currentQuantity'
-        // },
+        {
+          value: 'predicted stock',
+          key: 'currentQuantity'
+        },
       ];
     }
   }
@@ -148,11 +148,11 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
                   quantity: '',
                   fixed: true
                 };
-              // } else if (column.key === 'currentQuantity') {
-              //   temp[this.getDateString(dateItem.date)] = {
-              //     quantity: dateItem[column.key],
-              //     fixed: true
-              //   };
+              } else if (column.key === 'currentQuantity') {
+                temp[this.getDateString(dateItem.date)] = {
+                  quantity: dateItem[column.key],
+                  fixed: true
+                };
               } else {
                 temp[this.getDateString(dateItem.date)] = dateItem[column.key];
               }
@@ -257,7 +257,7 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
   }//
   getRowSpan(col, index) {
 
-    return 2;
+    return 3;
   }
 
   isTheSame(column, index) {

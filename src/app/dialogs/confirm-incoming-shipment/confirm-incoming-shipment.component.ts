@@ -72,7 +72,7 @@ export class ConfirmIncomingShipmentComponent implements OnInit {
         this.dialogRef.close([this.saveIncomingShipment, mainOrder]);
       } else {
         this.saveIncomingShipment.pendingQty = 0;
-        this.saveIncomingShipment.confirmedQty = this.data.pendingQty;
+        this.saveIncomingShipment.confirmedQty = this.data.pendingQty==0?this.data.quantity:this.data.pendingQty;
         this.saveIncomingShipment.partial = false;
         this.saveIncomingShipment.fixed = true;
         this.saveIncomingShipment.fixedDeliveryDate = new Date(this.incomingShipmentForm.value.fixedDeliveryDate).toISOString();

@@ -39,7 +39,6 @@ export class AddProductDialogComponent implements OnInit {
         Validators.required
       ]),
       "moq": new FormControl("", [
-        Validators.required
       ]),
       "obicNo": new FormControl("", [
         Validators.required

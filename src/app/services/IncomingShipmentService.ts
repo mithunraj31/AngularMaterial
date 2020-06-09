@@ -24,9 +24,11 @@ export class IncomingShipmentService {
     }
 
     addShipment(shipment: SaveIncomingShipment[]) {
+        console.log(shipment)
         return this.http.post<SaveIncomingShipment>(this.incomingShipmentUrl, shipment);
     }
     editShipment(shipment: SaveIncomingShipment) {
+        console.log(shipment)
         return this.http.put<SaveIncomingShipment>(this.incomingShipmentUrl + shipment.incomingShipmentId, shipment);
     }
     deleteShipment(incomingShipmentId: number) {

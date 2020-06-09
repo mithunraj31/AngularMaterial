@@ -132,7 +132,7 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
               setName: productSet.productName,
               setDescription: productSet.description,
               setColor: productSet.color ? productSet.color : '#ffffff',
-              quantity: product.values[0].currentQuantity,
+              quantity: product.values[0].quantity,
 
               productId: product.productId,
               obicNo: product.obicNo,

@@ -252,7 +252,7 @@ export class DeliveryScheduleComponent implements OnInit {
         DateCss['font-weight'] = 'bold';
       }
       // FCST and Confirmed and Fulfilled Orders
-      else if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
+      else if (data[set].contains && data[set].contains.fcst && data[set].contains.confirmed && data[set].contains.fulfilled) {
         DateCss['background'] = 'rgb(33,150,243)';
         DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 22%, #2196F3 52%, #ef5350 86%)';
         DateCss.color = '#FFFFFF';

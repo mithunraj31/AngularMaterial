@@ -41,12 +41,12 @@ export class DeliveryScheduleComponent implements OnInit {
   ngOnInit() {
     try {
       this.route.queryParams
-      .subscribe(params => {
-        console.log(params); // {order: "popular"}
-        if(params.year&&params.month){
-          this.viewDate = new Date(params.year+"-"+params.month);
-        }
-      });
+        .subscribe(params => {
+          console.log(params); // {order: "popular"}
+          if (params.year && params.month) {
+            this.viewDate = new Date(params.year + "-" + params.month);
+          }
+        });
     } catch (error) {
       // console.log(error)
       this.viewDate = new Date();
@@ -94,7 +94,7 @@ export class DeliveryScheduleComponent implements OnInit {
       this.viewDate.getMonth() - 1,
       this.viewDate.getDate()
     );
-    this.router.navigate(['delivery-schedule'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth()+1 } });
+    this.router.navigate(['delivery-schedule'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth() + 1 } });
     this.populateData();
   }
   clickNext() {
@@ -103,12 +103,12 @@ export class DeliveryScheduleComponent implements OnInit {
       this.viewDate.getMonth() + 1,
       this.viewDate.getDate()
     );
-    this.router.navigate(['delivery-schedule'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth()+1 } });
+    this.router.navigate(['delivery-schedule'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth() + 1 } });
     this.populateData();
   }
   clickToday() {
     this.viewDate = new Date();
-    this.router.navigate(['delivery-schedule'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth()+1 } });
+    this.router.navigate(['delivery-schedule'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth() + 1 } });
     this.populateData();
   }
 
@@ -216,25 +216,49 @@ export class DeliveryScheduleComponent implements OnInit {
       DateCss['background-color'] = data.setColor;
 
     } else if (set && data[set]) {
-      // console.log(data[set]);
-      if (data[set].fulfilled == 1) {
-        // DateCss['background-color'] = '#2196F3';
-        // DateCss.color = '#FFFFFF';
-        DateCss['background-color'] = data.color;
-      } else if (data[set].fulfilled == 2) {
-        DateCss['background-color'] = '#7b1fa2';
-        DateCss.color = '#FFFFFF';
-      } else if (!data[set].fixed) {
-
+      // change color logic
+      // Only FCST Orders
+      if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && !data[set].contains.fulfilled) {
         DateCss['background-color'] = '#ef5350';
         DateCss.color = '#FFFFFF';
-      } else if(data[set].fulfilled == 0 && data[set].fixed) {
+        
+      } // Only Confirmed Orders
+      else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && !data[set].contains.fulfilled) {
         DateCss['background-color'] = '#2196F3';
         DateCss.color = '#FFFFFF';
-      }
-      else {
+      } // Only fulfilled Orders
+      else if (data[set].contains && !data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
         DateCss['background-color'] = data.color;
+        DateCss.color = '#212121';
+      } // FCST and Confirmed Orders
+      else if (data[set].contains && data[set].contains.fcst && data[set].contains.confirmed && !data[set].contains.fulfilled) {
+        DateCss['background'] = 'rgb(33,150,243)';
+        DateCss['background'] = 'linear-gradient(0deg, #2196F3 29%, #ef5350 66%)';
+        DateCss.color = '#FFFFFF';
+        DateCss['font-weight'] = 'bold';
       }
+      // FCST and Fulfilled Orders
+      else if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
+        DateCss['background'] = 'rgb(33,150,243)';
+        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 29%, #ef5350 66%)';
+        DateCss.color = '#212121';
+        DateCss['font-weight'] = 'bold';
+      }
+      // Confirmed and Fulfilled Orders
+      else if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
+        DateCss['background'] = 'rgb(33,150,243)';
+        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 26%, #2196F3 80%)';
+        DateCss.color = '#212121';
+        DateCss['font-weight'] = 'bold';
+      }
+      // FCST and Confirmed and Fulfilled Orders
+      else if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
+        DateCss['background'] = 'rgb(33,150,243)';
+        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 22%, #2196F3 52%, #ef5350 86%)';
+        DateCss.color = '#FFFFFF';
+        DateCss['font-weight'] = 'bold';
+      }
+      //  end change color logic
       if (data[set].quantity < 0) {
         DateCss['font-weight'] = 'bold';
         DateCss.color = '#FF0000';
@@ -301,14 +325,14 @@ export class DeliveryScheduleComponent implements OnInit {
 
   clickOrder(data) {
     const backUrl = {
-      base : "delivery-schedule",
-      year : this.viewDate.getFullYear(),
-      month: this.viewDate.getMonth()+1
+      base: "delivery-schedule",
+      year: this.viewDate.getFullYear(),
+      month: this.viewDate.getMonth() + 1
     }
     if (data.orders) {
       const confirmDialogRef = this.dialog.open(OrderInfoComponent, {
         width: '700px',
-        data: [data.orders,backUrl],
+        data: [data.orders, backUrl],
         disableClose: true,
         hasBackdrop: false
       });
@@ -317,7 +341,7 @@ export class DeliveryScheduleComponent implements OnInit {
     if (data.incomingOrders) {
       const confirmDialogRef = this.dialog.open(IncomingInfoComponent, {
         width: '700px',
-        data: [data.incomingOrders,backUrl],
+        data: [data.incomingOrders, backUrl],
         disableClose: true,
         hasBackdrop: false
       });

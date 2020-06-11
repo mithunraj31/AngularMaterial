@@ -219,13 +219,13 @@ export class DeliveryScheduleComponent implements OnInit {
       // change color logic
       // Only FCST Orders
       if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && !data[set].contains.fulfilled) {
-        DateCss['background-color'] = '#ef5350';
-        DateCss.color = '#FFFFFF';
+        DateCss['background-color'] = '#f8bbd0';
+        DateCss.color = '#212121';
         
       } // Only Confirmed Orders
       else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && !data[set].contains.fulfilled) {
-        DateCss['background-color'] = '#2196F3';
-        DateCss.color = '#FFFFFF';
+        DateCss['background-color'] = '#81d4fa';
+        DateCss.color = '#212121';
       } // Only fulfilled Orders
       else if (data[set].contains && !data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
         DateCss['background-color'] = data.color;
@@ -233,30 +233,26 @@ export class DeliveryScheduleComponent implements OnInit {
       } // FCST and Confirmed Orders
       else if (data[set].contains && data[set].contains.fcst && data[set].contains.confirmed && !data[set].contains.fulfilled) {
         DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, #2196F3 29%, #ef5350 66%)';
-        DateCss.color = '#FFFFFF';
-        DateCss['font-weight'] = 'bold';
+        DateCss['background'] = 'linear-gradient(0deg, #81d4fa 29%, #f8bbd0 66%)';
+        DateCss.color = '#212121';
       }
       // FCST and Fulfilled Orders
       else if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
         DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 29%, #ef5350 66%)';
+        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 29%, #f8bbd0 66%)';
         DateCss.color = '#212121';
-        DateCss['font-weight'] = 'bold';
       }
       // Confirmed and Fulfilled Orders
-      else if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
+      else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && data[set].contains.fulfilled) {
         DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 26%, #2196F3 80%)';
+        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 26%, #81d4fa 80%)';
         DateCss.color = '#212121';
-        DateCss['font-weight'] = 'bold';
       }
       // FCST and Confirmed and Fulfilled Orders
       else if (data[set].contains && data[set].contains.fcst && data[set].contains.confirmed && data[set].contains.fulfilled) {
         DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 22%, #2196F3 52%, #ef5350 86%)';
-        DateCss.color = '#FFFFFF';
-        DateCss['font-weight'] = 'bold';
+        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 22%, #81d4fa 52%, #f8bbd0 86%)';
+        DateCss.color = '#212121';
       }
       //  end change color logic
       if (data[set].quantity < 0) {

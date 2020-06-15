@@ -56,13 +56,12 @@ import { CustomersComponent } from './pages/customers/customers.component';
 import { CustomerService } from './services/CustomerService';
 import { AddCustomerComponent } from './dialogs/add-customer/add-customer.component';
 import { EditCustomerDialogComponent } from './dialogs/edit-customer-dialog/edit-customer-dialog.component';
-import { OrdersComponent } from './pages/orders/orders.component';
+import { OrdersContainerComponent } from './pages/orders/orders-container.component';
 import { ViewCustomerDialogComponent } from './dialogs/view-customer-dialog/view-customer-dialog.component';
 import { AddOrderDialogComponent } from './dialogs/add-order-dialog/add-order-dialog.component';
 import { EditOrderDialogComponent } from './dialogs/edit-order-dialog/edit-order-dialog.component';
 import { ShipmentsComponent } from './pages/shipments/shipments.component';
 import { IncomingShipmentsComponent } from './pages/shipments/incoming-shipments/incoming-shipments.component';
-import { OutgoingShipmentsComponent } from './pages/shipments/outgoing-shipments/outgoing-shipments.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuardService } from './auth/AuthGuardService';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
@@ -71,9 +70,6 @@ import { AddIncomingShipmentComponent } from './dialogs/add-incoming-shipment/ad
 import { UserService } from './services/UserService';
 import { MatPaginatorIntlCro } from './matPaginatorIntlCroClass';
 import { EditIncomingShipmentComponent } from './dialogs/edit-incoming-shipment/edit-incoming-shipment.component';
-import { OutgoingShipmentService } from './services/OutgoingShipmentService';
-import { AddOutgoingShipmentComponent } from './dialogs/add-outgoing-shipment/add-outgoing-shipment.component';
-import { EditOutgoingShipmentComponent } from './dialogs/edit-outgoing-shipment/edit-outgoing-shipment.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ForcastComponent } from './pages/forcast/forcast.component';
@@ -99,6 +95,15 @@ import { AddProductConfirmationComponent } from './dialogs/add-product-confirmat
 import { AddProductSetConfirmationComponent } from './dialogs/add-product-set-confirmation/add-product-set-confirmation.component';
 import { AddOrderConfirmationComponent } from './dialogs/add-order-confirmation/add-order-confirmation.component';
 import { AddIncomingShipmentConfirmationComponent } from './dialogs/add-incoming-shipment-confirmation/add-incoming-shipment-confirmation.component';
+import { OrdersComponent } from './pages/orders/orders/orders.component';
+import { FulfilledOrdersComponent } from './pages/orders/fulfilled-orders/fulfilled-orders.component';
+import { ArrivedShipmentsComponent } from './pages/shipments/arrived-shipments/arrived-shipments.component';
+import { IncomingInfoComponent } from './dialogs/incoming-info/incoming-info.component';
+import { ScheduleComponent } from './pages/schedule/schedule.component';
+import { KittingScheduleComponent } from './pages/kitting-schedule/kitting-schedule.component';
+import { ShukkaScheduleComponent } from './pages/shukka-schedule/shukka-schedule.component';
+import { NyuShukkaZumiScheduleComponent } from './pages/nyu-shukka-zumi-schedule/nyu-shukka-zumi-schedule.component';
+import { UndoConfimationDialogComponent } from './dialogs/undo-confimation-dialog/undo-confimation-dialog.component';
 
 
 @NgModule({
@@ -118,18 +123,15 @@ import { AddIncomingShipmentConfirmationComponent } from './dialogs/add-incoming
     CustomersComponent,
     AddCustomerComponent,
     EditCustomerDialogComponent,
-    OrdersComponent,
+    OrdersContainerComponent,
     ViewCustomerDialogComponent,
     AddOrderDialogComponent,
     EditOrderDialogComponent,
     ShipmentsComponent,
     IncomingShipmentsComponent,
-    OutgoingShipmentsComponent,
     LoginComponent,
     AddIncomingShipmentComponent,
     EditIncomingShipmentComponent,
-    AddOutgoingShipmentComponent,
-    EditOutgoingShipmentComponent,
     ForcastComponent,
     FulfillOrderDialogComponent,
     ForecastDialogComponent,
@@ -150,7 +152,15 @@ import { AddIncomingShipmentConfirmationComponent } from './dialogs/add-incoming
     AddProductSetConfirmationComponent,
     AddOrderConfirmationComponent,
     AddIncomingShipmentConfirmationComponent,
-
+    OrdersComponent,
+    FulfilledOrdersComponent,
+    ArrivedShipmentsComponent,
+    IncomingInfoComponent,
+    ScheduleComponent,
+    KittingScheduleComponent,
+    ShukkaScheduleComponent,
+    NyuShukkaZumiScheduleComponent,
+    UndoConfimationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -202,8 +212,6 @@ import { AddIncomingShipmentConfirmationComponent } from './dialogs/add-incoming
     EditOrderDialogComponent,
     AddIncomingShipmentComponent,
     EditIncomingShipmentComponent,
-    AddOutgoingShipmentComponent,
-    EditOutgoingShipmentComponent,
     ForcastComponent,
     FulfillOrderDialogComponent,
     ForecastDialogComponent,
@@ -218,7 +226,9 @@ import { AddIncomingShipmentConfirmationComponent } from './dialogs/add-incoming
     AddProductConfirmationComponent,
     AddProductSetConfirmationComponent,
     AddOrderConfirmationComponent,
-    AddIncomingShipmentConfirmationComponent
+    AddIncomingShipmentConfirmationComponent,
+    IncomingInfoComponent,
+    UndoConfimationDialogComponent
   ],
   providers: [
     ProductService,
@@ -228,7 +238,6 @@ import { AddIncomingShipmentConfirmationComponent } from './dialogs/add-incoming
     AuthService,
     AuthGuardService,
     AuthInterceptorService,
-    OutgoingShipmentService,
     UserService,
     ForecastService,
     ProductForecastService,

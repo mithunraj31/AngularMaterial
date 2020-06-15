@@ -1,11 +1,18 @@
 mat-card{
     margin: 5;
 }
-table {
-    width: 100%;
-  }
+table th, td {
+  vertical-align: center !important;
+  text-align: center !important;
+  justify-content:center !important;
+  border-right: 1px solid rgba(0,0,0,.12);
+  padding: 5px;
+}
 .right-button{
     text-align: right;
+}
+table{
+  width: 100%;
 }
 .spacer {
     flex: 1 1 auto;
@@ -45,4 +52,8 @@ table {
       border: 2px solid #64b5f6; 
       display: inline-block;
       margin-right: 5px;
+  }
+
+  .yellow{
+    background-color: gold;
   }

@@ -1,0 +1,21 @@
+<h1 mat-dialog-title i18n="@@orderInformation" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>Order Information</h1>
+<div class="container" mat-dialog-content>
+    <table>
+        <tr>
+            <th i18n="@@shipmentNo">Shipment No</th>
+            <th i18n="@@branch">Branch</th>
+            <th i18n="@@confirmedQty">Confirmed Qty</th>
+        </tr>
+        <tr *ngFor="let order of data" [ngClass]="getColor(order)">
+            <td *ngIf="order.fulfilled==false" [routerLink]= "['shipments',order.shipmentNo]" class="order">{{order.shipmentNo}}</td>
+            <td *ngIf="order.fulfilled==true" [routerLink]= "['shipments/arrived',order.shipmentNo]" class="order">{{order.shipmentNo}}</td>
+            <td>{{order.branch}}</td>
+            <td>{{order.quantity}}</td>
+        </tr>
+
+
+    </table>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" [routerLink]= "['delivery-schedule']" (click)="onOkClick()" i18n="@@ok">Ok</button>
+</div>

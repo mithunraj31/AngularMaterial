@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OutgoingShipmentsComponent } from './outgoing-shipments.component';
+import { ShukkaScheduleComponent } from './shukka-schedule.component';
 
-describe('OutgoingShipmentsComponent', () => {
-  let component: OutgoingShipmentsComponent;
-  let fixture: ComponentFixture<OutgoingShipmentsComponent>;
+describe('ShukkaScheduleComponent', () => {
+  let component: ShukkaScheduleComponent;
+  let fixture: ComponentFixture<ShukkaScheduleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OutgoingShipmentsComponent ]
+      declarations: [ ShukkaScheduleComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OutgoingShipmentsComponent);
+    fixture = TestBed.createComponent(ShukkaScheduleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

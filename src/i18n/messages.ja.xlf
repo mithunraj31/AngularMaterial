@@ -1000,18 +1000,6 @@
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="undo" datatype="html">
-        <source>Undo</source>
-        <target>元に戻す</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/dialogs/unfulfill-confirmation/unfulfill-confirmation.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
-          <context context-type="linenumber">69</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="productAlreadyExists" datatype="html">
         <source>Product is already added to the list.</source>
         <target>製品はすでにリストに追加されています。</target>
@@ -1324,7 +1312,54 @@
         <source>Sort.</source>
         <target>順番</target>
       </trans-unit>
+      <trans-unit id="all" datatype="html">
+        <source>All</source>
+        <target>すべて</target>
+      </trans-unit>
+      <trans-unit id="kittingBase" datatype="html">
+        <source>Kitting Base</source>
+        <target>キッティングベース</target>
+      </trans-unit>
+      <trans-unit id="nyuShukkaZumiBase" datatype="html">
+        <source>Nyu-Shukka-Zumi Base</source>
+        <target>入出荷済みベース</target>
+      </trans-unit>
+      <trans-unit id="shukkaBase" datatype="html">
+        <source>Shukka Base</source>
+        <target>出荷ベース</target>
+      </trans-unit>
+      <trans-unit id="undo" datatype="html">
+        <source>Undo</source>
+        <target>アンドゥ</target>
+      </trans-unit>
+      <trans-unit id="undoArrived" datatype="html">
+        <source>Return to "Not in stock".</source>
+        <target>未入荷に戻します。</target>
+      </trans-unit>
+      <trans-unit id="doYouWantToContinueUndo" datatype="html">
+        <source>Do you want to continue?</source>
+        <target>よろしいですか？</target>
+      </trans-unit>
+      <trans-unit id="undoShipped" datatype="html">
+        <source>Return to "Confirmed order".</source>
+        <target>未出荷に戻します。</target>
+      </trans-unit>
+      <trans-unit id="undoNotShipped" datatype="html">
+        <source>Return to "FCST order".</source>
+        <target>フォーキャストに戻します。</target>
+      </trans-unit>
+      <trans-unit id="undoNotInStock" datatype="html">
+        <source>Return to "Unconfirmed order".</source>
+        <target>納期未確定に戻します。</target>
+      </trans-unit>
+      <trans-unit id="withKitting" datatype="html">
+        <source>With Kitting</source>
+        <target>キッティング有</target>
+      </trans-unit>
+      <trans-unit id="withoutKitting" datatype="html">
+        <source>Without Kitting</source>
+        <target>キッティング無</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
-editReasonRequired

@@ -1,21 +1,24 @@
-import { UtilService } from './../../services/UtilService';
-import { UnfulfilledProductsComponent } from './../../dialogs/unfulfilled-products/unfulfilled-products.component';
-import { FulfillOrderDialogComponent } from './../../dialogs/fulfill-order-dialog/fulfill-order-dialog.component';
-import { SaveOrder } from './../../models/SaveOrder';
-import { AddOrderDialogComponent } from './../../dialogs/add-order-dialog/add-order-dialog.component';
-import { OrderedProduct } from './../../models/OrderedProduct';
-import { Customer } from 'src/app/models/Customer';
-import { OrderService } from './../../services/OrderService';
-import { MatTableDataSource, MatTable, MatPaginator, MatDialog, MatSort } from '@angular/material';
-import { Order } from './../../models/Order';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ViewCustomerDialogComponent } from 'src/app/dialogs/view-customer-dialog/view-customer-dialog.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { EditOrderDialogComponent } from 'src/app/dialogs/edit-order-dialog/edit-order-dialog.component';
-import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { Order } from 'src/app/models/Order';
+import { MatTableDataSource, MatTable, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { OrderService } from 'src/app/services/OrderService';
+import { UtilService } from 'src/app/services/UtilService';
+import { Customer } from 'src/app/models/Customer';
+import { ViewCustomerDialogComponent } from 'src/app/dialogs/view-customer-dialog/view-customer-dialog.component';
+import { AddOrderDialogComponent } from 'src/app/dialogs/add-order-dialog/add-order-dialog.component';
+import { SaveOrder } from 'src/app/models/SaveOrder';
+import { EditOrderDialogComponent } from 'src/app/dialogs/edit-order-dialog/edit-order-dialog.component';
+import { FulfillOrderDialogComponent } from 'src/app/dialogs/fulfill-order-dialog/fulfill-order-dialog.component';
+import { UnfulfilledProductsComponent } from 'src/app/dialogs/unfulfilled-products/unfulfilled-products.component';
 import { UnfulfillConfirmationComponent } from 'src/app/dialogs/unfulfill-confirmation/unfulfill-confirmation.component';
+import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { TransferToConfirmedOrderComponent } from 'src/app/dialogs/transfer-to-confirmed-order/transfer-to-confirmed-order.component';
+import { Product } from 'src/app/models/Product';
+import { ArgumentOutOfRangeError } from 'rxjs';
+import { OrderedProduct } from 'src/app/models/OrderedProduct';
+import { UndoConfimationDialogComponent } from 'src/app/dialogs/undo-confimation-dialog/undo-confimation-dialog.component';
 
 @Component({
   selector: 'app-orders',
@@ -24,9 +27,9 @@ import { TransferToConfirmedOrderComponent } from 'src/app/dialogs/transfer-to-c
   animations: [
     trigger('detailExpand', [
       state('collapsed, void', style({ height: '0px', minHeight: '0', display: 'none' })),
-  state('expanded', style({ height: '*' })),
-  transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-  transition('expanded <=> void', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      transition('expanded <=> void', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
     ]),]
 })
 export class OrdersComponent implements OnInit {
@@ -36,6 +39,7 @@ export class OrdersComponent implements OnInit {
     'customerName',
     'salesDestination',
     'contractor',
+    'amount',
     'receivedDate',
     'dueDate',
     'deliveryDate',
@@ -47,21 +51,23 @@ export class OrdersComponent implements OnInit {
   id: string;
   private searchSub: any;
   dataSource = new MatTableDataSource<Order>();
-  @ViewChild(MatTable, { static: true }) table: MatTable<any>
+  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild('paginatorTop', { static: true }) paginatorTop: MatPaginator;
   @ViewChild('paginatorBottom', { static: true }) paginatorBottom: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  sortCheckbox: SortCheckbox;
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private orderService: OrderService,
-    public util: UtilService  ) { }
+    public util: UtilService) { }
 
   ngOnInit() {
     this.getOrderData();
     this.dataSource.paginator = this.paginatorTop;
     this.dataSource.sortingDataAccessor = (item, property) => {
-      switch(property) {
+      console.log(property)
+      switch (property) {
         case 'customerName': return item.customer.customerName;
         case 'salesDestination': return item.salesDestination.customerName;
         case 'contractor': return item.contractor.customerName;
@@ -77,12 +83,12 @@ export class OrdersComponent implements OnInit {
       }
     });
     this.dataSource.sort = this.sort;
-    this.dataSource.filterPredicate = (data, filter: string)  => {
+    this.dataSource.filterPredicate = (data, filter: string) => {
       const accumulator = (currentTerm, key) => {
-        return key === 'contractor' ? currentTerm + data.contractor.customerName : 
-        key === 'salesUser' ? currentTerm + data.salesUser.firstName : 
-        key === 'salesDestination' ? currentTerm + data.salesDestination.customerName :
-        key === 'customer' ? currentTerm + data.customer.customerName :currentTerm + data[key];
+        return key === 'contractor' ? currentTerm + data.contractor.customerName :
+          key === 'salesUser' ? currentTerm + data.salesUser.firstName :
+            key === 'salesDestination' ? currentTerm + data.salesDestination.customerName :
+              key === 'customer' ? currentTerm + data.customer.customerName : currentTerm + data[key];
       };
       const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
       // Transform the filter by converting it to lowercase and removing whitespace.
@@ -91,31 +97,47 @@ export class OrdersComponent implements OnInit {
     };
   }
 
-  onTopPaginateChange(){
+  onTopPaginateChange() {
     this.paginatorBottom.length = this.dataSource.data.length;
     this.paginatorBottom.pageSize = this.paginatorTop.pageSize;
     this.paginatorBottom.pageIndex = this.paginatorTop.pageIndex;
   }
-  onBottomPaginateChange(event){
-    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex==1) {
+  onBottomPaginateChange(event) {
+    if (event.previousPageIndex < event.pageIndex && event.pageIndex - event.previousPageIndex == 1) {
       this.paginatorTop.nextPage();
     }
-    if(event.previousPageIndex>event.pageIndex && event.pageIndex-event.previousPageIndex==-1) {
+    if (event.previousPageIndex > event.pageIndex && event.pageIndex - event.previousPageIndex == -1) {
       this.paginatorTop.previousPage();
     }
-    if(event.previousPageIndex<event.pageIndex && event.pageIndex-event.previousPageIndex>1) {
+    if (event.previousPageIndex < event.pageIndex && event.pageIndex - event.previousPageIndex > 1) {
       this.paginatorTop.lastPage();
     }
-    if(event.previousPageIndex>event.pageIndex && event.previousPageIndex-event.pageIndex>1) {
+    if (event.previousPageIndex > event.pageIndex && event.previousPageIndex - event.pageIndex > 1) {
       this.paginatorTop.firstPage();
     }
     this.paginatorTop._changePageSize(this.paginatorBottom.pageSize);
 
   }
-
+  onClickSortCheckbox() {
+    localStorage.setItem("ordersSortChecklist", JSON.stringify(this.sortCheckbox));
+    this.getOrderData();
+  }
   getOrderData() {
+    const ordersSortChecklist = localStorage.getItem("ordersSortChecklist");
+    if(ordersSortChecklist){
+      this.sortCheckbox = JSON.parse(ordersSortChecklist);
+    } else {
+      this.sortCheckbox = {
+        fcst: true,
+        withKitting: true,
+        withoutKitting: true,
+        wait: true
+      }
+      localStorage.setItem("ordersSortChecklist", JSON.stringify(this.sortCheckbox));
+
+    }
     this.progress = true;
-    this.orderService.getOrders().subscribe(result => {
+    this.orderService.getOrders(this.sortCheckbox).subscribe(result => {
       this.orders = result;
       this.dataSource.data = this.orders;
       console.log(this.orders);
@@ -268,9 +290,48 @@ export class OrdersComponent implements OnInit {
         }, error => {
           this.progress = false;
           console.log(error);
-        })
+        });
       }
     });
   }
+  getLTEAmount(products: OrderedProduct[]) {
+    let amount = 0;
+    products.forEach((product) => {
+      if (product.product.productName == '1315390MAF') {
+        amount = product.quantity;
+      }
+    });
+    return amount;
+  }
+  clickDisplay(order: Order, val: boolean) {
+    console.log(order.orderId, val);
+    this.orderService.display(order.orderId, val).subscribe(() => {
+      this.getOrderData();
+    });
+  }
+  backToFCST(order: Order) {
+    const dialogRef = this.dialog.open(UndoConfimationDialogComponent, {
+      width: '600px',
+      data: "notShipped"
+    });
+    // console.log(element);
 
+    dialogRef.afterClosed().subscribe(result => {
+
+      // console.log(result);
+      if (result) {
+        this.progress = true;
+        this.orderService.backToFCST(order.orderId).subscribe(() => {
+          this.getOrderData();
+        });
+      }
+    });
+
+  }
+}
+export interface SortCheckbox {
+  fcst: boolean;
+  wait: boolean;
+  withKitting: boolean;
+  withoutKitting: boolean;
 }

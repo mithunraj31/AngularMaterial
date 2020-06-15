@@ -42,7 +42,6 @@ export class AddCustomerComponent implements OnInit {
         Validators.pattern(/^(\(?\+?[0-9]*\)?)?[0-9_\-\(\)]*$/)
       ]),
       'contactName': new FormControl('', [
-        Validators.required,
         Validators.pattern('^[a-zA-z0-9一-龠ぁ-ゔァ-ヴー!-/:-@\[-`{-~ 　]*$')
       ]),
       'type': new FormControl('', [

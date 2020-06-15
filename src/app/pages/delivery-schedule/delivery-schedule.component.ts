@@ -4,6 +4,8 @@ import { ForecastService } from 'src/app/services/ForecastService';
 import { takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { OrderInfoComponent } from 'src/app/dialogs/order-info/order-info.component';
+import { IncomingInfoComponent } from 'src/app/dialogs/incoming-info/incoming-info.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-delivery-schedule',
@@ -26,14 +28,32 @@ export class DeliveryScheduleComponent implements OnInit {
   viewDate = new Date();
 
   constructor(private forecastService: ForecastService,
-              @Inject(LOCALE_ID) public localeId: string,
-              public dialog: MatDialog,
+    @Inject(LOCALE_ID) public localeId: string,
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
+
     this.localizeSubColumns();
+
   }
 
   ngOnInit() {
-    this.populateData();
+    try {
+      this.route.queryParams
+        .subscribe(params => {
+          console.log(params); // {order: "popular"}
+          if (params.year && params.month) {
+            this.viewDate = new Date(params.year + "-" + params.month);
+          }
+        });
+    } catch (error) {
+      // console.log(error)
+      this.viewDate = new Date();
+    } finally {
+
+      this.populateData();
+    }
   }
   localizeSubColumns() {
     if (this.localeId === 'ja') {
@@ -74,6 +94,7 @@ export class DeliveryScheduleComponent implements OnInit {
       this.viewDate.getMonth() - 1,
       this.viewDate.getDate()
     );
+    this.router.navigate(['delivery-schedule'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth() + 1 } });
     this.populateData();
   }
   clickNext() {
@@ -82,10 +103,12 @@ export class DeliveryScheduleComponent implements OnInit {
       this.viewDate.getMonth() + 1,
       this.viewDate.getDate()
     );
+    this.router.navigate(['delivery-schedule'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth() + 1 } });
     this.populateData();
   }
   clickToday() {
     this.viewDate = new Date();
+    this.router.navigate(['delivery-schedule'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth() + 1 } });
     this.populateData();
   }
 
@@ -97,7 +120,7 @@ export class DeliveryScheduleComponent implements OnInit {
 
       this.addColumnsToTables(data[0].products[0].values);
       this.productForecast = data;
-      // console.log(this.productForecast);
+      console.log(this.productForecast);
       let setcount = 0;
       let productcount = 0;
       const tempdata: any[] = [];
@@ -185,21 +208,58 @@ export class DeliveryScheduleComponent implements OnInit {
   changeColor(data, set?) {
     const DateCss = {
       'background-color': data.color,
-      cursor: 'default'
+      cursor: 'default',
+      color: '#212121'
     };
 
     if (set && set === 'set') {
       DateCss['background-color'] = data.setColor;
 
     } else if (set && data[set]) {
-      // console.log(data[set]);
-      if (!data[set].fixed || data[set].quantity < 0) {
-
-        DateCss['background-color'] = '#ef5350';
-      } else {
+      // change color logic
+      // Only FCST Orders
+      if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && !data[set].contains.fulfilled) {
+        DateCss['background-color'] = '#f8bbd0';
+        DateCss.color = '#212121';
+        
+      } // Only Confirmed Orders
+      else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && !data[set].contains.fulfilled) {
+        DateCss['background-color'] = '#81d4fa';
+        DateCss.color = '#212121';
+      } // Only fulfilled Orders
+      else if (data[set].contains && !data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
         DateCss['background-color'] = data.color;
+        DateCss.color = '#212121';
+      } // FCST and Confirmed Orders
+      else if (data[set].contains && data[set].contains.fcst && data[set].contains.confirmed && !data[set].contains.fulfilled) {
+        DateCss['background'] = 'rgb(33,150,243)';
+        DateCss['background'] = 'linear-gradient(0deg, #81d4fa 29%, #f8bbd0 66%)';
+        DateCss.color = '#212121';
       }
-      if (data[set].orders) {
+      // FCST and Fulfilled Orders
+      else if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
+        DateCss['background'] = 'rgb(33,150,243)';
+        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 29%, #f8bbd0 66%)';
+        DateCss.color = '#212121';
+      }
+      // Confirmed and Fulfilled Orders
+      else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && data[set].contains.fulfilled) {
+        DateCss['background'] = 'rgb(33,150,243)';
+        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 26%, #81d4fa 80%)';
+        DateCss.color = '#212121';
+      }
+      // FCST and Confirmed and Fulfilled Orders
+      else if (data[set].contains && data[set].contains.fcst && data[set].contains.confirmed && data[set].contains.fulfilled) {
+        DateCss['background'] = 'rgb(33,150,243)';
+        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 22%, #81d4fa 52%, #f8bbd0 86%)';
+        DateCss.color = '#212121';
+      }
+      //  end change color logic
+      if (data[set].quantity < 0) {
+        DateCss['font-weight'] = 'bold';
+        DateCss.color = '#FF0000';
+      }
+      if (data[set].orders || data[set].incomingOrders) {
         DateCss.cursor = 'pointer';
       }
     }
@@ -260,14 +320,27 @@ export class DeliveryScheduleComponent implements OnInit {
   }
 
   clickOrder(data) {
+    const backUrl = {
+      base: "delivery-schedule",
+      year: this.viewDate.getFullYear(),
+      month: this.viewDate.getMonth() + 1
+    }
     if (data.orders) {
       const confirmDialogRef = this.dialog.open(OrderInfoComponent, {
         width: '700px',
-        data: data.orders,
+        data: [data.orders, backUrl],
         disableClose: true,
         hasBackdrop: false
       });
       // console.log(data);
+    }
+    if (data.incomingOrders) {
+      const confirmDialogRef = this.dialog.open(IncomingInfoComponent, {
+        width: '700px',
+        data: [data.incomingOrders, backUrl],
+        disableClose: true,
+        hasBackdrop: false
+      });
     }
   }
 

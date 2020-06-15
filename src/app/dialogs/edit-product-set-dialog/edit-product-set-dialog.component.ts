@@ -50,7 +50,6 @@ export class EditProductSetDialogComponent implements OnInit {
         Validators.required
       ]),
       "price": new FormControl(this.data.price, [
-        Validators.required
       ]),
       "currency": new FormControl(this.data.currency?this.data.currency:"JPY", [
         Validators.required

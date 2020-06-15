@@ -6,8 +6,9 @@
             <th i18n="@@customer">Customer Name</th>
             <th i18n="@@QTY">QTY</th>
         </tr>
-        <tr *ngFor="let order of data" [ngClass]="order.fixed?'normal':'fixed'">
-            <td [routerLink]= "['orders',order.proposalNo]" class="order">{{order.proposalNo}}</td>
+        <tr *ngFor="let order of data" [ngClass]="getColor(order)">
+            <td *ngIf="order.fulfilled==false" [routerLink]= "['orders',order.proposalNo]" class="order">{{order.proposalNo}}</td>
+            <td *ngIf="order.fulfilled==true" [routerLink]= "['orders/fulfilled',order.proposalNo]" class="order">{{order.proposalNo}}</td>
             <td>{{order.customer}}</td>
             <td>{{order.quantity}}</td>
         </tr>
@@ -16,5 +17,5 @@
     </table>
 </div>
 <div mat-dialog-actions>
-    <button mat-raised-button color="primary" [routerLink]= "['delivery-schedule']" (click)="onOkClick()" i18n="@@ok">Ok</button>
+    <button mat-raised-button color="primary" (click)="onOkClick()" i18n="@@ok">Ok</button>
 </div>

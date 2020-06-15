@@ -1,7 +1,12 @@
-<mat-tab-group>
+<mat-tab-group [selectedIndex]="tabIndex" (selectedTabChange)="tabClick($event)">
     <mat-tab i18n-label="@@incoming" label="Incoming">
         <ng-template matTabContent>
             <app-incoming-shipments></app-incoming-shipments>
+        </ng-template>
+    </mat-tab>
+    <mat-tab i18n-label="@@arrived" label="Arrived">
+        <ng-template matTabContent>
+            <app-arrived-shipments></app-arrived-shipments>
         </ng-template>
     </mat-tab>
 </mat-tab-group>

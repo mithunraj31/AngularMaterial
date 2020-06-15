@@ -26,7 +26,7 @@ export class UpdateProductDialogComponent implements OnInit {
         Validators.required
       ]),
       "price": new FormControl(this.data.price, [
-        Validators.required
+
       ]),
       "currency": new FormControl(this.data.currency ? this.data.currency : "JPY", [
         Validators.required
@@ -38,7 +38,7 @@ export class UpdateProductDialogComponent implements OnInit {
         Validators.required
       ]),
       "moq": new FormControl(this.data.moq, [
-        Validators.required
+
       ]),
       "obicNo": new FormControl(this.data.obicNo, [
         Validators.required

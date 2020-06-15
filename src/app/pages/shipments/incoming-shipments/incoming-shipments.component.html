@@ -1,9 +1,19 @@
 <mat-progress-bar mode="indeterminate" *ngIf="progress"></mat-progress-bar>
 <mat-card>
   <button mat-raised-button color="primary" (click)="openDialog()" i18n="@@add">Add</button><br><br>
-  <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" i18n-placeholder="@@filter" placeholder="Filter">
-  </mat-form-field>
+  
+  <section class="sort">
+    <span>
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="id" i18n-placeholder="@@filter" placeholder="Filter">
+      </mat-form-field>
+    </span>
+    <span>
+        <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="checkBoxSort.notConfirmed" i18n="@@confirmInOrder">Not Confirmed</mat-checkbox>
+        <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="checkBoxSort.notInStock" i18n="@@notInStock">Not In Stock </mat-checkbox>
+        <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="checkBoxSort.arrived" i18n="@@arrived">Arrived</mat-checkbox>
+    </span>
+</section>
   <mat-paginator #paginatorTop (page)="onTopPaginateChange()" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons>
   </mat-paginator>
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
@@ -65,6 +75,10 @@
           [disabled]="element.arrived" i18n="@@notInStock">Not in stock</button>
         <button mat-button color="primary" (click)="editShipment(element)" i18n="@@edit">Edit</button>
         <button mat-button color="warn" (click)="deleteShipment(element)" [disabled]="isDeletable(element)" i18n="@@delete">Delete</button>
+        <button *ngIf="element.fixed && !element.arrived && !isDeletable(element) && !element.partial" class="tablebtn"  mat-icon-button style="color: #ffc107;"
+                    (click)="backToUnConfirm(element)" i18n="@@undu">
+                    <mat-icon>undo</mat-icon>
+                </button>
       </td>
     </ng-container>
 

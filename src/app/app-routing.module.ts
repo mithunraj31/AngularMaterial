@@ -1,7 +1,7 @@
 import { MyPageComponent } from './pages/my-page/my-page.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ShipmentsComponent } from './pages/shipments/shipments.component';
-import { OrdersComponent } from './pages/orders/orders.component';
+import { OrdersContainerComponent } from './pages/orders/orders-container.component';
 import { ProductsContainerComponent } from './pages/products-container/products-container.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -12,6 +12,7 @@ import { CustomersComponent } from './pages/customers/customers.component';
 import { AuthGuardService as AuthGuard } from "./auth/AuthGuardService";
 import { ForcastComponent } from './pages/forcast/forcast.component';
 import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-schedule.component';
+import { ScheduleComponent } from './pages/schedule/schedule.component';
 
 const routes: Routes = [
   {
@@ -27,11 +28,23 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'orders/:id', component: OrdersComponent,
+    path: 'orders/:fulfilled/:id', component: OrdersContainerComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'orders', component: OrdersComponent,
+    path: 'orders/:id', component: OrdersContainerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'orders', component: OrdersContainerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'shipments/:arrived/:id', component: ShipmentsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'shipments/:id', component: ShipmentsComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -51,7 +64,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'delivery-schedule', component: DeliveryScheduleComponent,
+    path: 'delivery-schedule/:id', component: ScheduleComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'delivery-schedule', component: ScheduleComponent,
     canActivate: [AuthGuard]
   },
 ];

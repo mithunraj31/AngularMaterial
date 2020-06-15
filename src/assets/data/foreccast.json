@@ -1,214 +1,572 @@
 [
-  {
-      "orderId": 587,
-      "dueDate": "2020-01-30T00:00:00",
-      "receivedDate": "2020-01-29T00:00:00",
-      "proposalNo": "0111",
-      "active": true,
-      "forecast": true,
-      "fulfilled": false,
-      "orderedProducts": [
-          {
-              "product": {
-                  "productId": 315,
-                  "productName": "Sensor",
-                  "description": "Vehicle sensor",
-                  "price": 45645.0,
-                  "moq": 32,
-                  "leadTime": 23,
-                  "obicNo": "35",
-                  "quantity": 15,
-                  "active": true,
-                  "createdAtDateTime": "2019-12-06T10:08:08",
-                  "updatedAtDateTime": "2020-01-27T14:52:23",
-                  "userId": 1,
-                  "products": [],
-                  "currentQuantity": 13,
-                  "requiredQuantity": 2,
-                  "forecast": true,
-                  "mod": "2019-08-15T00:00:00",
-                  "set": false
-              },
-              "quantity": 2
-          }
-      ]
-  },
-  {
-      "orderId": 589,
-      "dueDate": "2020-01-31T00:00:00",
-      "receivedDate": "2020-01-11T00:00:00",
-      "proposalNo": "0222",
-      "active": true,
-      "forecast": false,
-      "fulfilled": false,
-      "orderedProducts": [
-          {
-              "product": {
-                  "productId": 315,
-                  "productName": "Sensor",
-                  "description": "Vehicle sensor",
-                  "price": 45645.0,
-                  "moq": 32,
-                  "leadTime": 23,
-                  "obicNo": "35",
-                  "quantity": 15,
-                  "active": true,
-                  "createdAtDateTime": "2019-12-06T10:08:08",
-                  "updatedAtDateTime": "2020-01-27T14:52:23",
-                  "userId": 1,
-                  "products": [],
-                  "currentQuantity": -2,
-                  "requiredQuantity": 15,
-                  "forecast": true,
-                  "mod": "2019-08-16T00:00:00",
-                  "set": false
-              },
-              "quantity": 15
-          }
-      ]
-  },
-  {
-      "orderId": 591,
-      "dueDate": "2020-02-02T00:00:00",
-      "receivedDate": "2020-01-29T00:00:00",
-      "proposalNo": "O333",
-      "active": true,
-      "forecast": false,
-      "fulfilled": false,
-      "orderedProducts": [
-          {
-              "product": {
-                  "productId": 334,
-                  "productName": "SensorPackage",
-                  "description": "All Sensors",
-                  "price": 3243.0,
-                  "moq": 0,
-                  "leadTime": 0,
-                  "obicNo": "65",
-                  "quantity": 0,
-                  "active": true,
-                  "createdAtDateTime": "2019-12-06T10:21:07",
-                  "updatedAtDateTime": "2020-01-24T15:29:09",
-                  "userId": 1,
-                  "products": [
-                      {
-                          "product": {
-                              "productId": 315,
-                              "productName": "Sensor",
-                              "description": "Vehicle sensor",
-                              "price": 45645.0,
-                              "moq": 32,
-                              "leadTime": 23,
-                              "obicNo": "35",
-                              "quantity": 15,
-                              "active": true,
-                              "createdAtDateTime": "2019-12-06T10:08:08",
-                              "updatedAtDateTime": "2020-01-27T14:52:23",
-                              "userId": 1,
-                              "set": false
-                          },
-                          "quantity": 11,
-                          "currentQuantity": -24,
-                          "requiredQuantity": 22,
-                          "forecast": false,
-                          "mod": "2019-08-18T00:00:00"
-                      },
-                      {
-                          "product": {
-                              "productId": 321,
-                              "productName": "SensorWires",
-                              "description": "Connecting Cables",
-                              "price": 3466.0,
-                              "moq": 435,
-                              "leadTime": 67,
-                              "obicNo": "54",
-                              "quantity": 59,
-                              "active": true,
-                              "createdAtDateTime": "2019-12-06T10:12:59",
-                              "updatedAtDateTime": "2020-01-28T11:02:12",
-                              "userId": 2,
-                              "set": false
-                          },
-                          "quantity": 3,
-                          "currentQuantity": 53,
-                          "requiredQuantity": 6,
-                          "forecast": true,
-                          "mod": "2018-10-14T00:00:00"
-                      },
-                      {
-                          "product": {
-                              "productId": 320,
-                              "productName": "LDAP sensor",
-                              "description": "MonitorsDriver",
-                              "price": 3455.0,
-                              "moq": 43,
-                              "leadTime": 31,
-                              "obicNo": "34",
-                              "quantity": 123,
-                              "active": true,
-                              "createdAtDateTime": "2019-12-06T10:12:14",
-                              "updatedAtDateTime": "2020-01-24T15:29:10",
-                              "userId": 1,
-                              "set": false
-                          },
-                          "quantity": 6,
-                          "currentQuantity": 111,
-                          "requiredQuantity": 12,
-                          "forecast": true,
-                          "mod": "2019-06-23T00:00:00"
-                      },
-                      {
-                          "product": {
-                              "productId": 322,
-                              "productName": "Charger",
-                              "description": "Dr.Charger for Monitor",
-                              "price": 45654.0,
-                              "moq": 1,
-                              "leadTime": 3,
-                              "obicNo": "32",
-                              "quantity": 13,
-                              "active": true,
-                              "createdAtDateTime": "2019-12-06T10:14:39",
-                              "updatedAtDateTime": "2020-01-28T11:02:12",
-                              "userId": 2,
-                              "set": false
-                          },
-                          "quantity": 5,
-                          "currentQuantity": 3,
-                          "requiredQuantity": 10,
-                          "forecast": true,
-                          "mod": "2020-01-05T00:00:00"
-                      },
-                      {
-                          "product": {
-                              "productId": 323,
-                              "productName": "Vehicle Detector",
-                              "description": "Sensor Product",
-                              "price": 45246.0,
-                              "moq": 2,
-                              "leadTime": 12,
-                              "obicNo": "3",
-                              "quantity": 192,
-                              "active": true,
-                              "createdAtDateTime": "2019-12-06T10:16:36",
-                              "updatedAtDateTime": "2020-01-24T15:29:39",
-                              "userId": 1,
-                              "set": false
-                          },
-                          "quantity": 7,
-                          "currentQuantity": 178,
-                          "requiredQuantity": 14,
-                          "forecast": true,
-                          "mod": "2019-11-03T00:00:00"
-                      }
-                  ],
-                  "currentQuantity": 0,
-                  "requiredQuantity": 0,
-                  "forecast": false,
-                  "set": true
-              },
-              "quantity": 2
-          }
-      ]
-  }
+	{
+		"productId": 0,
+		"productName": "Individual Product",
+		"description": " ",
+		"obicNo": " ",
+		"color": "",
+		"products": [
+			{
+				"productId": 2562,
+				"productName": "Testing",
+				"description": "test",
+				"obicNo": "2",
+				"color": "#ffffff",
+				"values": [
+					{
+						"date": "2020-04-01T00:00:00",
+						"currentQuantity": 110,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0,
+							"incomingOrders": []
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-02T00:00:00",
+						"currentQuantity": 110,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0,
+							"incomingOrders": []
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-03T00:00:00",
+						"currentQuantity": 100,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 10,
+							"fixed": true,
+							"fulfilled": 0,
+							"orders": [
+								{
+									"orderId": 2563,
+									"customer": "日本精工株式会社",
+									"fixed": true,
+									"quantity": 10,
+									"proposalNo": "3445",
+									"fulfilled": false
+								}
+							]
+						}
+					},
+					{
+						"date": "2020-04-04T00:00:00",
+						"currentQuantity": 100,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-05T00:00:00",
+						"currentQuantity": 100,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 5,
+							"fixed": true,
+							"fulfilled": 1,
+							"orders": [
+								{
+									"orderId": 2566,
+									"customer": "株式会社日立物流西日本",
+									"fixed": true,
+									"quantity": 5,
+									"proposalNo": "76544352",
+									"fulfilled": true
+								}
+							]
+						}
+					},
+					{
+						"date": "2020-04-06T00:00:00",
+						"currentQuantity": 100,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-07T00:00:00",
+						"currentQuantity": 110,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 10,
+							"fixed": false,
+							"fulfilled": 0,
+							"incomingOrders": [
+								{
+									"incomingshipmentId": 2569,
+									"shipmentNo": "343212",
+									"fixed": false,
+									"quantity": 10,
+									"fulfilled": false
+								}
+							]
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-08T00:00:00",
+						"currentQuantity": 120,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 10,
+							"fixed": false,
+							"fulfilled": 0,
+							"incomingOrders": [
+								{
+									"incomingshipmentId": 2570,
+									"shipmentNo": "234322",
+									"fixed": false,
+									"quantity": 10,
+									"fulfilled": false
+								}
+							]
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-09T00:00:00",
+						"currentQuantity": 120,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-10T00:00:00",
+						"currentQuantity": 0,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 10,
+							"fixed": true,
+							"fulfilled": 1,
+							"incomingOrders": [
+								{
+									"incomingshipmentId": 2571,
+									"shipmentNo": "234322",
+									"fixed": true,
+									"quantity": 10,
+									"fulfilled": true
+								}
+							]
+						},
+						"outgoing": {
+							"quantity": 30,
+							"fixed": true,
+							"fulfilled": 2,
+							"orders": [
+								{
+									"orderId": 2572,
+									"customer": "日本精工株式会社",
+									"fixed": true,
+									"quantity": 20,
+									"proposalNo": "35432",
+									"fulfilled": false
+								},
+								{
+									"orderId": 2574,
+									"customer": "富士フィルムロジスティックス株式会社",
+									"fixed": true,
+									"quantity": 10,
+									"proposalNo": "234654",
+									"fulfilled": true
+								}
+							]
+						}
+					},
+					{
+						"date": "2020-04-11T00:00:00",
+						"currentQuantity": 100,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-12T00:00:00",
+						"currentQuantity": 100,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-13T00:00:00",
+						"currentQuantity": 100,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-14T00:00:00",
+						"currentQuantity": 100,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-15T00:00:00",
+						"currentQuantity": 120,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 35,
+							"fixed": false,
+							"fulfilled": 2,
+							"incomingOrders": [
+								{
+									"incomingshipmentId": 2577,
+									"shipmentNo": "34wet564767",
+									"fixed": false,
+									"quantity": 20,
+									"fulfilled": false
+								},
+								{
+									"incomingshipmentId": 2578,
+									"shipmentNo": "2465432r26",
+									"fixed": true,
+									"quantity": 15,
+									"fulfilled": true
+								}
+							]
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-16T00:00:00",
+						"currentQuantity": 120,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-17T00:00:00",
+						"currentQuantity": 120,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-18T00:00:00",
+						"currentQuantity": 170,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 50,
+							"fixed": true,
+							"fulfilled": 0,
+							"incomingOrders": [
+								{
+									"incomingshipmentId": 2581,
+									"shipmentNo": "8687770y",
+									"fixed": true,
+									"quantity": 50,
+									"fulfilled": false
+								}
+							]
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-19T00:00:00",
+						"currentQuantity": 170,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-20T00:00:00",
+						"currentQuantity": 170,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-21T00:00:00",
+						"currentQuantity": 150,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 20,
+							"fixed": false,
+							"fulfilled": 0,
+							"orders": [
+								{
+									"orderId": 2579,
+									"customer": "日本精工株式会社",
+									"fixed": false,
+									"quantity": 20,
+									"proposalNo": "2345779786654321",
+									"fulfilled": false
+								}
+							]
+						}
+					},
+					{
+						"date": "2020-04-22T00:00:00",
+						"currentQuantity": 150,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-23T00:00:00",
+						"currentQuantity": 150,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-24T00:00:00",
+						"currentQuantity": 150,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-25T00:00:00",
+						"currentQuantity": 150,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-26T00:00:00",
+						"currentQuantity": 150,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-27T00:00:00",
+						"currentQuantity": 150,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-28T00:00:00",
+						"currentQuantity": 150,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-29T00:00:00",
+						"currentQuantity": 150,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					},
+					{
+						"date": "2020-04-30T00:00:00",
+						"currentQuantity": 150,
+						"quantity": 110,
+						"incoming": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						},
+						"outgoing": {
+							"quantity": 0,
+							"fixed": true,
+							"fulfilled": 0
+						}
+					}
+				]
+			}
+		]
+	}
 ]

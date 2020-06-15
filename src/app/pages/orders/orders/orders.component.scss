@@ -1,0 +1,105 @@
+mat-card{
+    margin: 5;
+  }
+  table {
+    width: 100%;
+    font-size: small;
+  }
+  .right-button{
+    text-align: right;
+  }
+  .spacer {
+    flex: 1 1 auto;
+  }
+  .rowButton {
+    display: flex;
+  
+    justify-content: flex-end;
+  
+  }
+  tr.detail-row {
+    height: 0;
+  }
+  
+  tr.element-row:not(.expanded-row):hover {
+    background: #c8e6c9;
+  }
+  
+  tr.element-row:not(.expanded-row):active {
+    background: #a4dda6;
+  }
+  
+  .element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .element-detail {
+    overflow: hidden;
+    display: flex;
+    flex-flow: wrap;
+  }
+  
+  .element-detail hr {
+    width: 100%;
+  }
+  
+  mat-grid-tile {
+    background: lightblue;
+  }
+  
+  .productComponent {
+      width: 200px;
+  
+      border: 2px solid #64b5f6; 
+  
+      margin: 5px;
+  }
+  .productSetComponent {
+    width: 200px;
+  
+    border: 2px solid #672ed1; 
+    margin: 5px;
+  }
+  
+  .mat-expansion-panel-header-description {
+    display: flex;
+    justify-content: flex-end;
+  }
+  mat-expansion-panel {
+    border: 2px solid #64b5f6; 
+    margin-bottom: 5px;
+  
+  }
+  .mat-badge-medium.mat-badge-above .mat-badge-content {
+    top: -3px;
+    right: -4px;
+    padding: 3px;
+    background-color: #672ed1;
+  }
+  
+  .customerBtn{
+     padding: 0;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .parametersPanel .mat-expansion-panel-body {
+    width: 600px;
+    max-width: 600px;
+  }
+  .topButton {
+    margin-right: 5px;
+  }
+
+  .mat-column-actions {
+    left: 0px !important;
+    max-width: 200px !important;
+    min-width: 200px !important;
+  }
+.sort{
+  display: flex;
+  justify-content: space-between;
+}
+span:nth-of-type(2) {
+  margin-left: auto;
+}

@@ -297,8 +297,8 @@ export class OrdersComponent implements OnInit {
   getLTEAmount(products: OrderedProduct[]) {
     let amount = 0;
     products.forEach((product) => {
-      if (product.product.productName == '1315390MAF') {
-        amount = product.quantity;
+      if (product.product.obicNo.includes('MAF')) {
+        amount = amount + product.quantity;
       }
     });
     return amount;

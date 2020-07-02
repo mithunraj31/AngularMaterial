@@ -1,8 +1,18 @@
 <mat-progress-bar mode="indeterminate" *ngIf="progress"></mat-progress-bar>
 <mat-card>
-    <button mat-raised-button color="primary" class="topButton" (click)="openDialog(false)" i18n="@@addForecast">Add
-        Forecast</button><button mat-raised-button class="fullfillBtn topButton" (click)="openDialog(true)"
-        i18n="@@addConfirmed">Add Confirmed</button><br><br>
+    <section class="top-button-section">
+        <button mat-raised-button color="primary" class="topButton" (click)="openDialog(false)" i18n="@@addForecast">Add
+            Forecast
+        </button>
+        <button mat-raised-button class="fullfillBtn topButton" (click)="openDialog(true)" i18n="@@addConfirmed">Add
+            Confirmed</button>
+        <button mat-raised class="topButton"
+        (click)="getOrderData()">
+            <mat-icon aria-hidden="false">loop</mat-icon>
+        </button>
+        
+
+    </section><br><br>
 
     <section class="sort">
         <span>
@@ -12,10 +22,16 @@
             </mat-form-field>
         </span>
         <span>
-            <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="sortCheckbox.fcst">FCST</mat-checkbox>
-            <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="sortCheckbox.withKitting" i18n="@@withKitting">With kitting </mat-checkbox><mat-icon style="color: #558b2f; font-size: 18px;">remove_red_eye</mat-icon><br>
-            <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="sortCheckbox.wait" i18n="@@waitToShip">Wait</mat-checkbox>
-            <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="sortCheckbox.withoutKitting" i18n="@@withoutKitting">Without kitting</mat-checkbox><mat-icon color="warn" style="font-size: 18px;">block</mat-icon>
+            <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="sortCheckbox.fcst">FCST
+            </mat-checkbox>
+            <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()"
+                [(ngModel)]="sortCheckbox.withKitting" i18n="@@withKitting">With kitting </mat-checkbox>
+            <mat-icon style="color: #558b2f; font-size: 18px;">remove_red_eye</mat-icon><br>
+            <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="sortCheckbox.wait"
+                i18n="@@waitToShip">Wait</mat-checkbox>
+            <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()"
+                [(ngModel)]="sortCheckbox.withoutKitting" i18n="@@withoutKitting">Without kitting</mat-checkbox>
+            <mat-icon color="warn" style="font-size: 18px;">block</mat-icon>
         </span>
     </section>
     <mat-paginator #paginatorTop (page)="onTopPaginateChange()" [pageSizeOptions]="[5, 10, 20, 50]"

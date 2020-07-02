@@ -1,0 +1,9 @@
+<h1 mat-dialog-title i18n="@@dataHasBeenChanged">Data has been changed.</h1>
+<div mat-dialog-content>
+    <h3 i18n="@@dataHasBeenChangedMassege">Data has been changed by a another user. Please click OK to refresh the page.
+    </h3>
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="false" i18n="@@cancel">Cancel</button>
+    <button mat-raised-button color="warn" [mat-dialog-close]="true" cdkFocusInitial i18n="@@ok">Ok</button>
+</div>

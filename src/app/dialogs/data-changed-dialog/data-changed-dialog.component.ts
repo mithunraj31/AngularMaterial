@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { EditReason } from './../../models/EditReason';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ArrivalOrderDialogComponent } from '../arrival-order-dialog/arrival-order-dialog.component';
 
 @Component({
@@ -9,8 +10,9 @@ import { ArrivalOrderDialogComponent } from '../arrival-order-dialog/arrival-ord
 })
 export class DataChangedDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<ArrivalOrderDialogComponent>) { }
-
+  constructor(public dialogRef: MatDialogRef<ArrivalOrderDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: EditReason,) { }
+  
   ngOnInit() {
   }
 

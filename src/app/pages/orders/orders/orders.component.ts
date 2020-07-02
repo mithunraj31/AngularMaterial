@@ -189,10 +189,12 @@ export class OrdersComponent implements OnInit {
 
   async editOrder(data: Order) {
     let isChanged = await this.isDataChanged(data.orderId);
-    if (isChanged) { // when data is changed
+    console.log(isChanged);
+    if (isChanged.status) { // when data is changed
       //Load Warning popup
       const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-        width: '600px'
+        width: '600px',
+        data: isChanged
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -207,10 +209,11 @@ export class OrdersComponent implements OnInit {
       dialogRef.afterClosed().subscribe(async result => {
         if (result) {// when result is valid
           let isChanged = await this.isDataChanged(data.orderId);
-          if (isChanged) { // when data is changed
+          if (isChanged.status) { // when data is changed
             //Load Warning popup
             const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-              width: '600px'
+              width: '600px',
+              data: isChanged
             });
 
             dialogRef.afterClosed().subscribe(result => {
@@ -235,10 +238,11 @@ export class OrdersComponent implements OnInit {
 
   async fullFillOrder(data: Order) {
     let isChanged = await this.isDataChanged(data.orderId);
-    if (isChanged) { // when data is changed
+    if (isChanged.status) { // when data is changed
       //Load Warning popup
       const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-        width: '600px'
+        width: '600px',
+        data: isChanged
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -254,10 +258,11 @@ export class OrdersComponent implements OnInit {
 
         if (result) { //when data is valid
           let isChanged = await this.isDataChanged(data.orderId);
-          if (isChanged) { // when data is changed
+          if (isChanged.status) { // when data is changed
             //Load Warning popup
             const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-              width: '600px'
+              width: '600px',
+              data: isChanged
             });
 
             dialogRef.afterClosed().subscribe(result => {
@@ -283,10 +288,11 @@ export class OrdersComponent implements OnInit {
   }
   async unFullFillOrder(data: Order) {
     let isChanged = await this.isDataChanged(data.orderId);
-    if (isChanged) { // when data is changed
+    if (isChanged.status) { // when data is changed
       //Load Warning popup
       const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-        width: '600px'
+        width: '600px',
+        data: isChanged
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -301,10 +307,11 @@ export class OrdersComponent implements OnInit {
       dialogRef.afterClosed().subscribe(async result => {
         if (result) {// when data is valid
           let isChanged = await this.isDataChanged(data.orderId);
-          if (isChanged) { // when data is changed
+          if (isChanged.status) { // when data is changed
             //Load Warning popup
             const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-              width: '600px'
+              width: '600px',
+              data: isChanged
             });
 
             dialogRef.afterClosed().subscribe(result => {
@@ -325,10 +332,11 @@ export class OrdersComponent implements OnInit {
 
   async deleteOrder(order: Order) {
     let isChanged = await this.isDataChanged(order.orderId);
-    if (isChanged) { // when data is changed
+    if (isChanged.status) { // when data is changed
       //Load Warning popup
       const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-        width: '600px'
+        width: '600px',
+        data: isChanged
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -344,10 +352,11 @@ export class OrdersComponent implements OnInit {
       dialogRef.afterClosed().subscribe(async result => {
         if (result) { //when data is valid
           let isChanged = await this.isDataChanged(data.orderId);
-          if (isChanged) { // when data is changed
+          if (isChanged.status) { // when data is changed
             //Load Warning popup
             const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-              width: '600px'
+              width: '600px',
+              data: isChanged
             });
 
             dialogRef.afterClosed().subscribe(result => {
@@ -367,10 +376,11 @@ export class OrdersComponent implements OnInit {
   }
   async transferToConfirmedOrder(order: Order) {
     let isChanged = await this.isDataChanged(order.orderId);
-    if (isChanged) { // when data is changed
+    if (isChanged.status) { // when data is changed
       //Load Warning popup
       const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-        width: '600px'
+        width: '600px',
+        data: isChanged
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -386,10 +396,11 @@ export class OrdersComponent implements OnInit {
 
         if (result) { // when data is valid
           let isChanged = await this.isDataChanged(order.orderId);
-          if (isChanged) { // when data is changed
+          if (isChanged.status) { // when data is changed
             //Load Warning popup
             const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-              width: '600px'
+              width: '600px',
+              data: isChanged
             });
 
             dialogRef.afterClosed().subscribe(result => {
@@ -432,10 +443,11 @@ export class OrdersComponent implements OnInit {
   }
   async backToFCST(order: Order) {
     let isChanged = await this.isDataChanged(order.orderId);
-    if (isChanged) { // when data is changed
+    if (isChanged.status) { // when data is changed
       //Load Warning popup
       const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-        width: '600px'
+        width: '600px',
+        data: isChanged
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -450,10 +462,11 @@ export class OrdersComponent implements OnInit {
       dialogRef.afterClosed().subscribe(async result => {
         if (result) { // when result is valid
           let isChanged = await this.isDataChanged(order.orderId);
-          if (isChanged) { // when data is changed
+          if (isChanged.status) { // when data is changed
             //Load Warning popup
             const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-              width: '600px'
+              width: '600px',
+              data: isChanged
             });
 
             dialogRef.afterClosed().subscribe(result => {
@@ -471,16 +484,21 @@ export class OrdersComponent implements OnInit {
   }
   isDataChanged(orderId: number) {
     let lastEditedTime: Date;
-    return new Promise<Boolean>((resolve, reject) => {
+    return new Promise<any>((resolve, reject) => {
       this.orderService.getOrderById(orderId).subscribe(result => {
         lastEditedTime = new Date(result.updatedAt);
+        console.log(result);
         if (lastEditedTime > this.loadTime) {
 
-          return resolve(true);
+          return resolve({
+            status: true, user: result.user,
+            editReason: result.editReason,
+            updatedAt: result.updatedAt
+          });
         }
         else {
           this.loadTime = new Date();
-          return resolve(false);
+          return resolve({ status: false, user: result.user });
         }
       });
     });

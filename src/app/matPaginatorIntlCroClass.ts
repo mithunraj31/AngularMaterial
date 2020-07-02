@@ -5,7 +5,6 @@ import { Inject, LOCALE_ID, Injectable } from '@angular/core';
 export class MatPaginatorIntlCro extends MatPaginatorIntl {
     constructor(@Inject(LOCALE_ID) public localeId: string) {
         super();
-        console.log(this.localeId);
     }
     itemsPerPageLabel = this.localeId=="en"?'Items per page':this.localeId=="ja"?'1ページの商品数':'Items per page';
     nextPageLabel = this.localeId=="en"?'Next page':this.localeId=="ja"?'次のページ':'Next page';

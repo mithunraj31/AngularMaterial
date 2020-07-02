@@ -60,8 +60,6 @@ export class AddCustomerComponent implements OnInit {
     if (charCode === 43 || charCode === 45 || (charCode > 47 && charCode < 58)) {
       result = true;
     }
-    // console.log('pressed');
-    // console.log(charCode);
     return result;
 
   }
@@ -94,7 +92,6 @@ export class AddCustomerComponent implements OnInit {
   }
 
   hankana2Zenkana(str, key) {
-    // console.log(str, key);
     const trnslated = this.util.hankaku2ZenkakuEN(this.util.hankana2Zenkana(str));
     this.customerForm.controls[key].setValue(trnslated);
   }
@@ -108,7 +105,6 @@ export class AddCustomerComponent implements OnInit {
         disableClose: true
       });
       confirmDialogRef.afterClosed().subscribe(result => {
-        // console.log('The dialog was closed');
         switch (result) {
           case 0:
             this.onCancelClick();

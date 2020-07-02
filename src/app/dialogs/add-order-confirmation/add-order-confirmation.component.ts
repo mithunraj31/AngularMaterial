@@ -24,8 +24,6 @@ export class AddOrderConfirmationComponent implements OnInit {
   ngOnInit() {
     this.populateProducts();
     this.populateNames();
-    console.log(this.data);
-    // console.log(this.products);
   }
   onCancelClick() {
     this.dialogRef.close(0);
@@ -45,7 +43,6 @@ export class AddOrderConfirmationComponent implements OnInit {
       p.quantity = product.quantity;
       this.products.push(p);
     });
-    // console.log(this.products);
   }
   populateNames() {
     this.data.customers.forEach(c => {

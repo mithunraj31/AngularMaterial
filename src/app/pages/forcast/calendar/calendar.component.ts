@@ -105,7 +105,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         this.progress = false;
       }, error => {
         this.progress = false;
-        console.log(error);
+
       })
 
   }
@@ -149,14 +149,14 @@ export class CalendarComponent implements OnInit, OnDestroy {
   }
 
   handleEvent(action: string, event: CustomCalendarEvent): void {
-    console.log(event);
+
     const dialogRef = this.dialog.open(ForecastDialogComponent, {
       width: '600px',
       data: event.data
     });
   }
   handleListItem(data: Order): void {
-    console.log(event);
+
     const dialogRef = this.dialog.open(ForecastDialogComponent, {
       width: '600px',
       data: data

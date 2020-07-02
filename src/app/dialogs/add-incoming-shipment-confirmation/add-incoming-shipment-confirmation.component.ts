@@ -21,8 +21,6 @@ export class AddIncomingShipmentConfirmationComponent implements OnInit {
 
       this.populateProducts();
     }
-    // console.log(this.data);
-    // console.log(this.products);
   }
   onCancelClick() {
     this.dialogRef.close(0);

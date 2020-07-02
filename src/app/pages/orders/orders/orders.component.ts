@@ -479,6 +479,7 @@ export class OrdersComponent implements OnInit {
           return resolve(true);
         }
         else {
+          this.loadTime = new Date();
           return resolve(false);
         }
       });

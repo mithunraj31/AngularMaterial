@@ -1,6 +1,13 @@
 <mat-progress-bar mode="indeterminate" *ngIf="progress"></mat-progress-bar>
 <mat-card>
-  <button mat-raised-button color="primary" (click)="openDialog()" i18n="@@add">Add</button><br><br>
+  <section class="top-button-section">
+    <button mat-raised-button color="primary" (click)="openDialog()" i18n="@@add">Add</button><br><br>
+
+    <button mat-raised class="topButton"
+    (click)="getShipments()">
+        <mat-icon aria-hidden="false">loop</mat-icon>
+    </button>
+</section>
   
   <section class="sort">
     <span>
@@ -13,6 +20,7 @@
         <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="checkBoxSort.notInStock" i18n="@@notInStock">Not In Stock </mat-checkbox>
         <mat-checkbox style="margin: 0 10px;" (change)="onClickSortCheckbox()" [(ngModel)]="checkBoxSort.arrived" i18n="@@arrived">Arrived</mat-checkbox>
     </span>
+
 </section>
   <mat-paginator #paginatorTop (page)="onTopPaginateChange()" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons>
   </mat-paginator>

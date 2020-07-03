@@ -111,6 +111,7 @@ export class ArrivedShipmentsComponent implements OnInit {
       this.shipments = result;
       this.dataSource.data = this.shipments;
       this.dataSource.paginator = this.paginatorTop;
+      this.loadTime = new Date();
       // console.log(result);
       this.onTopPaginateChange();
       this.progress = false;
@@ -337,9 +338,8 @@ export class ArrivedShipmentsComponent implements OnInit {
     return new Promise<any>((resolve, reject) => {
       this.shipmentService.getShipmentById(orderId).subscribe(result => {
         lastEditedTime = new Date(result.updatedAt);
-        console.log(result);
+        console.log(lastEditedTime, this.loadTime)
         if (lastEditedTime > this.loadTime) {
-
           return resolve({
             status: true, user: result.user,
             editReason: result.editReason,
@@ -347,7 +347,7 @@ export class ArrivedShipmentsComponent implements OnInit {
           });
         }
         else {
-          this.loadTime = new Date();
+          
           return resolve({ status: false, user: result.user });
         }
       });

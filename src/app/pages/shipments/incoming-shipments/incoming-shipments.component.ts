@@ -130,7 +130,7 @@ export class IncomingShipmentsComponent implements OnInit {
       this.dataSource.data = this.shipments;
       this.dataSource.paginator = this.paginatorTop;
       this.loadTime = new Date();
-      // console.log(result);
+      console.log(this.loadTime);
       this.onTopPaginateChange();
       this.progress = false;
     }, error => {
@@ -461,7 +461,7 @@ export class IncomingShipmentsComponent implements OnInit {
     return new Promise<any>((resolve, reject) => {
       this.shipmentService.getShipmentById(orderId).subscribe(result => {
         lastEditedTime = new Date(result.updatedAt);
-        console.log(result);
+        console.log(lastEditedTime, this.loadTime);
         if (lastEditedTime > this.loadTime) {
 
           return resolve({
@@ -471,7 +471,7 @@ export class IncomingShipmentsComponent implements OnInit {
           });
         }
         else {
-          this.loadTime = new Date();
+          
           return resolve({ status: false, user: result.user });
         }
       });

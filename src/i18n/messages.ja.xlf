@@ -1360,6 +1360,18 @@
         <source>Without Kitting</source>
         <target>キッティング無</target>
       </trans-unit>
+      <trans-unit id="ArrivedToConfirmedReason" datatype="html">
+        <source>Transaction Arrived to Confirmed.</source>
+        <target>テスト</target>
+      </trans-unit>
+      <trans-unit id="reasonToEdit" datatype="html">
+        <source>Reason</source>
+        <target>変更内容</target>
+      </trans-unit>
+      <trans-unit id="at" datatype="html">
+        <source>At</source>
+        <target>於</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

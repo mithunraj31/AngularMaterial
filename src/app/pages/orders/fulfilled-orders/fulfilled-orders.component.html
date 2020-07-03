@@ -3,6 +3,13 @@
     <!-- <button mat-raised-button color="primary" class="topButton" (click)="openDialog(false)" i18n="@@addForecast">Add
         Forecast</button><button mat-raised-button class="fullfillBtn topButton" (click)="openDialog(true)"
         i18n="@@addConfirmed">Add Confirmed</button><br><br> -->
+    <section class="top-button-section">
+
+        <button mat-raised class="topButton"
+        (click)="getOrderData()">
+            <mat-icon aria-hidden="false">loop</mat-icon>
+        </button>
+    </section>
     <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="id" i18n-placeholder="@@filter"
             placeholder="Filter">
@@ -81,10 +88,10 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element;">
-                <button class="tablebtn" mat-icon-button style="color: #ffc107;"
-                (click)="backToConfirm(element)" i18n="@@undu">
-                <mat-icon>undo</mat-icon>
-            </button>
+                <button class="tablebtn" mat-icon-button style="color: #ffc107;" (click)="backToConfirm(element)"
+                    i18n="@@undu">
+                    <mat-icon>undo</mat-icon>
+                </button>
             </td>
         </ng-container>
 

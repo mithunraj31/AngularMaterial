@@ -497,7 +497,7 @@ export class OrdersComponent implements OnInit {
           });
         }
         else {
-          this.loadTime = new Date();
+         
           return resolve({ status: false, user: result.user });
         }
       });

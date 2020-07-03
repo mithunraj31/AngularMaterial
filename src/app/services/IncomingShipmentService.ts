@@ -17,7 +17,7 @@ export class IncomingShipmentService {
 
     getShipments(checkBox: incomingSortCheckBox) {
         return this.http.get<IncomingShipment[]>
-        (this.incomingShipmentUrl+"?notConfirmed="+checkBox.notConfirmed+"&&?notInStock="+checkBox.notInStock+"&&?arrived="+checkBox.arrived);
+            (this.incomingShipmentUrl + "?notConfirmed=" + checkBox.notConfirmed + "&&?notInStock=" + checkBox.notInStock + "&&?arrived=" + checkBox.arrived);
     }
     getArrivedShipments() {
         return this.http.get<IncomingShipment[]>(this.incomingShipmentUrl + 'arrived/');
@@ -43,17 +43,20 @@ export class IncomingShipmentService {
     }
     backToConfirm(incomingShipmentId: number) {
         const model = {
-            incomingShipmentId : incomingShipmentId,
-            arrival : false
+            incomingShipmentId: incomingShipmentId,
+            arrival: false
         };
         return this.http.post<any>(this.incomingShipmentUrl + "arrival/", model);
     }
     backToUnConfirm(incomingShipmentId: number) {
         const model = {
-            incomingShipmentId : incomingShipmentId,
-            confirm : false
+            incomingShipmentId: incomingShipmentId,
+            confirm: false
         };
         return this.http.post<any>(this.incomingShipmentUrl + "confirm/", model);
+    }
+    getShipmentById(id: number) {
+        return this.http.get<IncomingShipment>(this.incomingShipmentUrl + id);
     }
 }
 

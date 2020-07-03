@@ -96,7 +96,7 @@ export class DataChangedDialogComponent implements OnInit {
   }
 }
 
-enum EditReasons {
+export enum EditReasons {
   Deleted = "1",
   ForcastToConfirmed = "2",
   ConfirmedToForcast = "3",

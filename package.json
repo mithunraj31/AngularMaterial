@@ -26,6 +26,7 @@
     "@angular/platform-browser-dynamic": "~8.2.13",
     "@angular/router": "~8.2.13",
     "@auth0/angular-jwt": "^3.0.1",
+    "@ngx-translate/i18n-polyfill": "^1.0.0",
     "angular-calendar": "^0.28.2",
     "date-fns": "^2.8.0",
     "exceljs": "^1.12.0",

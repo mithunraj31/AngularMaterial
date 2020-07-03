@@ -49,3 +49,10 @@ tr.element-row:not(.expanded-row):active {
 .topButton {
   margin: 5px;
 }
+.top-button-section{
+  display: flex;
+  justify-content: space-between;
+  button:nth-of-type(5) {
+    margin-left: auto;
+  }
+}

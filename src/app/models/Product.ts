@@ -1,3 +1,5 @@
+import { User } from './User';
+
 export interface Product {
     productId?: number;
     productName:string;
@@ -16,4 +18,6 @@ export interface Product {
     color?: string;
     sort?: number;
     display?: boolean;
+    user?: User;
+    editReason?: string;
 }

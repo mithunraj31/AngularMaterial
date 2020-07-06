@@ -17,4 +17,5 @@ export interface SaveIncomingShipment {
     currency?: string;
     partial?: boolean;
     fixed?: boolean;
+    editReason?:string;
 }

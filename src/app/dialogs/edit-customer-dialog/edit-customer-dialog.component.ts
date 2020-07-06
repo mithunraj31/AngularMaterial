@@ -26,7 +26,7 @@ export class EditCustomerDialogComponent implements OnInit {
 
   initializeCustomerForm() {
     this.customerForm = new FormGroup({
-      "customerName": new FormControl(this.data.contactName, [
+      "customerName": new FormControl(this.data.customerName, [
         Validators.required,
         Validators.pattern("^[a-zA-z0-9一-龠ぁ-ゔァ-ヴー!-/:-@\[-`{-~ 　]*$")
       ]),
@@ -72,7 +72,7 @@ export class EditCustomerDialogComponent implements OnInit {
         disableClose: true
       });
       confirmDialogRef.afterClosed().subscribe(result => {
-        // console.log('The dialog was closed');
+
         switch (result) {
           case 0:
             this.onCancelClick();
@@ -108,7 +108,7 @@ export class EditCustomerDialogComponent implements OnInit {
     return result;
   }
   hankana2Zenkana(str, key) {
-    console.log(str, key);
+
     let trnslated = this.util.hankaku2ZenkakuEN(this.util.hankana2Zenkana(str));
     this.customerForm.controls[key].setValue(trnslated);
   }

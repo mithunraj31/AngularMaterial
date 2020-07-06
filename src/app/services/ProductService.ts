@@ -47,5 +47,11 @@ export class ProductService {
         return this.http.put<SaveProductSet>(this.productSetUrl + productSet.productId, productSet);
     }
 
+    getProductById(id: number) {
+        return this.http.get<Product>(this.productUrl + id);
+    }
+    getProductSetById(id: number) {
+        return this.http.get<ProductSet>(this.productSetUrl + id);
+    }
 
 }

@@ -89,3 +89,11 @@ mat-card{
   .topButton {
     margin-right: 5px;
   }
+
+  .top-button-section{
+    display: flex;
+    justify-content: space-between;
+    button:nth-of-type(1) {
+      margin-left: auto;
+    }
+  }

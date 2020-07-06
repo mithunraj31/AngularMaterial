@@ -9,6 +9,7 @@ import { MatDialog, MatTable, MatPaginator, MatTableDataSource, MatSort } from '
 import { UpdateProductDialogComponent } from 'src/app/dialogs/update-product-dialog/update-product-dialog.component';
 import * as XLSX from 'xlsx';
 import { nextTick } from 'q';
+import { DataChangedDialogComponent } from 'src/app/dialogs/data-changed-dialog/data-changed-dialog.component';
 
 type AOA = any[][];
 
@@ -20,7 +21,7 @@ type AOA = any[][];
 })
 
 export class ProductsComponent implements OnInit {
-
+  loadTime: Date;
   displayedColumns: string[] = [
     'productName',
     'description',
@@ -58,6 +59,7 @@ export class ProductsComponent implements OnInit {
     this.productService.getProducts().subscribe(result => {
       this.products = result;
       this.dataSource.data = this.products;
+      this.loadTime = new Date();
       this.progress = false;
       this.onTopPaginateChange();
     }, error => {
@@ -111,48 +113,103 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  editProduct(i: any) {
+  async editProduct(i: any) {
     const data = this.products[this.products.indexOf(i)];
-    const dialogRef = this.dialog.open(UpdateProductDialogComponent, {
-      width: '600px',
-      data: data
-    });
+    let isChanged = await this.isDataChanged(data.productId);
+    if (isChanged.status) { // when data is changed
+      //Load Warning popup
+      const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+        width: '600px',
+        data: isChanged
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.progress = true;
-        const product: Product = result;
-        product.productId = data.productId;
-        product.display = data.display;
-        // change concat to replace when using real api
-        this.productService.updateProduct(product).subscribe((result) => {
-          this.getProductData();
-        }, error => {
-          this.progress = false;
-        })
+      dialogRef.afterClosed().subscribe(result => {
+        this.getProductData();
+      });
+    } else { // When data is not changed.
+      const dialogRef = this.dialog.open(UpdateProductDialogComponent, {
+        width: '600px',
+        data: data
+      });
 
-      }
-    });
+      dialogRef.afterClosed().subscribe(async result => {
+        if (result) {
+          let isChanged = await this.isDataChanged(data.productId);
+          if (isChanged.status) { // when data is changed
+            //Load Warning popup
+            const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+              width: '600px',
+              data: isChanged
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              this.getProductData();
+            });
+          } else { // When data is not changed.
+            this.progress = true;
+            const product: Product = result;
+            product.productId = data.productId;
+            product.display = data.display;
+            // change concat to replace when using real api
+            this.productService.updateProduct(product).subscribe((result) => {
+              this.getProductData();
+            }, error => {
+              this.progress = false;
+            })
+          }
+        }
+      });
+    }
   }
 
-  deleteProduct(i: any) {
+  async deleteProduct(i: any) {
     const data = this.products[this.products.indexOf(i)]
-    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      width: '600px',
-      data: data.productName
-    });
+    if (data) { // when result is valid
+      let isChanged = await this.isDataChanged(data.productId);
+      if (isChanged.status) { // when data is changed
+        //Load Warning popup
+        const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+          width: '600px',
+          data: isChanged
+        });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.progress = true;
-        this.productService.deleteProduct(data.productId).subscribe(result => {
+        dialogRef.afterClosed().subscribe(result => {
           this.getProductData();
-        }, error => {
-          this.progress = false;
-        })
-      }
-    });
+        });
+      } else { // When data is not changed.
+        const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+          width: '600px',
+          data: data.productName
+        });
 
+        dialogRef.afterClosed().subscribe(async result => {
+          if (result) {
+            if (result) { // when result is valid
+              let isChanged = await this.isDataChanged(data.productId);
+              if (isChanged.status) { // when data is changed
+                //Load Warning popup
+                const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+                  width: '600px',
+                  data: isChanged
+                });
+
+                dialogRef.afterClosed().subscribe(result => {
+                  this.getProductData();
+                });
+              } else { // When data is not changed.
+                this.progress = true;
+                this.productService.deleteProduct(data.productId).subscribe(result => {
+                  this.getProductData();
+                }, error => {
+                  this.progress = false;
+                })
+              }
+            }
+          }
+        });
+
+      }
+    }
   }
 
   applyFilter(filterValue: string) {
@@ -195,7 +252,7 @@ export class ProductsComponent implements OnInit {
         moq: row[5] ? row[5] : 0,
         quantity: row[6] ? row[6] : 0,
         leadTime: row[7] ? row[7] : (valid = false),
-        
+
       };
       if (valid) {
         let promise = new Promise((resolve, reject) => {
@@ -226,8 +283,30 @@ export class ProductsComponent implements OnInit {
   }
   clickDisplay(product: Product, val: boolean) {
     product.display = val;
-    this.productService.updateProduct(product).subscribe(()=> {
+    this.productService.updateProduct(product).subscribe(() => {
       this.getProductData();
     })
+  }
+
+  isDataChanged(orderId: number) {
+    let lastEditedTime: Date;
+    return new Promise<any>((resolve, reject) => {
+      this.productService.getProductById(orderId).subscribe(result => {
+        lastEditedTime = new Date(result.updatedAt);
+        console.log(result);
+        if (lastEditedTime > this.loadTime) {
+
+          return resolve({
+            status: true, user: result.user,
+            editReason: result.editReason,
+            updatedAt: result.updatedAt
+          });
+        }
+        else {
+
+          return resolve({ status: false, user: result.user });
+        }
+      });
+    });
   }
 }

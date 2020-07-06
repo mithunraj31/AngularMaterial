@@ -36,17 +36,17 @@ export class UsersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+
       if (result) {
-        console.log(result);
+
         this.progress = true;
         const user: User = result;
         // change concat to replace when using real api
         this.userService.register(user).subscribe(result => {
           this.getUserData();
-          console.log(result);
+
         }, error => {
-          console.log(error);
+
           this.progress = false;
         })
       }
@@ -57,11 +57,11 @@ export class UsersComponent implements OnInit {
     this.progress = true;
     this.userService.getUsers().subscribe((result) => {
       this.users = result;
-      console.log(result);
+
       this.dataSource.data = this.users;
       this.progress = false;
     }, error=>{
-      console.log(error);
+
       this.progress = false;
     })
   }

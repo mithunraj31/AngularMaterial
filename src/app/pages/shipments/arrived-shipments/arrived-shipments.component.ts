@@ -12,6 +12,7 @@ import { ArrivalOrderDialogComponent } from 'src/app/dialogs/arrival-order-dialo
 import { ConfirmIncomingShipmentComponent } from 'src/app/dialogs/confirm-incoming-shipment/confirm-incoming-shipment.component';
 import { SaveIncomingShipment } from 'src/app/models/SaveIncomingShipment';
 import { ActivatedRoute } from '@angular/router';
+import { DataChangedDialogComponent } from 'src/app/dialogs/data-changed-dialog/data-changed-dialog.component';
 
 @Component({
   selector: 'app-arrived-shipments',
@@ -26,7 +27,7 @@ import { ActivatedRoute } from '@angular/router';
     ]),]
 })
 export class ArrivedShipmentsComponent implements OnInit {
-
+  loadTime: Date;
   columnsToDisplay: string[] = [
     'shipmentNo',
     'branch',
@@ -110,6 +111,7 @@ export class ArrivedShipmentsComponent implements OnInit {
       this.shipments = result;
       this.dataSource.data = this.shipments;
       this.dataSource.paginator = this.paginatorTop;
+      this.loadTime = new Date();
       // console.log(result);
       this.onTopPaginateChange();
       this.progress = false;
@@ -285,25 +287,71 @@ export class ArrivedShipmentsComponent implements OnInit {
       option.shipmentNo === shipmentNo && option.product.productId === productId && option.branch === branch && option.partial);
     return found;
   }
-  backToConfirm(element: IncomingShipment) {
+  async backToConfirm(element: IncomingShipment) {
+    let isChanged = await this.isDataChanged(element.incomingShipmentId);
+    if (isChanged.status) { // when data is changed
+      //Load Warning popup
+      const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+        width: '600px',
+        data: isChanged
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.getShipments();
+      });
+    } else { // When data is not changed.
     const dialogRef = this.dialog.open(UndoConfimationDialogComponent, {
       width: '600px',
       data: "arrived"
     });
     // console.log(element);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(async result => {
 
       // console.log(result);
       if (result) {
+        let isChanged = await this.isDataChanged(element.incomingShipmentId);
+        if (isChanged.status) { // when data is changed
+          //Load Warning popup
+          const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+            width: '600px',
+            data: isChanged
+          });
+    
+          dialogRef.afterClosed().subscribe(result => {
+            this.getShipments();
+          });
+        } else { // When data is not changed.
         this.progress = true;
         this.shipmentService.backToConfirm(element.incomingShipmentId).subscribe(() => {
           this.getShipments();
         });
       }
+    }
     });
 
-    
+  }
+  }
+
+  isDataChanged(orderId: number) {
+    let lastEditedTime: Date;
+    return new Promise<any>((resolve, reject) => {
+      this.shipmentService.getShipmentById(orderId).subscribe(result => {
+        lastEditedTime = new Date(result.updatedAt);
+        console.log(lastEditedTime, this.loadTime)
+        if (lastEditedTime > this.loadTime) {
+          return resolve({
+            status: true, user: result.user,
+            editReason: result.editReason,
+            updatedAt: result.updatedAt
+          });
+        }
+        else {
+          
+          return resolve({ status: false, user: result.user });
+        }
+      });
+    });
   }
 
 }

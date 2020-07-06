@@ -17,6 +17,7 @@ import { TransferToConfirmedOrderComponent } from 'src/app/dialogs/transfer-to-c
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { OrderedProduct } from 'src/app/models/OrderedProduct';
 import { UndoConfimationDialogComponent } from 'src/app/dialogs/undo-confimation-dialog/undo-confimation-dialog.component';
+import { DataChangedDialogComponent } from 'src/app/dialogs/data-changed-dialog/data-changed-dialog.component';
 
 @Component({
   selector: 'app-fulfilled-orders',
@@ -31,7 +32,7 @@ import { UndoConfimationDialogComponent } from 'src/app/dialogs/undo-confimation
     ]),]
 })
 export class FulfilledOrdersComponent implements OnInit {
-
+  loadTime: Date;
   expandedElement;
   columnsToDisplay: string[] = [
     'proposalNo',
@@ -121,12 +122,12 @@ export class FulfilledOrdersComponent implements OnInit {
     this.orderService.getFulfilledOrders().subscribe(result => {
       this.orders = result;
       this.dataSource.data = this.orders;
-      console.log(this.orders);
+      this.loadTime = new Date();
       this.progress = false;
       this.onTopPaginateChange();
     }, error => {
       this.progress = false;
-      console.log(error);
+
     })
 
   }
@@ -143,18 +144,18 @@ export class FulfilledOrdersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+
       if (result) {
-        console.log(result);
+
         this.progress = true;
         const order: SaveOrder = result;
         order.fixed = isFixed;
         // change concat to replace when using real api
         this.orderService.addOrder(order).subscribe(result => {
           this.getOrderData();
-          console.log(result);
+
         }, error => {
-          console.log(error);
+
           this.progress = false;
         })
       }
@@ -165,14 +166,14 @@ export class FulfilledOrdersComponent implements OnInit {
   }
 
   editOrder(data: Order) {
-    console.log(data);
+
     const dialogRef = this.dialog.open(EditOrderDialogComponent, {
       width: '600px',
       data: data
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+
       if (result) {
         this.progress = true;
         const order: SaveOrder = result;
@@ -195,14 +196,14 @@ export class FulfilledOrdersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+
       if (result) {
         this.progress = true;
         this.orderService.fulfillOrder(data.orderId).subscribe(result => {
           this.getOrderData();
         }, error => {
           // open unfulfilled porducts
-          console.log(error.error.unfulfilled);
+
           const dialogRef = this.dialog.open(UnfulfilledProductsComponent, {
             width: '600px',
             data: error.error.unfulfilled
@@ -255,7 +256,7 @@ export class FulfilledOrdersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+
       if (result) {
         this.progress = true;
         const orderUpdate: SaveOrder = result;
@@ -284,23 +285,69 @@ export class FulfilledOrdersComponent implements OnInit {
     });
     return amount;
   }
-  backToConfirm(order: Order) {
-    const dialogRef = this.dialog.open(UndoConfimationDialogComponent, {
-      width: '600px',
-      data: "shipped"
-    });
-    // console.log(element);
+  async backToConfirm(order: Order) {
+    let isChanged = await this.isDataChanged(order.orderId);
+    if (isChanged.status) { // when data is changed
+      //Load Warning popup
+      const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+        width: '600px',
+        data: isChanged
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe(result => {
+        this.getOrderData();
+      });
+    } else { // When data is not changed.
+      const dialogRef = this.dialog.open(UndoConfimationDialogComponent, {
+        width: '600px',
+        data: "shipped"
+      });
+      // console.log(element);
 
-      // console.log(result);
-      if (result) {
-        this.progress = true;
-        this.orderService.backToConfirm(order.orderId).subscribe((val) => {
-          this.getOrderData();
-        });
-      }
+      dialogRef.afterClosed().subscribe(async result => {
+
+        if (result) { // when result is valid
+          let isChanged = await this.isDataChanged(order.orderId);
+          if (isChanged.status) { // when data is changed
+            //Load Warning popup
+            const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+              width: '600px',
+              data: isChanged
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              this.getOrderData();
+            });
+          } else { // When data is not changed.
+            this.progress = true;
+            this.orderService.backToConfirm(order.orderId).subscribe((val) => {
+              this.getOrderData();
+            });
+          }
+        }
+
+      });
+    }
+  }
+  isDataChanged(orderId: number) {
+    let lastEditedTime: Date;
+    return new Promise<any>((resolve, reject) => {
+      this.orderService.getOrderById(orderId).subscribe(result => {
+        lastEditedTime = new Date(result.updatedAt);
+        console.log(result);
+        if (lastEditedTime > this.loadTime) {
+
+          return resolve({
+            status: true, user: result.user,
+            editReason: result.editReason,
+            updatedAt: result.updatedAt
+          });
+        }
+        else {
+          
+          return resolve({ status: false, user: result.user });
+        }
+      });
     });
-    
   }
-  }
+}

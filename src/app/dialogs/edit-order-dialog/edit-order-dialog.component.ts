@@ -56,7 +56,7 @@ export class EditOrderDialogComponent implements OnInit {
       this._customers = result;
       this.contractors = result;
       this.salesD = result;
-      console.log(this.customers)
+
     })
   }
   getUserData() {
@@ -67,8 +67,8 @@ export class EditOrderDialogComponent implements OnInit {
   }
 
   initializeCustomerForm() {
-    console.log("popup data");
-    console.log(this.data);
+
+    (this.data);
     const rDate = this.data.receivedDate ? this.data.receivedDate.substring(0, 10) : "";
     const dDate = this.data.dueDate ? this.data.dueDate.substring(0, 10) : "";
     const delDate = this.data.deliveryDate ? this.data.deliveryDate.substring(0, 10) : "";
@@ -85,7 +85,6 @@ export class EditOrderDialogComponent implements OnInit {
       "contractorId": new FormControl(this.data.contractor ? this.data.contractor.customerId : "", [
       ]),
       "receivedDate": new FormControl(rDate, [
-        this.data.fixed ? Validators.required : Validators.nullValidator
       ]),
       "dueDate": new FormControl(dDate, [
         Validators.required
@@ -138,7 +137,7 @@ export class EditOrderDialogComponent implements OnInit {
         disableClose: true
       });
       confirmDialogRef.afterClosed().subscribe(result => {
-        // console.log('The dialog was closed');
+
         switch (result) {
           case 0:
             this.onCancelClick();
@@ -168,7 +167,7 @@ export class EditOrderDialogComponent implements OnInit {
   }
   addComponent() {
     if (this.selected && this.qty) {
-      console.log(this.selected);
+
 
       const saveProductComponent: SaveProductComponent = {
         productId: this.productSets[this.selected].productId,
@@ -180,7 +179,7 @@ export class EditOrderDialogComponent implements OnInit {
         productName: this.productSets[this.selected].productName,
         quantity: this.qty
       })
-      console.log(this.viewSelectd);
+
       this.qtyError = false;
       this.selected = null;
       this.qty = null;
@@ -290,7 +289,7 @@ export class EditOrderDialogComponent implements OnInit {
       const dueDate = new Date(value);
       const deliveryDate = dueDate;
       deliveryDate.setDate(dueDate.getDate() - 14);
-      console.log(deliveryDate);
+
       this.orderForm.get("deliveryDate").setValue(deliveryDate.toISOString().substring(0, 10));
     }
   }

@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   }
 
   checkAlreadyLoggedIn(){
-    console.log(this.authService.isAuthenticated());
+
     if(this.authService.isAuthenticated()){
       this.router.navigate(['/']);
     }
@@ -47,9 +47,9 @@ export class LoginComponent implements OnInit {
         "password": this.loginForm.value.password
       }
       this.authService.login(user).subscribe(result => {
-        console.log("test1");
+
         this.authService.setSession(result);
-        console.log(result);
+
         this.router.navigate(['/']);
       },
         error => {
@@ -58,11 +58,11 @@ export class LoginComponent implements OnInit {
           } else {
             this.loginError = 500;
           }
-          console.log(error);
+
           this.progress = false;
         })
 
-      console.log(this.loginForm.value)
+
     }
   }
 

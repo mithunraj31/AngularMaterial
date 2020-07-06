@@ -18,8 +18,7 @@ export class AddProductSetConfirmationComponent implements OnInit {
 
   ngOnInit() {
     this.populateProducts();
-    // console.log(this.data);
-    // console.log(this.products);
+
   }
   onCancelClick() {
     this.dialogRef.close(0);
@@ -39,7 +38,7 @@ export class AddProductSetConfirmationComponent implements OnInit {
       p.quantity = product.quantity;
       this.products.push(p);
     });
-    // console.log(this.products);
+
   }
 
 }

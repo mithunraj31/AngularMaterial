@@ -94,7 +94,6 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
         disableClose: true
       });
       confirmDialogRef.afterClosed().subscribe(result => {
-        // console.log('The dialog was closed');
         switch (result) {
           case 0:
             this.onCancelClick();
@@ -117,7 +116,7 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
               shipment.pendingQty = this.viewSelectd[c].quantity;
               shipments.push(shipment);
             }
-            // console.log(shipments);
+
             this.dialogRef.close(shipments);
             break;
           default:
@@ -140,13 +139,12 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
   }
   addComponent() {
     if (this.selected && this.qty) {
-      // console.log(this.selected);
+
       this.viewSelectd.push({
         productId: this.products[this.selected].productId,
         productName: this.products[this.selected].productName,
         quantity: this.qty
       });
-      // console.log(this.viewSelectd);
       this.qtyError = false;
       this.selected = null;
       this.qty = null;

@@ -1372,6 +1372,14 @@
         <source>At</source>
         <target>於</target>
       </trans-unit>
+      <trans-unit id="dataHasBeenChangedMassege" datatype="html">
+        <source>Data has been changed by a another user. Please click OK to refresh the page.</source>
+        <target>このデータは別のユーザにより変更されました。OKボタンを押すとページが更新されます。</target>
+      </trans-unit>
+      <trans-unit id="dataHasBeenChanged" datatype="html">
+        <source>Data has been changed.</source>
+        <target>データは既に変更されています</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

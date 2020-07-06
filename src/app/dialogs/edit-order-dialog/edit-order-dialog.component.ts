@@ -85,7 +85,6 @@ export class EditOrderDialogComponent implements OnInit {
       "contractorId": new FormControl(this.data.contractor ? this.data.contractor.customerId : "", [
       ]),
       "receivedDate": new FormControl(rDate, [
-        this.data.fixed ? Validators.required : Validators.nullValidator
       ]),
       "dueDate": new FormControl(dDate, [
         Validators.required

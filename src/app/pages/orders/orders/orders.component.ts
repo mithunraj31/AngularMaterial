@@ -410,7 +410,7 @@ export class OrdersComponent implements OnInit {
             this.progress = true;
             const orderUpdate: SaveOrder = result;
             orderUpdate.fixed = true;
-            orderUpdate.editReason = "Transfer to Confirmed";
+            orderUpdate.editReason = "2";
             orderUpdate.proposalNo = order.proposalNo;
             orderUpdate.customerId = order.customer.customerId;
             orderUpdate.userId = order.user.userId;

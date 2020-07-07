@@ -1,0 +1,22 @@
+<h1 mat-dialog-title i18n="@@dataHasBeenChanged">Data has been changed.</h1>
+<div mat-dialog-content>
+    <h5 i18n="@@dataHasBeenChangedMassege">Data has been changed by a another user. Please click OK to refresh the page.
+    </h5>
+    <table>
+        <tr>
+            <td i18n="@@reasonToEdit">Edit Reason</td>
+            <td >{{getEditReason()}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@user">By</td>
+            <td>{{data.user.firstName}} {{data.user.lastName}}</td>
+        </tr>
+        <tr>
+            <td i18n="@@updatedAt">At</td>
+            <td>{{data.updatedAt | date:'medium'}}</td>
+        </tr>
+    </table>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" [mat-dialog-close]="true" cdkFocusInitial i18n="@@ok">Ok</button>
+</div>

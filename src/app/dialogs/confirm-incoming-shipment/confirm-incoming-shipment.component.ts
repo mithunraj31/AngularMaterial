@@ -7,6 +7,7 @@ import { AddProductDialogComponent } from '../add-product-dialog/add-product-dia
 import { IncomingShipment } from 'src/app/models/IncomingShipment';
 import { ProductService } from 'src/app/services/ProductService';
 import { max } from 'date-fns';
+import { EditReasons } from '../data-changed-dialog/data-changed-dialog.component';
 
 @Component({
   selector: 'app-confirm-incoming-shipment',
@@ -68,6 +69,7 @@ export class ConfirmIncomingShipmentComponent implements OnInit {
         this.saveIncomingShipment.incomingShipmentId = undefined;
         const mainOrder: SaveIncomingShipment = this.createSaveIn();
         mainOrder.pendingQty = this.data.pendingQty - this.incomingShipmentForm.value.confirmedQty;
+        mainOrder.editReason = EditReasons.Edited;
 
         this.dialogRef.close([this.saveIncomingShipment, mainOrder]);
       } else {
@@ -77,6 +79,7 @@ export class ConfirmIncomingShipmentComponent implements OnInit {
         this.saveIncomingShipment.fixed = true;
         this.saveIncomingShipment.fixedDeliveryDate = new Date(this.incomingShipmentForm.value.fixedDeliveryDate).toISOString();
         this.saveIncomingShipment.incomingShipmentId = this.data.incomingShipmentId;
+        this.saveIncomingShipment.editReason = EditReasons.IncomingNotConfirmedToConfirmed;
         this.dialogRef.close([null, this.saveIncomingShipment]);
       }
     }
@@ -98,7 +101,7 @@ export class ConfirmIncomingShipmentComponent implements OnInit {
     }
   }
   createSaveIn(): SaveIncomingShipment {
-    // console.log("test");
+
     const object: SaveIncomingShipment = {
       branch: this.data.branch,
       confirmedQty: this.data.confirmedQty,

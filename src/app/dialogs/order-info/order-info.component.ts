@@ -23,7 +23,7 @@ export class OrderInfoComponent implements OnInit {
   }
 
   onOkClick() {
-    console.log(this.url);
+
     this.router.navigate([this.url.base],{ queryParams: { year: this.url.year, month: this.url.month } })
     this.dialogRef.close();
   }

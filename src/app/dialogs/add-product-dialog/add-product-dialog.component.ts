@@ -64,7 +64,7 @@ export class AddProductDialogComponent implements OnInit {
         disableClose: true
       });
       confirmDialogRef.afterClosed().subscribe(result => {
-        // console.log('The dialog was closed');
+
         switch (result) {
           case 0:
             this.onCancelClick();

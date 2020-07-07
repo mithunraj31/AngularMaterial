@@ -45,7 +45,7 @@ export class CustomersComponent implements OnInit {
     this.customerService.getCustomers().subscribe(result => {
       this.customers = result;
       this.dataSource.data = this.customers;
-      console.log(this.customers);
+
       this.progress = false;
       this.onTopPaginateChange();
     }, error => {
@@ -85,7 +85,7 @@ export class CustomersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+
       if (result) {
         this.progress = true;
         const customer: Customer = result;
@@ -113,9 +113,9 @@ export class CustomersComponent implements OnInit {
         this.customerService.deleteCustomer(data.customerId).subscribe(result => {
           this.getCustomers();
           this.progress = false;
-          console.log(result);
+
         }, error => {
-          console.log(error);
+
           this.progress = false;
         })
       }
@@ -130,7 +130,7 @@ export class CustomersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+
       if (result) {
         const customer: Customer = result;
         customer.customerId = data.customerId;

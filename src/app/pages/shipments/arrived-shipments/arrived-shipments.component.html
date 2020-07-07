@@ -1,6 +1,12 @@
 <mat-progress-bar mode="indeterminate" *ngIf="progress"></mat-progress-bar>
 <mat-card>
   <!-- <button mat-raised-button color="primary" (click)="openDialog()" i18n="@@add">Add</button><br><br> -->
+  <section class="top-button-section">
+    <button mat-raised class="topButton"
+    (click)="getShipments()">
+        <mat-icon aria-hidden="false">loop</mat-icon>
+    </button>
+</section>
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="id" i18n-placeholder="@@filter" placeholder="Filter">
   </mat-form-field>

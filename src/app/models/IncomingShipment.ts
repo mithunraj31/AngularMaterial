@@ -3,6 +3,7 @@ import { ShipmentProduct } from './ShipmentProduct';
 import { User } from './User';
 
 export interface IncomingShipment {
+    editReason?: string;
     incomingShipmentId: number;
     shipmentNo: string;
     branch?: string;

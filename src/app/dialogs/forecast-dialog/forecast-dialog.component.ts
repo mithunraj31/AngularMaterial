@@ -16,7 +16,7 @@ export class ForecastDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
+
   }
 
 }

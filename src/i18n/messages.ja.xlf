@@ -1360,6 +1360,26 @@
         <source>Without Kitting</source>
         <target>キッティング無</target>
       </trans-unit>
+      <trans-unit id="ArrivedToConfirmedReason" datatype="html">
+        <source>Transaction Arrived to Confirmed.</source>
+        <target>テスト</target>
+      </trans-unit>
+      <trans-unit id="reasonToEdit" datatype="html">
+        <source>Reason</source>
+        <target>変更内容</target>
+      </trans-unit>
+      <trans-unit id="updatedAt" datatype="html">
+        <source>At</source>
+        <target>最終変更日時</target>
+      </trans-unit>
+      <trans-unit id="dataHasBeenChangedMassege" datatype="html">
+        <source>Data has been changed by a another user. Please click OK to refresh the page.</source>
+        <target>このデータは別のユーザにより変更されました。OKボタンを押すとページが更新されます。</target>
+      </trans-unit>
+      <trans-unit id="dataHasBeenChanged" datatype="html">
+        <source>Data has been changed.</source>
+        <target>データは既に変更されています</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -46,7 +46,7 @@ export class TransferToConfirmedOrderComponent implements OnInit {
       this._customers = result;
       this.contractors = result;
       this.salesD = result;
-      console.log(this.customers)
+
     })
   }
   getUserData() {
@@ -56,8 +56,7 @@ export class TransferToConfirmedOrderComponent implements OnInit {
   }
 
   initializeCustomerForm() {
-    console.log("popup data");
-    console.log(this.data);
+
     const rDate = this.data.receivedDate ? this.data.receivedDate.substring(0, 10) : "";
     const dDate = this.data.dueDate ? this.data.dueDate.substring(0, 10) : "";
     const delDate = this.data.deliveryDate ? this.data.deliveryDate.substring(0, 10) : "";
@@ -109,12 +108,11 @@ export class TransferToConfirmedOrderComponent implements OnInit {
     if (this.orderForm.valid) {
       const order: SaveOrder = this.orderForm.value;
       order.orderedProducts = this.saveProducts;
-      // console.log(this.orderForm.value.receivedDate,this.orderForm.value.dueDate,this.orderForm.value.deliveryDate)
-      order.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
+
+      order.receivedDate = order.receivedDate?new Date(this.orderForm.value.receivedDate).toISOString():null;
       order.dueDate = new Date(this.orderForm.value.dueDate).toISOString();
       order.deliveryDate = new Date(this.orderForm.value.deliveryDate).toISOString();
       order.orderId = this.data.orderId;
-      // console.log(order);
       this.dialogRef.close(order);
     }
   }

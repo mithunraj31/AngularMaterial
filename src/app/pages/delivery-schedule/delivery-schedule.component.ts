@@ -42,13 +42,13 @@ export class DeliveryScheduleComponent implements OnInit {
     try {
       this.route.queryParams
         .subscribe(params => {
-          console.log(params); // {order: "popular"}
+
           if (params.year && params.month) {
             this.viewDate = new Date(params.year + "-" + params.month);
           }
         });
     } catch (error) {
-      // console.log(error)
+
       this.viewDate = new Date();
     } finally {
 
@@ -120,7 +120,7 @@ export class DeliveryScheduleComponent implements OnInit {
 
       this.addColumnsToTables(data[0].products[0].values);
       this.productForecast = data;
-      console.log(this.productForecast);
+
       let setcount = 0;
       let productcount = 0;
       const tempdata: any[] = [];
@@ -169,12 +169,11 @@ export class DeliveryScheduleComponent implements OnInit {
       });
       // this.dataSource = tempdata.slice(0, 9);
       this.dataSource = tempdata;
-      // console.log(tempdata);
-      // console.log(this.dataSource);
+
       this.progress = false;
       this.unsub.next();
       this.unsub.complete();
-      // console.log(this.progress);
+
     }, error => {
       this.progress = false;
     });
@@ -197,9 +196,7 @@ export class DeliveryScheduleComponent implements OnInit {
       this.displayedColumns.push(this.getDateString(date));
     });
     this.columnsToDisplay = this.displayedColumns.slice();
-    // console.log(this.columnsToDisplay);
 
-    // console.log(this.displayedColumns);
   }
   getDateString(date: string) {
     return new Date(date).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' });
@@ -269,7 +266,7 @@ export class DeliveryScheduleComponent implements OnInit {
   }
 
   getRowSpanSet(col, index) {
-    // console.log(col,index);
+
     const rowVal = this.dataSource[index];
     const cellVal = rowVal[col];
     let count = 0;
@@ -296,7 +293,7 @@ export class DeliveryScheduleComponent implements OnInit {
       if (valObj[column] === preObj[column]) {
         result = true;
       }
-      // console.log (valObj[column],preObj[column]);
+
     }
     return result;
   }
@@ -314,7 +311,7 @@ export class DeliveryScheduleComponent implements OnInit {
       if (compare1 === compare2) {
         result = true;
       }
-      // console.log (valObj[column],preObj[column]);
+
     }
     return result;
   }
@@ -332,7 +329,7 @@ export class DeliveryScheduleComponent implements OnInit {
         disableClose: true,
         hasBackdrop: false
       });
-      // console.log(data);
+
     }
     if (data.incomingOrders) {
       const confirmDialogRef = this.dialog.open(IncomingInfoComponent, {
@@ -345,7 +342,7 @@ export class DeliveryScheduleComponent implements OnInit {
   }
 
   onScroll(event) {
-    console.log(event);
+
   }
 
 }

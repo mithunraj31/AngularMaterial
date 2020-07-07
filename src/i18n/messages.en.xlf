@@ -1173,6 +1173,10 @@
         <source>Delivery Date</source>
         <target>Delivery Date</target>
       </trans-unit>
+      <trans-unit id="ArrivedToConfirmedReason" datatype="html">
+        <source>Transaction Arrived to Confirmed.</source>
+        <target>Transaction Arrived to Confirmed.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

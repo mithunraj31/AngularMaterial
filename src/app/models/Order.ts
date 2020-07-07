@@ -11,7 +11,7 @@ export interface Order {
     receivedDate: string;
     proposalNo: string;
     createdAt: string;
-    updatedAt: string;
+    updatedAt: Date;
     user: User;
     salesUser: User;
     editReason: string;

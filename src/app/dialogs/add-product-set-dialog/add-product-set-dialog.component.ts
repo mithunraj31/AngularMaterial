@@ -93,7 +93,7 @@ export class AddProductSetDialogComponent implements OnInit {
         disableClose: true
       });
       confirmDialogRef.afterClosed().subscribe(result => {
-        // console.log('The dialog was closed');
+
         switch (result) {
           case 0:
             this.onCancelClick();
@@ -120,7 +120,7 @@ export class AddProductSetDialogComponent implements OnInit {
   }
   addComponent() {
     if (this.selected && this.qty) {
-      // console.log(this.selected);
+
 
       const saveProductComponent: SaveProductComponent = {
         productId: this.products[this.selected].productId,
@@ -132,7 +132,7 @@ export class AddProductSetDialogComponent implements OnInit {
         productName: this.products[this.selected].productName,
         quantity: this.qty
       });
-      // console.log(this.viewSelectd);
+
       this.qtyError = false;
       this.selected = null;
       this.qty = null;

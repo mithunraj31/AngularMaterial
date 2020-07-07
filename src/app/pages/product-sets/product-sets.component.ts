@@ -11,6 +11,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { EditProductSetDialogComponent } from 'src/app/dialogs/edit-product-set-dialog/edit-product-set-dialog.component';
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { SaveProductComponent } from 'src/app/models/saveProductComponent';
+import { DataChangedDialogComponent } from 'src/app/dialogs/data-changed-dialog/data-changed-dialog.component';
 
 @Component({
   selector: 'app-product-sets',
@@ -25,6 +26,7 @@ import { SaveProductComponent } from 'src/app/models/saveProductComponent';
     ]),]
 })
 export class ProductSetsComponent implements OnInit {
+  loadTime: Date;
   columnsToDisplay: string[] = [
     'productName',
     'description',
@@ -60,32 +62,58 @@ export class ProductSetsComponent implements OnInit {
     this.productService.getProductSets().subscribe(result => {
       this.productSets = result;
       this.dataSource.data = this.productSets;
+      this.loadTime = new Date();
       this.progress = false;
       this.onTopPaginateChange();
     }, error => {
       this.progress = false;
     })
   }
-  deleteProduct(i: any) {
+  async deleteProduct(i: any) {
     const data = this.productSets[this.productSets.indexOf(i)];
-    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      width: '1000px',
-      data: data.productName
-    });
+    let isChanged = await this.isDataChanged(data.productId);
+    if (isChanged.status) { // when data is changed
+      //Load Warning popup
+      const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+        width: '600px',
+        data: isChanged
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.progress = true;
-        this.productService.deleteProductSet(data.productId).subscribe(result => {
-          this.getProductSetData();
+      dialogRef.afterClosed().subscribe(result => {
+        this.getProductSetData();
+      });
+    } else { // When data is not changed.
+      const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+        width: '1000px',
+        data: data.productName
+      });
 
-        }, error => {
-          this.progress = true;
-          console.log(error);
-        })
-      }
-    });
+      dialogRef.afterClosed().subscribe(async result => {
+        if (result) {
+          let isChanged = await this.isDataChanged(data.productId);
+          if (isChanged.status) { // when data is changed
+            //Load Warning popup
+            const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+              width: '600px',
+              data: isChanged
+            });
 
+            dialogRef.afterClosed().subscribe(result => {
+              this.getProductSetData();
+            });
+          } else { // When data is not changed.
+            this.progress = true;
+            this.productService.deleteProductSet(data.productId).subscribe(result => {
+              this.getProductSetData();
+
+            }, error => {
+              this.progress = true;
+              console.log(error);
+            })
+          }
+        }
+      });
+    }
   }
 
   applyFilter(filterValue: string) {
@@ -94,7 +122,7 @@ export class ProductSetsComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddProductSetDialogComponent, {
       width: '600px',
-      data: this.productSets.length+1
+      data: this.productSets.length + 1
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -111,28 +139,54 @@ export class ProductSetsComponent implements OnInit {
       }
     });
   }
-  editProductSet(data: ProductSet) {
-    const dialogRef = this.dialog.open(EditProductSetDialogComponent, {
-      width: '600px',
-      data: data
-    });
+  async editProductSet(data: ProductSet) {
+    let isChanged = await this.isDataChanged(data.productId);
+    if (isChanged.status) { // when data is changed
+      //Load Warning popup
+      const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+        width: '600px',
+        data: isChanged
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result) {
-        this.progress = true;
-        console.log(result);
-        const productset: SaveProductSet = result;
-        productset.productId = data.productId;
-        productset.display = data.display;
-        this.productService.editProductSet(productset).subscribe(result => {
-          console.log(result);
-          this.getProductSetData();
-        }, error => {
-          this.progress = false;
-        })
-      }
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        this.getProductSetData();
+      });
+    } else { // When data is not changed.
+      const dialogRef = this.dialog.open(EditProductSetDialogComponent, {
+        width: '600px',
+        data: data
+      });
+
+      dialogRef.afterClosed().subscribe(async result => {
+        console.log('The dialog was closed');
+        if (result) {
+          let isChanged = await this.isDataChanged(data.productId);
+          if (isChanged.status) { // when data is changed
+            //Load Warning popup
+            const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+              width: '600px',
+              data: isChanged
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              this.getProductSetData();
+            });
+          } else { // When data is not changed.
+            this.progress = true;
+            console.log(result);
+            const productset: SaveProductSet = result;
+            productset.productId = data.productId;
+            productset.display = data.display;
+            this.productService.editProductSet(productset).subscribe(result => {
+              console.log(result);
+              this.getProductSetData();
+            }, error => {
+              this.progress = false;
+            })
+          }
+        }
+      });
+    }
   }
   onTopPaginateChange() {
     this.paginatorBottom.length = this.dataSource.data.length;
@@ -156,36 +210,58 @@ export class ProductSetsComponent implements OnInit {
 
   }
   clickDisplay(product: ProductSet, val: boolean) {
-    let ps: SaveProductComponent[]=[];
-    product.products.forEach((e)=>{
-      const x :SaveProductComponent = {
+    let ps: SaveProductComponent[] = [];
+    product.products.forEach((e) => {
+      const x: SaveProductComponent = {
         productId: e.product.productId,
         quantity: e.quantity
       }
       ps.push(x);
     })
 
-    const p:SaveProductSet = {
-    color : product.color,
-    currency: product.currency,
-    description: product.description,
-    display: val,
-    leadTime: product.leadTime,
-    moq: product.moq,
-    obicNo :product.obicNo,
-    price: product.price,
-    productId: product.productId,
-    productName :product.productName,
-    quantity: product.quantity,
-    userId: product.userId,
-    products : ps,
-    sort : product.sort
-  }
-    
+    const p: SaveProductSet = {
+      color: product.color,
+      currency: product.currency,
+      description: product.description,
+      display: val,
+      leadTime: product.leadTime,
+      moq: product.moq,
+      obicNo: product.obicNo,
+      price: product.price,
+      productId: product.productId,
+      productName: product.productName,
+      quantity: product.quantity,
+      userId: product.userId,
+      products: ps,
+      sort: product.sort
+    }
 
-    this.productService.editProductSet(p).subscribe(()=> {
+
+    this.productService.editProductSet(p).subscribe(() => {
       this.getProductSetData();
     })
+  }
+
+  isDataChanged(orderId: number) {
+    let lastEditedTime: Date;
+    return new Promise<any>((resolve, reject) => {
+      this.productService.getProductSetById(orderId).subscribe(result => {
+        lastEditedTime = new Date(result.updatedAt);
+        console.log(result);
+        if (lastEditedTime > this.loadTime) {
+
+          return resolve({
+            status: true, user: result.user,
+            editReason: result.editReason,
+            updatedAt: result.updatedAt
+          });
+        }
+        else {
+
+          return resolve({ status: false, user: result.user });
+        }
+      });
+    });
   }
 
 }

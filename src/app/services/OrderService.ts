@@ -15,7 +15,7 @@ export class OrderService {
 
     getOrders(checkBox: SortCheckbox) {
         return this.http.get<Order[]>
-        (this.getOrdersUrl+"?fcst="+checkBox.fcst+"&&?wait="+checkBox.wait+"&&?withKitting="+checkBox.withKitting+"&&?withoutKitting="+checkBox.withoutKitting);
+            (this.getOrdersUrl + "?fcst=" + checkBox.fcst + "&&?wait=" + checkBox.wait + "&&?withKitting=" + checkBox.withKitting + "&&?withoutKitting=" + checkBox.withoutKitting);
     }
     getFulfilledOrders() {
         return this.http.get<Order[]>(this.getOrdersUrl + 'fulfilled/');
@@ -73,6 +73,9 @@ export class OrderService {
             fulfillment: false
         };
         return this.http.post<FulfillOrderModel>(this.getOrdersUrl + "fulfillment/", confirm);
+    }
+    getOrderById(id: number) {
+        return this.http.get<Order>(this.getOrdersUrl + id);  
     }
 }
 

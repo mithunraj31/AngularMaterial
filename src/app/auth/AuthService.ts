@@ -25,7 +25,6 @@ export class AuthService {
     apiurl = environment.APIURL;
     
     login(user: LoginUser) {
-        console.log("userAuth");
         return this.http.post<LoginUser>(this.apiurl+"/login", user);
 
     }
@@ -44,7 +43,6 @@ export class AuthService {
 
     public isLoggedIn() {
         if (this.isAuthenticated()) {
-            console.log("heyyyyyyy")
             this.loggedIn.next(true);
         } else {
             this.loggedIn.next(false);

@@ -1,3 +1,4 @@
+import { DataChangedDialogComponent } from './../../../dialogs/data-changed-dialog/data-changed-dialog.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Order } from 'src/app/models/Order';
@@ -19,6 +20,7 @@ import { Product } from 'src/app/models/Product';
 import { ArgumentOutOfRangeError } from 'rxjs';
 import { OrderedProduct } from 'src/app/models/OrderedProduct';
 import { UndoConfimationDialogComponent } from 'src/app/dialogs/undo-confimation-dialog/undo-confimation-dialog.component';
+import { resolve } from 'url';
 
 @Component({
   selector: 'app-orders',
@@ -33,6 +35,7 @@ import { UndoConfimationDialogComponent } from 'src/app/dialogs/undo-confimation
     ]),]
 })
 export class OrdersComponent implements OnInit {
+  loadTime: Date;
   expandedElement;
   columnsToDisplay: string[] = [
     'proposalNo',
@@ -66,7 +69,7 @@ export class OrdersComponent implements OnInit {
     this.getOrderData();
     this.dataSource.paginator = this.paginatorTop;
     this.dataSource.sortingDataAccessor = (item, property) => {
-      console.log(property)
+
       switch (property) {
         case 'customerName': return item.customer.customerName;
         case 'salesDestination': return item.salesDestination.customerName;
@@ -124,7 +127,7 @@ export class OrdersComponent implements OnInit {
   }
   getOrderData() {
     const ordersSortChecklist = localStorage.getItem("ordersSortChecklist");
-    if(ordersSortChecklist){
+    if (ordersSortChecklist) {
       this.sortCheckbox = JSON.parse(ordersSortChecklist);
     } else {
       this.sortCheckbox = {
@@ -140,12 +143,13 @@ export class OrdersComponent implements OnInit {
     this.orderService.getOrders(this.sortCheckbox).subscribe(result => {
       this.orders = result;
       this.dataSource.data = this.orders;
-      console.log(this.orders);
+      this.loadTime = new Date();
+
       this.progress = false;
       this.onTopPaginateChange();
     }, error => {
       this.progress = false;
-      console.log(error);
+
     })
 
   }
@@ -162,18 +166,18 @@ export class OrdersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+
       if (result) {
-        console.log(result);
+
         this.progress = true;
         const order: SaveOrder = result;
         order.fixed = isFixed;
         // change concat to replace when using real api
         this.orderService.addOrder(order).subscribe(result => {
           this.getOrderData();
-          console.log(result);
+
         }, error => {
-          console.log(error);
+
           this.progress = false;
         })
       }
@@ -183,116 +187,245 @@ export class OrdersComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  editOrder(data: Order) {
-    console.log(data);
-    const dialogRef = this.dialog.open(EditOrderDialogComponent, {
-      width: '600px',
-      data: data
-    });
+  async editOrder(data: Order) {
+    let isChanged = await this.isDataChanged(data.orderId);
+    console.log(isChanged);
+    if (isChanged.status) { // when data is changed
+      //Load Warning popup
+      const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+        width: '600px',
+        data: isChanged
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result) {
-        this.progress = true;
-        const order: SaveOrder = result;
-        order.orderId = data.orderId;
-        order.forcast = data.forecast;
-        order.fixed = data.fixed;
-        this.orderService.editOrder(order).subscribe(result => {
-          this.getOrderData();
-        }, error => {
-          this.progress = false;
-        })
-      }
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        this.getOrderData();
+      });
+    } else { // When data is not changed.
+      const dialogRef = this.dialog.open(EditOrderDialogComponent, {
+        width: '600px',
+        data: data
+      });
+      // open edit dialog 
+      dialogRef.afterClosed().subscribe(async result => {
+        if (result) {// when result is valid
+          let isChanged = await this.isDataChanged(data.orderId);
+          if (isChanged.status) { // when data is changed
+            //Load Warning popup
+            const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+              width: '600px',
+              data: isChanged
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              this.getOrderData();
+            });
+          } else { // When data is not changed.
+            this.progress = true;
+            const order: SaveOrder = result;
+            order.orderId = data.orderId;
+            order.forcast = data.forecast;
+            order.fixed = data.fixed;
+            this.orderService.editOrder(order).subscribe(result => {
+              this.getOrderData();
+            }, error => {
+              this.progress = false;
+            })
+          }
+        }
+      });
+    }
   }
 
-  fullFillOrder(data: Order) {
-    const dialogRef = this.dialog.open(FulfillOrderDialogComponent, {
-      width: '600px',
-      data: data.proposalNo
-    });
+  async fullFillOrder(data: Order) {
+    let isChanged = await this.isDataChanged(data.orderId);
+    if (isChanged.status) { // when data is changed
+      //Load Warning popup
+      const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+        width: '600px',
+        data: isChanged
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result) {
-        this.progress = true;
-        this.orderService.fulfillOrder(data.orderId).subscribe(result => {
-          this.getOrderData();
-        }, error => {
-          // open unfulfilled porducts
-          console.log(error.error.unfulfilled);
-          const dialogRef = this.dialog.open(UnfulfilledProductsComponent, {
-            width: '600px',
-            data: error.error.unfulfilled
-          });
-          this.progress = false;
-        })
-      }
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        this.getOrderData();
+      });
+    } else { // When data is not changed.
+      const dialogRef = this.dialog.open(FulfillOrderDialogComponent, {
+        width: '600px',
+        data: data.proposalNo
+      });
+
+      dialogRef.afterClosed().subscribe(async result => {
+
+        if (result) { //when data is valid
+          let isChanged = await this.isDataChanged(data.orderId);
+          if (isChanged.status) { // when data is changed
+            //Load Warning popup
+            const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+              width: '600px',
+              data: isChanged
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              this.getOrderData();
+            });
+          } else { // When data is not changed.
+            this.progress = true;
+            this.orderService.fulfillOrder(data.orderId).subscribe(result => {
+              this.getOrderData();
+            }, error => {
+              // open unfulfilled porducts
+
+              const dialogRef = this.dialog.open(UnfulfilledProductsComponent, {
+                width: '600px',
+                data: error.error.unfulfilled
+              });
+              this.progress = false;
+            })
+          }
+        }
+      });
+    }
   }
-  unFullFillOrder(data: Order) {
-    const dialogRef = this.dialog.open(UnfulfillConfirmationComponent, {
-      width: '600px',
-      data: data.proposalNo
-    });
+  async unFullFillOrder(data: Order) {
+    let isChanged = await this.isDataChanged(data.orderId);
+    if (isChanged.status) { // when data is changed
+      //Load Warning popup
+      const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+        width: '600px',
+        data: isChanged
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.progress = true;
-        this.orderService.unFulfillOrder(data.orderId).subscribe(result => {
-          this.getOrderData();
-        }, error => {
-          this.progress = false;
-        })
-      }
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        this.getOrderData();
+      });
+    } else { // When data is not changed.
+      const dialogRef = this.dialog.open(UnfulfillConfirmationComponent, {
+        width: '600px',
+        data: data.proposalNo
+      });
+
+      dialogRef.afterClosed().subscribe(async result => {
+        if (result) {// when data is valid
+          let isChanged = await this.isDataChanged(data.orderId);
+          if (isChanged.status) { // when data is changed
+            //Load Warning popup
+            const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+              width: '600px',
+              data: isChanged
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              this.getOrderData();
+            });
+          } else { // When data is not changed.
+            this.progress = true;
+            this.orderService.unFulfillOrder(data.orderId).subscribe(result => {
+              this.getOrderData();
+            }, error => {
+              this.progress = false;
+            })
+          }
+        }
+      });
+    }
   }
 
-  deleteOrder(order: Order) {
-    const data = this.orders[this.orders.indexOf(order)];
-    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      width: '600px',
-      data: data.proposalNo
-    });
+  async deleteOrder(order: Order) {
+    let isChanged = await this.isDataChanged(order.orderId);
+    if (isChanged.status) { // when data is changed
+      //Load Warning popup
+      const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+        width: '600px',
+        data: isChanged
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.progress = true;
-        this.orderService.deleteOrder(data.orderId).subscribe(result => {
-          this.getOrderData();
-        }, error => {
-          this.progress = false;
-        })
-      }
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        this.getOrderData();
+      });
+    } else { // When data is not changed.
+      const data = this.orders[this.orders.indexOf(order)];
+      const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+        width: '600px',
+        data: data.proposalNo
+      });
+
+      dialogRef.afterClosed().subscribe(async result => {
+        if (result) { //when data is valid
+          let isChanged = await this.isDataChanged(data.orderId);
+          if (isChanged.status) { // when data is changed
+            //Load Warning popup
+            const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+              width: '600px',
+              data: isChanged
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              this.getOrderData();
+            });
+          } else { // When data is not changed.
+            this.progress = true;
+            this.orderService.deleteOrder(data.orderId).subscribe(result => {
+              this.getOrderData();
+            }, error => {
+              this.progress = false;
+            })
+          }
+        }
+      });
+    }
   }
-  transferToConfirmedOrder(order: Order) {
-    const dialogRef = this.dialog.open(TransferToConfirmedOrderComponent, {
-      width: '600px',
-      data: order
-    });
+  async transferToConfirmedOrder(order: Order) {
+    let isChanged = await this.isDataChanged(order.orderId);
+    if (isChanged.status) { // when data is changed
+      //Load Warning popup
+      const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+        width: '600px',
+        data: isChanged
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result) {
-        this.progress = true;
-        const orderUpdate: SaveOrder = result;
-        orderUpdate.fixed = true;
-        orderUpdate.editReason = "Transfer to Confirmed";
-        orderUpdate.proposalNo = order.proposalNo;
-        orderUpdate.customerId = order.customer.customerId;
-        orderUpdate.userId = order.user.userId;
-        orderUpdate.dueDate = new Date(order.dueDate).toISOString();
-        this.orderService.editOrder(orderUpdate).subscribe(result => {
-          this.getOrderData();
-          console.log(result);
-        }, error => {
-          this.progress = false;
-          console.log(error);
-        });
-      }
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        this.getOrderData();
+      });
+    } else { // When data is not changed.
+      const dialogRef = this.dialog.open(TransferToConfirmedOrderComponent, {
+        width: '600px',
+        data: order
+      });
+
+      dialogRef.afterClosed().subscribe(async result => {
+
+        if (result) { // when data is valid
+          let isChanged = await this.isDataChanged(order.orderId);
+          if (isChanged.status) { // when data is changed
+            //Load Warning popup
+            const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+              width: '600px',
+              data: isChanged
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              this.getOrderData();
+            });
+          } else { // When data is not changed.
+            this.progress = true;
+            const orderUpdate: SaveOrder = result;
+            orderUpdate.fixed = true;
+            orderUpdate.editReason = "2";
+            orderUpdate.proposalNo = order.proposalNo;
+            orderUpdate.customerId = order.customer.customerId;
+            orderUpdate.userId = order.user.userId;
+            orderUpdate.dueDate = new Date(order.dueDate).toISOString();
+            this.orderService.editOrder(orderUpdate).subscribe(result => {
+              this.getOrderData();
+
+            }, error => {
+              this.progress = false;
+
+            });
+          }
+        }
+      });
+    }
   }
   getLTEAmount(products: OrderedProduct[]) {
     let amount = 0;
@@ -304,29 +437,71 @@ export class OrdersComponent implements OnInit {
     return amount;
   }
   clickDisplay(order: Order, val: boolean) {
-    console.log(order.orderId, val);
     this.orderService.display(order.orderId, val).subscribe(() => {
       this.getOrderData();
     });
   }
-  backToFCST(order: Order) {
-    const dialogRef = this.dialog.open(UndoConfimationDialogComponent, {
-      width: '600px',
-      data: "notShipped"
+  async backToFCST(order: Order) {
+    let isChanged = await this.isDataChanged(order.orderId);
+    if (isChanged.status) { // when data is changed
+      //Load Warning popup
+      const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+        width: '600px',
+        data: isChanged
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.getOrderData();
+      });
+    } else { // When data is not changed.
+      const dialogRef = this.dialog.open(UndoConfimationDialogComponent, {
+        width: '600px',
+        data: "notShipped"
+      });
+
+      dialogRef.afterClosed().subscribe(async result => {
+        if (result) { // when result is valid
+          let isChanged = await this.isDataChanged(order.orderId);
+          if (isChanged.status) { // when data is changed
+            //Load Warning popup
+            const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+              width: '600px',
+              data: isChanged
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              this.getOrderData();
+            });
+          } else { // When data is not changed.
+            this.progress = true;
+            this.orderService.backToFCST(order.orderId).subscribe(() => {
+              this.getOrderData();
+            });
+          }
+        }
+      });
+    }
+  }
+  isDataChanged(orderId: number) {
+    let lastEditedTime: Date;
+    return new Promise<any>((resolve, reject) => {
+      this.orderService.getOrderById(orderId).subscribe(result => {
+        lastEditedTime = new Date(result.updatedAt);
+        console.log(result);
+        if (lastEditedTime > this.loadTime) {
+
+          return resolve({
+            status: true, user: result.user,
+            editReason: result.editReason,
+            updatedAt: result.updatedAt
+          });
+        }
+        else {
+         
+          return resolve({ status: false, user: result.user });
+        }
+      });
     });
-    // console.log(element);
-
-    dialogRef.afterClosed().subscribe(result => {
-
-      // console.log(result);
-      if (result) {
-        this.progress = true;
-        this.orderService.backToFCST(order.orderId).subscribe(() => {
-          this.getOrderData();
-        });
-      }
-    });
-
   }
 }
 export interface SortCheckbox {

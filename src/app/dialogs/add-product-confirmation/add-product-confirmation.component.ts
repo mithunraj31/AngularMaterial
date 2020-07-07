@@ -16,7 +16,7 @@ export class AddProductConfirmationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
+
   }
   onCancelClick() {
     this.dialogRef.close(0);

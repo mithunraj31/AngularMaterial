@@ -1368,7 +1368,7 @@
         <source>Reason</source>
         <target>変更内容</target>
       </trans-unit>
-      <trans-unit id="at" datatype="html">
+      <trans-unit id="updatedAt" datatype="html">
         <source>At</source>
         <target>最終変更日時</target>
       </trans-unit>

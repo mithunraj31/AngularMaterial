@@ -1370,7 +1370,7 @@
       </trans-unit>
       <trans-unit id="at" datatype="html">
         <source>At</source>
-        <target>於</target>
+        <target>最終変更日時</target>
       </trans-unit>
       <trans-unit id="dataHasBeenChangedMassege" datatype="html">
         <source>Data has been changed by a another user. Please click OK to refresh the page.</source>

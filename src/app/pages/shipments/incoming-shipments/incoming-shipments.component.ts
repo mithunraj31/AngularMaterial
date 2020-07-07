@@ -130,7 +130,7 @@ export class IncomingShipmentsComponent implements OnInit {
       this.dataSource.data = this.shipments;
       this.dataSource.paginator = this.paginatorTop;
       this.loadTime = new Date();
-      console.log(this.loadTime);
+
       this.onTopPaginateChange();
       this.progress = false;
     }, error => {
@@ -158,11 +158,11 @@ export class IncomingShipmentsComponent implements OnInit {
         width: '600px',
         data: element
       });
-      // console.log(element);
+
 
       dialogRef.afterClosed().subscribe(async result => {
 
-        // console.log(result);
+
         if (result) {
           let isChanged = await this.isDataChanged(element.incomingShipmentId);
           if (isChanged.status) { // when data is changed
@@ -180,7 +180,7 @@ export class IncomingShipmentsComponent implements OnInit {
             this.shipmentService.editShipment(result).subscribe(result => {
               this.getShipments();
             }, error => {
-              // console.log(error);
+
               this.progress = false;
             })
           }
@@ -228,7 +228,7 @@ export class IncomingShipmentsComponent implements OnInit {
 
             }, error => {
               this.progress = true;
-              // console.log(error);
+
             });
           }
         }
@@ -276,7 +276,7 @@ export class IncomingShipmentsComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(async result => {
-        console.log('The dialog was closed');
+
         if (result) {
           let isChanged = await this.isDataChanged(data.incomingShipmentId);
           if (isChanged.status) { // when data is changed
@@ -320,7 +320,7 @@ export class IncomingShipmentsComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(async result => {
-        console.log('The dialog was closed');
+
         if (result) {
           let isChanged = await this.isDataChanged(shipment.incomingShipmentId);
           if (isChanged.status) { // when data is changed
@@ -334,7 +334,7 @@ export class IncomingShipmentsComponent implements OnInit {
               this.getShipments();
             });
           } else { // When data is not changed.
-            // console.log(result);
+
             const results: SaveIncomingShipment[] = result;
             this.progress = true;
             if (results[0]) {
@@ -351,7 +351,7 @@ export class IncomingShipmentsComponent implements OnInit {
               this.shipmentService.addShipment([results[1]]).subscribe(result => {
                 this.getShipments();
               }, error => {
-                // console.log(error);
+
                 this.progress = false;
               })
             }
@@ -395,7 +395,7 @@ export class IncomingShipmentsComponent implements OnInit {
         }
       }
     }
-    // console.log(shipment)
+
     return !can;
   }
   findMain(shipmentNo: string, productId: number, branch: string): IncomingShipment {
@@ -425,11 +425,11 @@ export class IncomingShipmentsComponent implements OnInit {
         width: '600px',
         data: "notInStock"
       });
-      // console.log(element);
+
 
       dialogRef.afterClosed().subscribe(async result => {
 
-        // console.log(result);
+
         if (result) {
           if (result) { // when result is valid
             let isChanged = await this.isDataChanged(element.incomingShipmentId);
@@ -461,7 +461,7 @@ export class IncomingShipmentsComponent implements OnInit {
     return new Promise<any>((resolve, reject) => {
       this.shipmentService.getShipmentById(orderId).subscribe(result => {
         lastEditedTime = new Date(result.updatedAt);
-        console.log(lastEditedTime, this.loadTime);
+
         if (lastEditedTime > this.loadTime) {
 
           return resolve({

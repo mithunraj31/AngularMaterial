@@ -69,7 +69,7 @@ export class ConfirmIncomingShipmentComponent implements OnInit {
         this.saveIncomingShipment.incomingShipmentId = undefined;
         const mainOrder: SaveIncomingShipment = this.createSaveIn();
         mainOrder.pendingQty = this.data.pendingQty - this.incomingShipmentForm.value.confirmedQty;
-        mainOrder.editReason = EditReasons.IncomingNotConfirmedToConfirmed;
+        mainOrder.editReason = EditReasons.Edited;
 
         this.dialogRef.close([this.saveIncomingShipment, mainOrder]);
       } else {

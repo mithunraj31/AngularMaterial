@@ -60,7 +60,9 @@ export class EditIncomingShipmentComponent implements OnInit {
     });
     this.incomingShipmentForm.get("shipmentNo").disable();
     this.incomingShipmentForm.get("productId").disable();
-
+    if(this.data.partial) {
+      this.incomingShipmentForm.get("orderDate").disable();
+    }
 
   }
   getProductData() {
@@ -77,10 +79,15 @@ export class EditIncomingShipmentComponent implements OnInit {
       this.saveIncomingShipment = this.incomingShipmentForm.value;
       this.saveIncomingShipment.shipmentNo = this.data.shipmentNo;
       this.saveIncomingShipment.productId = this.data.product.productId;
-      this.saveIncomingShipment.orderDate = new Date(this.incomingShipmentForm.value.orderDate).toISOString();
+      
       this.saveIncomingShipment.desiredDeliveryDate = new Date(this.incomingShipmentForm.value.desiredDeliveryDate).toISOString();
       this.saveIncomingShipment.incomingShipmentId = this.data.incomingShipmentId;
       this.saveIncomingShipment.branch = this.data.branch;
+      if (this.data.partial){
+        this.saveIncomingShipment.orderDate = new Date(this.data.orderDate).toISOString();
+      }else {
+        this.saveIncomingShipment.orderDate = new Date(this.incomingShipmentForm.value.orderDate).toISOString();
+      }
       if (!this.data.fixed) {
         this.saveIncomingShipment.pendingQty = this.data.pendingQty + (this.saveIncomingShipment.quantity - this.data.quantity);
       } else {

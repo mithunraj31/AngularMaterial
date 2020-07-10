@@ -15,7 +15,7 @@ export class ShukkaScheduleComponent implements OnInit {
 
 
   displayedColumns: string[] = [];
-
+  smallTable = false;
   columnsToDisplay: string[] = [];
   subColumns: any[] = [];
   dataSource: Array<any> = [];
@@ -38,6 +38,11 @@ export class ShukkaScheduleComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(localStorage.getItem("smallTable")=="true"){
+      this.smallTable = true;
+    }else{
+      this.smallTable =false;
+    }
     try {
       this.route.queryParams
         .subscribe(params => {
@@ -343,7 +348,8 @@ export class ShukkaScheduleComponent implements OnInit {
     }
   }
 
-  onScroll(event) {
-    console.log(event);
+  onclickSmallTable(){
+    localStorage.setItem("smallTable",String(this.smallTable));
+    console.log(this.smallTable);
   }
 }

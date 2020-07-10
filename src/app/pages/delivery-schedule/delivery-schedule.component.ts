@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DeliveryScheduleComponent implements OnInit {
   displayedColumns: string[] = [];
-
+  smallTable = false;
   columnsToDisplay: string[] = [];
   subColumns: any[] = [];
   dataSource: Array<any> = [];
@@ -39,6 +39,11 @@ export class DeliveryScheduleComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(localStorage.getItem("smallTable")=="true"){
+      this.smallTable = true;
+    }else{
+      this.smallTable =false;
+    }
     try {
       this.route.queryParams
         .subscribe(params => {
@@ -341,8 +346,9 @@ export class DeliveryScheduleComponent implements OnInit {
     }
   }
 
-  onScroll(event) {
-
+  onclickSmallTable(){
+    localStorage.setItem("smallTable",String(this.smallTable));
+    console.log(this.smallTable);
   }
 
 }

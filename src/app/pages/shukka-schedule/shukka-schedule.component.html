@@ -1,13 +1,23 @@
 <mat-progress-bar mode="indeterminate" *ngIf="progress"></mat-progress-bar>
 
-<button class="calenderNav" (click)="clickPrevious()" mat-raised-button color="primary"
-    i18n="@@previous">Previous</button>
 
-<button class="calenderNav" (click)="clickToday()" mat-raised-button color="primary" i18n="@@today">Today</button>
-<button class="calenderNav" (click)="clickNext()" mat-raised-button color="primary" i18n="@@next">Next</button>
-<h3> {{ viewDate | date:'MMMM yyyy'}}</h3>
+<section class="top-button-section">
+    <span>
+        <button class="calenderNav" (click)="clickPrevious()" mat-raised-button color="primary"
+            i18n="@@previous">Previous</button>
 
-<div class="table-container mat-elevation-z8">
+        <button class="calenderNav" (click)="clickToday()" mat-raised-button color="primary"
+            i18n="@@today">Today</button>
+        <button class="calenderNav" (click)="clickNext()" mat-raised-button color="primary" i18n="@@next">Next</button>
+        <h3> {{ viewDate | date:'MMMM yyyy'}}</h3>
+    </span>
+    <span>
+        <mat-checkbox style="margin: 0 10px;" [(ngModel)]="smallTable" i18n="@@smallTable"
+            (change)="onclickSmallTable()">Small Table</mat-checkbox>
+    </span>
+</section>
+<div class="table-container mat-elevation-z8"
+    [ngClass]="{'normalTable': smallTable == false, 'smallTable': smallTable == true}">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="setName" sticky>
             <th mat-header-cell *matHeaderCellDef i18n="@@productSetName"> Set Name </th>

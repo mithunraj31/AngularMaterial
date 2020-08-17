@@ -97,7 +97,7 @@ export class EditOrderDialogComponent implements OnInit {
       ]),
 
       "editReason": new FormControl("", [
-        Validators.required
+
       ]),
 
     });

@@ -35,6 +35,7 @@ import {MatToolbarModule,
         MatTooltipModule,
         MatSortModule,
         MatCheckboxModule,
+        MatMenuModule,
         
 } from '@angular/material';
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -162,7 +163,7 @@ import { DataChangedDialogComponent } from './dialogs/data-changed-dialog/data-c
     ShukkaScheduleComponent,
     NyuShukkaZumiScheduleComponent,
     UndoConfimationDialogComponent,
-    DataChangedDialogComponent
+    DataChangedDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -197,6 +198,7 @@ import { DataChangedDialogComponent } from './dialogs/data-changed-dialog/data-c
     MatSortModule,
     MatCheckboxModule,
     DragDropModule,
+    MatMenuModule
   ],
   exports: [ 
      

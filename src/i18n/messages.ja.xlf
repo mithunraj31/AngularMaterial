@@ -310,6 +310,10 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="addNewForecastOrder" datatype="html">
+        <source>Add new Forecast Order</source>
+        <target> 新しいフォーキャスト注文を追加 </target>
+      </trans-unit>
       <trans-unit id="proposalNumber" datatype="html">
         <source>Proposal Number</source>
         <target> 提案番号 </target>

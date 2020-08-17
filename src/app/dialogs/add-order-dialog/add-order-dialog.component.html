@@ -1,4 +1,5 @@
-<h1 mat-dialog-title i18n="@@addNewOrder">Add new Order</h1>
+<h1 *ngIf="isFixed" mat-dialog-title i18n="@@addNewOrder">Add new Order</h1>
+<h1 *ngIf="!isFixed" mat-dialog-title i18n="@@addNewForecastOrder">Add new Forecast Order</h1>
 <form (keydown.enter)="$event.preventDefault()" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
     <div class="container" style="overflow-y: scroll; height:550px;">
         <mat-form-field>
@@ -13,7 +14,7 @@
                 <input (keyup)="onKey($event.target.value,'customers')">
                 <mat-option i18n="@@none" (click)="onClick('customers')">None</mat-option>
                 <div *ngFor="let customer of customers" (click)="onClick('customers')">
-                    <mat-option value="{{customer.customerId}}" *ngIf="isItType(customer.type,'Customer')">
+                    <mat-option [value]="customer.customerId" *ngIf="isItType(customer.type,'Customer')">
                         {{customer.customerName}}
                     </mat-option>
                 </div>
@@ -27,7 +28,7 @@
                 <input (keyup)="onKey($event.target.value,'salesD')">
                 <mat-option i18n="@@none" (click)="onClick('salesD')">None</mat-option>
                 <div *ngFor="let customer of salesD" (click)="onClick('salesD')">
-                    <mat-option value="{{customer.customerId}}" *ngIf="isItType(customer.type,'Sales Destination')">
+                    <mat-option [value]="customer.customerId" *ngIf="isItType(customer.type,'Sales Destination')">
                         {{customer.customerName}}</mat-option>
                 </div>
             </mat-select>
@@ -41,7 +42,7 @@
                 <input (keyup)="onKey($event.target.value,'contractors')">
                 <mat-option i18n="@@none" (click)="onClick('contractors')">None</mat-option>
                 <div *ngFor="let customer of contractors" (click)="onClick('contractors')">
-                    <mat-option value="{{customer.customerId}}" *ngIf="isItType(customer.type,'Contractor')">
+                    <mat-option [value]="customer.customerId" *ngIf="isItType(customer.type,'Contractor')">
                         {{customer.customerName}}</mat-option>
                 </div>
             </mat-select>
@@ -75,7 +76,7 @@
                 <input (keyup)="onKey($event.target.value,'users')">
                 <mat-option i18n="@@none">None</mat-option>
                 <div *ngFor="let user of users">
-                    <mat-option value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</mat-option>
+                    <mat-option [value]="user.userId">{{user.firstName}} {{user.lastName}}</mat-option>
 
                 </div>
             </mat-select>

@@ -12,6 +12,7 @@ import { SaveProductComponent } from 'src/app/models/saveProductComponent';
 import { ProductService } from 'src/app/services/ProductService';
 import { UserService } from 'src/app/services/UserService';
 import { AddOrderConfirmationComponent } from '../add-order-confirmation/add-order-confirmation.component';
+import { Order } from 'src/app/models/Order';
 
 @Component({
   selector: 'app-add-order-dialog',
@@ -38,9 +39,11 @@ export class AddOrderDialogComponent implements OnInit {
   _users: User[] = [];
   productSearch = "";
   selectedProductSets = [];
+  order:Order;
+  isFixed:boolean;
   constructor(
     public dialogRef: MatDialogRef<AddOrderDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: boolean,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private customerService: CustomerService,
     private productService: ProductService,
     private userService: UserService,
@@ -50,9 +53,12 @@ export class AddOrderDialogComponent implements OnInit {
 
   ngOnInit() {
     this.getCustomerData();
-    this.initializeCustomerForm();
     this.getProductData();
     this.getUserData();
+    this.order = this.data.order;
+    this.isFixed = this.data.isFixed;
+    this.initializeCustomerForm();
+    console.log(this.order);
   }
   getCustomerData() {
     this.customerService.getCustomers().subscribe(result => {
@@ -72,33 +78,49 @@ export class AddOrderDialogComponent implements OnInit {
   }
 
   initializeCustomerForm() {
-    this.orderForm = new FormGroup({
-      "proposalNo": new FormControl("", [
-        Validators.required
-      ]),
-      "customerId": new FormControl("", [
-        Validators.required
-      ]),
-      "salesDestinationId": new FormControl("", [
-        
-      ]),
-      "contractorId": new FormControl("", [
+    const rDate = this.order&&this.order.receivedDate ? this.order.receivedDate.substring(0, 10) : "";
+    const dDate = this.order&&this.order.dueDate ? this.order.dueDate.substring(0, 10) : "";
+    const delDate = this.order&&this.order.deliveryDate ? this.order.deliveryDate.substring(0, 10) : "";
 
-      ]),
-      "receivedDate": new FormControl("", [
-        this.data ? Validators.required : Validators.nullValidator
-      ]),
-      "dueDate": new FormControl("", [
+    this.orderForm = new FormGroup({
+      "proposalNo": new FormControl(this.order&&this.order.proposalNo, [
         Validators.required
       ]),
-      "deliveryDate": new FormControl("", [
-        this.data ? Validators.required : Validators.nullValidator
+      "customerId": new FormControl(this.order&&this.order.customer.customerId ? this.order.customer.customerId : "", [
+        Validators.required
       ]),
-      "salesUserId": new FormControl("", [
+      "salesDestinationId": new FormControl(this.order&&this.order.salesDestination ? this.order.salesDestination.customerId : "", [
+      ]),
+      "contractorId": new FormControl(this.order&&this.order.contractor ? this.order.contractor.customerId : "", [
+      ]),
+      "receivedDate": new FormControl(rDate, [
+        this.isFixed ? Validators.required : Validators.nullValidator
+      ]),
+      "dueDate": new FormControl(dDate, [
+        Validators.required
+      ]),
+      "deliveryDate": new FormControl(delDate, [
+        this.isFixed ? Validators.required : Validators.nullValidator
+      ]),
+      "salesUserId": new FormControl(this.order&&this.order.salesUser?this.order.salesUser.userId:"", [
         Validators.required
       ]),
 
     })
+
+    if(this.order){
+      for (let product of this.order.orderedProducts) {
+        this.viewSelectd.push({
+          productId: product.product.productId,
+          productName: product.product.productName,
+          quantity: product.quantity
+        });
+        this.saveProducts.push({
+          productId: product.product.productId,
+          quantity: product.quantity
+        });
+      }
+    }
   }
 
   onCancelClick(): void {

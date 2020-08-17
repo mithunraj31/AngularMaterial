@@ -137,11 +137,15 @@ export class FulfilledOrdersComponent implements OnInit {
       data: customer
     });
   }
-  openDialog(isFixed: boolean) {
+  openDialog(isFixed: boolean, Data?:Order) {
     const dialogRef = this.dialog.open(AddOrderDialogComponent, {
       width: '600px',
-      data: isFixed
-    });
+      data: {
+        isFixed: isFixed,
+        order: Data},
+        disableClose: true
+    }
+    );
 
     dialogRef.afterClosed().subscribe(result => {
 

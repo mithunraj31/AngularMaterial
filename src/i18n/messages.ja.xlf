@@ -240,7 +240,7 @@
       </trans-unit>
       <trans-unit id="recievedDate" datatype="html">
         <source> Received Date </source>
-        <target> 受領日 </target>
+        <target> 受注日 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
           <context context-type="linenumber">48</context>
@@ -248,7 +248,7 @@
       </trans-unit>
       <trans-unit id="dueDate" datatype="html">
         <source> Due Date </source>
-        <target> 納期 </target>
+        <target>出荷日</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
           <context context-type="linenumber">54</context>
@@ -687,7 +687,7 @@
       </trans-unit>
       <trans-unit id="amount" datatype="html">
         <source>Amount</source>
-        <target>1セットあたりの数量</target>
+        <target>数量</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/product-sets/product-sets.component.html</context>
           <context context-type="linenumber">60</context>
@@ -1198,7 +1198,7 @@
       </trans-unit>
       <trans-unit id="deliveryDate" datatype="html">
         <source>Delivery Date</source>
-        <target>キッティング開始日</target>
+        <target>製造日</target>
       </trans-unit>
       <trans-unit id="addForecast" datatype="html">
         <source>Add Forecast</source>
@@ -1383,6 +1383,10 @@
       <trans-unit id="dataHasBeenChanged" datatype="html">
         <source>Data has been changed.</source>
         <target>データは既に変更されています</target>
+      </trans-unit>
+      <trans-unit id="copy" datatype="html">
+        <source>Copy</source>
+        <target>コピー</target>
       </trans-unit>
     </body>
   </file>

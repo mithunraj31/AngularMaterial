@@ -83,7 +83,7 @@ export class AddOrderDialogComponent implements OnInit {
     const delDate = this.order&&this.order.deliveryDate ? this.order.deliveryDate.substring(0, 10) : "";
 
     this.orderForm = new FormGroup({
-      "proposalNo": new FormControl(this.order&&this.order.proposalNo, [
+      "proposalNo": new FormControl(!this.isFixed?"FORECAST":this.order&&this.order.proposalNo?this.order.proposalNo:"", [
         Validators.required
       ]),
       "customerId": new FormControl(this.order&&this.order.customer.customerId ? this.order.customer.customerId : "", [

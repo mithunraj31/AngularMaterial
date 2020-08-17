@@ -2,7 +2,7 @@
 
 <form (keydown.enter)="$event.preventDefault()" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
     <div mat-dialog-content>
-        <div class="container" style="overflow-y: scroll; height:350px;">
+        <div class="container" style="overflow-y: scroll; height:550px;">
             <mat-form-field>
                 <input matInput type="text" i18n-placeholder="@@proposalNumber" placeholder="Proposal Number"
                     formControlName="proposalNo">

@@ -1,0 +1,25 @@
+<h1 mat-dialog-title i18n="@@addOrderSummeryWidget">Add Order Summery Widget</h1>
+<form (keydown.enter)="$event.preventDefault()" [formGroup]="summeryForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content class="example-container">
+    <mat-form-field>
+      <input matInput type="text" i18n-placeholder="@@title" placeholder="Title"
+        formControlName="title">
+      <mat-error *ngIf="summeryForm.get('title').hasError('required')" i18n="@@titleRequired">Title
+        cannot be empty.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label i18n="@@selectProduct">Select a product</mat-label>
+        <mat-select formControlName="product">
+          <input (keyup)="onKey($event.target.value)">
+          <mat-option i18n="@@none">None</mat-option>
+          <mat-option value="{{product.productId}}" *ngFor="let product of products; let i = index">{{product.productName}}</mat-option>
+    
+        </mat-select>
+      </mat-form-field>
+    
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button type="button" (click)="onCancelClick()" i18n="@@cancel">Cancel</button>
+    <button mat-button type="submit" [disabled]="!summeryForm.valid" i18n-placeholder="@@ok">Ok</button>
+  </div>
+</form>

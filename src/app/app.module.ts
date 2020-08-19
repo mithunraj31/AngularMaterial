@@ -106,6 +106,8 @@ import { ShukkaScheduleComponent } from './pages/shukka-schedule/shukka-schedule
 import { NyuShukkaZumiScheduleComponent } from './pages/nyu-shukka-zumi-schedule/nyu-shukka-zumi-schedule.component';
 import { UndoConfimationDialogComponent } from './dialogs/undo-confimation-dialog/undo-confimation-dialog.component';
 import { DataChangedDialogComponent } from './dialogs/data-changed-dialog/data-changed-dialog.component';
+import { AddOrderSummeryComponent } from './dialogs/add-order-summery/add-order-summery.component';
+import { DashboardService } from './services/DashboardService';
 
 
 @NgModule({
@@ -164,6 +166,7 @@ import { DataChangedDialogComponent } from './dialogs/data-changed-dialog/data-c
     NyuShukkaZumiScheduleComponent,
     UndoConfimationDialogComponent,
     DataChangedDialogComponent,
+    AddOrderSummeryComponent,
   ],
   imports: [
     BrowserModule,
@@ -233,7 +236,8 @@ import { DataChangedDialogComponent } from './dialogs/data-changed-dialog/data-c
     AddIncomingShipmentConfirmationComponent,
     IncomingInfoComponent,
     UndoConfimationDialogComponent,
-    DataChangedDialogComponent
+    DataChangedDialogComponent,
+    AddOrderSummeryComponent
   ],
   providers: [
     ProductService,
@@ -248,6 +252,7 @@ import { DataChangedDialogComponent } from './dialogs/data-changed-dialog/data-c
     ProductForecastService,
     UtilService,
     ExcelServices,
+    DashboardService,
     DatePipe,
     {
       provide: HTTP_INTERCEPTORS,

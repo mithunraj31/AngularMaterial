@@ -53,5 +53,8 @@ export class ProductService {
     getProductSetById(id: number) {
         return this.http.get<ProductSet>(this.productSetUrl + id);
     }
+    getProductHistory(date:Date){
+        return this.http.get<Product[]>(this.productUrl+"history/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate());
+    }
 
 }

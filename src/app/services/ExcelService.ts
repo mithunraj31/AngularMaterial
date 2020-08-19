@@ -8,13 +8,13 @@ import { Product } from '../models/Product';
 
 @Injectable({
     providedIn: 'root'
-  })
+})
 export class ExcelServices {
 
-    constructor(private datePipe: DatePipe, private util:UtilService) {
+    constructor(private datePipe: DatePipe, private util: UtilService) {
 
     }
-    async generateExcel(data: Product[]) {
+    async generateExcel(data: Product[], requestedDate: Date) {
 
 
         // const ExcelJS = await import('exceljs');
@@ -25,7 +25,7 @@ export class ExcelServices {
         const title = 'MBEL FORKERS 生産販売管理システム';
         const subTitle = '製品 / Products';
         // const header = [ 'OBIC番号 / OBIC No','製品名 / Product Name','製品名 / Description','単価 / Price','現在庫 / Current Stock', 'MOQ'];
-        const header = [ 'OBIC番号','製品名','製品内容','単価','現在庫','リードタイム (w)', 'MOQ'];
+        const header = ['OBIC番号', '製品名', '製品内容', '単価', '現在庫', 'リードタイム (w)', 'MOQ'];
 
 
         // Create workbook and worksheet
@@ -44,7 +44,7 @@ export class ExcelServices {
             bgColor: { argb: 'FF5E92F3', }
         };
         const subTitleRow = worksheet.addRow([subTitle]);
-        const dateRow = worksheet.addRow(['Date : ' + this.datePipe.transform(new Date(), 'medium')]);
+        const dateRow = worksheet.addRow(['Date : ' + this.datePipe.transform(requestedDate, 'mediumDate')+' 12:00 AM']);
         worksheet.mergeCells('A1:D2');
         worksheet.mergeCells('A3:C3');
         worksheet.mergeCells('A4:C4');
@@ -64,7 +64,7 @@ export class ExcelServices {
                 bgColor: { argb: 'FF1565C0', }
             };
             cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } };
-            cell.font = { color : { argb: 'ffffff'}};
+            cell.font = { color: { argb: 'ffffff' } };
         });
         // worksheet.addRows(data);
 
@@ -75,7 +75,7 @@ export class ExcelServices {
                 d.obicNo,
                 d.productName,
                 d.description,
-                (this.util.getCurrencySign(d.currency)+''+d.price),
+                (this.util.getCurrencySign(d.currency) + '' + d.price),
                 d.quantity,
                 d.leadTime,
                 d.moq
@@ -115,10 +115,10 @@ export class ExcelServices {
 
         // Generate Excel File with given name
         workbook.xlsx.writeBuffer().then((data: any) => {
-            const date = new Date();
-            const fileName = '製品 '+this.datePipe.transform(new Date(), 'yyyyMMddHHmm')+'.xlsx';
+
+            const fileName = '製品 ' + this.datePipe.transform(requestedDate, 'yyyyMMddHHmm') + '.xlsx';
             const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-            fs.saveAs(blob,fileName );
+            fs.saveAs(blob, fileName);
         });
 
     }

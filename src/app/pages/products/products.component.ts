@@ -10,6 +10,7 @@ import { UpdateProductDialogComponent } from 'src/app/dialogs/update-product-dia
 import * as XLSX from 'xlsx';
 import { nextTick } from 'q';
 import { DataChangedDialogComponent } from 'src/app/dialogs/data-changed-dialog/data-changed-dialog.component';
+import { ProductsExportSelectDateComponent } from 'src/app/dialogs/products-export-select-date/products-export-select-date.component';
 
 type AOA = any[][];
 
@@ -279,7 +280,16 @@ export class ProductsComponent implements OnInit {
   }
 
   clickExport() {
-    this.excel.generateExcel(this.products);
+    const dialogRef = this.dialog.open(ProductsExportSelectDateComponent);
+
+    dialogRef.afterClosed().subscribe(requestedDate => {
+      if(requestedDate){
+        this.productService.getProductHistory(requestedDate).subscribe(products=>{
+          this.excel.generateExcel(products, requestedDate);
+
+        })
+      }
+    });
   }
   clickDisplay(product: Product, val: boolean) {
     product.display = val;

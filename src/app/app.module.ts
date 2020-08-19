@@ -108,6 +108,7 @@ import { UndoConfimationDialogComponent } from './dialogs/undo-confimation-dialo
 import { DataChangedDialogComponent } from './dialogs/data-changed-dialog/data-changed-dialog.component';
 import { AddOrderSummeryComponent } from './dialogs/add-order-summery/add-order-summery.component';
 import { DashboardService } from './services/DashboardService';
+import { ProductsExportSelectDateComponent } from './dialogs/products-export-select-date/products-export-select-date.component';
 
 
 @NgModule({
@@ -167,6 +168,7 @@ import { DashboardService } from './services/DashboardService';
     UndoConfimationDialogComponent,
     DataChangedDialogComponent,
     AddOrderSummeryComponent,
+    ProductsExportSelectDateComponent,
   ],
   imports: [
     BrowserModule,
@@ -237,7 +239,8 @@ import { DashboardService } from './services/DashboardService';
     IncomingInfoComponent,
     UndoConfimationDialogComponent,
     DataChangedDialogComponent,
-    AddOrderSummeryComponent
+    AddOrderSummeryComponent,
+    ProductsExportSelectDateComponent
   ],
   providers: [
     ProductService,

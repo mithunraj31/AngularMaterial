@@ -8,6 +8,7 @@ import { MatDialogRef } from '@angular/material';
 })
 export class ProductsExportSelectDateComponent implements OnInit {
   date;
+  dateError;
   constructor(public dialogRef: MatDialogRef<ProductsExportSelectDateComponent>) { }
 
   ngOnInit() {
@@ -17,7 +18,7 @@ export class ProductsExportSelectDateComponent implements OnInit {
   submit(){
     this.dialogRef.close(new Date(this.date));
   }
-  onClickClose(){
+  onCancelClick(){
     this.dialogRef.close(null);
   }
 

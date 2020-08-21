@@ -1408,6 +1408,11 @@
         <source>OutGoing Quantity</source>
         <target>合計出荷数</target>
       </trans-unit>
+      </trans-unit>
+       <trans-unit id="export" datatype="html">
+        <source>Export</source>
+        <target>Excel出力</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

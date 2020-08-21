@@ -128,7 +128,7 @@
                 <mat-menu #editMenu="matMenu">
                     <button mat-menu-item (click)="editOrder(element)">
                         <mat-icon style="color: #1E88E5;">edit</mat-icon>
-                        <span i18n-aria-label="@@edit">Edit</span>
+                        <span i18n="@@edit">Edit</span>
                     </button>
                     <button mat-menu-item  [matMenuTriggerFor]="copyMenu" >
                         <mat-icon style="color: #1E88E5;">file_copy</mat-icon>
@@ -140,7 +140,7 @@
                     </button>
                     <button mat-menu-item *ngIf="!element.fulfilled && element.fixed" (click)="backToFCST(element)">
                         <mat-icon style="color: #ffc107;">undo</mat-icon>
-                        <span i18n="@@undu">Undo</span>
+                        <span i18n="@@undo">Undo</span>
                     </button>
                 </mat-menu>
                 <mat-menu #copyMenu="matMenu">

@@ -76,16 +76,16 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element;">
-        <button mat-raised-button color="primary" *ngIf="!element.fixed" (click)="confirmOrder(element)" i18n="@@confirmInOrder">Confirm</button>
-        <button mat-raised-button class="fullfillBtn" *ngIf="element.fixed && element.arrived" (click)="fullFillArrival(element)"
+        <button style="width: 95px; float: left;" mat-raised-button color="primary" *ngIf="!element.fixed" (click)="confirmOrder(element)" i18n="@@confirmInOrder">Confirm</button>
+        <button style="width: 95px; float: left;" mat-raised-button class="fullfillBtn" *ngIf="element.fixed && element.arrived" (click)="fullFillArrival(element)"
           [disabled]="element.arrived" i18n="@@arrived">Arrived</button>
-        <button mat-raised-button class="fullfillBtn" *ngIf="element.fixed && !element.arrived" (click)="fullFillArrival(element)"
+        <button style="width: 95px; float: left;" mat-raised-button class="fullfillBtn" *ngIf="element.fixed && !element.arrived" (click)="fullFillArrival(element)"
           [disabled]="element.arrived" i18n="@@notInStock">Not in stock</button>
-        <button mat-button color="primary" (click)="editShipment(element)" i18n="@@edit">Edit</button>
-        <button mat-button color="warn" (click)="deleteShipment(element)" [disabled]="isDeletable(element)" i18n="@@delete">Delete</button>
-        <button *ngIf="element.fixed && !element.arrived && !isDeletable(element) && !element.partial" class="tablebtn"  mat-icon-button style="color: #ffc107;"
+        <button style="float: left;" mat-button color="primary" (click)="editShipment(element)" i18n="@@edit">Edit</button>
+        <button style="float: left;" mat-button color="warn" (click)="deleteShipment(element)" [disabled]="isDeletable(element)" i18n="@@delete">Delete</button>
+        <button style="float: left;" *ngIf="element.fixed && !element.arrived && !isDeletable(element) && !element.partial" mat-icon-button style="color: #ffc107;"
                     (click)="backToUnConfirm(element)" i18n="@@undu">
-                    <mat-icon>undo</mat-icon>
+                    <mat-icon style="float: left;">undo</mat-icon>
                 </button>
       </td>
     </ng-container>

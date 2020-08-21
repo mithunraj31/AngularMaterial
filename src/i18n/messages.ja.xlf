@@ -1388,6 +1388,26 @@
         <source>Copy</source>
         <target>コピー</target>
       </trans-unit>
+      <trans-unit id="addOrderSummeryWidget" datatype="html">
+        <source>Add Order Summery Widget</source>
+        <target>入出荷数項目追加</target>
+      </trans-unit>
+      <trans-unit id="title" datatype="html">
+        <source>Title</source>
+        <target>タイタル</target>
+      </trans-unit>
+       <trans-unit id="titleRequired" datatype="html">
+        <source>Title cannot be empty.</source>
+        <target>タイタルが必要</target>
+      </trans-unit>
+      <trans-unit id="incomingQuantitySummary" datatype="html">
+        <source>Incoming Quantity</source>
+        <target>合計入荷数</target>
+      </trans-unit>
+       <trans-unit id="outgoingQuantitySummary" datatype="html">
+        <source>OutGoing Quantity</source>
+        <target>合計出荷数</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

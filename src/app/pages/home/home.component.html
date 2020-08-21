@@ -1,13 +1,13 @@
 <section class="top-button-section">
-    <button mat-raised-button color="primary" [matMenuTriggerFor]="menuAdd">
+    <button mat-raised-button color="primary" (click)="addOrderSummery()">
         +
     </button>
-    <mat-menu #menuAdd="matMenu">
+    <!-- <mat-menu #menuAdd="matMenu">
         <button mat-menu-item (click)="addOrderSummery()">
             <mat-icon>timeline</mat-icon>
             <span>Order Summery</span>
         </button>
-    </mat-menu>
+    </mat-menu> -->
     <button mat-raised (click)="refresh()">
         <mat-icon aria-hidden="false">loop</mat-icon>
     </button>
@@ -33,11 +33,11 @@
             <mat-card-content>
                 <table style="width: 100%; margin-bottom: 3px;" class="mat-elevation-z8">
                     <tr>
-                        <td>Incoming Quantity</td>
+                        <td i18n="@@incomingQuantitySummary">Incoming Quantity</td>
                         <td>{{widget.data.totalIncomingQty}}</td>
                     </tr>
                     <tr>
-                        <td>OutGoing Quantity</td>
+                        <td i18n="@@outgoingQuantitySummary">OutGoing Quantity</td>
                         <td>{{widget.data.totalOutgoingQty}}</td>
                     </tr>
                 </table>

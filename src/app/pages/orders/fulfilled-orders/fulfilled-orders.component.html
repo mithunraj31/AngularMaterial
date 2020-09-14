@@ -92,6 +92,18 @@
                     i18n="@@undu">
                     <mat-icon>undo</mat-icon>
                 </button>
+                <button class="tablebtn" mat-icon-button [matMenuTriggerFor]="copyMenu"
+                    style="color: #075eff;">
+                    <mat-icon>file_copy</mat-icon>
+                </button>
+                <mat-menu #copyMenu="matMenu">
+                    <button mat-menu-item (click)="openDialog(false,element)">
+                      <span i18n="@@addForecast">Add Forecast</span>
+                    </button>
+                    <button mat-menu-item (click)="openDialog(true,element)" >
+                      <span i18n="@@addConfirmed">Add Confirmed</span>
+                    </button>
+                  </mat-menu>
             </td>
         </ng-container>
 

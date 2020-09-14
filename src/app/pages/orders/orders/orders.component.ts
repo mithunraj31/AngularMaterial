@@ -159,11 +159,15 @@ export class OrdersComponent implements OnInit {
       data: customer
     });
   }
-  openDialog(isFixed: boolean) {
+  openDialog(isFixed: boolean, Data?:Order) {
     const dialogRef = this.dialog.open(AddOrderDialogComponent, {
       width: '600px',
-      data: isFixed
-    });
+      data: {
+        isFixed: isFixed,
+        order: Data},
+        disableClose: true
+    }
+    );
 
     dialogRef.afterClosed().subscribe(result => {
 
@@ -194,7 +198,8 @@ export class OrdersComponent implements OnInit {
       //Load Warning popup
       const dialogRef = this.dialog.open(DataChangedDialogComponent, {
         width: '600px',
-        data: isChanged
+        data: isChanged,
+        disableClose: true
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -203,7 +208,8 @@ export class OrdersComponent implements OnInit {
     } else { // When data is not changed.
       const dialogRef = this.dialog.open(EditOrderDialogComponent, {
         width: '600px',
-        data: data
+        data: data,
+        disableClose: true
       });
       // open edit dialog 
       dialogRef.afterClosed().subscribe(async result => {
@@ -213,7 +219,8 @@ export class OrdersComponent implements OnInit {
             //Load Warning popup
             const dialogRef = this.dialog.open(DataChangedDialogComponent, {
               width: '600px',
-              data: isChanged
+              data: isChanged,
+              disableClose: true
             });
 
             dialogRef.afterClosed().subscribe(result => {
@@ -410,7 +417,7 @@ export class OrdersComponent implements OnInit {
             this.progress = true;
             const orderUpdate: SaveOrder = result;
             orderUpdate.fixed = true;
-            orderUpdate.editReason = "Transfer to Confirmed";
+            orderUpdate.editReason = "2";
             orderUpdate.proposalNo = order.proposalNo;
             orderUpdate.customerId = order.customer.customerId;
             orderUpdate.userId = order.user.userId;

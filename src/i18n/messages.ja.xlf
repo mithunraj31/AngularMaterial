@@ -240,7 +240,7 @@
       </trans-unit>
       <trans-unit id="recievedDate" datatype="html">
         <source> Received Date </source>
-        <target> 受領日 </target>
+        <target> 受注日 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
           <context context-type="linenumber">48</context>
@@ -248,7 +248,7 @@
       </trans-unit>
       <trans-unit id="dueDate" datatype="html">
         <source> Due Date </source>
-        <target> 納期 </target>
+        <target>出荷日</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/orders/orders.component.html</context>
           <context context-type="linenumber">54</context>
@@ -309,6 +309,10 @@
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="addNewForecastOrder" datatype="html">
+        <source>Add new Forecast Order</source>
+        <target> 新しいフォーキャスト注文を追加 </target>
       </trans-unit>
       <trans-unit id="proposalNumber" datatype="html">
         <source>Proposal Number</source>
@@ -683,7 +687,7 @@
       </trans-unit>
       <trans-unit id="amount" datatype="html">
         <source>Amount</source>
-        <target>1セットあたりの数量</target>
+        <target>数量</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/product-sets/product-sets.component.html</context>
           <context context-type="linenumber">60</context>
@@ -1194,7 +1198,7 @@
       </trans-unit>
       <trans-unit id="deliveryDate" datatype="html">
         <source>Delivery Date</source>
-        <target>キッティング開始日</target>
+        <target>製造日</target>
       </trans-unit>
       <trans-unit id="addForecast" datatype="html">
         <source>Add Forecast</source>
@@ -1368,9 +1372,45 @@
         <source>Reason</source>
         <target>変更内容</target>
       </trans-unit>
-      <trans-unit id="at" datatype="html">
+      <trans-unit id="updatedAt" datatype="html">
         <source>At</source>
-        <target>於</target>
+        <target>最終変更日時</target>
+      </trans-unit>
+      <trans-unit id="dataHasBeenChangedMassege" datatype="html">
+        <source>Data has been changed by a another user. Please click OK to refresh the page.</source>
+        <target>このデータは別のユーザにより変更されました。OKボタンを押すとページが更新されます。</target>
+      </trans-unit>
+      <trans-unit id="dataHasBeenChanged" datatype="html">
+        <source>Data has been changed.</source>
+        <target>データは既に変更されています</target>
+      </trans-unit>
+      <trans-unit id="copy" datatype="html">
+        <source>Copy</source>
+        <target>コピー</target>
+      </trans-unit>
+      <trans-unit id="addOrderSummeryWidget" datatype="html">
+        <source>Add Order Summery Widget</source>
+        <target>入出荷数項目追加</target>
+      </trans-unit>
+      <trans-unit id="title" datatype="html">
+        <source>Title</source>
+        <target>タイタル</target>
+      </trans-unit>
+       <trans-unit id="titleRequired" datatype="html">
+        <source>Title cannot be empty.</source>
+        <target>タイタルが必要</target>
+      </trans-unit>
+      <trans-unit id="incomingQuantitySummary" datatype="html">
+        <source>Incoming Quantity</source>
+        <target>合計入荷数</target>
+      </trans-unit>
+       <trans-unit id="outgoingQuantitySummary" datatype="html">
+        <source>OutGoing Quantity</source>
+        <target>合計出荷数</target>
+      </trans-unit>
+       <trans-unit id="export" datatype="html">
+        <source>Export</source>
+        <target>Excel出力</target>
       </trans-unit>
     </body>
   </file>

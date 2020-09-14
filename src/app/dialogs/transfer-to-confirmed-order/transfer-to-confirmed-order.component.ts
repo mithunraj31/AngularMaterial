@@ -109,7 +109,7 @@ export class TransferToConfirmedOrderComponent implements OnInit {
       const order: SaveOrder = this.orderForm.value;
       order.orderedProducts = this.saveProducts;
 
-      order.receivedDate = new Date(this.orderForm.value.receivedDate).toISOString();
+      order.receivedDate = order.receivedDate?new Date(this.orderForm.value.receivedDate).toISOString():null;
       order.dueDate = new Date(this.orderForm.value.dueDate).toISOString();
       order.deliveryDate = new Date(this.orderForm.value.deliveryDate).toISOString();
       order.orderId = this.data.orderId;

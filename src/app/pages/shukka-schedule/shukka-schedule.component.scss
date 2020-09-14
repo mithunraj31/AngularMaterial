@@ -4,15 +4,17 @@ p {
   
   
   
-  th, td {
-    vertical-align: center;
-    text-align: center !important;
-    justify-content:center;
-    border-right: 1px solid rgba(0,0,0,.12);
-    padding: 5px;
-    font-size: small;
+  .normalTable{
+    th, td {
+      vertical-align: center;
+      text-align: center !important;
+      justify-content:center;
+      border-right: 1px solid rgba(0,0,0,.12);
+      padding: 5px;
+
+      font-size: small;
+    }
   }
-  
   
   .bold {
       font-weight: bold;
@@ -90,4 +92,24 @@ p {
   }
   body {
     overflow-y: hidden !important;
+  }
+  .smallTable{
+    th, td {
+      vertical-align: center;
+      text-align: center !important;
+      justify-content:center;
+      border-right: 1px solid rgba(0,0,0,.12);
+      padding-left: 6px;
+      padding-right: 6px;
+      padding-top: 1px;
+      padding-bottom: 1px;
+      font-size: x-small;
+    }
+    tr.mat-footer-row, tr.mat-row {
+      height: 30px;
+  }
+  }
+  .top-button-section{
+    display: flex;
+    justify-content: space-between;
   }

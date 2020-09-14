@@ -1412,6 +1412,14 @@
         <source>Export</source>
         <target>Excel出力</target>
       </trans-unit>
+       <trans-unit id="saveError" datatype="html">
+        <source>Product Save Error</source>
+        <target>製品保存エラー</target>
+      </trans-unit>
+      <trans-unit id="obicNoAlreadyPresent" datatype="html">
+        <source>OBICNO Already Present</source>
+        <target>OBICNOはすでに存在します</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

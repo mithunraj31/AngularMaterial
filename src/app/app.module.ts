@@ -36,13 +36,13 @@ import {MatToolbarModule,
         MatSortModule,
         MatCheckboxModule,
         MatMenuModule,
-        
+
 } from '@angular/material';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import { SidebarComponent } from './components/sidebar/sidebar.component'; 
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { HomeComponent } from './pages/home/home.component';
-import { ProductsComponent } from './pages/products/products.component'; 
+import { ProductsComponent } from './pages/products/products.component';
 import { ProductService } from './services/ProductService';
 import { AddProductDialogComponent } from './dialogs/add-product-dialog/add-product-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -109,6 +109,7 @@ import { DataChangedDialogComponent } from './dialogs/data-changed-dialog/data-c
 import { AddOrderSummeryComponent } from './dialogs/add-order-summery/add-order-summery.component';
 import { DashboardService } from './services/DashboardService';
 import { ProductsExportSelectDateComponent } from './dialogs/products-export-select-date/products-export-select-date.component';
+import { ErrorProductDialogComponent } from './dialogs/error-product-dialog/error-product-dialog.component';
 
 
 @NgModule({
@@ -169,6 +170,7 @@ import { ProductsExportSelectDateComponent } from './dialogs/products-export-sel
     DataChangedDialogComponent,
     AddOrderSummeryComponent,
     ProductsExportSelectDateComponent,
+    ErrorProductDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -205,8 +207,8 @@ import { ProductsExportSelectDateComponent } from './dialogs/products-export-sel
     DragDropModule,
     MatMenuModule
   ],
-  exports: [ 
-     
+  exports: [
+
   ],
   entryComponents: [
     AddProductDialogComponent,
@@ -240,7 +242,8 @@ import { ProductsExportSelectDateComponent } from './dialogs/products-export-sel
     UndoConfimationDialogComponent,
     DataChangedDialogComponent,
     AddOrderSummeryComponent,
-    ProductsExportSelectDateComponent
+    ProductsExportSelectDateComponent,
+    ErrorProductDialogComponent,
   ],
   providers: [
     ProductService,

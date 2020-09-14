@@ -11,6 +11,7 @@ import * as XLSX from 'xlsx';
 import { nextTick } from 'q';
 import { DataChangedDialogComponent } from 'src/app/dialogs/data-changed-dialog/data-changed-dialog.component';
 import { ProductsExportSelectDateComponent } from 'src/app/dialogs/products-export-select-date/products-export-select-date.component';
+import { ErrorProductDialogComponent } from 'src/app/dialogs/error-product-dialog/error-product-dialog.component';
 
 type AOA = any[][];
 
@@ -31,6 +32,7 @@ export class ProductsComponent implements OnInit {
     'leadTime',
     'moq',
     'obicNo',
+    'sort',
     'actions'
   ];
   products: Product[] = [];
@@ -108,6 +110,10 @@ export class ProductsComponent implements OnInit {
           this.getProductData();
         }, error => {
           this.progress = false;
+            const dialogRef = this.dialog.open(ErrorProductDialogComponent, {
+              width: '600px',
+              data: product.obicNo
+            });
         })
 
       }

@@ -8,7 +8,6 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog, MatTable, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { UpdateProductDialogComponent } from 'src/app/dialogs/update-product-dialog/update-product-dialog.component';
 import * as XLSX from 'xlsx';
-import { nextTick } from 'q';
 import { DataChangedDialogComponent } from 'src/app/dialogs/data-changed-dialog/data-changed-dialog.component';
 import { ProductsExportSelectDateComponent } from 'src/app/dialogs/products-export-select-date/products-export-select-date.component';
 import { ErrorProductDialogComponent } from 'src/app/dialogs/error-product-dialog/error-product-dialog.component';
@@ -96,9 +95,8 @@ export class ProductsComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddProductDialogComponent, {
       width: '600px',
-      data: this.products.length
+      data: this.products
     });
-
     dialogRef.afterClosed().subscribe(result => {
 
       if (result) {

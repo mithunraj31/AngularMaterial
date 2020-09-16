@@ -21,7 +21,11 @@ export class EditIncomingShipmentComponent implements OnInit {
   saveIncomingShipment: SaveIncomingShipment;
   constructor(
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IncomingShipment,
+    @Inject(MAT_DIALOG_DATA) public data: {
+      element: IncomingShipment,
+      editable: boolean
+    },
+    @Inject(MAT_DIALOG_DATA) public val: any,
     private productService: ProductService,
     public dialog: MatDialog
   ) { }
@@ -33,14 +37,14 @@ export class EditIncomingShipmentComponent implements OnInit {
 
   }
   initializeShipmentForm() {
-    const oDate = this.data.orderDate.substring(0, 10);
-    const dDate = this.data.desiredDeliveryDate.substring(0, 10);
+    const oDate = this.data.element.orderDate.substring(0, 10);
+    const dDate = this.data.element.desiredDeliveryDate.substring(0, 10);
     this.incomingShipmentForm = new FormGroup({
-      "shipmentNo": new FormControl(this.data
+      "shipmentNo": new FormControl(this.data.element
         .shipmentNo, [
           Validators.required
         ]),
-      "vendor": new FormControl(this.data.vendor, [
+      "vendor": new FormControl(this.data.element.vendor, [
 
       ]),
       "orderDate": new FormControl(oDate, [
@@ -49,18 +53,20 @@ export class EditIncomingShipmentComponent implements OnInit {
       "desiredDeliveryDate": new FormControl(dDate, [
         Validators.required
       ]),
-      "productId": new FormControl(this.data.product.productId, [
+      "productId": new FormControl(this.data.element.product.productId, [
         Validators.required
       ]),
-      "quantity": new FormControl(this.data.quantity, [
+      "quantity": new FormControl(this.data.element.quantity, [
         Validators.required
       ]),
 
 
     });
     this.incomingShipmentForm.get("shipmentNo").disable();
+    if(!this.data.editable) {
     this.incomingShipmentForm.get("productId").disable();
-    if(this.data.partial) {
+    }
+    if(this.data.element.partial) {
       this.incomingShipmentForm.get("orderDate").disable();
     }
 
@@ -77,26 +83,26 @@ export class EditIncomingShipmentComponent implements OnInit {
   onSubmit() {
     if (this.incomingShipmentForm.valid) {
       this.saveIncomingShipment = this.incomingShipmentForm.value;
-      this.saveIncomingShipment.shipmentNo = this.data.shipmentNo;
-      this.saveIncomingShipment.productId = this.data.product.productId;
-      
+      this.saveIncomingShipment.shipmentNo = this.data.element.shipmentNo;
+      this.saveIncomingShipment.productId = this.data.element.product.productId;
+
       this.saveIncomingShipment.desiredDeliveryDate = new Date(this.incomingShipmentForm.value.desiredDeliveryDate).toISOString();
-      this.saveIncomingShipment.incomingShipmentId = this.data.incomingShipmentId;
-      this.saveIncomingShipment.branch = this.data.branch;
-      if (this.data.partial){
-        this.saveIncomingShipment.orderDate = new Date(this.data.orderDate).toISOString();
+      this.saveIncomingShipment.incomingShipmentId = this.data.element.incomingShipmentId;
+      this.saveIncomingShipment.branch = this.data.element.branch;
+      if (this.data.element.partial){
+        this.saveIncomingShipment.orderDate = new Date(this.data.element.orderDate).toISOString();
       }else {
         this.saveIncomingShipment.orderDate = new Date(this.incomingShipmentForm.value.orderDate).toISOString();
       }
-      if (!this.data.fixed) {
-        this.saveIncomingShipment.pendingQty = this.data.pendingQty + (this.saveIncomingShipment.quantity - this.data.quantity);
+      if (!this.data.element.fixed) {
+        this.saveIncomingShipment.pendingQty = this.data.element.pendingQty + (this.saveIncomingShipment.quantity - this.data.element.quantity);
       } else {
-        this.saveIncomingShipment.fixedDeliveryDate = new Date(this.data.fixedDeliveryDate).toISOString();
-        this.saveIncomingShipment.confirmedQty = this.data.confirmedQty;
+        this.saveIncomingShipment.fixedDeliveryDate = new Date(this.data.element.fixedDeliveryDate).toISOString();
+        this.saveIncomingShipment.confirmedQty = this.data.element.confirmedQty;
       }
-      this.saveIncomingShipment.fixed = this.data.fixed;
-      this.saveIncomingShipment.partial = this.data.partial;
-      this.saveIncomingShipment.arrived = this.data.arrived;
+      this.saveIncomingShipment.fixed = this.data.element.fixed;
+      this.saveIncomingShipment.partial = this.data.element.partial;
+      this.saveIncomingShipment.arrived = this.data.element.arrived;
 
       // open confimation dialog
       const confirmDialogRef = this.dialog.open(AddIncomingShipmentConfirmationComponent, {

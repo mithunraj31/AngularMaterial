@@ -1,6 +1,6 @@
 import { Order } from './../models/Order';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -18,7 +18,13 @@ export class ForecastService {
     getForecast() {
         return this.http.get<Order[]>(this.forecastUrl);
     }
-    getProductForecast(year: number, month: number) {
+    getProductForecast(year: number, month: number, patternId: number = 0) {
+        if (patternId > 0) {
+          const params = new HttpParams();
+          params.append('pattern', patternId.toString());
+          return this.http.get<any[]>(this.forecastProductUrl + year + '/' + (month + 1), { params });
+        }
+
         return this.http.get<any[]>(this.forecastProductUrl + year + '/' + (month + 1));
         // return this.http.get<any[]>(this.forecastUrl);
     }

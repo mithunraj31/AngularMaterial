@@ -1,11 +1,14 @@
 import { Component, OnInit, Inject, LOCALE_ID, HostListener } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ForecastService } from 'src/app/services/ForecastService';
-import { takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { OrderInfoComponent } from 'src/app/dialogs/order-info/order-info.component';
 import { IncomingInfoComponent } from 'src/app/dialogs/incoming-info/incoming-info.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { filter } from 'lodash';
+import { ProductService } from 'src/app/services/ProductService';
+import { SchedulePattern } from 'src/app/models/SchedulePattern';
+import { AuthService } from 'src/app/auth/AuthService';
 
 @Component({
   selector: 'app-delivery-schedule',
@@ -26,16 +29,32 @@ export class DeliveryScheduleComponent implements OnInit {
   progress;
   unsub = new Subject();
   viewDate = new Date();
+  preview: any[];
+
+  patterns: SchedulePattern[]
+  selectedPattern: SchedulePattern;
 
   constructor(private forecastService: ForecastService,
     @Inject(LOCALE_ID) public localeId: string,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private productService: ProductService,
+    private authService: AuthService
   ) {
-
+    this.route.queryParams.subscribe(params => {
+      this.preview = [];
+      if (params['preview']) {
+        const previews: any[] = JSON.parse(params['preview']);
+        previews.forEach(x => {
+          x.items.forEach(i => {
+            this.preview.push({setId: x.id, productId: i});
+          });
+        });
+      }
+    });
     this.localizeSubColumns();
-
+    this.selectedPattern = null;
   }
 
   ngOnInit() {
@@ -56,9 +75,12 @@ export class DeliveryScheduleComponent implements OnInit {
 
       this.viewDate = new Date();
     } finally {
-
       this.populateData();
     }
+
+    this.productService.getSchedulePatterns().subscribe((scheculePatterns: SchedulePattern[]) => {
+      this.patterns = scheculePatterns;
+    });
   }
   localizeSubColumns() {
     if (this.localeId === 'ja') {
@@ -117,18 +139,29 @@ export class DeliveryScheduleComponent implements OnInit {
     this.populateData();
   }
 
-  populateData() {
+  populateData(patternId: number = 0) {
     this.progress = true;
     // this.progress = false;
 
-    this.forecastService.getProductForecast(this.viewDate.getFullYear(), this.viewDate.getMonth()).subscribe(data => {
+    let subscriber = null;
+    if (this.selectedPattern) {
+      subscriber = this.forecastService.getProductForecast(
+        this.viewDate.getFullYear(),
+        this.viewDate.getMonth(),
+        this.selectedPattern.schedulePatternId);
+    } else {
+      subscriber = this.forecastService.getProductForecast(
+        this.viewDate.getFullYear(),
+        this.viewDate.getMonth());
+    }
+
+
+    subscriber.subscribe(data => {
 
       this.addColumnsToTables(data[0].products[0].values);
       this.productForecast = data;
 
-      let setcount = 0;
-      let productcount = 0;
-      const tempdata: any[] = [];
+      let tempdata: any[] = [];
       data.forEach(productSet => {
         productSet.products.forEach(product => {
           this.subColumns.forEach(column => {
@@ -167,13 +200,24 @@ export class DeliveryScheduleComponent implements OnInit {
             // this.dataSource.push(temp);
 
           });
-          productcount++;
         });
-        setcount++;
 
       });
-      // this.dataSource = tempdata.slice(0, 9);
-      this.dataSource = tempdata;
+      this.dataSource = [];
+      if (this.isPreviewMode()) {
+        this.preview.forEach(x => {
+
+          const previewItems =  filter(tempdata,
+              t => t.setId == x.setId && t.productId == x.productId);
+          if (previewItems.length > 0) {
+            previewItems.forEach(f => this.dataSource.push(f));
+
+          }
+
+        });
+      } else {
+        this.dataSource = tempdata;
+      }
 
       this.progress = false;
       this.unsub.next();
@@ -223,7 +267,7 @@ export class DeliveryScheduleComponent implements OnInit {
       if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && !data[set].contains.fulfilled) {
         DateCss['background-color'] = '#f8bbd0';
         DateCss.color = '#212121';
-        
+
       } // Only Confirmed Orders
       else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && !data[set].contains.fulfilled) {
         DateCss['background-color'] = '#81d4fa';
@@ -349,6 +393,22 @@ export class DeliveryScheduleComponent implements OnInit {
   onclickSmallTable(){
     localStorage.setItem("smallTable",String(this.smallTable));
     console.log(this.smallTable);
+  }
+
+  isPreviewMode() {
+    return this.preview && this.preview.length > 0;
+  }
+
+  getUserId() {
+    return this.authService.getUserId();
+  }
+
+  onAddPatternClicked() {
+    this.router.navigate(['/product-viewer']);
+  }
+
+  onEditPatternClicked() {
+    this.router.navigate([`/product-viewer/${this.selectedPattern.schedulePatternId}`]);
   }
 
 }

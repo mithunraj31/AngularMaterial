@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="viewer-forms">
+    <form class="example-form">
+      <mat-form-field class="example-full-width" >
+        <mat-label>Viwer name</mat-label>
+        <input matInput placeholder="Mitsui lead" [(ngModel)]="viewerName" name="viewerName">
+      </mat-form-field>
+      <div class="example-button-group">
+        <button mat-raised-button color="primary" (click)="onSaveClicked()">Save</button>
+        <button mat-raised-button color="primary" (click)="onPreviewClicked()">Preview</button>
+        <button mat-raised-button color="primary" (click)="generateViewer()">Discard</button>
+        <button mat-raised-button color="primary" (click)="populateData()" *ngIf="patternId > 0">Delete</button>
+      </div>
+    </form>
+  </div>
+  <div class="viewer-tools">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onEnableAllProductSet(true)">
+        <mat-icon>remove_red_eye</mat-icon> Enable all
+      </button>
+      <button mat-menu-item (click)="onEnableAllProductSet(false)">
+        <mat-icon>block</mat-icon> Disable all
+      </button>
+    </mat-menu>
+    <mat-checkbox class="example-margin" [(ngModel)]="isOnlyMe">Only me</mat-checkbox>
+
+
+  </div>
+  <div class="product-set-listings">
+    <mat-accordion cdkDropList (cdkDropListDropped)="dropProductSet($event)" class="example-headers-align">
+      <mat-expansion-panel *ngFor="let set of productSets" cdkDrag>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{set.productName}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{set.description}}
+            <mat-icon *ngIf="set.display" (click)="onDisableDisplayProductSet(set.productId, false ,$event)">
+              remove_red_eye</mat-icon>
+            <mat-icon *ngIf="!set.display" (click)="onDisableDisplayProductSet(set.productId, true ,$event)">block
+            </mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div cdkDropList class="example-list" (cdkDropListDropped)="dropProduct(set.productId, $event)">
+          <div class="example-box" *ngFor="let product of set.products" cdkDrag>{{product.product.productName}}</div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

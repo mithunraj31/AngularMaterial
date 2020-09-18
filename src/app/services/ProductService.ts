@@ -4,6 +4,8 @@ import { ProductSet } from './../models/ProductSet';
 import { Product } from './../models/Product';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { SchedulePattern } from '../models/SchedulePattern';
+import { map } from 'rxjs/operators';
 
 
 @Injectable()
@@ -11,6 +13,8 @@ export class ProductService {
 
     private productUrl = environment.APIURL + "/product/";
     private productSetUrl = environment.APIURL + "/productset/";
+    private schedulePatternUrl = environment.APIURL + "/schedule/pattern/";
+
     constructor(private http: HttpClient) {
 
     }
@@ -19,8 +23,15 @@ export class ProductService {
         return this.http.get<Product[]>(this.productUrl);
     }
 
-    getProductSets() {
-        return this.http.get<ProductSet[]>(this.productSetUrl);
+    /**
+     * Get product set with product items
+     * @param includeIndividualSet fact use to retrive product set with individual set (optianal)
+     */
+    getProductSets(includeIndividualSet: boolean = false) {
+      if (includeIndividualSet) {
+        return this.http.get<ProductSet[]>(`${this.productSetUrl}all`);
+      }
+      return this.http.get<ProductSet[]>(this.productSetUrl);
     }
 
     saveProduct(product: Product) {
@@ -55,6 +66,52 @@ export class ProductService {
     }
     getProductHistory(date:Date){
         return this.http.get<Product[]>(this.productUrl+"history/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate());
+    }
+
+    /**
+     * store schedule pattern data from user to use filter some item in schedule page.
+     * @param pattern schedule pattern object.
+     */
+    saveSchedulePattern(pattern: SchedulePattern) {
+      return this.http.post(this.schedulePatternUrl, pattern);
+    }
+
+    /**
+     * update existing schedule pattern data
+     * @param pattern schedule pattern object.
+     */
+    updateSchedulePattern(pattern: SchedulePattern) {
+      return this.http.put(`${this.schedulePatternUrl}${pattern.schedulePatternId}`, pattern);
+    }
+
+    /**
+     * Get all schedule patterns
+     * @param includePrivate fact to retrive private item. (optional)
+     */
+    getSchedulePatterns(includePrivate: boolean = false) {
+      if (includePrivate) {
+        return this.http.get<SchedulePattern[]>(this.schedulePatternUrl);
+      }
+
+      return this.http.get<SchedulePattern[]>(this.schedulePatternUrl).pipe(map(x => {
+        return x.filter(p => !p.isPrivate);
+      }));
+    }
+
+    /**
+     * Get one schedule pattern by pattern ID
+     * @param patternId schedule pattern's ID
+     */
+    getSchedulePatternById(patternId: number) {
+      return this.http.get<SchedulePattern>(`${this.schedulePatternUrl}${patternId}`);
+    }
+
+    /**
+     * Delete schedule pattern by pattern ID
+     * @param patternId schedule pattern's ID
+     */
+    deleteSchedulePatternById(patternId: number) {
+      return this.http.delete(`${this.schedulePatternUrl}${patternId}`);
     }
 
 }

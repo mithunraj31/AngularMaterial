@@ -2,14 +2,14 @@
   <div class="viewer-forms">
     <form class="example-form">
       <mat-form-field class="example-full-width" >
-        <mat-label>Viwer name</mat-label>
+        <mat-label i18n="@@name">Name</mat-label>
         <input matInput placeholder="Mitsui lead" [(ngModel)]="viewerName" name="viewerName">
       </mat-form-field>
       <div class="example-button-group">
-        <button mat-raised-button color="primary" (click)="onSaveClicked()">Save</button>
-        <button mat-raised-button color="primary" (click)="onPreviewClicked()">Preview</button>
-        <button mat-raised-button color="primary" (click)="generateViewer()">Discard</button>
-        <button mat-raised-button color="primary" (click)="populateData()" *ngIf="patternId > 0">Delete</button>
+        <button mat-raised-button color="primary" (click)="onSaveClicked()" i18n="@@save">Save</button>
+        <button mat-raised-button color="primary" (click)="onPreviewClicked()" i18n="@@preview">Preview</button>
+        <button mat-raised-button color="primary" (click)="generateViewer()" i18n="@@discard">Discard</button>
+        <button mat-raised-button color="primary" (click)="populateData()" *ngIf="patternId > 0" i18n="@@delete">Delete</button>
       </div>
     </form>
   </div>
@@ -19,13 +19,13 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onEnableAllProductSet(true)">
-        <mat-icon>remove_red_eye</mat-icon> Enable all
+        <mat-icon>remove_red_eye</mat-icon> <span i18n="@@enableAll">Enable all</span>
       </button>
       <button mat-menu-item (click)="onEnableAllProductSet(false)">
-        <mat-icon>block</mat-icon> Disable all
+        <mat-icon>block</mat-icon> <span i18n="@@disableAll">Disable all</span>
       </button>
     </mat-menu>
-    <mat-checkbox class="example-margin" [(ngModel)]="isOnlyMe">Only me</mat-checkbox>
+    <mat-checkbox class="example-margin" [(ngModel)]="isOnlyMe" i18n="@@onlyMe">Only me</mat-checkbox>
 
 
   </div>

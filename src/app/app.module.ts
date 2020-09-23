@@ -113,6 +113,7 @@ import { ProductsExportSelectDateComponent } from './dialogs/products-export-sel
 import { ProductViewerComponent } from './pages/product-viewer/product-viewer.component';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { I18nService } from './services/I18nService';
 declare const require;
 
 @NgModule({
@@ -264,6 +265,7 @@ declare const require;
     ExcelServices,
     DashboardService,
     DatePipe,
+    I18nService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

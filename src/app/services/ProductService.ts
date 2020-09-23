@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SchedulePattern } from '../models/SchedulePattern';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../auth/AuthService';
 
 
 @Injectable()
@@ -15,7 +16,7 @@ export class ProductService {
     private productSetUrl = environment.APIURL + "/productset/";
     private schedulePatternUrl = environment.APIURL + "/schedule/pattern/";
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private authService: AuthService) {
 
     }
 
@@ -92,9 +93,9 @@ export class ProductService {
       if (includePrivate) {
         return this.http.get<SchedulePattern[]>(this.schedulePatternUrl);
       }
-
+      const userId = this.authService.getUserId();
       return this.http.get<SchedulePattern[]>(this.schedulePatternUrl).pipe(map(x => {
-        return x.filter(p => !p.isPrivate);
+        return x.filter(p => userId == p.createdUser.userId || !p.isPrivate);
       }));
     }
 

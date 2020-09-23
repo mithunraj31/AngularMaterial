@@ -9,6 +9,7 @@ import { filter } from 'lodash';
 import { ProductService } from 'src/app/services/ProductService';
 import { SchedulePattern } from 'src/app/models/SchedulePattern';
 import { AuthService } from 'src/app/auth/AuthService';
+import { I18nService } from 'src/app/services/I18nService';
 
 @Component({
   selector: 'app-delivery-schedule',
@@ -40,6 +41,7 @@ export class DeliveryScheduleComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
+    private i18nService: I18nService,
     private authService: AuthService
   ) {
     this.route.queryParams.subscribe(params => {
@@ -48,7 +50,7 @@ export class DeliveryScheduleComponent implements OnInit {
         const previews: any[] = JSON.parse(params['preview']);
         previews.forEach(x => {
           x.items.forEach(i => {
-            this.preview.push({setId: x.id, productId: i});
+            this.preview.push({ setId: x.id, productId: i });
           });
         });
       }
@@ -58,10 +60,10 @@ export class DeliveryScheduleComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(localStorage.getItem("smallTable")=="true"){
+    if (localStorage.getItem("smallTable") == "true") {
       this.smallTable = true;
-    }else{
-      this.smallTable =false;
+    } else {
+      this.smallTable = false;
     }
     try {
       this.route.queryParams
@@ -80,6 +82,10 @@ export class DeliveryScheduleComponent implements OnInit {
 
     this.productService.getSchedulePatterns().subscribe((scheculePatterns: SchedulePattern[]) => {
       this.patterns = scheculePatterns;
+      this.patterns.unshift(<SchedulePattern> {
+        schedulePatternId: 0,
+        schedulePatternName: this.i18nService.get('default')
+      });
     });
   }
   localizeSubColumns() {
@@ -207,8 +213,8 @@ export class DeliveryScheduleComponent implements OnInit {
       if (this.isPreviewMode()) {
         this.preview.forEach(x => {
 
-          const previewItems =  filter(tempdata,
-              t => t.setId == x.setId && t.productId == x.productId);
+          const previewItems = filter(tempdata,
+            t => t.setId == x.setId && t.productId == x.productId);
           if (previewItems.length > 0) {
             previewItems.forEach(f => this.dataSource.push(f));
 
@@ -285,19 +291,19 @@ export class DeliveryScheduleComponent implements OnInit {
       // FCST and Fulfilled Orders
       else if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
         DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 29%, #f8bbd0 66%)';
+        DateCss['background'] = 'linear-gradient(0deg, ' + data.color + ' 29%, #f8bbd0 66%)';
         DateCss.color = '#212121';
       }
       // Confirmed and Fulfilled Orders
       else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && data[set].contains.fulfilled) {
         DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 26%, #81d4fa 80%)';
+        DateCss['background'] = 'linear-gradient(0deg, ' + data.color + ' 26%, #81d4fa 80%)';
         DateCss.color = '#212121';
       }
       // FCST and Confirmed and Fulfilled Orders
       else if (data[set].contains && data[set].contains.fcst && data[set].contains.confirmed && data[set].contains.fulfilled) {
         DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 22%, #81d4fa 52%, #f8bbd0 86%)';
+        DateCss['background'] = 'linear-gradient(0deg, ' + data.color + ' 22%, #81d4fa 52%, #f8bbd0 86%)';
         DateCss.color = '#212121';
       }
       //  end change color logic
@@ -390,8 +396,8 @@ export class DeliveryScheduleComponent implements OnInit {
     }
   }
 
-  onclickSmallTable(){
-    localStorage.setItem("smallTable",String(this.smallTable));
+  onclickSmallTable() {
+    localStorage.setItem("smallTable", String(this.smallTable));
     console.log(this.smallTable);
   }
 
@@ -409,6 +415,15 @@ export class DeliveryScheduleComponent implements OnInit {
 
   onEditPatternClicked() {
     this.router.navigate([`/product-viewer/${this.selectedPattern.schedulePatternId}`]);
+  }
+
+  onSchedulePatternChanged() {
+    if (this.selectedPattern && this.selectedPattern.schedulePatternId != 0) {
+      this.populateData(this.selectedPattern.schedulePatternId);
+    } else {
+      this.populateData();
+    }
+
   }
 
 }

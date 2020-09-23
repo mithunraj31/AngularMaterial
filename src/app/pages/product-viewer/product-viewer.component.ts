@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { SchedulePattern } from 'src/app/models/SchedulePattern';
 import { DeleteConfirmationDialogComponent } from '../../dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { I18nService } from 'src/app/services/I18nService';
 
 
 @Component({
@@ -53,7 +53,7 @@ export class ProductViewerComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private snackBarService: MatSnackBar,
-    private i18n: I18n,
+    private i18nService: I18nService,
     public dialog: MatDialog) {
       // get preview data from query string
       //  the data will receive when user clicked back button from any schedule page.
@@ -108,8 +108,8 @@ export class ProductViewerComponent implements OnInit {
 
       // set default ID, name, description to individual product set
       const individualIndex = findIndex(productSets, { productId: 0});
-      productSets[individualIndex].productName = this.i18n('Individual Product set');
-      productSets[individualIndex].description = this.i18n('Individual Product set');
+      productSets[individualIndex].productName = this.i18nService.get('individualProductSet');
+      productSets[individualIndex].description = this.i18nService.get('individualProductSet');
 
       // if no preview data, will skip re order statement.
       if (!this.preview || this.preview.length == 0) {
@@ -209,13 +209,7 @@ export class ProductViewerComponent implements OnInit {
    */
   onPreviewClicked() {
     const preview = this.getViewerData();
-
-      this.router.navigate(['/delivery-schedule'], {
-        queryParams: {
-          preview: JSON.stringify(preview)
-        },
-        queryParamsHandling: 'merge',
-      });
+    window.open(`./delivery-schedule?preview=${JSON.stringify(preview)}`, '_blank');
   }
 
   /**
@@ -236,11 +230,11 @@ export class ProductViewerComponent implements OnInit {
   onSaveClicked() {
     // Not allow below statement if no displayed listings.
     if (this.productSets.every (x => !x.display)) {
-      this.snackBarService.open(this.i18n('Should display product set at least 1 set.'), this.i18n('close'), { duration: 5000})
+      this.snackBarService.open(this.i18nService.get('shouldDisplayAtLeastOneSet'), this.i18nService.get('close'), { duration: 5000})
     }
 
     if (!this.viewerName) {
-      this.snackBarService.open('Should input the viewer name.', 'close', { duration: 5000});
+      this.snackBarService.open(this.i18nService.get('shouldInputTheViewerName'), this.i18nService.get('close'), { duration: 5000});
       return;
     }
     this.progress = true;
@@ -263,12 +257,12 @@ export class ProductViewerComponent implements OnInit {
     }
 
     subscriber.subscribe(() => {
-      this.snackBarService.open(this.i18n('Viewer is saved'), this.i18n('close'), { duration: 2000});
+      this.snackBarService.open(this.i18nService.get('viewerHasBeenSaved'), this.i18nService.get('close'), { duration: 2000});
       setTimeout(() => {
         this.router.navigate(['/delivery-schedule']);
       }, 2000);
     }, () => {
-      this.snackBarService.open(this.i18n('Somethings went wrong.'), this.i18n('close'), { duration: 5000})
+      this.snackBarService.open(this.i18nService.get('somethingWentWrong'), this.i18nService.get('close'), { duration: 5000})
     });
   }
 
@@ -288,13 +282,13 @@ export class ProductViewerComponent implements OnInit {
         this.progress = true;
         this.productService.deleteSchedulePatternById(this.patternId)
           .subscribe(() => {
-            this.snackBarService.open(this.i18n('Viewer is deleted'), this.i18n('close'), { duration: 2000});
+            this.snackBarService.open(this.i18nService.get('viewerHasBeenDeleted'), this.i18nService.get('close'), { duration: 2000});
             setTimeout(() => {
               this.router.navigate(['/product-viewer']);
             }, 2000);
 
           },
-          () => this.snackBarService.open(this.i18n('Somethings went wrong.'), this.i18n('close'), { duration: 5000}));
+          () => this.snackBarService.open(this.i18nService.get('somethingWentWrong'), this.i18nService.get('close'), { duration: 5000}));
       }
     });
   }

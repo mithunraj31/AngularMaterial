@@ -46,7 +46,7 @@ export class ShukkaScheduleComponent implements OnInit {
     try {
       this.route.queryParams
         .subscribe(params => {
-          console.log(params); // {order: "popular"}
+          // {order: "popular"}
           if (params.year && params.month) {
             this.viewDate = new Date(params.year + "-" + params.month);
           }
@@ -124,7 +124,6 @@ export class ShukkaScheduleComponent implements OnInit {
 
       this.addColumnsToTables(data[0].products[0].values);
       this.productForecast = data;
-      console.log(this.productForecast);
       let setcount = 0;
       let productcount = 0;
       const tempdata: any[] = [];
@@ -225,7 +224,7 @@ export class ShukkaScheduleComponent implements OnInit {
       if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && !data[set].contains.fulfilled) {
         DateCss['background-color'] = '#f8bbd0';
         DateCss.color = '#212121';
-        
+
       } // Only Confirmed Orders
       else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && !data[set].contains.fulfilled) {
         DateCss['background-color'] = '#81d4fa';
@@ -350,6 +349,5 @@ export class ShukkaScheduleComponent implements OnInit {
 
   onclickSmallTable(){
     localStorage.setItem("smallTable",String(this.smallTable));
-    console.log(this.smallTable);
   }
 }

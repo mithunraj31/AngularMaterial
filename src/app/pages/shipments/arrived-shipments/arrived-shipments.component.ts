@@ -195,7 +195,6 @@ export class ArrivedShipmentsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       if (result) {
         this.progress = true;
         this.shipmentService.arrivalOrder(data.incomingShipmentId).subscribe(result => {
@@ -213,7 +212,6 @@ export class ArrivedShipmentsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       if (result) {
         // console.log(result);
         const results: SaveIncomingShipment[] = result;
@@ -317,7 +315,7 @@ export class ArrivedShipmentsComponent implements OnInit {
             width: '600px',
             data: isChanged
           });
-    
+
           dialogRef.afterClosed().subscribe(result => {
             this.getShipments();
           });
@@ -338,7 +336,6 @@ export class ArrivedShipmentsComponent implements OnInit {
     return new Promise<any>((resolve, reject) => {
       this.shipmentService.getShipmentById(orderId).subscribe(result => {
         lastEditedTime = new Date(result.updatedAt);
-        console.log(lastEditedTime, this.loadTime)
         if (lastEditedTime > this.loadTime) {
           return resolve({
             status: true, user: result.user,
@@ -347,7 +344,7 @@ export class ArrivedShipmentsComponent implements OnInit {
           });
         }
         else {
-          
+
           return resolve({ status: false, user: result.user });
         }
       });

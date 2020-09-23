@@ -58,7 +58,6 @@ export class AddOrderDialogComponent implements OnInit {
     this.order = this.data.order;
     this.isFixed = this.data.isFixed;
     this.initializeCustomerForm();
-    console.log(this.order);
   }
   getCustomerData() {
     this.customerService.getCustomers().subscribe(result => {
@@ -170,7 +169,7 @@ export class AddOrderDialogComponent implements OnInit {
     // switch (attribute) {
     //   case "zip":
     //       // return this.customerForm.get(attribute).hasError('required') ? 'You must enter a value':
-    //       // this.customerForm.get(attribute).hasError('maxlength') ? 'zip code length must be 7': 
+    //       // this.customerForm.get(attribute).hasError('maxlength') ? 'zip code length must be 7':
     //       // this.customerForm.get(attribute).hasError('minlength') ? 'zip code length must be 7': '';
     //     break;
 

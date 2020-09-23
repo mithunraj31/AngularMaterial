@@ -119,7 +119,6 @@ export class EditOrderDialogComponent implements OnInit {
     this.dialogRef.close(null);
   }
   onSubmit() {
-    console.log(this.orderForm.value);
     if (this.orderForm.valid) {
       const order: SaveOrder = this.orderForm.value;
       order.orderedProducts = this.saveProducts;
@@ -157,7 +156,7 @@ export class EditOrderDialogComponent implements OnInit {
     // switch (attribute) {
     //   case "zip":
     //       // return this.customerForm.get(attribute).hasError('required') ? 'You must enter a value':
-    //       // this.customerForm.get(attribute).hasError('maxlength') ? 'zip code length must be 7': 
+    //       // this.customerForm.get(attribute).hasError('maxlength') ? 'zip code length must be 7':
     //       // this.customerForm.get(attribute).hasError('minlength') ? 'zip code length must be 7': '';
     //     break;
 

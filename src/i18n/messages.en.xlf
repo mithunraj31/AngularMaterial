@@ -1190,7 +1190,7 @@
       </trans-unit>
       <trans-unit id="enableAll" datatype="html">
         <source>Enable all</source>
-        <target>Enabel all</source>
+        <target>Enabel all</target>
       </trans-unit>
       <trans-unit id="disableAll" datatype="html">
         <source>Disalbe all</source>

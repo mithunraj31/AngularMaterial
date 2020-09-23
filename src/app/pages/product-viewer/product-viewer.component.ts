@@ -43,6 +43,11 @@ export class ProductViewerComponent implements OnInit {
    */
   patternId: number;
 
+  /**
+   * progress bar status fact.
+   */
+  progress: boolean;
+
   constructor(
     private productService: ProductService,
     private router: Router,
@@ -60,6 +65,11 @@ export class ProductViewerComponent implements OnInit {
         }
       });
   }
+
+
+  //-----------------------------------------------------------------
+  //--------------- implemeted methods ------------------------------
+  //-----------------------------------------------------------------
 
   ngOnInit() {
     // get pattern ID from route params
@@ -82,12 +92,18 @@ export class ProductViewerComponent implements OnInit {
     });
   }
 
+  //-----------------------------------------------------------------
+  //--------------- core methods ------------------------------------
+  //-----------------------------------------------------------------
+
   /**
    * the method will generate Product set listings view
    * and re order according saved pattern if it exists.
    */
   generateViewer() {
+    this.progress = true;
     this.productService.getProductSets(true).subscribe((productSets: ProductSet[]) => {
+      this.progress = false;
       this.productSets = [];
 
       // set default ID, name, description to individual product set
@@ -145,6 +161,10 @@ export class ProductViewerComponent implements OnInit {
         .forEach(x => this.productSets.push(x));
     });
   }
+
+  //-----------------------------------------------------------------
+  //------- User interactive methods (Event methods)-----------------
+  //-----------------------------------------------------------------
 
   /**
    * active when user droped product set listing item.
@@ -219,6 +239,11 @@ export class ProductViewerComponent implements OnInit {
       this.snackBarService.open(this.i18n('Should display product set at least 1 set.'), this.i18n('close'), { duration: 5000})
     }
 
+    if (!this.viewerName) {
+      this.snackBarService.open('Should input the viewer name.', 'close', { duration: 5000});
+      return;
+    }
+    this.progress = true;
     let subscriber = null;
 
     // on edit mode will check pattern id first, if existing shall update the data.
@@ -260,6 +285,7 @@ export class ProductViewerComponent implements OnInit {
     // on delete confirmation dialog closed
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.progress = true;
         this.productService.deleteSchedulePatternById(this.patternId)
           .subscribe(() => {
             this.snackBarService.open(this.i18n('Viewer is deleted'), this.i18n('close'), { duration: 2000});
@@ -272,6 +298,11 @@ export class ProductViewerComponent implements OnInit {
       }
     });
   }
+
+
+  //-----------------------------------------------------------------
+  //------------ private methods ------------------------------------
+  //-----------------------------------------------------------------
 
   /**
    * produce Product set data to schedule pattern format.

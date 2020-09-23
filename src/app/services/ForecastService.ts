@@ -20,7 +20,6 @@ export class ForecastService {
 
   getProductForecast(year: number, month: number, patternId: number = 0) {
     const params = this.createQueryString(year, month, patternId);
-    console.log(params)
     return this.http.get<any[]>(this.forecastProductUrl, { params });
     // return this.http.get<any[]>(this.forecastUrl);
   }
@@ -42,12 +41,7 @@ export class ForecastService {
 
   private createQueryString(year: number, month: number, patternId: number) {
     const params: any = {};
-    // params.append('year', year.toString());
-    // params.append('month', (month + 1).toString());
 
-    // if (patternId > 0) {
-    //   params.append('pattern', patternId.toString());
-    // }
     params['year'] = year;
     params['month'] = month + 1;
 

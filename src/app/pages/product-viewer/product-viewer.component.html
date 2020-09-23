@@ -9,7 +9,7 @@
         <button mat-raised-button color="primary" (click)="onSaveClicked()" i18n="@@save">Save</button>
         <button mat-raised-button color="primary" (click)="onPreviewClicked()" i18n="@@preview">Preview</button>
         <button mat-raised-button color="primary" (click)="generateViewer()" i18n="@@discard">Discard</button>
-        <button mat-raised-button color="primary" (click)="populateData()" *ngIf="patternId > 0" i18n="@@delete">Delete</button>
+        <button mat-raised-button color="primary" (click)="onDeleteClicked()" *ngIf="patternId > 0" i18n="@@delete">Delete</button>
       </div>
     </form>
   </div>

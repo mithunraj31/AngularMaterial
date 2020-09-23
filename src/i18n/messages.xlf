@@ -1690,6 +1690,61 @@
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
+
+
+      <trans-unit id="save" datatype="html">
+        <source>Save</source>
+      </trans-unit>
+      <trans-unit id="preview" datatype="html">
+        <source>Preview</source>
+      </trans-unit>
+      <trans-unit id="enableAll" datatype="html">
+        <source>Enable all</source>
+      </trans-unit>
+      <trans-unit id="disableAll" datatype="html">
+        <source>Disable all</source>
+      </trans-unit>
+      <trans-unit id="onlyMe" datatype="html">
+        <source>Only me</source>
+      </trans-unit>
+       <trans-unit id="discard" datatype="html">
+        <source>Discard</source>
+      </trans-unit>
+
+
+      <trans-unit id="hidden" datatype="html">
+        <source>Hidden</source>
+      </trans-unit>
+       <trans-unit id="display" datatype="html">
+        <source>Display</source>
+      </trans-unit>
+       <trans-unit id="undu" datatype="html">
+        <source>Undo</source>
+      </trans-unit>
+      <trans-unit id="calendarView" datatype="html">
+        <source>Calendar view</source>
+      </trans-unit>
+       <trans-unit id="orderInformation" datatype="html">
+        <source>Order information</source>
+      </trans-unit>
+      <trans-unit id="QTY" datatype="html">
+        <source>QTY</source>
+      </trans-unit>
+        <trans-unit id="smallTable" datatype="html">
+        <source>smallTable</source>
+      </trans-unit>
+
+       <trans-unit id="importProductsviaExcel" datatype="html">
+        <source>Import product via Excel</source>
+      </trans-unit>
+      <trans-unit id="downloadTemplate" datatype="html">
+        <source>import product via excel</source>
+      </trans-unit>
+       <trans-unit id="currency" datatype="html">
+        <source>Currency</source>
+      </trans-unit>
+
+
     </body>
   </file>
 </xliff>

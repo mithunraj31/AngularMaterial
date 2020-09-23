@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, LOCALE_ID, HostListener } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ForecastService } from 'src/app/services/ForecastService';
-import { takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { OrderInfoComponent } from 'src/app/dialogs/order-info/order-info.component';
 import { IncomingInfoComponent } from 'src/app/dialogs/incoming-info/incoming-info.component';
@@ -223,7 +222,7 @@ export class DeliveryScheduleComponent implements OnInit {
       if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && !data[set].contains.fulfilled) {
         DateCss['background-color'] = '#f8bbd0';
         DateCss.color = '#212121';
-        
+
       } // Only Confirmed Orders
       else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && !data[set].contains.fulfilled) {
         DateCss['background-color'] = '#81d4fa';

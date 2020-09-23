@@ -108,7 +108,6 @@ export class ProductSetsComponent implements OnInit {
 
             }, error => {
               this.progress = true;
-              console.log(error);
             })
           }
         }
@@ -127,13 +126,11 @@ export class ProductSetsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
 
-      console.log(result);
       if (result) {
         this.progress = true;
         this.productService.addProductSet(result).subscribe(result => {
           this.getProductSetData();
         }, error => {
-          console.log(error);
           this.progress = false;
         })
       }
@@ -158,7 +155,6 @@ export class ProductSetsComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(async result => {
-        console.log('The dialog was closed');
         if (result) {
           let isChanged = await this.isDataChanged(data.productId);
           if (isChanged.status) { // when data is changed
@@ -173,12 +169,11 @@ export class ProductSetsComponent implements OnInit {
             });
           } else { // When data is not changed.
             this.progress = true;
-            console.log(result);
+            (result);
             const productset: SaveProductSet = result;
             productset.productId = data.productId;
             productset.display = data.display;
             this.productService.editProductSet(productset).subscribe(result => {
-              console.log(result);
               this.getProductSetData();
             }, error => {
               this.progress = false;
@@ -247,7 +242,6 @@ export class ProductSetsComponent implements OnInit {
     return new Promise<any>((resolve, reject) => {
       this.productService.getProductSetById(orderId).subscribe(result => {
         lastEditedTime = new Date(result.updatedAt);
-        console.log(result);
         if (lastEditedTime > this.loadTime) {
 
           return resolve({

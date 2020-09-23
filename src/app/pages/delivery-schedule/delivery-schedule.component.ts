@@ -398,7 +398,6 @@ export class DeliveryScheduleComponent implements OnInit {
 
   onclickSmallTable() {
     localStorage.setItem("smallTable", String(this.smallTable));
-    console.log(this.smallTable);
   }
 
   isPreviewMode() {

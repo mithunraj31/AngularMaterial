@@ -193,7 +193,6 @@ export class OrdersComponent implements OnInit {
 
   async editOrder(data: Order) {
     let isChanged = await this.isDataChanged(data.orderId);
-    console.log(isChanged);
     if (isChanged.status) { // when data is changed
       //Load Warning popup
       const dialogRef = this.dialog.open(DataChangedDialogComponent, {
@@ -211,7 +210,7 @@ export class OrdersComponent implements OnInit {
         data: data,
         disableClose: true
       });
-      // open edit dialog 
+      // open edit dialog
       dialogRef.afterClosed().subscribe(async result => {
         if (result) {// when result is valid
           let isChanged = await this.isDataChanged(data.orderId);
@@ -494,7 +493,6 @@ export class OrdersComponent implements OnInit {
     return new Promise<any>((resolve, reject) => {
       this.orderService.getOrderById(orderId).subscribe(result => {
         lastEditedTime = new Date(result.updatedAt);
-        console.log(result);
         if (lastEditedTime > this.loadTime) {
 
           return resolve({
@@ -504,7 +502,7 @@ export class OrdersComponent implements OnInit {
           });
         }
         else {
-         
+
           return resolve({ status: false, user: result.user });
         }
       });

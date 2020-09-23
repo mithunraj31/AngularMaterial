@@ -223,7 +223,7 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
       if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && !data[set].contains.fulfilled) {
         DateCss['background-color'] = '#f8bbd0';
         DateCss.color = '#212121';
-        
+
       } // Only Confirmed Orders
       else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && !data[set].contains.fulfilled) {
         DateCss['background-color'] = '#81d4fa';
@@ -348,7 +348,6 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
 
   onclickSmallTable(){
     localStorage.setItem("smallTable",String(this.smallTable));
-    console.log(this.smallTable);
   }
 
 }

@@ -70,7 +70,6 @@ export class HomeComponent implements OnInit {
     if (temp != null && temp.length > 0) {
       this.widgets = temp
     }
-    console.log(temp);
     this.widgets.forEach(widget => {
       this.dashboardService.getProductSummery(widget.data.productId).subscribe(result => {
         let w: Widget = widget;

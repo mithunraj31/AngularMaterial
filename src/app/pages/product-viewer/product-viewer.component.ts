@@ -55,15 +55,15 @@ export class ProductViewerComponent implements OnInit {
     private snackBarService: MatSnackBar,
     private i18nService: I18nService,
     public dialog: MatDialog) {
-      // get preview data from query string
-      //  the data will receive when user clicked back button from any schedule page.
-      this.route.queryParams.subscribe(queryStr => {
-        this.preview = [];
-        if (queryStr['preview']) {
-          // query string format is string should parse to json before use
-          this.preview = JSON.parse(queryStr['preview']);
-        }
-      });
+    // get preview data from query string
+    //  the data will receive when user clicked back button from any schedule page.
+    this.route.queryParams.subscribe(queryStr => {
+      this.preview = [];
+      if (queryStr['preview']) {
+        // query string format is string should parse to json before use
+        this.preview = JSON.parse(queryStr['preview']);
+      }
+    });
   }
 
 
@@ -72,6 +72,20 @@ export class ProductViewerComponent implements OnInit {
   //-----------------------------------------------------------------
 
   ngOnInit() {
+    this.reloadPage();
+  }
+
+  //-----------------------------------------------------------------
+  //--------------- core methods ------------------------------------
+  //-----------------------------------------------------------------
+
+  /**
+   * the method will get data from route variable
+   * if it existing will request existing pattern data
+   * generate viewer.
+   * if not will generate default viewer.
+   */
+  reloadPage() {
     // get pattern ID from route params
     this.route.params.subscribe(params => {
       // if ID is existings, get saved schedule patterm from API
@@ -87,14 +101,13 @@ export class ProductViewerComponent implements OnInit {
           }, () => this.router.navigate(['/404']));
 
       } else {
+        this.viewerName = '';
+        this.preview = [];
+        this.isOnlyMe = false;
         this.generateViewer();
       }
     });
   }
-
-  //-----------------------------------------------------------------
-  //--------------- core methods ------------------------------------
-  //-----------------------------------------------------------------
 
   /**
    * the method will generate Product set listings view
@@ -107,7 +120,7 @@ export class ProductViewerComponent implements OnInit {
       this.productSets = [];
 
       // set default ID, name, description to individual product set
-      const individualIndex = findIndex(productSets, { productId: 0});
+      const individualIndex = findIndex(productSets, { productId: 0 });
       productSets[individualIndex].productName = this.i18nService.get('individualProductSet');
       productSets[individualIndex].description = this.i18nService.get('individualProductSet');
 
@@ -153,7 +166,7 @@ export class ProductViewerComponent implements OnInit {
       // if the obtained saved/preview pattern.
       // set non display to product set id is not contans in saved/preview pattern ids.
       productSets
-       .filter(x => !this.preview.map(ex => ex.id).includes(x.productId))
+        .filter(x => !this.preview.map(ex => ex.id).includes(x.productId))
         .map(x => {
           x.display = false;
           return x;
@@ -217,24 +230,24 @@ export class ProductViewerComponent implements OnInit {
    * @param isDisplay Fact the listing is visible or invisible in schedule page.
    */
   onEnableAllProductSet(isDisplay: boolean) {
-    this.productSets =  this.productSets.map(x => {
+    this.productSets = this.productSets.map(x => {
       x.display = isDisplay;
       return x;
     });
   }
-
 
   /**
    * the method shall produce last updated listings data and send save/update to API
    */
   onSaveClicked() {
     // Not allow below statement if no displayed listings.
-    if (this.productSets.every (x => !x.display)) {
-      this.snackBarService.open(this.i18nService.get('shouldDisplayAtLeastOneSet'), this.i18nService.get('close'), { duration: 5000})
+    if (this.productSets.every(x => !x.display)) {
+      this.snackBarService.open(this.i18nService.get('shouldDisplayAtLeastOneSet'), this.i18nService.get('close'), { duration: 5000 });
+      return;
     }
 
     if (!this.viewerName) {
-      this.snackBarService.open(this.i18nService.get('shouldInputTheViewerName'), this.i18nService.get('close'), { duration: 5000});
+      this.snackBarService.open(this.i18nService.get('shouldInputTheViewerName'), this.i18nService.get('close'), { duration: 5000 });
       return;
     }
     this.progress = true;
@@ -257,12 +270,12 @@ export class ProductViewerComponent implements OnInit {
     }
 
     subscriber.subscribe(() => {
-      this.snackBarService.open(this.i18nService.get('viewerHasBeenSaved'), this.i18nService.get('close'), { duration: 2000});
+      this.snackBarService.open(this.i18nService.get('viewerHasBeenSaved'), this.i18nService.get('close'), { duration: 2000 });
       setTimeout(() => {
         this.router.navigate(['/delivery-schedule']);
       }, 2000);
     }, () => {
-      this.snackBarService.open(this.i18nService.get('somethingWentWrong'), this.i18nService.get('close'), { duration: 5000})
+      this.snackBarService.open(this.i18nService.get('somethingWentWrong'), this.i18nService.get('close'), { duration: 5000 })
     });
   }
 
@@ -282,13 +295,13 @@ export class ProductViewerComponent implements OnInit {
         this.progress = true;
         this.productService.deleteSchedulePatternById(this.patternId)
           .subscribe(() => {
-            this.snackBarService.open(this.i18nService.get('viewerHasBeenDeleted'), this.i18nService.get('close'), { duration: 2000});
+            this.snackBarService.open(this.i18nService.get('viewerHasBeenDeleted'), this.i18nService.get('close'), { duration: 2000 });
             setTimeout(() => {
               this.router.navigate(['/product-viewer']);
             }, 2000);
 
           },
-          () => this.snackBarService.open(this.i18nService.get('somethingWentWrong'), this.i18nService.get('close'), { duration: 5000}));
+            () => this.snackBarService.open(this.i18nService.get('somethingWentWrong'), this.i18nService.get('close'), { duration: 5000 }));
       }
     });
   }
@@ -303,13 +316,13 @@ export class ProductViewerComponent implements OnInit {
    */
   private getViewerData() {
     return this.productSets
-    .filter(x => x.display)
-    .map(x => {
-      return {
-        id: x.productId,
-        items: x.products.map(i => i.product.productId)
-      };
-    });
+      .filter(x => x.display)
+      .map(x => {
+        return {
+          id: x.productId,
+          items: x.products.map(i => i.product.productId)
+        };
+      });
   }
 }
 

@@ -49,55 +49,50 @@
 
 </div>
 
+
 <div class="example-container" cols="6">
   <div class="example-box" *ngFor="let widget of widgetSetData; let i = index">
-    <mat-card *ngIf="widget.type==1" class="order-summery-card ">
-      <!-- <mat-card-header>
-              <mat-card-title>{{widget.title}}</mat-card-title>
-              <button mat-icon-button [matMenuTriggerFor]="menu">
-                  <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)=deleteWidget(i)>
-                      <mat-icon>delete</mat-icon>
-                      <span>Remove</span>
-                    </button>
-              </mat-menu>
-          </mat-card-header> -->
-      <div class="row">
-        <div class="example-container" cols="3">
+    <mat-card *ngIf="widget.type==1" class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>{{widget.title}}</mat-card-title>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon class="set-icon">more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)=deleteWidget(i)>
+              <mat-icon>delete</mat-icon>
+              <span>Remove</span>
+            </button>
+          </mat-menu>
+        </mat-card-header>
+        <div class="set-container" >
           <mat-card-header>
-            <mat-card-title>{{widget.data.productName}}</mat-card-title>
           </mat-card-header>
-          <mat-card-content>
+          <mat-card-content class="dashboard-card-content">
             <table style="width: 100%; margin-bottom: 3px;" class="mat-elevation-z8">
-              <tr>
-                <td i18n="@@outgoingQuantitySummary">OutGoing Quantity</td>
-                <td>{{widget.data.totalOutgoingQty}}</td>
+              <tr >
+                <td  [attr.rowspan]="(widget.data.product.length + 1)"> <b>{{widget.data.productName}}</b>
+                  <tr>
+                    <td i18n="@@outgoingQuantitySummary">OutGoing Quantity</td>
+                    <td>{{widget.data.totalOutgoingQty}}</td>
+                  </tr>
+                </td>
               </tr>
-            </table>
-          </mat-card-content>
-          <mat-card-footer></mat-card-footer>
-        </div>
-        <div class="example-container" cols="3" *ngFor="let widget of widgetSetData.data.product; let i = index">
-          <mat-card-header>
-            <mat-card-title>{{widget.productName}}</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <table style="width: 100%; margin-bottom: 3px;" class="mat-elevation-z8">
-              <tr>
+              <tr  *ngFor="let widgetProduct of widget.data.product; let j = index">
+                <td style="border: solid #000 1px"><b>{{widgetProduct.productName}}</b>
+                  <tr>
                 <td i18n="@@incomingQuantitySummary">Incoming Quantity</td>
-                <td>{{widget.totalIncomingQty}}</td>
-              </tr>
-              <tr>
+                <td>{{widgetProduct.totalIncomingQty}}</td>
+                  </tr>
+                <tr>
                 <td i18n="@@outgoingQuantitySummary">OutGoing Quantity</td>
-                <td>{{widget.totalOutgoingQty}}</td>
+                <td>{{widgetProduct.totalOutgoingQty}}</td>
+              </tr>
+              </td>
               </tr>
             </table>
           </mat-card-content>
           <mat-card-footer></mat-card-footer>
-
-        </div>
       </div>
     </mat-card>
 

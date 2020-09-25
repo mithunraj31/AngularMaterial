@@ -14,6 +14,7 @@ import { CdkDragDrop ,moveItemInArray} from '@angular/cdk/drag-drop';
 export class HomeComponent implements OnInit {
   widgets: Widget[] = [];
   widgetData: Widget[] = [];
+  widgetSetData:Widget[] = [];
   constructor(
     public dialog: MatDialog,
     private dashboardService: DashboardService
@@ -70,14 +71,24 @@ export class HomeComponent implements OnInit {
     if (temp != null && temp.length > 0) {
       this.widgets = temp
     }
-    console.log(temp);
+   // console.log(temp);
     this.widgets.forEach(widget => {
+      if(widget.type==0){
       this.dashboardService.getProductSummery(widget.data.productId).subscribe(result => {
         let w: Widget = widget;
         w.data = result;
         this.widgetData.push(w);
       })
+    }else{
+      this.dashboardService.getProductSetSummery(widget.data.productId).subscribe(result => {
+        let w: Widget = widget;
+        w.data = result;
+        this.widgetSetData.push(w);
+      })
+      console.log(this.widgetSetData);
+    }
     });
+
   }
   deleteWidget(index:number){
     this.widgets.splice(index,1);

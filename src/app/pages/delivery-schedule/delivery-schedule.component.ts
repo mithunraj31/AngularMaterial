@@ -191,8 +191,10 @@ export class DeliveryScheduleComponent implements OnInit {
               description: product.description,
               color: product.color ? product.color : '#ffffff',
               values: column.value,
-
+              total: {}
             };
+
+            const total: number = 0
             product.values.forEach(dateItem => {
               if ((column.key === 'incoming' || column.key === 'outgoing') && (dateItem[column.key].quantity === 0)) {
                 temp[this.getDateString(dateItem.date)] = {
@@ -208,6 +210,19 @@ export class DeliveryScheduleComponent implements OnInit {
                 temp[this.getDateString(dateItem.date)] = dateItem[column.key];
               }
             });
+
+
+            if (column.key === 'outgoing' && product.totalFulfilledOutgoingQty > 0) {
+              temp.total = {
+                quantity: product.totalFulfilledOutgoingQty,
+                fixed: true
+              };
+            } else if (column.key === 'incoming' && product.totalFulfilledIncomingQty > 0){
+              temp.total = {
+                quantity: product.totalFulfilledIncomingQty,
+                fixed: true
+              };
+            }
             tempdata.push(temp);
             // this.dataSource.push(temp);
 
@@ -256,6 +271,7 @@ export class DeliveryScheduleComponent implements OnInit {
       const date = element.date;
       this.displayedColumns.push(this.getDateString(date));
     });
+    this.displayedColumns.push(this.i18nService.get('total'));
     this.columnsToDisplay = this.displayedColumns.slice();
 
   }
@@ -419,9 +435,7 @@ export class DeliveryScheduleComponent implements OnInit {
   }
 
   onSchedulePatternChanged() {
-    if (this.selectedPatternId != 0) {
-      this.productService.setSchedulePatternToLocalStorage(this.selectedPatternId);
-    }
+    this.productService.setSchedulePatternToLocalStorage(this.selectedPatternId);
 
     this.populateData();
   }

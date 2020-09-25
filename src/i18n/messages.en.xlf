@@ -1303,6 +1303,11 @@
         <source>Back</source>
         <target>Back</target>
       </trans-unit>
+
+      <trans-unit id="total" datatype="html">
+        <source>Total</source>
+         <target>Total</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

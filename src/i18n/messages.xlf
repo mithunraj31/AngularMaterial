@@ -1789,6 +1789,10 @@
       <trans-unit id="back" datatype="html">
         <source>Back</source>
       </trans-unit>
+
+      <trans-unit id="total" datatype="html">
+        <source>total</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

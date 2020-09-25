@@ -1539,6 +1539,11 @@
         <source>Back</source>
         <target>戻る</target>
       </trans-unit>
+
+       <trans-unit id="total" datatype="html">
+        <source>Total</source>
+         <target>合計</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

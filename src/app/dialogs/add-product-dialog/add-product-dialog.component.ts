@@ -57,7 +57,6 @@ export class AddProductDialogComponent implements OnInit {
   }
   onSubmit() {
     if (this.productForm.valid) {
-      console.log(this.productForm.controls['obicNo'].value)
       if(this.isObicNoDuplicated(this.productForm.controls['obicNo'].value)){
         const dialogRef = this.dialog.open(ErrorProductDialogComponent, {
           width: '600px',

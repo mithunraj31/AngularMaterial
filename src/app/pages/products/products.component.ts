@@ -134,7 +134,10 @@ export class ProductsComponent implements OnInit {
     } else { // When data is not changed.
       const dialogRef = this.dialog.open(UpdateProductDialogComponent, {
         width: '600px',
-        data: data
+        data: {
+          allproducts:this.products,
+          editableProduct:data
+        }
       });
 
       dialogRef.afterClosed().subscribe(async result => {

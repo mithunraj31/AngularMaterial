@@ -9,19 +9,19 @@
         <button class="calenderNav" (click)="clickToday()" mat-raised-button color="primary"
             i18n="@@today">Today</button>
         <button class="calenderNav" (click)="clickNext()" mat-raised-button color="primary" i18n="@@next">Next</button>
-        <mat-form-field appearance="fill" *ngIf="patterns && patterns.length > 0">
+        <mat-form-field appearance="fill" *ngIf="patterns && patterns.length > 0 && !isPreviewMode()">
           <mat-label i18n="@@schedulePattern">Schedule Patterns</mat-label>
-          <mat-select [(ngModel)]="selectedPattern" (selectionChange)="onSchedulePatternChanged()">
-            <mat-option *ngFor="let pattern of patterns" [value]="pattern">
+          <mat-select [(value)]="selectedPatternId" (selectionChange)="onSchedulePatternChanged()">
+            <mat-option *ngFor="let pattern of patterns" [value]="pattern.schedulePatternId">
               {{pattern.schedulePatternName}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <button class="calenderNav" mat-raised-button color="primary"
-          *ngIf="selectedPattern && selectedPattern.schedulePatternId != 0 && selectedPattern.createdUser.userId == getUserId()"
+          *ngIf="selectedPatternId != 0 && isUserOwnSelectedPattern()"
           (click)="onEditPatternClicked()" i18n="@@editPattern">Edit Pattern</button>
-        <button class="calenderNav" mat-raised-button color="primary" (click)="onAddPatternClicked()" i18n="@@addPattern">Add Pattern</button>
-        <h3> {{ viewDate | date:'MMMM yyyy'}}</h3>
+        <button *ngIf="!isPreviewMode()" class="calenderNav" mat-raised-button color="primary" (click)="onAddPatternClicked()" i18n="@@addPattern">Add Pattern</button>
+        <h3><span *ngIf="isPreviewMode()" i18n="@@preview">Preview</span>  {{ viewDate | date:'MMMM yyyy'}}</h3>
     </span>
     <span>
         <mat-checkbox style="margin: 0 10px;" [(ngModel)]="smallTable" i18n="@@smallTable"

@@ -30,7 +30,17 @@ export class ProductService {
      */
     getProductSets(includeIndividualSet: boolean = false) {
       if (includeIndividualSet) {
-        return this.http.get<ProductSet[]>(`${this.productSetUrl}all`);
+        const observable = this.http.get<ProductSet[]>(`${this.productSetUrl}all`).pipe(map(x => {
+          return x.map(s => {
+            s.products = s.products.map(p => {
+              p.product.display = true;
+              return p;
+            });
+            return s;
+          });
+        }));
+
+        return observable;
       }
       return this.http.get<ProductSet[]>(this.productSetUrl);
     }
@@ -113,6 +123,25 @@ export class ProductService {
      */
     deleteSchedulePatternById(patternId: number) {
       return this.http.delete(`${this.schedulePatternUrl}${patternId}`);
+    }
+
+    /**
+     * save selected pattern Id in localstorage
+     * @param patternId Schedule pattern ID
+     */
+    setSchedulePatternToLocalStorage(patternId: number) {
+      localStorage.setItem('schedule_pattern_id', patternId.toString());
+    }
+
+    /**
+     * Get schedule pattern Id from localStorage
+     */
+    getSchedulePatternIdFromLocalStorage() : number {
+      const patternId: string = localStorage.getItem('schedule_pattern_id');
+      if (!patternId) {
+        return 0;
+      }
+      return parseInt(patternId);
     }
 
 }

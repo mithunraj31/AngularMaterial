@@ -8,6 +8,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { SchedulePattern } from 'src/app/models/SchedulePattern';
 import { DeleteConfirmationDialogComponent } from '../../dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { I18nService } from 'src/app/services/I18nService';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -54,7 +55,8 @@ export class ProductViewerComponent implements OnInit {
     private route: ActivatedRoute,
     private snackBarService: MatSnackBar,
     private i18nService: I18nService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private location: Location) {
     // get preview data from query string
     //  the data will receive when user clicked back button from any schedule page.
     this.route.queryParams.subscribe(queryStr => {
@@ -141,6 +143,7 @@ export class ProductViewerComponent implements OnInit {
             ex.items.forEach(i => {
               const product = find(productSet.products, p => p.product.productId == i);
               if (product) {
+                product.product.display = true;
                 products.push(product);
               }
             });
@@ -148,13 +151,19 @@ export class ProductViewerComponent implements OnInit {
             // if non order product or newest product will push last of ordered product.
             productSet.products
               .filter(x => !ex.items.includes(x.product.productId))
-              .forEach(x => products.push(x));
+              .forEach(x => {
+                x.product.display = false;
+                products.push(x);
+              });
 
           }
           else {
             // push all product to product set.
             productSet.products
-              .forEach(x => products.push(x));
+              .forEach(x => {
+                x.product.display = false;
+                products.push(x)
+              });
           }
 
           productSet.products = products;
@@ -169,6 +178,10 @@ export class ProductViewerComponent implements OnInit {
         .filter(x => !this.preview.map(ex => ex.id).includes(x.productId))
         .map(x => {
           x.display = false;
+          x.products = x.products.map(p => {
+            p.product.display = false;
+            return p;
+          });
           return x;
         })
         .forEach(x => this.productSets.push(x));
@@ -216,11 +229,34 @@ export class ProductViewerComponent implements OnInit {
   }
 
   /**
+   * When user clicked eye or block icon in Product listings.
+   * the method will update the Product's "display" property is visible in schedule page or not.
+   * @param setId Product set ID
+   * @param productId Product ID
+   * @param isDisplay Fact the product is visible
+   * @param $event drop Event object https://material.angular.io/cdk/drag-drop/overview
+   */
+  onDisableDisplayProduct(setId: number, productId: number, isDisplay: boolean, $event) {
+    // cacel clickable event on Angualr Material's CDK drag and drop component
+    $event.stopPropagation();
+    const productSetIndex = findIndex(this.productSets, { productId: setId });
+
+    const productIndex = findIndex(this.productSets[productSetIndex].products, { product: { productId } });
+    this.productSets[productSetIndex].products[productIndex].product.display = isDisplay;
+  }
+
+  /**
    * When user clicked "Preview" button.
    * the method shall send last updated listings data to schedule page
    * via query string.
    */
   onPreviewClicked() {
+    // Not allow below statement if no displayed listings.
+    if (this.productSets.every(x => !x.display || x.products.every(p => !p.product.display))) {
+      this.snackBarService.open(this.i18nService.get('shouldDisplayAtLeastOneSet'), this.i18nService.get('close'), { duration: 5000 });
+      return;
+    }
+
     const preview = this.getViewerData();
     window.open(`./delivery-schedule?preview=${JSON.stringify(preview)}`, '_blank');
   }
@@ -241,7 +277,7 @@ export class ProductViewerComponent implements OnInit {
    */
   onSaveClicked() {
     // Not allow below statement if no displayed listings.
-    if (this.productSets.every(x => !x.display)) {
+    if (this.productSets.every(x => !x.display || x.products.every(p => !p.product.display))) {
       this.snackBarService.open(this.i18nService.get('shouldDisplayAtLeastOneSet'), this.i18nService.get('close'), { duration: 5000 });
       return;
     }
@@ -306,6 +342,13 @@ export class ProductViewerComponent implements OnInit {
     });
   }
 
+  /**
+   * redirect to previous route.
+   */
+  onBackButtonClicked() {
+    this.location.back();
+  }
+
 
   //-----------------------------------------------------------------
   //------------ private methods ------------------------------------
@@ -320,7 +363,9 @@ export class ProductViewerComponent implements OnInit {
       .map(x => {
         return {
           id: x.productId,
-          items: x.products.map(i => i.product.productId)
+          items: x.products
+            .filter(p => p.product.display)
+            .map(i => i.product.productId)
         };
       });
   }

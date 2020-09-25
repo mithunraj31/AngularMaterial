@@ -1534,6 +1534,11 @@
         <source>Close</source>
         <target>閉じる</target>
       </trans-unit>
+
+       <trans-unit id="back" datatype="html">
+        <source>Back</source>
+        <target>戻る</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

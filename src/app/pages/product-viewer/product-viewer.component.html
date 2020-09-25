@@ -2,15 +2,16 @@
 
 <div class="container">
   <div class="viewer-forms">
-    <form class="example-form">
-      <mat-form-field class="example-full-width" >
+    <form class="schedule-pattern-form">
+      <mat-form-field class="schedule-pattern-input-full-width" >
         <mat-label i18n="@@name">Name</mat-label>
         <input matInput placeholder="Mitsui lead" [(ngModel)]="viewerName" name="viewerName">
       </mat-form-field>
-      <div class="example-button-group">
+      <div class="viewer-button-group">
         <button mat-raised-button color="primary" (click)="onSaveClicked()" i18n="@@save">Save</button>
         <button mat-raised-button color="primary" (click)="onPreviewClicked()" i18n="@@preview">Preview</button>
         <button mat-raised-button color="primary" (click)="reloadPage()" i18n="@@discard">Discard</button>
+        <button mat-raised-button color="primary" (click)="onBackButtonClicked()" i18n="@@back">Back</button>
         <button mat-raised-button color="primary" (click)="onDeleteClicked()" *ngIf="patternId > 0" i18n="@@delete">Delete</button>
       </div>
     </form>
@@ -27,12 +28,10 @@
         <mat-icon>block</mat-icon> <span i18n="@@disableAll">Disable all</span>
       </button>
     </mat-menu>
-    <mat-checkbox class="example-margin" [(ngModel)]="isOnlyMe" i18n="@@onlyMe">Only me</mat-checkbox>
-
-
+    <mat-checkbox [(ngModel)]="isOnlyMe" i18n="@@onlyMe">Only me</mat-checkbox>
   </div>
   <div class="product-set-listings">
-    <mat-accordion cdkDropList (cdkDropListDropped)="dropProductSet($event)" class="example-headers-align">
+    <mat-accordion cdkDropList (cdkDropListDropped)="dropProductSet($event)" class="expansion-headers-align">
       <mat-expansion-panel *ngFor="let set of productSets" cdkDrag>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -40,15 +39,22 @@
           </mat-panel-title>
           <mat-panel-description>
             {{set.description}}
-            <mat-icon *ngIf="set.display" (click)="onDisableDisplayProductSet(set.productId, false ,$event)">
+            <mat-icon *ngIf="set.display" class="enable-product" (click)="onDisableDisplayProductSet(set.productId, false ,$event)">
               remove_red_eye</mat-icon>
-            <mat-icon *ngIf="!set.display" (click)="onDisableDisplayProductSet(set.productId, true ,$event)">block
+            <mat-icon *ngIf="!set.display" color="warn" (click)="onDisableDisplayProductSet(set.productId, true ,$event)">block
             </mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <div cdkDropList class="example-list" (cdkDropListDropped)="dropProduct(set.productId, $event)">
-          <div class="example-box" *ngFor="let product of set.products" cdkDrag>{{product.product.productName}}</div>
+        <div cdkDropList class="product-list" (cdkDropListDropped)="dropProduct(set.productId, $event)">
+          <div class="product-box" *ngFor="let product of set.products" cdkDrag>
+            <span>{{product.product.productName}}</span>
+            <span>
+              <mat-icon *ngIf="product.product.display" (click)="onDisableDisplayProduct(set.productId, product.product.productId, false, $event)" class="enable-product">
+              remove_red_eye</mat-icon>
+            <mat-icon  *ngIf="!product.product.display" (click)="onDisableDisplayProduct(set.productId, product.product.productId, true, $event)"  color="warn" >block
+            </mat-icon></span>
+          </div>
         </div>
       </mat-expansion-panel>
     </mat-accordion>

@@ -1785,6 +1785,10 @@
       <trans-unit id="close" datatype="html">
         <source>Close</source>
       </trans-unit>
+
+      <trans-unit id="back" datatype="html">
+        <source>Back</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

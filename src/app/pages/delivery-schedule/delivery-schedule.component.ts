@@ -33,7 +33,7 @@ export class DeliveryScheduleComponent implements OnInit {
   preview: any[];
 
   patterns: SchedulePattern[]
-  selectedPattern: SchedulePattern;
+  selectedPatternId: number;
 
   constructor(private forecastService: ForecastService,
     @Inject(LOCALE_ID) public localeId: string,
@@ -53,13 +53,19 @@ export class DeliveryScheduleComponent implements OnInit {
             this.preview.push({ setId: x.id, productId: i });
           });
         });
+
+        this.selectedPatternId = 0;
+      }  else {
+        this.selectedPatternId = this.productService.getSchedulePatternIdFromLocalStorage();
       }
     });
     this.localizeSubColumns();
-    this.selectedPattern = null;
+
   }
 
   ngOnInit() {
+
+
     if (localStorage.getItem("smallTable") == "true") {
       this.smallTable = true;
     } else {
@@ -145,16 +151,16 @@ export class DeliveryScheduleComponent implements OnInit {
     this.populateData();
   }
 
-  populateData(patternId: number = 0) {
+  populateData() {
     this.progress = true;
     // this.progress = false;
 
     let subscriber = null;
-    if (this.selectedPattern) {
+    if (this.selectedPatternId > 0) {
       subscriber = this.forecastService.getProductForecast(
         this.viewDate.getFullYear(),
         this.viewDate.getMonth(),
-        this.selectedPattern.schedulePatternId);
+        this.selectedPatternId);
     } else {
       subscriber = this.forecastService.getProductForecast(
         this.viewDate.getFullYear(),
@@ -404,25 +410,32 @@ export class DeliveryScheduleComponent implements OnInit {
     return this.preview && this.preview.length > 0;
   }
 
-  getUserId() {
-    return this.authService.getUserId();
-  }
-
   onAddPatternClicked() {
     this.router.navigate(['/product-viewer']);
   }
 
   onEditPatternClicked() {
-    this.router.navigate([`/product-viewer/${this.selectedPattern.schedulePatternId}`]);
+    this.router.navigate([`/product-viewer/${this.selectedPatternId}`]);
   }
 
   onSchedulePatternChanged() {
-    if (this.selectedPattern && this.selectedPattern.schedulePatternId != 0) {
-      this.populateData(this.selectedPattern.schedulePatternId);
-    } else {
-      this.populateData();
+    if (this.selectedPatternId != 0) {
+      this.productService.setSchedulePatternToLocalStorage(this.selectedPatternId);
     }
 
+    this.populateData();
+  }
+
+  isUserOwnSelectedPattern() {
+    const userId = this.authService.getUserId();
+    if (this.patterns && this.patterns.length > 0 && this.selectedPatternId > 0) {
+      const selectedPattern = this.patterns.filter(x => x.schedulePatternId == this.selectedPatternId)[0];
+      if (selectedPattern) {
+        return userId == selectedPattern.createdUser.userId;
+      }
+    }
+
+    return false;
   }
 
 }

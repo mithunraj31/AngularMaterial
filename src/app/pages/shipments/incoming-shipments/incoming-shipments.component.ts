@@ -195,7 +195,7 @@ export class IncomingShipmentsComponent implements OnInit {
   isProductNameEditable(element){
     const data = this.shipments.filter(x=>x.shipmentNo==element.shipmentNo&&x.branch==element.branch);
     console.log(data);
-    if(data.length>1){
+    if(data[0].partial||data[0].arrived||data[0].pendingQty==0){
       return false;
     }
     return true;

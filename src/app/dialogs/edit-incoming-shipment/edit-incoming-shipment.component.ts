@@ -1,6 +1,5 @@
 import { IncomingShipment } from './../../models/IncomingShipment';
 import { Component, OnInit, Inject } from '@angular/core';
-import { SaveShipmentProduct } from 'src/app/models/SaveShipmentProduct';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Product } from 'src/app/models/Product';
 import { SaveIncomingShipment } from 'src/app/models/SaveIncomingShipment';

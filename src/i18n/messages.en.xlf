@@ -1236,34 +1236,34 @@
 
       <trans-unit id="importProductsviaExcel" datatype="html">
         <source>Import product via Excel</source>
-         <target>Import product via Excel</target>
+        <target>Import product via Excel</target>
       </trans-unit>
       <trans-unit id="downloadTemplate" datatype="html">
         <source>Download template</source>
-         <target>Download template</target>
+        <target>Download template</target>
       </trans-unit>
-       <trans-unit id="currency" datatype="html">
+      <trans-unit id="currency" datatype="html">
         <source>Currency</source>
-         <target>Currency</target>
+        <target>Currency</target>
       </trans-unit>
 
 
-       <trans-unit id="individualProductSet" datatype="html">
+      <trans-unit id="individualProductSet" datatype="html">
         <source>Individual product set</source>
-         <target>Individual product set</target>
+        <target>Individual product set</target>
       </trans-unit>
 
       <trans-unit id="shouldDisplayAtLeastOneSet" datatype="html">
         <source>Should display product set at least 1 set.</source>
-         <target>Should display product set at least 1 set.</target>
+        <target>Should display product set at least 1 set.</target>
       </trans-unit>
 
-       <trans-unit id="shouldInputTheViewerName" datatype="html">
+      <trans-unit id="shouldInputTheViewerName" datatype="html">
         <source>Should input the viewer name.</source>
         <target>Should input the viewer name.</target>
       </trans-unit>
 
-       <trans-unit id="viewerHasBeenSaved" datatype="html">
+      <trans-unit id="viewerHasBeenSaved" datatype="html">
         <source>Viewer has been saved.</source>
         <target>Viewer has been saved.</target>
       </trans-unit>
@@ -1294,7 +1294,7 @@
         <target>Edit pattern</target>
       </trans-unit>
 
-        <trans-unit id="close" datatype="html">
+      <trans-unit id="close" datatype="html">
         <source>Close</source>
         <target>Close</target>
       </trans-unit>
@@ -1306,7 +1306,15 @@
 
       <trans-unit id="total" datatype="html">
         <source>Total</source>
-         <target>Total</target>
+        <target>Total</target>
+      </trans-unit>
+      <trans-unit id="saveError" datatype="html">
+        <source>Product Save Error</source>
+        <target>Product Save Error</target>
+      </trans-unit>
+      <trans-unit id="obicNoAlreadyPresent" datatype="html">
+        <source>OBICNO Already Present</source>
+        <target>OBICNO Already Present</target>
       </trans-unit>
     </body>
   </file>

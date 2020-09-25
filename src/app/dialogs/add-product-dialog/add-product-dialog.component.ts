@@ -1,8 +1,8 @@
-import { Product } from './../../models/Product';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AddProductConfirmationComponent } from '../add-product-confirmation/add-product-confirmation.component';
+import { ErrorProductDialogComponent } from '../error-product-dialog/error-product-dialog.component';
 
 @Component({
   selector: 'app-add-product-dialog',
@@ -43,7 +43,7 @@ export class AddProductDialogComponent implements OnInit {
       "obicNo": new FormControl("", [
         Validators.required
       ]),
-      "sort": new FormControl(this.data, [
+      "sort": new FormControl(this.data.length, [
 
       ]),
       "color": new FormControl("", [
@@ -57,12 +57,21 @@ export class AddProductDialogComponent implements OnInit {
   }
   onSubmit() {
     if (this.productForm.valid) {
+      console.log(this.productForm.controls['obicNo'].value)
+      if(this.isObicNoDuplicated(this.productForm.controls['obicNo'].value)){
+        const dialogRef = this.dialog.open(ErrorProductDialogComponent, {
+          width: '600px',
+          data: this.productForm.controls['obicNo'].value
+        });
+
+      }else{
       // open confimation dialog
       const confirmDialogRef = this.dialog.open(AddProductConfirmationComponent, {
         width: '600px',
         data: this.productForm.value,
         disableClose: true
       });
+
       confirmDialogRef.afterClosed().subscribe(result => {
 
         switch (result) {
@@ -76,6 +85,14 @@ export class AddProductDialogComponent implements OnInit {
             break;
         }
       });
+    }
+    }
+  }
+  isObicNoDuplicated(obicNo:string){
+    if(this.data.some(code=>code.obicNo==obicNo)){
+      return true;
+    }else{
+      return false;
     }
   }
   getErrorMessage(attribute: string) {

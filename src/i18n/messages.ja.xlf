@@ -1535,14 +1535,22 @@
         <target>閉じる</target>
       </trans-unit>
 
-       <trans-unit id="back" datatype="html">
+      <trans-unit id="back" datatype="html">
         <source>Back</source>
         <target>戻る</target>
       </trans-unit>
 
-       <trans-unit id="total" datatype="html">
+      <trans-unit id="total" datatype="html">
         <source>Total</source>
-         <target>合計</target>
+        <target>合計</target>
+      </trans-unit>
+      <trans-unit id="saveError" datatype="html">
+        <source>Product Save Error</source>
+        <target>製品保存エラー</target>
+      </trans-unit>
+      <trans-unit id="obicNoAlreadyPresent" datatype="html">
+        <source>OBICNO Already Present</source>
+        <target>OBICNOはすでに存在します</target>
       </trans-unit>
     </body>
   </file>

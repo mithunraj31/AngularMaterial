@@ -111,6 +111,7 @@ import { AddOrderSummeryComponent } from './dialogs/add-order-summery/add-order-
 import { DashboardService } from './services/DashboardService';
 import { ProductsExportSelectDateComponent } from './dialogs/products-export-select-date/products-export-select-date.component';
 import { ProductViewerComponent } from './pages/product-viewer/product-viewer.component';
+import { ErrorProductDialogComponent } from './dialogs/error-product-dialog/error-product-dialog.component';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { I18nService } from './services/I18nService';
@@ -174,7 +175,8 @@ declare const require;
     DataChangedDialogComponent,
     AddOrderSummeryComponent,
     ProductsExportSelectDateComponent,
-    ProductViewerComponent
+    ProductViewerComponent,
+    ErrorProductDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -247,7 +249,8 @@ declare const require;
     DataChangedDialogComponent,
     AddOrderSummeryComponent,
     ProductsExportSelectDateComponent,
-    ProductViewerComponent
+    ProductViewerComponent,
+    ErrorProductDialogComponent,
   ],
   providers: [
     I18n,

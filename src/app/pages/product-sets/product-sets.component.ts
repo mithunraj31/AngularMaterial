@@ -12,6 +12,7 @@ import { EditProductSetDialogComponent } from 'src/app/dialogs/edit-product-set-
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { SaveProductComponent } from 'src/app/models/saveProductComponent';
 import { DataChangedDialogComponent } from 'src/app/dialogs/data-changed-dialog/data-changed-dialog.component';
+import { ErrorProductDialogComponent } from 'src/app/dialogs/error-product-dialog/error-product-dialog.component';
 
 @Component({
   selector: 'app-product-sets',
@@ -132,6 +133,11 @@ export class ProductSetsComponent implements OnInit {
           this.getProductSetData();
         }, error => {
           this.progress = false;
+          console.log(result);
+          const dialogRef = this.dialog.open(ErrorProductDialogComponent, {
+            width: '600px',
+            data: result.obicNo
+          });
         })
       }
     });

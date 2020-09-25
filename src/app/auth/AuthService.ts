@@ -67,6 +67,11 @@ export class AuthService {
     logout() {
         localStorage.removeItem('id_token');
         localStorage.removeItem("expires_at");
+        localStorage.removeItem("scopes");
+        localStorage.removeItem("firstName");
+        localStorage.removeItem("lastName");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("schedule_pattern_id");
         this.loggedIn.next(false);
     }
 

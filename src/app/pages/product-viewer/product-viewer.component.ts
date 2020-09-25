@@ -333,7 +333,7 @@ export class ProductViewerComponent implements OnInit {
           .subscribe(() => {
             this.snackBarService.open(this.i18nService.get('viewerHasBeenDeleted'), this.i18nService.get('close'), { duration: 2000 });
             setTimeout(() => {
-              this.router.navigate(['/product-viewer']);
+              this.router.navigate(['/delivery-schedule']);
             }, 2000);
 
           },

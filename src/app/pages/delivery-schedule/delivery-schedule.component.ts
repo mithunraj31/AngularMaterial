@@ -190,8 +190,7 @@ export class DeliveryScheduleComponent implements OnInit {
               productName: product.productName,
               description: product.description,
               color: product.color ? product.color : '#ffffff',
-              values: column.value,
-              total: {}
+              values: column.value
             };
 
             const total: number = 0
@@ -213,15 +212,17 @@ export class DeliveryScheduleComponent implements OnInit {
 
 
             if (column.key === 'outgoing' && product.totalFulfilledOutgoingQty > 0) {
-              temp.total = {
+              temp[this.i18nService.get('total')] = {
                 quantity: product.totalFulfilledOutgoingQty,
                 fixed: true
               };
             } else if (column.key === 'incoming' && product.totalFulfilledIncomingQty > 0){
-              temp.total = {
+              temp[this.i18nService.get('total')] = {
                 quantity: product.totalFulfilledIncomingQty,
                 fixed: true
               };
+            } else {
+              temp[this.i18nService.get('total')] = {};
             }
             tempdata.push(temp);
             // this.dataSource.push(temp);

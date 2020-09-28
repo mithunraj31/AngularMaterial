@@ -72,21 +72,18 @@ p{
     display:contents
   }
 
+
+
   .dashboard-card {
-    display: table;
-    flex-direction: column;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
-    width: 100%;
-    padding:inherit;
+    width: 100% ;
+    height: fit-content;
+    table{
+      td {
+        border: solid #000 1px;
+      }
   }
+}
 
-
-  .dashboard-card-content {
-    height: 100% !important;
-  }
 b{
   font-weight: 600;
 }

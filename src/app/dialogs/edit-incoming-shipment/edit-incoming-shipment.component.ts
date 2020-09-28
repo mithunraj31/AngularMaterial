@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { ProductService } from 'src/app/services/ProductService';
 import { AddIncomingShipmentConfirmationComponent } from '../add-incoming-shipment-confirmation/add-incoming-shipment-confirmation.component';
+import { EditIncomingShipment } from 'src/app/models/EditIncomingShipment';
 
 @Component({
   selector: 'app-edit-incoming-shipment',
@@ -20,11 +21,7 @@ export class EditIncomingShipmentComponent implements OnInit {
   saveIncomingShipment: SaveIncomingShipment;
   constructor(
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {
-      element: IncomingShipment,
-      editable: boolean
-    },
-    @Inject(MAT_DIALOG_DATA) public val: any,
+    @Inject(MAT_DIALOG_DATA) public data: EditIncomingShipment,
     private productService: ProductService,
     public dialog: MatDialog
   ) { }

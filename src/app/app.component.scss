@@ -5,3 +5,8 @@
     overflow-y: hidden;
   }
 
+
+  ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+    color: #000000;
+    background-color: rgba(63,81,181,.15) !important;
+  }

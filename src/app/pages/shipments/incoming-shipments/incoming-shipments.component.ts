@@ -1,4 +1,3 @@
-import { SortCheckbox } from './../../orders/orders/orders.component';
 import { SaveIncomingShipment } from 'src/app/models/SaveIncomingShipment';
 import { UtilService } from './../../../services/UtilService';
 import { ArrivalOrderDialogComponent } from './../../../dialogs/arrival-order-dialog/arrival-order-dialog.component';
@@ -143,6 +142,7 @@ export class IncomingShipmentsComponent implements OnInit {
 
   async editShipment(element) {
     let isChanged = await this.isDataChanged(element.incomingShipmentId);
+    console.log(element)
     if (isChanged.status) { // when data is changed
       //Load Warning popup
       const dialogRef = this.dialog.open(DataChangedDialogComponent, {
@@ -156,7 +156,11 @@ export class IncomingShipmentsComponent implements OnInit {
     } else { // When data is not changed.
       const dialogRef = this.dialog.open(EditIncomingShipmentComponent, {
         width: '600px',
-        data: element
+        data: {
+          element,
+          editable:this.isProductNameEditable(element)
+        },
+
       });
 
 
@@ -187,6 +191,15 @@ export class IncomingShipmentsComponent implements OnInit {
         }
       });
     }
+  }
+
+  isProductNameEditable(element){
+    const data = this.shipments.filter(x=> x.shipmentNo == element.shipmentNo
+                    &&x.branch == element.branch);
+    if(data && (data[0].partial||data[0].arrived||data[0].pendingQty!=data[0].quantity)){
+      return false;
+    }
+    return true;
   }
 
   async deleteShipment(element) {
@@ -471,7 +484,7 @@ export class IncomingShipmentsComponent implements OnInit {
           });
         }
         else {
-          
+
           return resolve({ status: false, user: result.user });
         }
       });

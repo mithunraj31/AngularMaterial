@@ -1420,6 +1420,16 @@
         <source>OBICNO Already Present</source>
         <target>OBICNOはすでに存在します</target>
       </trans-unit>
+ <trans-unit id="inQty" datatype="html">
+        <source>in qty</source>
+        <target>入荷</target>
+      </trans-unit>
+
+       <trans-unit id="outQty" datatype="html">
+        <source>out qty</source>
+        <target>出荷</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

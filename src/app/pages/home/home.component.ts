@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material';
 import { AddOrderSummeryComponent } from 'src/app/dialogs/add-order-summery/add-order-summery.component';
 import { DashboardService } from 'src/app/services/DashboardService';
 import { Widget } from 'src/app/models/Widget';
-import { ThrowStmt } from '@angular/compiler';
 import { CdkDragDrop ,moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
@@ -14,6 +13,7 @@ import { CdkDragDrop ,moveItemInArray} from '@angular/cdk/drag-drop';
 export class HomeComponent implements OnInit {
   widgets: Widget[] = [];
   widgetData: Widget[] = [];
+  widgetSetData:Widget[] = [];
   constructor(
     public dialog: MatDialog,
     private dashboardService: DashboardService
@@ -64,26 +64,39 @@ export class HomeComponent implements OnInit {
   }
   async getWidgets() {
     this.widgetData = [];
+    this.widgetSetData=[];
     const tempStr = localStorage.getItem("widgets");
     let temp: any = JSON.parse(tempStr);
 
     if (temp != null && temp.length > 0) {
       this.widgets = temp
     }
-    console.log(temp);
     this.widgets.forEach(widget => {
+      if(widget.type==0){
       this.dashboardService.getProductSummery(widget.data.productId).subscribe(result => {
         let w: Widget = widget;
         w.data = result;
         this.widgetData.push(w);
       })
+    }else{
+      this.dashboardService.getProductSetSummery(widget.data.productId).subscribe(result => {
+        let w: Widget = widget;
+        w.data = result;
+        this.widgetSetData.push(w);
+      })
+    }
     });
+
   }
   deleteWidget(index:number){
+    console.log(this.widgets)
     this.widgets.splice(index,1);
+    console.log(this.widgets)
     localStorage.setItem("widgets",JSON.stringify(this.widgets));
     this.getWidgets();
   }
+
+
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.widgets, event.previousIndex, event.currentIndex);
     moveItemInArray(this.widgetData, event.previousIndex, event.currentIndex);

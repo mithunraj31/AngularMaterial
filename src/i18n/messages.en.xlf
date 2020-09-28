@@ -1177,6 +1177,14 @@
         <source>Transaction Arrived to Confirmed.</source>
         <target>Transaction Arrived to Confirmed.</target>
       </trans-unit>
+       <trans-unit id="saveError" datatype="html">
+        <source>Product Save Error</source>
+        <target>Product Save Error</target>
+      </trans-unit>
+      <trans-unit id="obicNoAlreadyPresent" datatype="html">
+        <source>OBICNO Already Present</source>
+        <target>OBICNO Already Present</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

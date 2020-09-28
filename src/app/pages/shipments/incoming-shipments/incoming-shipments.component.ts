@@ -142,6 +142,7 @@ export class IncomingShipmentsComponent implements OnInit {
 
   async editShipment(element) {
     let isChanged = await this.isDataChanged(element.incomingShipmentId);
+    console.log(element)
     if (isChanged.status) { // when data is changed
       //Load Warning popup
       const dialogRef = this.dialog.open(DataChangedDialogComponent, {
@@ -193,9 +194,9 @@ export class IncomingShipmentsComponent implements OnInit {
   }
 
   isProductNameEditable(element){
-    const data = this.shipments.filter(x=>x.shipmentNo==element.shipmentNo&&x.branch==element.branch);
-    console.log(data);
-    if(data[0].partial||data[0].arrived||data[0].pendingQty!=data[0].quantity){
+    const data = this.shipments.filter(x=> x.shipmentNo == element.shipmentNo
+                    &&x.branch == element.branch);
+    if(data && (data[0].partial||data[0].arrived||data[0].pendingQty!=data[0].quantity)){
       return false;
     }
     return true;

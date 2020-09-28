@@ -1,7 +1,7 @@
 p {
     font-family: Lato;
   }
-  
+
 
   .normalTable{
     th, td {
@@ -23,33 +23,33 @@ p {
     max-width: 100px !important;
     min-width: 100px !important;
   }
-  .mat-column-productId 
+  .mat-column-productId
 {
   // left: 125px !important;
   max-width: 100px !important;
   min-width: 100px !important;
 
 }
-.mat-column-obicNo 
+.mat-column-obicNo
 {
   // left: 125px !important;
   max-width: 100px !important;
   min-width: 100px !important;
 
 }
-.mat-column-productName 
+.mat-column-productName
 {
   // left: 222px !important;
   width: 100px !important;
   min-width: 100px !important;
 }
-.mat-column-description 
+.mat-column-description
 {
   // left: 327px !important;
   width: 200px !important;
   min-width: 200px !important;
 }
-.mat-column-values 
+.mat-column-values
 {
   // left: 528px !important;
   width: 70px !important;
@@ -60,16 +60,16 @@ p {
     height: 800px;
     overflow: auto;
   }
-  
+
   td.mat-column-star {
     width: 20px;
     padding-right: 8px;
   }
-  
+
   th.mat-column-position, td.mat-column-position {
     padding-left: 1px;
   }
-  
+
   .blue-backround {
       background-color: aqua;
   }
@@ -112,4 +112,9 @@ p {
   .top-button-section{
     display: flex;
     justify-content: space-between;
+  }
+
+  .total-column {
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    font-weight: bold;
   }

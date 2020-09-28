@@ -34,6 +34,7 @@ export class DeliveryScheduleComponent implements OnInit {
 
   patterns: SchedulePattern[]
   selectedPatternId: number;
+  totalColumnHeader: string;
 
   constructor(private forecastService: ForecastService,
     @Inject(LOCALE_ID) public localeId: string,
@@ -44,6 +45,7 @@ export class DeliveryScheduleComponent implements OnInit {
     private i18nService: I18nService,
     private authService: AuthService
   ) {
+    this.totalColumnHeader = this.i18nService.get('total');
     this.route.queryParams.subscribe(params => {
       this.preview = [];
       if (params['preview']) {
@@ -193,7 +195,6 @@ export class DeliveryScheduleComponent implements OnInit {
               values: column.value
             };
 
-            const total: number = 0
             product.values.forEach(dateItem => {
               if ((column.key === 'incoming' || column.key === 'outgoing') && (dateItem[column.key].quantity === 0)) {
                 temp[this.getDateString(dateItem.date)] = {
@@ -212,17 +213,17 @@ export class DeliveryScheduleComponent implements OnInit {
 
 
             if (column.key === 'outgoing' && product.totalFulfilledOutgoingQty > 0) {
-              temp[this.i18nService.get('total')] = {
+              temp[this.totalColumnHeader] = {
                 quantity: product.totalFulfilledOutgoingQty,
                 fixed: true
               };
             } else if (column.key === 'incoming' && product.totalFulfilledIncomingQty > 0){
-              temp[this.i18nService.get('total')] = {
+              temp[this.totalColumnHeader] = {
                 quantity: product.totalFulfilledIncomingQty,
                 fixed: true
               };
             } else {
-              temp[this.i18nService.get('total')] = {};
+              temp[this.totalColumnHeader] = {};
             }
             tempdata.push(temp);
             // this.dataSource.push(temp);
@@ -272,7 +273,7 @@ export class DeliveryScheduleComponent implements OnInit {
       const date = element.date;
       this.displayedColumns.push(this.getDateString(date));
     });
-    this.displayedColumns.push(this.i18nService.get('total'));
+    this.displayedColumns.push(this.totalColumnHeader);
     this.columnsToDisplay = this.displayedColumns.slice();
 
   }

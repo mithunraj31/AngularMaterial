@@ -68,9 +68,9 @@
             <!-- <td mat-footer-cell *matFooterCellDef> null </td> -->
         </ng-container>
 
-        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns.slice(5)">
-            <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-            <td mat-cell *matCellDef="let element" (click)="clickOrder(element[column])" class="dates"
+        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns.slice(5)" [stickyEnd]="totalColumnHeader == column">
+            <th mat-header-cell *matHeaderCellDef [ngClass]="{'total-column': totalColumnHeader == column}"> {{column}} </th>
+            <td mat-cell *matCellDef="let element" (click)="clickOrder(element[column])" class="dates" [ngClass]="{'total-column': totalColumnHeader == column}"
                 [ngStyle]="changeColor(element,column)">
                 {{element[column].quantity}}
             </td>

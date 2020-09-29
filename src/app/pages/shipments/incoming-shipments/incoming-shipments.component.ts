@@ -142,7 +142,6 @@ export class IncomingShipmentsComponent implements OnInit {
 
   async editShipment(element) {
     let isChanged = await this.isDataChanged(element.incomingShipmentId);
-    console.log(element)
     if (isChanged.status) { // when data is changed
       //Load Warning popup
       const dialogRef = this.dialog.open(DataChangedDialogComponent, {

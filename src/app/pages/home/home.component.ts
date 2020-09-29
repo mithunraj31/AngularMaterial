@@ -89,9 +89,7 @@ export class HomeComponent implements OnInit {
 
   }
   deleteWidget(index:number){
-    console.log(this.widgets)
     this.widgets.splice(index,1);
-    console.log(this.widgets)
     localStorage.setItem("widgets",JSON.stringify(this.widgets));
     this.getWidgets();
   }

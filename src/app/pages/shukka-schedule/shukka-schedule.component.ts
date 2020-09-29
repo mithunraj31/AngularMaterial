@@ -52,7 +52,6 @@ export class ShukkaScheduleComponent implements OnInit {
           }
         });
     } catch (error) {
-      // console.log(error)
       this.viewDate = new Date();
     } finally {
 
@@ -172,12 +171,9 @@ export class ShukkaScheduleComponent implements OnInit {
       });
       // this.dataSource = tempdata.slice(0, 9);
       this.dataSource = tempdata;
-      // console.log(tempdata);
-      // console.log(this.dataSource);
       this.progress = false;
       this.unsub.next();
       this.unsub.complete();
-      // console.log(this.progress);
     }, error => {
       this.progress = false;
     });
@@ -200,9 +196,7 @@ export class ShukkaScheduleComponent implements OnInit {
       this.displayedColumns.push(this.getDateString(date));
     });
     this.columnsToDisplay = this.displayedColumns.slice();
-    // console.log(this.columnsToDisplay);
 
-    // console.log(this.displayedColumns);
   }
   getDateString(date: string) {
     return new Date(date).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' });
@@ -272,7 +266,6 @@ export class ShukkaScheduleComponent implements OnInit {
   }
 
   getRowSpanSet(col, index) {
-    // console.log(col,index);
     const rowVal = this.dataSource[index];
     const cellVal = rowVal[col];
     let count = 0;
@@ -299,7 +292,6 @@ export class ShukkaScheduleComponent implements OnInit {
       if (valObj[column] === preObj[column]) {
         result = true;
       }
-      // console.log (valObj[column],preObj[column]);
     }
     return result;
   }
@@ -317,7 +309,6 @@ export class ShukkaScheduleComponent implements OnInit {
       if (compare1 === compare2) {
         result = true;
       }
-      // console.log (valObj[column],preObj[column]);
     }
     return result;
   }
@@ -335,7 +326,6 @@ export class ShukkaScheduleComponent implements OnInit {
         disableClose: true,
         hasBackdrop: false
       });
-      // console.log(data);
     }
     if (data.incomingOrders) {
       const confirmDialogRef = this.dialog.open(IncomingInfoComponent, {

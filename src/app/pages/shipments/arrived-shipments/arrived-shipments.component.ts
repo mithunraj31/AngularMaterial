@@ -112,7 +112,6 @@ export class ArrivedShipmentsComponent implements OnInit {
       this.dataSource.data = this.shipments;
       this.dataSource.paginator = this.paginatorTop;
       this.loadTime = new Date();
-      // console.log(result);
       this.onTopPaginateChange();
       this.progress = false;
     }, error => {
@@ -128,17 +127,14 @@ export class ArrivedShipmentsComponent implements OnInit {
       width: '600px',
       data: element
     });
-    // console.log(element);
 
     dialogRef.afterClosed().subscribe(result => {
 
-      // console.log(result);
       if (result) {
         this.progress = true;
         this.shipmentService.editShipment(result).subscribe(result => {
           this.getShipments();
         }, error => {
-          // console.log(error);
           this.progress = false;
         })
       }
@@ -160,7 +156,6 @@ export class ArrivedShipmentsComponent implements OnInit {
 
         }, error => {
           this.progress = true;
-          // console.log(error);
         });
       }
     });
@@ -213,7 +208,6 @@ export class ArrivedShipmentsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // console.log(result);
         const results: SaveIncomingShipment[] = result;
         this.progress = true;
         if (results[0]) {
@@ -230,7 +224,6 @@ export class ArrivedShipmentsComponent implements OnInit {
           this.shipmentService.addShipment([results[1]]).subscribe(result => {
             this.getShipments();
           }, error => {
-            // console.log(error);
             this.progress = false;
           })
         }
@@ -272,7 +265,6 @@ export class ArrivedShipmentsComponent implements OnInit {
         }
       }
     }
-    // console.log(shipment)
     return !can;
   }
   findMain(shipmentNo: string, productId: number, branch: string): IncomingShipment {
@@ -302,11 +294,9 @@ export class ArrivedShipmentsComponent implements OnInit {
       width: '600px',
       data: "arrived"
     });
-    // console.log(element);
 
     dialogRef.afterClosed().subscribe(async result => {
 
-      // console.log(result);
       if (result) {
         let isChanged = await this.isDataChanged(element.incomingShipmentId);
         if (isChanged.status) { // when data is changed

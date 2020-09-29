@@ -1,7 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Customer } from 'src/app/models/Customer';
-import { AddCustomerConfirmationComponent } from '../add-customer-confirmation/add-customer-confirmation.component';
 
 @Component({
   selector: 'app-add-product-confirmation',

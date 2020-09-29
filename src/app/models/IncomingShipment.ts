@@ -1,5 +1,4 @@
 import { Product } from 'src/app/models/Product';
-import { ShipmentProduct } from './ShipmentProduct';
 import { User } from './User';
 
 export interface IncomingShipment {

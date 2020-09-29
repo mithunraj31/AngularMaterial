@@ -12,11 +12,11 @@
         <mat-select formControlName="product">
           <input (keyup)="onKey($event.target.value)">
           <mat-option i18n="@@none">None</mat-option>
-          <mat-option value="{{product.productId}}" *ngFor="let product of products; let i = index">{{product.productName}}</mat-option>
-    
+          <mat-option value="{{product.productId}}" *ngFor="let product of selectedProductSets; let i = index">{{product.productName}}</mat-option>
+
         </mat-select>
       </mat-form-field>
-    
+
   </div>
   <div mat-dialog-actions>
     <button mat-button type="button" (click)="onCancelClick()" i18n="@@cancel">Cancel</button>

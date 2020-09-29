@@ -122,24 +122,13 @@ export class ProductSetsComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddProductSetDialogComponent, {
       width: '600px',
-      data: this.productSets.length + 1
+      data: this.productSets
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
       if (result) {
-        this.progress = true;
-        this.productService.addProductSet(result).subscribe(result => {
           this.getProductSetData();
-        }, error => {
-          this.progress = false;
-          console.log(result);
-          const dialogRef = this.dialog.open(ErrorProductDialogComponent, {
-            width: '600px',
-            data: result.obicNo
-          });
-        })
-      }
+        }
     });
   }
   async editProductSet(data: ProductSet) {
@@ -157,34 +146,16 @@ export class ProductSetsComponent implements OnInit {
     } else { // When data is not changed.
       const dialogRef = this.dialog.open(EditProductSetDialogComponent, {
         width: '600px',
-        data: data
+        data: {
+          allproductset:this.productSets,
+          editableProduct:data,
+          loadTime: this.loadTime
+        }
       });
 
       dialogRef.afterClosed().subscribe(async result => {
         if (result) {
-          let isChanged = await this.isDataChanged(data.productId);
-          if (isChanged.status) { // when data is changed
-            //Load Warning popup
-            const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-              width: '600px',
-              data: isChanged
-            });
-
-            dialogRef.afterClosed().subscribe(result => {
-              this.getProductSetData();
-            });
-          } else { // When data is not changed.
-            this.progress = true;
-            (result);
-            const productset: SaveProductSet = result;
-            productset.productId = data.productId;
-            productset.display = data.display;
-            this.productService.editProductSet(productset).subscribe(result => {
-              this.getProductSetData();
-            }, error => {
-              this.progress = false;
-            })
-          }
+             this.getProductSetData();
         }
       });
     }

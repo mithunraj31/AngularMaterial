@@ -68,6 +68,10 @@ export class UpdateProductDialogComponent implements OnInit {
   onSubmit() {
     if (this.productForm.valid) {
       if(this.isObicNoDuplicated(this.productForm.controls['obicNo'].value)){
+        const dialogRef = this.dialog.open(ErrorProductDialogComponent, {
+          width: '600px',
+          data: this.productForm.controls['obicNo'].value
+        });
       }else{
       // open confimation dialog
       const confirmDialogRef = this.dialog.open(AddProductConfirmationComponent, {

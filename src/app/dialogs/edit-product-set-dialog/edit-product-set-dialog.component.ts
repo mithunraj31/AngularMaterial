@@ -161,7 +161,6 @@ export class EditProductSetDialogComponent implements OnInit {
     return new Promise<any>((resolve, reject) => {
       this.productService.getProductSetById(orderId).subscribe(result => {
         lastEditedTime = new Date(result.updatedAt);
-        console.log(result);
         if (lastEditedTime > this.data.loadTime) {
 
           return resolve({

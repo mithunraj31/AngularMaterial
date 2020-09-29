@@ -304,7 +304,6 @@ export class FulfilledOrdersComponent implements OnInit {
         width: '600px',
         data: "shipped"
       });
-      // console.log(element);
 
       dialogRef.afterClosed().subscribe(async result => {
 

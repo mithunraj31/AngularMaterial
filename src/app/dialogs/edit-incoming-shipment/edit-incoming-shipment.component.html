@@ -36,7 +36,7 @@
           Product cannot be empty.
         </mat-error>
       </mat-form-field>
-      <mat-form-field class="inline" *ngIf="!data.partial">
+      <mat-form-field class="inline" *ngIf="!data.element.partial">
         <input required matInput type="number" min="1" i18n-placeholder="@@orderedQty" placeholder="Order QTY"
           formControlName="quantity">
         <mat-error *ngIf="incomingShipmentForm.get('quantity').hasError('required')" i18n="@@orderQtyRequired">

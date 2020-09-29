@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AddProductSetConfirmationComponent } from '../add-product-set-confirmation/add-product-set-confirmation.component';
+import { ErrorProductDialogComponent } from '../error-product-dialog/error-product-dialog.component';
 
 @Component({
   selector: 'app-add-product-set-dialog',
@@ -15,6 +16,7 @@ import { AddProductSetConfirmationComponent } from '../add-product-set-confirmat
 })
 export class AddProductSetDialogComponent implements OnInit {
   selected: number = null;
+  progress = false;
   qty = null;
   qtyError = false;
   productForm: FormGroup;
@@ -68,7 +70,7 @@ export class AddProductSetDialogComponent implements OnInit {
       "obicNo": new FormControl("", [
         Validators.required
       ]),
-      "sort": new FormControl(this.data, [
+      "sort": new FormControl(this.data.length+1, [
 
       ]),
       "color": new FormControl("", [
@@ -81,6 +83,12 @@ export class AddProductSetDialogComponent implements OnInit {
   }
   onSubmit() {
     if (this.productForm.valid) {
+      if(this.isObicNoDuplicated(this.productForm.controls['obicNo'].value)){
+        const dialogRef = this.dialog.open(ErrorProductDialogComponent, {
+          width: '600px',
+          data: this.productForm.controls['obicNo'].value
+        });
+      }else{
       this.saveProductSet = this.productForm.value;
       this.saveProductSet.products = this.saveProducts;
       // open confimation dialog
@@ -99,13 +107,33 @@ export class AddProductSetDialogComponent implements OnInit {
             this.onCancelClick();
             break;
           case 1:
-            this.dialogRef.close(this.saveProductSet);
+            this.checkObicNoDuplicationInApi(this.saveProductSet);
             break;
           default:
             break;
         }
       });
     }
+    }
+  }
+
+  checkObicNoDuplicationInApi(result){
+    if(result){
+      const product: Product = result;
+        // API Requst to save product
+        this.progress = true;
+        this.productService.addProductSet(result).subscribe(result => {
+        this.dialogRef.close(true);
+    }, (ex) => {
+      this.progress = false;
+      if(ex.error.message=="ObicNo Already Present"){
+        const dialogRef = this.dialog.open(ErrorProductDialogComponent, {
+          width: '600px',
+          data: result.obicNo
+        });
+      }
+    })
+  }
   }
   getErrorMessage(attribute: string) {
     return this.productForm.get(attribute).hasError('required') ? 'You must enter a value' : '';
@@ -153,5 +181,13 @@ export class AddProductSetDialogComponent implements OnInit {
     let filter = value.toLowerCase();
     this.products = this._products;
     return this.products.filter(option => option.productName.toLowerCase().startsWith(filter));
+  }
+
+  isObicNoDuplicated(obicNo:string){
+    if(this.data.some(code=>code.obicNo==obicNo)){
+      return true;
+    }else{
+      return false;
+    }
   }
 }

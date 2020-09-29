@@ -4,6 +4,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { AddProductConfirmationComponent } from '../add-product-confirmation/add-product-confirmation.component';
 import { ErrorProductDialogComponent } from '../error-product-dialog/error-product-dialog.component';
+import { ProductService } from 'src/app/services/ProductService';
+import { DataChangedDialogComponent } from '../data-changed-dialog/data-changed-dialog.component';
+import { ProductsComponent } from 'src/app/pages/products/products.component';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-update-product-dialog',
@@ -12,12 +16,15 @@ import { ErrorProductDialogComponent } from '../error-product-dialog/error-produ
 })
 export class UpdateProductDialogComponent implements OnInit {
   productForm: FormGroup;
+  progress=false;
   constructor(
     public dialog: MatDialog,
+    private productService: ProductService,
     public dialogRef: MatDialogRef<UpdateProductDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       allproducts:Product[]
-      editableProduct:Product
+      editableProduct:Product,
+      loadTime: Date;
     }
   ) { }
 
@@ -61,10 +68,6 @@ export class UpdateProductDialogComponent implements OnInit {
   onSubmit() {
     if (this.productForm.valid) {
       if(this.isObicNoDuplicated(this.productForm.controls['obicNo'].value)){
-        const dialogRef = this.dialog.open(ErrorProductDialogComponent, {
-          width: '600px',
-          data: this.productForm.controls['obicNo'].value
-        });
       }else{
       // open confimation dialog
       const confirmDialogRef = this.dialog.open(AddProductConfirmationComponent, {
@@ -80,7 +83,7 @@ export class UpdateProductDialogComponent implements OnInit {
             this.onCancelClick();
             break;
           case 1:
-            this.dialogRef.close(this.productForm.value);
+            this.checkObicNoDuplicationInApi(this.productForm.value);
             break;
           default:
             break;
@@ -109,5 +112,66 @@ export class UpdateProductDialogComponent implements OnInit {
     //     break;
     // }
   }
+
+  async checkObicNoDuplicationInApi(result){
+    if (result) {
+
+      let isChanged =  await this.isDataChanged(this.data.editableProduct.productId);
+      if (isChanged.status) { // when data is changed
+        //Load Warning popup
+        const dialogRef = this.dialog.open(DataChangedDialogComponent, {
+          width: '600px',
+          data: isChanged
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+
+
+        });
+      } else { // When data is not changed.
+        this.progress = true;
+        const product: Product = result;
+        product.productId = this.data.editableProduct.productId;
+        product.display = this.data.editableProduct.display;
+        // change concat to replace when using real api
+        this.productService.updateProduct(product).subscribe((res) => {
+          this.dialogRef.close(true);
+        }, (ex) => {
+          this.progress = false;
+          if(ex.error.message=="ObicNo Already Present"){
+          const dialogRef = this.dialog.open(ErrorProductDialogComponent, {
+            width: '600px',
+            data: product.obicNo
+          });
+        }
+      })
+      }
+    }
+}
+
+
+isDataChanged(orderId: number) {
+  let lastEditedTime: Date;
+  return new Promise<any>((resolve) => {
+    this.productService.getProductById(orderId).subscribe(result => {
+      lastEditedTime = new Date(result.updatedAt);
+      console.log(result);
+      if (lastEditedTime > this.data.loadTime) {
+
+        return resolve({
+          status: true, user: result.user,
+          editReason: result.editReason,
+          updatedAt: result.updatedAt
+        });
+      }
+      else {
+
+        return resolve({ status: false, user: result.user });
+      }
+    });
+  });
+}
+
+
 
 }

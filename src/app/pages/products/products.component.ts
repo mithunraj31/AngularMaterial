@@ -10,7 +10,6 @@ import { UpdateProductDialogComponent } from 'src/app/dialogs/update-product-dia
 import * as XLSX from 'xlsx';
 import { DataChangedDialogComponent } from 'src/app/dialogs/data-changed-dialog/data-changed-dialog.component';
 import { ProductsExportSelectDateComponent } from 'src/app/dialogs/products-export-select-date/products-export-select-date.component';
-import { ErrorProductDialogComponent } from 'src/app/dialogs/error-product-dialog/error-product-dialog.component';
 
 type AOA = any[][];
 
@@ -98,22 +97,8 @@ export class ProductsComponent implements OnInit {
       data: this.products
     });
     dialogRef.afterClosed().subscribe(result => {
-
-      if (result) {
-        const product: Product = result;
-
-        // API Requst to save product
-        this.progress = true;
-        this.productService.saveProduct(product).subscribe(result => {
+      if(result){
           this.getProductData();
-        }, error => {
-          this.progress = false;
-            const dialogRef = this.dialog.open(ErrorProductDialogComponent, {
-              width: '600px',
-              data: product.obicNo
-            });
-        })
-
       }
     });
   }
@@ -136,37 +121,16 @@ export class ProductsComponent implements OnInit {
         width: '600px',
         data: {
           allproducts:this.products,
-          editableProduct:data
+          editableProduct:data,
+          loadTime:this.loadTime
         }
       });
 
-      dialogRef.afterClosed().subscribe(async result => {
-        if (result) {
-          let isChanged = await this.isDataChanged(data.productId);
-          if (isChanged.status) { // when data is changed
-            //Load Warning popup
-            const dialogRef = this.dialog.open(DataChangedDialogComponent, {
-              width: '600px',
-              data: isChanged
-            });
-
-            dialogRef.afterClosed().subscribe(result => {
-              this.getProductData();
-            });
-          } else { // When data is not changed.
-            this.progress = true;
-            const product: Product = result;
-            product.productId = data.productId;
-            product.display = data.display;
-            // change concat to replace when using real api
-            this.productService.updateProduct(product).subscribe((result) => {
-              this.getProductData();
-            }, error => {
-              this.progress = false;
-            })
-          }
-        }
-      });
+       dialogRef.afterClosed().subscribe(async result => {
+         if(result){
+        this.getProductData();
+         }
+       });
     }
   }
 

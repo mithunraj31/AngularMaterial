@@ -180,7 +180,7 @@ export class AddProductSetDialogComponent implements OnInit {
   search(value: string) {
     let filter = value.toLowerCase();
     this.products = this._products;
-    return this.products.filter(option => option.productName.toLowerCase().startsWith(filter));
+    return this.products.filter(option => option.productName.toLowerCase().includes(filter));
   }
 
   isObicNoDuplicated(obicNo:string){

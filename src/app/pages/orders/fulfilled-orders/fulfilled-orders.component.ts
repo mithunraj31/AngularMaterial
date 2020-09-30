@@ -272,10 +272,8 @@ export class FulfilledOrdersComponent implements OnInit {
         orderUpdate.dueDate = new Date(order.dueDate).toISOString();
         this.orderService.editOrder(orderUpdate).subscribe(result => {
           this.getOrderData();
-          console.log(result);
         }, error => {
           this.progress = false;
-          console.log(error);
         });
       }
     });
@@ -306,7 +304,6 @@ export class FulfilledOrdersComponent implements OnInit {
         width: '600px',
         data: "shipped"
       });
-      // console.log(element);
 
       dialogRef.afterClosed().subscribe(async result => {
 
@@ -338,7 +335,6 @@ export class FulfilledOrdersComponent implements OnInit {
     return new Promise<any>((resolve, reject) => {
       this.orderService.getOrderById(orderId).subscribe(result => {
         lastEditedTime = new Date(result.updatedAt);
-        console.log(result);
         if (lastEditedTime > this.loadTime) {
 
           return resolve({
@@ -348,7 +344,7 @@ export class FulfilledOrdersComponent implements OnInit {
           });
         }
         else {
-          
+
           return resolve({ status: false, user: result.user });
         }
       });

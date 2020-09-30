@@ -14,6 +14,7 @@ export interface Token {
     exp: string;
     firstName: string;
     lastName: string;
+    userId: number;
 }
 
 @Injectable()
@@ -23,7 +24,7 @@ export class AuthService {
     constructor(private http: HttpClient) { }
 
     apiurl = environment.APIURL;
-    
+
     login(user: LoginUser) {
         return this.http.post<LoginUser>(this.apiurl+"/login", user);
 
@@ -32,12 +33,13 @@ export class AuthService {
     public setSession(authResult) {
         const user: Token = this.jwtHelper.decodeToken(authResult.token);
         const expiresAt = user.exp;
-        
+
         localStorage.setItem('id_token', authResult.token);
         localStorage.setItem("expires_at", expiresAt);
         localStorage.setItem("scopes",user.scopes);
         localStorage.setItem("firstName",user.firstName);
         localStorage.setItem("lastName",user.lastName);
+        localStorage.setItem("userId", user.userId.toString());
         if (authResult.token) this.loggedIn.next(true);
     }
 
@@ -65,6 +67,11 @@ export class AuthService {
     logout() {
         localStorage.removeItem('id_token');
         localStorage.removeItem("expires_at");
+        localStorage.removeItem("scopes");
+        localStorage.removeItem("firstName");
+        localStorage.removeItem("lastName");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("schedule_pattern_id");
         this.loggedIn.next(false);
     }
 
@@ -87,5 +94,9 @@ export class AuthService {
     }
     getRole(): string {
         return localStorage.getItem("scopes");
+    }
+
+    getUserId(): number {
+      return parseInt(localStorage.getItem("userId"));
     }
 }

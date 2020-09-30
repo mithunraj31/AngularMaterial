@@ -204,7 +204,6 @@ export class ProductsComponent implements OnInit {
 
       /* save data */
       this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
-      console.log(this.data);
       this.insertDataAsAnArray(this.data);
     };
     reader.readAsBinaryString(target.files[0]);
@@ -241,7 +240,6 @@ export class ProductsComponent implements OnInit {
     Promise.all(promiseArray).then(() => {
       this.getProductData();
     });
-    console.log(productArray);
   }
   downloadTemplate() {
     window.location.href = "assets/downloads/Product-Import-Template.xlsx";
@@ -274,7 +272,6 @@ export class ProductsComponent implements OnInit {
     return new Promise<any>((resolve, reject) => {
       this.productService.getProductById(orderId).subscribe(result => {
         lastEditedTime = new Date(result.updatedAt);
-        console.log(result);
         if (lastEditedTime > this.loadTime) {
 
           return resolve({

@@ -58,7 +58,6 @@ export class AddOrderDialogComponent implements OnInit {
     this.order = this.data.order;
     this.isFixed = this.data.isFixed;
     this.initializeCustomerForm();
-    console.log(this.order);
   }
   getCustomerData() {
     this.customerService.getCustomers().subscribe(result => {

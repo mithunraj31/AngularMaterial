@@ -30,8 +30,6 @@ export class OrderService {
     }
 
     editOrder(order: SaveOrder) {
-        console.log(this.getOrdersUrl + order.orderId);
-        console.log(order);
         return this.http.put<SaveOrder>(this.getOrdersUrl + order.orderId, order);
     }
 
@@ -75,7 +73,7 @@ export class OrderService {
         return this.http.post<FulfillOrderModel>(this.getOrdersUrl + "fulfillment/", confirm);
     }
     getOrderById(id: number) {
-        return this.http.get<Order>(this.getOrdersUrl + id);  
+        return this.http.get<Order>(this.getOrdersUrl + id);
     }
 }
 

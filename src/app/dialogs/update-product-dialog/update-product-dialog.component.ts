@@ -159,7 +159,6 @@ isDataChanged(orderId: number) {
   return new Promise<any>((resolve) => {
     this.productService.getProductById(orderId).subscribe(result => {
       lastEditedTime = new Date(result.updatedAt);
-      console.log(result);
       if (lastEditedTime > this.data.loadTime) {
 
         return resolve({

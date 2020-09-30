@@ -13,6 +13,7 @@ import { AuthGuardService as AuthGuard } from "./auth/AuthGuardService";
 import { ForcastComponent } from './pages/forcast/forcast.component';
 import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-schedule.component';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
+import { ProductViewerComponent } from './pages/product-viewer/product-viewer.component';
 
 const routes: Routes = [
   {
@@ -53,7 +54,7 @@ const routes: Routes = [
   },
   {
     path: 'login', component: LoginComponent,
-    
+
   },
   {
     path: 'forecast', component: ForcastComponent,
@@ -71,6 +72,14 @@ const routes: Routes = [
     path: 'delivery-schedule', component: ScheduleComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'product-viewer', component: ProductViewerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'product-viewer/:id', component: ProductViewerComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

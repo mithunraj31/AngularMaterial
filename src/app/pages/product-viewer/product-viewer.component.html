@@ -1,0 +1,78 @@
+<mat-progress-bar mode="indeterminate" *ngIf="progress"></mat-progress-bar>
+
+<div class="container">
+  <div class="viewer-forms">
+    <form class="schedule-pattern-form">
+      <mat-form-field class="schedule-pattern-input-full-width" >
+        <mat-label i18n="@@name">Name</mat-label>
+        <input matInput placeholder="Mitsui lead" [(ngModel)]="viewerName" name="viewerName">
+      </mat-form-field>
+      <div class="viewer-button-group">
+        <button mat-raised-button color="primary" (click)="onSaveClicked()" i18n="@@save">Save</button>
+        <!-- <button mat-raised-button color="primary" (click)="onPreviewClicked()" i18n="@@preview">Preview</button> -->
+        <button mat-raised-button color="primary" (click)="reloadPage()" i18n="@@discard">Discard</button>
+        <button mat-raised-button color="primary" (click)="onBackButtonClicked()" i18n="@@back">Back</button>
+        <button mat-raised-button color="primary" (click)="onDeleteClicked()" *ngIf="patternId > 0" color="warn" i18n="@@delete">Delete</button>
+      </div>
+    </form>
+  </div>
+  <div class="viewer-tools">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onEnableAllProductSet(true)">
+        <mat-icon>remove_red_eye</mat-icon> <span i18n="@@enableAll">Enable all</span>
+      </button>
+      <button mat-menu-item (click)="onEnableAllProductSet(false)">
+        <mat-icon>block</mat-icon> <span i18n="@@disableAll">Disable all</span>
+      </button>
+    </mat-menu>
+    <mat-checkbox [(ngModel)]="isOnlyMe" i18n="@@onlyMe">Only me</mat-checkbox>
+  </div>
+  <div class="product-set-listings">
+    <mat-accordion cdkDropList (cdkDropListDropped)="dropProductSet($event)" class="expansion-headers-align">
+      <mat-expansion-panel *ngFor="let set of productSets" cdkDrag>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{set.productName}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{set.description}}
+            <mat-icon *ngIf="set.display" class="enable-product" (click)="onDisableDisplayProductSet(set.productId, false ,$event)">
+              remove_red_eye</mat-icon>
+            <mat-icon *ngIf="!set.display" color="warn" (click)="onDisableDisplayProductSet(set.productId, true ,$event)">block
+            </mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div *ngIf="set.products && set.products.length > 0">
+
+          <button mat-button [matMenuTriggerFor]="productTool">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu  #productTool="matMenu">
+            <button mat-menu-item (click)="onDisableDisplayProductSet(set.productId, true)">
+              <mat-icon>remove_red_eye</mat-icon> <span i18n="@@enableAll">Enable all</span>
+            </button>
+            <button mat-menu-item (click)="onDisableDisplayProductSet(set.productId, false)">
+              <mat-icon>block</mat-icon> <span i18n="@@disableAll">Disable all</span>
+            </button>
+          </mat-menu>
+          <div cdkDropList class="product-list" (cdkDropListDropped)="dropProduct(set.productId, $event)">
+            <div class="product-box" *ngFor="let product of set.products" cdkDrag>
+              <span>{{product.product.productName}}</span>
+              <span>
+                <mat-icon *ngIf="product.product.display" (click)="onDisableDisplayProduct(set.productId, product.product.productId, false, $event)" class="enable-product">
+                remove_red_eye</mat-icon>
+              <mat-icon  *ngIf="!product.product.display" (click)="onDisableDisplayProduct(set.productId, product.product.productId, true, $event)"  color="warn" >block
+              </mat-icon></span>
+            </div>
+          </div>
+        </div>
+        <div class="no-product" *ngIf="!set.products || set.products.length == 0">
+          <span i18n="@@noProduct">No product</span>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

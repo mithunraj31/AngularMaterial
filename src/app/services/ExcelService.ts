@@ -18,7 +18,6 @@ export class ExcelServices {
 
 
         // const ExcelJS = await import('exceljs');
-        // console.log(ExcelJS);
         // const Workbook: any = {};
 
         // Excel Title, Header, Data

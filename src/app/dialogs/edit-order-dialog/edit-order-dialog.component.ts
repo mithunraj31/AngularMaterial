@@ -119,7 +119,6 @@ export class EditOrderDialogComponent implements OnInit {
     this.dialogRef.close(null);
   }
   onSubmit() {
-    console.log(this.orderForm.value);
     if (this.orderForm.valid) {
       const order: SaveOrder = this.orderForm.value;
       order.orderedProducts = this.saveProducts;

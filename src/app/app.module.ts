@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/auth/AuthService';
 import { IncomingShipmentService } from './services/IncomingShipmentService';
 import { OrderService } from './services/OrderService';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, TRANSLATIONS, LOCALE_ID, TRANSLATIONS_FORMAT } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,34 +13,35 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 // Material imports
-import {MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatTableModule,
-        MatDialogModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatPaginatorModule,
-        MatTabsModule,
-        MatSelectModule,
-        MatExpansionModule,
-        MatBadgeModule,
-        MatProgressSpinnerModule,
-        MatProgressBarModule,
-        MatPaginatorIntl,
-        MatSnackBarModule,
-        MatTooltipModule,
-        MatSortModule,
-        MatCheckboxModule,
-        MatMenuModule,
+import {
+  MatToolbarModule,
+  MatSidenavModule,
+  MatListModule,
+  MatButtonModule,
+  MatIconModule,
+  MatCardModule,
+  MatTableModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatTabsModule,
+  MatSelectModule,
+  MatExpansionModule,
+  MatBadgeModule,
+  MatProgressSpinnerModule,
+  MatProgressBarModule,
+  MatPaginatorIntl,
+  MatSnackBarModule,
+  MatTooltipModule,
+  MatSortModule,
+  MatCheckboxModule,
+  MatMenuModule,
 
 } from '@angular/material';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { HomeComponent } from './pages/home/home.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { ProductService } from './services/ProductService';
@@ -109,8 +110,12 @@ import { DataChangedDialogComponent } from './dialogs/data-changed-dialog/data-c
 import { AddOrderSummeryComponent } from './dialogs/add-order-summery/add-order-summery.component';
 import { DashboardService } from './services/DashboardService';
 import { ProductsExportSelectDateComponent } from './dialogs/products-export-select-date/products-export-select-date.component';
+import { ProductViewerComponent } from './pages/product-viewer/product-viewer.component';
 import { ErrorProductDialogComponent } from './dialogs/error-product-dialog/error-product-dialog.component';
 
+import { I18n } from '@ngx-translate/i18n-polyfill';
+import { I18nService } from './services/I18nService';
+declare const require;
 
 @NgModule({
   declarations: [
@@ -170,6 +175,7 @@ import { ErrorProductDialogComponent } from './dialogs/error-product-dialog/erro
     DataChangedDialogComponent,
     AddOrderSummeryComponent,
     ProductsExportSelectDateComponent,
+    ProductViewerComponent,
     ErrorProductDialogComponent,
   ],
   imports: [
@@ -243,9 +249,11 @@ import { ErrorProductDialogComponent } from './dialogs/error-product-dialog/erro
     DataChangedDialogComponent,
     AddOrderSummeryComponent,
     ProductsExportSelectDateComponent,
+    ProductViewerComponent,
     ErrorProductDialogComponent,
   ],
   providers: [
+    I18n,
     ProductService,
     CustomerService,
     OrderService,
@@ -260,12 +268,31 @@ import { ErrorProductDialogComponent } from './dialogs/error-product-dialog/erro
     ExcelServices,
     DashboardService,
     DatePipe,
+    I18nService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
     },
-    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro}
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro },
+    { provide: TRANSLATIONS_FORMAT, useValue: "xlf" },
+    {
+      provide: TRANSLATIONS,
+      useFactory: (locale) => {
+        locale = locale || 'en'; // default to english if no locale provided
+        return require(`raw-loader!../i18n/messages.${locale}.xlf`).default;
+      },
+      deps: [LOCALE_ID]
+    },
+    {
+      provide: LOCALE_ID,
+      useFactory: () => {
+        const lang: string = (window.clientInformation && window.clientInformation.language) || window.navigator.language;
+        return lang.split('-')[0];
+      }
+    },
+    I18n
+
   ],
   bootstrap: [AppComponent]
 })

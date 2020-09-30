@@ -1,4 +1,3 @@
-import { ProductComponent } from './../../models/ProductComponent';
 import { UtilService } from './../../services/UtilService';
 import { SaveProductSet } from './../../models/saveProductSet';
 import { AddProductSetDialogComponent } from './../../dialogs/add-product-set-dialog/add-product-set-dialog.component';
@@ -12,7 +11,6 @@ import { EditProductSetDialogComponent } from 'src/app/dialogs/edit-product-set-
 import { DeleteConfirmationDialogComponent } from 'src/app/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { SaveProductComponent } from 'src/app/models/saveProductComponent';
 import { DataChangedDialogComponent } from 'src/app/dialogs/data-changed-dialog/data-changed-dialog.component';
-import { ErrorProductDialogComponent } from 'src/app/dialogs/error-product-dialog/error-product-dialog.component';
 
 @Component({
   selector: 'app-product-sets',
@@ -109,7 +107,6 @@ export class ProductSetsComponent implements OnInit {
 
             }, error => {
               this.progress = true;
-              console.log(error);
             })
           }
         }
@@ -220,7 +217,6 @@ export class ProductSetsComponent implements OnInit {
     return new Promise<any>((resolve, reject) => {
       this.productService.getProductSetById(orderId).subscribe(result => {
         lastEditedTime = new Date(result.updatedAt);
-        console.log(result);
         if (lastEditedTime > this.loadTime) {
 
           return resolve({

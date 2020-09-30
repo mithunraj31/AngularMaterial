@@ -9,7 +9,19 @@
         <button class="calenderNav" (click)="clickToday()" mat-raised-button color="primary"
             i18n="@@today">Today</button>
         <button class="calenderNav" (click)="clickNext()" mat-raised-button color="primary" i18n="@@next">Next</button>
-        <h3> {{ viewDate | date:'MMMM yyyy'}}</h3>
+        <mat-form-field appearance="fill" *ngIf="patterns && patterns.length > 0 && !isPreviewMode()">
+          <mat-label i18n="@@schedulePattern">Schedule Patterns</mat-label>
+          <mat-select [(value)]="selectedPatternId" (selectionChange)="onSchedulePatternChanged()">
+            <mat-option *ngFor="let pattern of patterns" [value]="pattern.schedulePatternId">
+              {{pattern.schedulePatternName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button class="calenderNav" mat-raised-button color="primary"
+          *ngIf="selectedPatternId != 0 && isUserOwnSelectedPattern()"
+          (click)="onEditPatternClicked()" i18n="@@editPattern">Edit Pattern</button>
+        <button *ngIf="!isPreviewMode()" class="calenderNav" mat-raised-button color="primary" (click)="onAddPatternClicked()" i18n="@@addPattern">Add Pattern</button>
+        <h3><span *ngIf="isPreviewMode()" i18n="@@preview">Preview</span>  {{ viewDate | date:'MMMM yyyy'}}</h3>
     </span>
     <span>
         <mat-checkbox style="margin: 0 10px;" [(ngModel)]="smallTable" i18n="@@smallTable"
@@ -56,9 +68,9 @@
             <!-- <td mat-footer-cell *matFooterCellDef> null </td> -->
         </ng-container>
 
-        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns.slice(5)">
-            <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-            <td mat-cell *matCellDef="let element" (click)="clickOrder(element[column])" class="dates"
+        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns.slice(5)" [stickyEnd]="totalColumnHeader == column">
+            <th mat-header-cell *matHeaderCellDef [ngClass]="{'total-column': totalColumnHeader == column}"> {{column}} </th>
+            <td mat-cell *matCellDef="let element" (click)="clickOrder(element[column])" class="dates" [ngClass]="{'total-column': totalColumnHeader == column}"
                 [ngStyle]="changeColor(element,column)">
                 {{element[column].quantity}}
             </td>

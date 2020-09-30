@@ -1,11 +1,15 @@
 import { Component, OnInit, Inject, LOCALE_ID, HostListener } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ForecastService } from 'src/app/services/ForecastService';
-import { takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { OrderInfoComponent } from 'src/app/dialogs/order-info/order-info.component';
 import { IncomingInfoComponent } from 'src/app/dialogs/incoming-info/incoming-info.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { filter } from 'lodash';
+import { ProductService } from 'src/app/services/ProductService';
+import { SchedulePattern } from 'src/app/models/SchedulePattern';
+import { AuthService } from 'src/app/auth/AuthService';
+import { I18nService } from 'src/app/services/I18nService';
 
 @Component({
   selector: 'app-delivery-schedule',
@@ -26,23 +30,48 @@ export class DeliveryScheduleComponent implements OnInit {
   progress;
   unsub = new Subject();
   viewDate = new Date();
+  preview: any[];
+
+  patterns: SchedulePattern[]
+  selectedPatternId: number;
+  totalColumnHeader: string;
 
   constructor(private forecastService: ForecastService,
     @Inject(LOCALE_ID) public localeId: string,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private productService: ProductService,
+    private i18nService: I18nService,
+    private authService: AuthService
   ) {
+    this.totalColumnHeader = this.i18nService.get('total');
+    this.route.queryParams.subscribe(params => {
+      this.preview = [];
+      if (params['preview']) {
+        const previews: any[] = JSON.parse(params['preview']);
+        previews.forEach(x => {
+          x.items.forEach(i => {
+            this.preview.push({ setId: x.id, productId: i });
+          });
+        });
 
+        this.selectedPatternId = 0;
+      }  else {
+        this.selectedPatternId = this.productService.getSchedulePatternIdFromLocalStorage();
+      }
+    });
     this.localizeSubColumns();
 
   }
 
   ngOnInit() {
-    if(localStorage.getItem("smallTable")=="true"){
+
+
+    if (localStorage.getItem("smallTable") == "true") {
       this.smallTable = true;
-    }else{
-      this.smallTable =false;
+    } else {
+      this.smallTable = false;
     }
     try {
       this.route.queryParams
@@ -56,9 +85,16 @@ export class DeliveryScheduleComponent implements OnInit {
 
       this.viewDate = new Date();
     } finally {
-
       this.populateData();
     }
+
+    this.productService.getSchedulePatterns().subscribe((scheculePatterns: SchedulePattern[]) => {
+      this.patterns = scheculePatterns;
+      this.patterns.unshift(<SchedulePattern> {
+        schedulePatternId: 0,
+        schedulePatternName: this.i18nService.get('default')
+      });
+    });
   }
   localizeSubColumns() {
     if (this.localeId === 'ja') {
@@ -121,14 +157,25 @@ export class DeliveryScheduleComponent implements OnInit {
     this.progress = true;
     // this.progress = false;
 
-    this.forecastService.getProductForecast(this.viewDate.getFullYear(), this.viewDate.getMonth()).subscribe(data => {
+    let subscriber = null;
+    if (this.selectedPatternId > 0) {
+      subscriber = this.forecastService.getProductForecast(
+        this.viewDate.getFullYear(),
+        this.viewDate.getMonth(),
+        this.selectedPatternId);
+    } else {
+      subscriber = this.forecastService.getProductForecast(
+        this.viewDate.getFullYear(),
+        this.viewDate.getMonth());
+    }
+
+
+    subscriber.subscribe(data => {
 
       this.addColumnsToTables(data[0].products[0].values);
       this.productForecast = data;
 
-      let setcount = 0;
-      let productcount = 0;
-      const tempdata: any[] = [];
+      let tempdata: any[] = [];
       data.forEach(productSet => {
         productSet.products.forEach(product => {
           this.subColumns.forEach(column => {
@@ -145,9 +192,9 @@ export class DeliveryScheduleComponent implements OnInit {
               productName: product.productName,
               description: product.description,
               color: product.color ? product.color : '#ffffff',
-              values: column.value,
-
+              values: column.value
             };
+
             product.values.forEach(dateItem => {
               if ((column.key === 'incoming' || column.key === 'outgoing') && (dateItem[column.key].quantity === 0)) {
                 temp[this.getDateString(dateItem.date)] = {
@@ -163,17 +210,43 @@ export class DeliveryScheduleComponent implements OnInit {
                 temp[this.getDateString(dateItem.date)] = dateItem[column.key];
               }
             });
+
+
+            if (column.key === 'outgoing' && product.totalFulfilledOutgoingQty > 0) {
+              temp[this.totalColumnHeader] = {
+                quantity: product.totalFulfilledOutgoingQty,
+                fixed: true
+              };
+            } else if (column.key === 'incoming' && product.totalFulfilledIncomingQty > 0){
+              temp[this.totalColumnHeader] = {
+                quantity: product.totalFulfilledIncomingQty,
+                fixed: true
+              };
+            } else {
+              temp[this.totalColumnHeader] = {};
+            }
             tempdata.push(temp);
             // this.dataSource.push(temp);
 
           });
-          productcount++;
         });
-        setcount++;
 
       });
-      // this.dataSource = tempdata.slice(0, 9);
-      this.dataSource = tempdata;
+      this.dataSource = [];
+      if (this.isPreviewMode()) {
+        this.preview.forEach(x => {
+
+          const previewItems = filter(tempdata,
+            t => t.setId == x.setId && t.productId == x.productId);
+          if (previewItems.length > 0) {
+            previewItems.forEach(f => this.dataSource.push(f));
+
+          }
+
+        });
+      } else {
+        this.dataSource = tempdata;
+      }
 
       this.progress = false;
       this.unsub.next();
@@ -200,6 +273,7 @@ export class DeliveryScheduleComponent implements OnInit {
       const date = element.date;
       this.displayedColumns.push(this.getDateString(date));
     });
+    this.displayedColumns.push(this.totalColumnHeader);
     this.columnsToDisplay = this.displayedColumns.slice();
 
   }
@@ -223,7 +297,7 @@ export class DeliveryScheduleComponent implements OnInit {
       if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && !data[set].contains.fulfilled) {
         DateCss['background-color'] = '#f8bbd0';
         DateCss.color = '#212121';
-        
+
       } // Only Confirmed Orders
       else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && !data[set].contains.fulfilled) {
         DateCss['background-color'] = '#81d4fa';
@@ -241,19 +315,19 @@ export class DeliveryScheduleComponent implements OnInit {
       // FCST and Fulfilled Orders
       else if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
         DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 29%, #f8bbd0 66%)';
+        DateCss['background'] = 'linear-gradient(0deg, ' + data.color + ' 29%, #f8bbd0 66%)';
         DateCss.color = '#212121';
       }
       // Confirmed and Fulfilled Orders
       else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && data[set].contains.fulfilled) {
         DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 26%, #81d4fa 80%)';
+        DateCss['background'] = 'linear-gradient(0deg, ' + data.color + ' 26%, #81d4fa 80%)';
         DateCss.color = '#212121';
       }
       // FCST and Confirmed and Fulfilled Orders
       else if (data[set].contains && data[set].contains.fcst && data[set].contains.confirmed && data[set].contains.fulfilled) {
         DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 22%, #81d4fa 52%, #f8bbd0 86%)';
+        DateCss['background'] = 'linear-gradient(0deg, ' + data.color + ' 22%, #81d4fa 52%, #f8bbd0 86%)';
         DateCss.color = '#212121';
       }
       //  end change color logic
@@ -346,9 +420,38 @@ export class DeliveryScheduleComponent implements OnInit {
     }
   }
 
-  onclickSmallTable(){
-    localStorage.setItem("smallTable",String(this.smallTable));
-    console.log(this.smallTable);
+  onclickSmallTable() {
+    localStorage.setItem("smallTable", String(this.smallTable));
+  }
+
+  isPreviewMode() {
+    return this.preview && this.preview.length > 0;
+  }
+
+  onAddPatternClicked() {
+    this.router.navigate(['/product-viewer']);
+  }
+
+  onEditPatternClicked() {
+    this.router.navigate([`/product-viewer/${this.selectedPatternId}`]);
+  }
+
+  onSchedulePatternChanged() {
+    this.productService.setSchedulePatternToLocalStorage(this.selectedPatternId);
+
+    this.populateData();
+  }
+
+  isUserOwnSelectedPattern() {
+    const userId = this.authService.getUserId();
+    if (this.patterns && this.patterns.length > 0 && this.selectedPatternId > 0) {
+      const selectedPattern = this.patterns.filter(x => x.schedulePatternId == this.selectedPatternId)[0];
+      if (selectedPattern) {
+        return userId == selectedPattern.createdUser.userId;
+      }
+    }
+
+    return false;
   }
 
 }

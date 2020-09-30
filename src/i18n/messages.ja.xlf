@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<xliff version="1.2"
+  xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
       <trans-unit id="login" datatype="html">
@@ -380,7 +381,7 @@
       </trans-unit>
       <trans-unit id="salesDestinationRequired" datatype="html">
         <source>Sales Destination cannot be empty.
-            </source>
+        </source>
         <target> 販売先を空欄にすることはできません。</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
@@ -397,7 +398,7 @@
       </trans-unit>
       <trans-unit id="contractorRequired" datatype="html">
         <source>Contractor cannot be empty.
-            </source>
+        </source>
         <target> 請負業者を空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
@@ -430,7 +431,7 @@
       </trans-unit>
       <trans-unit id="salesUserRequired" datatype="html">
         <source>Sales user cannot be empty.
-            </source>
+        </source>
         <target> 営業担当を空欄にすることはできません。 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/add-order-dialog/add-order-dialog.component.html</context>
@@ -1396,7 +1397,7 @@
         <source>Title</source>
         <target>タイタル</target>
       </trans-unit>
-       <trans-unit id="titleRequired" datatype="html">
+      <trans-unit id="titleRequired" datatype="html">
         <source>Title cannot be empty.</source>
         <target>タイタルが必要</target>
       </trans-unit>
@@ -1404,15 +1405,146 @@
         <source>Incoming Quantity</source>
         <target>合計入荷数</target>
       </trans-unit>
-       <trans-unit id="outgoingQuantitySummary" datatype="html">
+      <trans-unit id="outgoingQuantitySummary" datatype="html">
         <source>OutGoing Quantity</source>
         <target>合計出荷数</target>
       </trans-unit>
-       <trans-unit id="export" datatype="html">
+      <trans-unit id="export" datatype="html">
         <source>Export</source>
         <target>Excel出力</target>
       </trans-unit>
-       <trans-unit id="saveError" datatype="html">
+
+      <trans-unit id="save" datatype="html">
+        <source>Save</source>
+        <target>保存する</target>
+      </trans-unit>
+      <trans-unit id="preview" datatype="html">
+        <source>Preview</source>
+        <target>プリービュー</target>
+      </trans-unit>
+      <trans-unit id="enableAll" datatype="html">
+        <source>Enable all</source>
+        <target>すべて可能にする</target>
+      </trans-unit>
+      <trans-unit id="disableAll" datatype="html">
+        <source>Disalbe all</source>
+        <target>すべて無効にする</target>
+      </trans-unit>
+      <trans-unit id="onlyMe" datatype="html">
+        <source>Only me</source>
+        <target>自分だけ</target>
+      </trans-unit>
+      <trans-unit id="discard" datatype="html">
+        <source>Discard</source>
+        <target>捨てる</target>
+      </trans-unit>
+
+
+      <trans-unit id="hidden" datatype="html">
+        <source>Hidden</source>
+        <target>非表示</target>
+      </trans-unit>
+      <trans-unit id="display" datatype="html">
+        <source>Display</source>
+        <target>表示</target>
+      </trans-unit>
+      <trans-unit id="undu" datatype="html">
+        <source>Undo</source>
+        <target>元に戻す</target>
+      </trans-unit>
+      <trans-unit id="calendarView" datatype="html">
+        <source>Calendar view</source>
+        <target>カレンダービュー</target>
+      </trans-unit>
+      <trans-unit id="orderInformation" datatype="html">
+        <source>Order information</source>
+        <target>注文内容</target>
+      </trans-unit>
+      <trans-unit id="QTY" datatype="html">
+        <source>QTY</source>
+        <target>QTY</target>
+      </trans-unit>
+      <trans-unit id="smallTable" datatype="html">
+        <source>smallTable</source>
+        <target>小さなテーブルビュー</target>
+      </trans-unit>
+
+
+      <trans-unit id="importProductsviaExcel" datatype="html">
+        <source>Import product via Excel</source>
+        <target>Excel経由で製品を輸入する</target>
+      </trans-unit>
+      <trans-unit id="downloadTemplate" datatype="html">
+        <source>Download template</source>
+        <target>テンプレートをダウンロードする</target>
+      </trans-unit>
+      <trans-unit id="currency" datatype="html">
+        <source>Currency</source>
+        <target>通貨</target>
+      </trans-unit>
+
+      <trans-unit id="individualProductSet" datatype="html">
+        <source>Individual product set</source>
+        <target>個別商品セット</target>
+      </trans-unit>
+
+      <trans-unit id="shouldDisplayAtLeastOneSet" datatype="html">
+        <source>Should display product set at least 1 set.</source>
+        <target>製品セットを少なくとも1セット表示する必要があります。</target>
+      </trans-unit>
+
+      <trans-unit id="shouldInputTheViewerName" datatype="html">
+        <source>Should input the viewer name.</source>
+        <target>ビューア名を入力してください。</target>
+      </trans-unit>
+
+      <trans-unit id="viewerHasBeenSaved" datatype="html">
+        <source>Viewer has been saved.</source>
+        <target>ビューアが保存されました。</target>
+      </trans-unit>
+
+      <trans-unit id="viewerHasBeenDeleted" datatype="html">
+        <source>Viewer has been deleted.</source>
+        <target>ビューアが削除されました。</target>
+      </trans-unit>
+
+      <trans-unit id="default" datatype="html">
+        <source>Default</source>
+        <target>デフォルト</target>
+      </trans-unit>
+
+
+      <trans-unit id="schedulePattern" datatype="html">
+        <source>Schedule pattern</source>
+        <target>スケジュールパターン</target>
+      </trans-unit>
+
+      <trans-unit id="addPattern" datatype="html">
+        <source>Add pattern</source>
+        <target>パターンを追加</target>
+      </trans-unit>
+
+      <trans-unit id="editPattern" datatype="html">
+        <source>Edit pattern</source>
+        <target>パターンを編集</target>
+      </trans-unit>
+
+
+      <trans-unit id="close" datatype="html">
+        <source>Close</source>
+        <target>閉じる</target>
+      </trans-unit>
+
+      <trans-unit id="back" datatype="html">
+        <source>Back</source>
+        <target>戻る</target>
+      </trans-unit>
+
+      <trans-unit id="total" datatype="html">
+        <source>Total</source>
+        <target>合計</target>
+      </trans-unit>
+      <trans-unit id="saveError" datatype="html">
         <source>Product Save Error</source>
         <target>製品保存エラー</target>
       </trans-unit>
@@ -1420,16 +1552,20 @@
         <source>OBICNO Already Present</source>
         <target>OBICNOはすでに存在します</target>
       </trans-unit>
- <trans-unit id="inQty" datatype="html">
+      <trans-unit id="inQty" datatype="html">
         <source>in qty</source>
         <target>入荷</target>
       </trans-unit>
 
-       <trans-unit id="outQty" datatype="html">
+      <trans-unit id="outQty" datatype="html">
         <source>out qty</source>
         <target>出荷</target>
       </trans-unit>
 
+      <trans-unit id="noProduct" datatype="html">
+        <source>No product</source>
+        <target>製品なし</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

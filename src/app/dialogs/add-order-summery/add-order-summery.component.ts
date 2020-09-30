@@ -116,7 +116,6 @@ export class AddOrderSummeryComponent implements OnInit {
 
   checkProductIsSet(productId:number){
     const found = this._productSets.filter(x=>x.productId==productId);
-    console.log(found[0]);
     if(found[0].products!=null){
       return true;
     }else{

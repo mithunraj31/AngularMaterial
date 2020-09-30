@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  APIURL : "http://localhost:4000/mbel",
+  APIURL : "http://13.113.194.21:4000/mbel",
   APPNAME : "MBEL FORKERS 生産販売管理システム - staging"
 };
 

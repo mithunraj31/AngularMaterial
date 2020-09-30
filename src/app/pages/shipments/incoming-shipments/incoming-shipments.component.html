@@ -81,8 +81,12 @@
           [disabled]="element.arrived" i18n="@@arrived">Arrived</button>
         <button style="width: 95px; float: left;" mat-raised-button class="fullfillBtn" *ngIf="element.fixed && !element.arrived" (click)="fullFillArrival(element)"
           [disabled]="element.arrived" i18n="@@notInStock">Not in stock</button>
-        <button style="float: left;" mat-button color="primary" (click)="editShipment(element)" >Edit</button>
-        <button style="float: left;" mat-button color="warn" (click)="deleteShipment(element)" [disabled]="isDeletable(element)" >Delete</button>
+        <button style="float: left;" mat-icon-button color="primary" (click)="editShipment(element)" >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button style="float: left;" mat-icon-button color="warn" (click)="deleteShipment(element)" [disabled]="isDeletable(element)" >
+          <mat-icon color="warn">delete</mat-icon>
+        </button>
         <button style="float: left;" *ngIf="element.fixed && !element.arrived && !isDeletable(element) && !element.partial" mat-icon-button style="color: #ffc107;"
                     (click)="backToUnConfirm(element)" >
                     <mat-icon style="float: left;">undo</mat-icon>

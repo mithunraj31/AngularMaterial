@@ -51,10 +51,10 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu  #productTool="matMenu">
-            <button mat-menu-item (click)="onEnableAllProducts(set.productId, true)">
+            <button mat-menu-item (click)="onDisableDisplayProductSet(set.productId, true)">
               <mat-icon>remove_red_eye</mat-icon> <span i18n="@@enableAll">Enable all</span>
             </button>
-            <button mat-menu-item (click)="onEnableAllProducts(set.productId, false)">
+            <button mat-menu-item (click)="onDisableDisplayProductSet(set.productId, false)">
               <mat-icon>block</mat-icon> <span i18n="@@disableAll">Disable all</span>
             </button>
           </mat-menu>

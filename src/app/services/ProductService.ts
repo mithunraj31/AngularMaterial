@@ -32,6 +32,7 @@ export class ProductService {
       if (includeIndividualSet) {
         const observable = this.http.get<ProductSet[]>(`${this.productSetUrl}all`).pipe(map(x => {
           return x.map(s => {
+            s.display = false;
             s.products = s.products.map(p => {
               p.product.display = false;
               return p;

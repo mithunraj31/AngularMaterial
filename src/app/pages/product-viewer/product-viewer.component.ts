@@ -9,6 +9,7 @@ import { SchedulePattern } from 'src/app/models/SchedulePattern';
 import { DeleteConfirmationDialogComponent } from '../../dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { I18nService } from 'src/app/services/I18nService';
 import { Location } from '@angular/common';
+import { AuthService } from 'src/app/auth/AuthService';
 
 
 @Component({
@@ -56,7 +57,8 @@ export class ProductViewerComponent implements OnInit {
     private snackBarService: MatSnackBar,
     private i18nService: I18nService,
     public dialog: MatDialog,
-    private location: Location) {
+    private location: Location,
+    private authService: AuthService) {
     // get preview data from query string
     //  the data will receive when user clicked back button from any schedule page.
     this.route.queryParams.subscribe(queryStr => {
@@ -99,6 +101,11 @@ export class ProductViewerComponent implements OnInit {
             this.viewerName = x.schedulePatternName;
             this.preview = JSON.parse(x.pattern);
             this.isOnlyMe = x.isPrivate;
+
+            if (x.createdUser.userId != this.authService.getUserId()) {
+              this.router.navigate(['/']);
+              return;
+            }
             this.generateViewer();
           }, () => this.router.navigate(['/404']));
 
@@ -170,14 +177,6 @@ export class ProductViewerComponent implements OnInit {
       // set non display to product set id is not contans in saved/preview pattern ids.
       productSets
         .filter(x => !this.preview.map(ex => ex.id).includes(x.productId))
-        .map(x => {
-          x.display = false;
-          x.products = x.products.map(p => {
-            p.product.display = false;
-            return p;
-          });
-          return x;
-        })
         .forEach(x => this.productSets.push(x));
     });
   }
@@ -215,11 +214,21 @@ export class ProductViewerComponent implements OnInit {
    * @param isDisplay Fact the product set is visible
    * @param $event drop Event object https://material.angular.io/cdk/drag-drop/overview
    */
-  onDisableDisplayProductSet(productId: number, isDisplay: boolean, $event) {
-    // cacel clickable event on Angualr Material's CDK drag and drop component
-    $event.stopPropagation();
+  onDisableDisplayProductSet(productId: number, isDisplay: boolean, $event: any = null) {
+    // if $event existing
+    // cancel clickable event on Angualr Material's CDK drag and drop component
+    if ($event) {
+      $event.stopPropagation();
+    }
+
     const productSetIndex = findIndex(this.productSets, { productId });
     this.productSets[productSetIndex].display = isDisplay;
+    this.productSets[productSetIndex].products = this.productSets[productSetIndex].products
+                                                    .map(x =>  {
+                                                      x.product.display = isDisplay;
+                                                      return x;
+                                                    });
+
   }
 
   /**
@@ -230,13 +239,17 @@ export class ProductViewerComponent implements OnInit {
    * @param isDisplay Fact the product is visible
    * @param $event drop Event object https://material.angular.io/cdk/drag-drop/overview
    */
-  onDisableDisplayProduct(setId: number, productId: number, isDisplay: boolean, $event) {
-    // cacel clickable event on Angualr Material's CDK drag and drop component
-    $event.stopPropagation();
+  onDisableDisplayProduct(setId: number, productId: number, isDisplay: boolean, $event: any = null) {
+    // cancel clickable event on Angualr Material's CDK drag and drop component
+    if ($event) {
+      $event.stopPropagation();
+    }
+
     const productSetIndex = findIndex(this.productSets, { productId: setId });
 
     const productIndex = findIndex(this.productSets[productSetIndex].products, { product: { productId } });
     this.productSets[productSetIndex].products[productIndex].product.display = isDisplay;
+    this.productSets[productSetIndex].display = this.productSets[productSetIndex].products.some(x => x.product.display);
   }
 
   /**
@@ -262,6 +275,10 @@ export class ProductViewerComponent implements OnInit {
   onEnableAllProductSet(isDisplay: boolean) {
     this.productSets = this.productSets.map(x => {
       x.display = isDisplay;
+      x.products = x.products.map(p => {
+        p.product.display = isDisplay;
+        return p;
+      })
       return x;
     });
   }
@@ -300,6 +317,10 @@ export class ProductViewerComponent implements OnInit {
     }
 
     subscriber.subscribe(() => {
+      if (!this.patternId) {
+        this.productService.setSchedulePatternToLocalStorage(0);
+      }
+
       this.snackBarService.open(this.i18nService.get('viewerHasBeenSaved'), this.i18nService.get('close'), { duration: 2000 });
       setTimeout(() => {
         this.router.navigate(['/delivery-schedule']);
@@ -343,19 +364,6 @@ export class ProductViewerComponent implements OnInit {
     this.location.back();
   }
 
-  /**
-   * update visible/invisible all prodcut listings.
-   * @param setId Product set ID
-   * @param isDisplay is display product on set's listings
-   */
-  onEnableAllProducts(setId: number, isDisplay: boolean) {
-    const productSetIndex = findIndex(this.productSets, { productId: setId });
-    this.productSets[productSetIndex].products = this.productSets[productSetIndex]
-                                                      .products.map(x => {
-                                                        x.product.display = isDisplay;
-                                                        return x;
-                                                      });
-  }
 
   //-----------------------------------------------------------------
   //------------ private methods ------------------------------------

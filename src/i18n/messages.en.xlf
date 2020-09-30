@@ -1317,14 +1317,19 @@
         <target>OBICNO Already Present</target>
       </trans-unit>
 
- <trans-unit id="inQty" datatype="html">
+      <trans-unit id="inQty" datatype="html">
         <source>in qty</source>
         <target>in qty</target>
       </trans-unit>
 
-       <trans-unit id="outQty" datatype="html">
+      <trans-unit id="outQty" datatype="html">
         <source>out qty</source>
         <target>out qty</target>
+      </trans-unit>
+
+      <trans-unit id="noProduct" datatype="html">
+        <source>No product</source>
+        <target>No product</target>
       </trans-unit>
 
     </body>

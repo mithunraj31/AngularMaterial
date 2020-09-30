@@ -151,19 +151,13 @@ export class ProductViewerComponent implements OnInit {
             // if non order product or newest product will push last of ordered product.
             productSet.products
               .filter(x => !ex.items.includes(x.product.productId))
-              .forEach(x => {
-                x.product.display = false;
-                products.push(x);
-              });
+              .forEach(x => products.push(x));
 
           }
           else {
             // push all product to product set.
             productSet.products
-              .forEach(x => {
-                x.product.display = false;
-                products.push(x)
-              });
+              .forEach(x =>  products.push(x));
           }
 
           productSet.products = products;
@@ -349,6 +343,19 @@ export class ProductViewerComponent implements OnInit {
     this.location.back();
   }
 
+  /**
+   * update visible/invisible all prodcut listings.
+   * @param setId Product set ID
+   * @param isDisplay is display product on set's listings
+   */
+  onEnableAllProducts(setId: number, isDisplay: boolean) {
+    const productSetIndex = findIndex(this.productSets, { productId: setId });
+    this.productSets[productSetIndex].products = this.productSets[productSetIndex]
+                                                      .products.map(x => {
+                                                        x.product.display = isDisplay;
+                                                        return x;
+                                                      });
+  }
 
   //-----------------------------------------------------------------
   //------------ private methods ------------------------------------

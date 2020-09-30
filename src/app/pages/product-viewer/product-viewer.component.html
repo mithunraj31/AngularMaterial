@@ -45,16 +45,32 @@
             </mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
+        <div *ngIf="set.products && set.products.length > 0">
 
-        <div cdkDropList class="product-list" (cdkDropListDropped)="dropProduct(set.productId, $event)">
-          <div class="product-box" *ngFor="let product of set.products" cdkDrag>
-            <span>{{product.product.productName}}</span>
-            <span>
-              <mat-icon *ngIf="product.product.display" (click)="onDisableDisplayProduct(set.productId, product.product.productId, false, $event)" class="enable-product">
-              remove_red_eye</mat-icon>
-            <mat-icon  *ngIf="!product.product.display" (click)="onDisableDisplayProduct(set.productId, product.product.productId, true, $event)"  color="warn" >block
-            </mat-icon></span>
+          <button mat-button [matMenuTriggerFor]="productTool">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu  #productTool="matMenu">
+            <button mat-menu-item (click)="onEnableAllProducts(set.productId, true)">
+              <mat-icon>remove_red_eye</mat-icon> <span i18n="@@enableAll">Enable all</span>
+            </button>
+            <button mat-menu-item (click)="onEnableAllProducts(set.productId, false)">
+              <mat-icon>block</mat-icon> <span i18n="@@disableAll">Disable all</span>
+            </button>
+          </mat-menu>
+          <div cdkDropList class="product-list" (cdkDropListDropped)="dropProduct(set.productId, $event)">
+            <div class="product-box" *ngFor="let product of set.products" cdkDrag>
+              <span>{{product.product.productName}}</span>
+              <span>
+                <mat-icon *ngIf="product.product.display" (click)="onDisableDisplayProduct(set.productId, product.product.productId, false, $event)" class="enable-product">
+                remove_red_eye</mat-icon>
+              <mat-icon  *ngIf="!product.product.display" (click)="onDisableDisplayProduct(set.productId, product.product.productId, true, $event)"  color="warn" >block
+              </mat-icon></span>
+            </div>
           </div>
+        </div>
+        <div class="no-product" *ngIf="!set.products || set.products.length == 0">
+          <span i18n="@@noProduct">No product</span>
         </div>
       </mat-expansion-panel>
     </mat-accordion>

@@ -170,7 +170,7 @@ export class AddOrderDialogComponent implements OnInit {
     // switch (attribute) {
     //   case "zip":
     //       // return this.customerForm.get(attribute).hasError('required') ? 'You must enter a value':
-    //       // this.customerForm.get(attribute).hasError('maxlength') ? 'zip code length must be 7': 
+    //       // this.customerForm.get(attribute).hasError('maxlength') ? 'zip code length must be 7':
     //       // this.customerForm.get(attribute).hasError('minlength') ? 'zip code length must be 7': '';
     //     break;
 
@@ -280,27 +280,27 @@ export class AddOrderDialogComponent implements OnInit {
   searchProducts(value: string) {
     let filter = value.toLowerCase();
     this.selectedProductSets = this._productSets;
-    return this.selectedProductSets.filter(option => option.productName.toLowerCase().startsWith(filter));
+    return this.selectedProductSets.filter(option => option.productName.toLowerCase().includes(filter));
   }
   searchUsers(value: string) {
     let filter = value.toLowerCase();
     this.users = this._users;
-    return this.users.filter(option => option.firstName.toLowerCase().startsWith(filter));
+    return this.users.filter(option => option.firstName.toLowerCase().includes(filter));
   }
   searchCustomers(value: string) {
     let filter = value.toLowerCase();
     this.customers = this._customers;
-    return this.customers.filter(option => option.customerName.toLowerCase().startsWith(filter));
+    return this.customers.filter(option => option.customerName.toLowerCase().includes(filter));
   }
   searchContractors(value: string) {
     let filter = value.toLowerCase();
     this.contractors = this._customers;
-    return this.contractors.filter(option => option.customerName.toLowerCase().startsWith(filter));
+    return this.contractors.filter(option => option.customerName.toLowerCase().includes(filter));
   }
   searchSalesD(value: string) {
     let filter = value.toLowerCase();
     this.salesD = this._customers;
-    return this.salesD.filter(option => option.customerName.toLowerCase().startsWith(filter));
+    return this.salesD.filter(option => option.customerName.toLowerCase().includes(filter));
   }
 
   resetP() {

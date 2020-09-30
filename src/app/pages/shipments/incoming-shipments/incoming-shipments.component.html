@@ -8,7 +8,7 @@
         <mat-icon aria-hidden="false">loop</mat-icon>
     </button>
 </section>
-  
+
   <section class="sort">
     <span>
       <mat-form-field>
@@ -81,10 +81,10 @@
           [disabled]="element.arrived" i18n="@@arrived">Arrived</button>
         <button style="width: 95px; float: left;" mat-raised-button class="fullfillBtn" *ngIf="element.fixed && !element.arrived" (click)="fullFillArrival(element)"
           [disabled]="element.arrived" i18n="@@notInStock">Not in stock</button>
-        <button style="float: left;" mat-button color="primary" (click)="editShipment(element)" i18n="@@edit">Edit</button>
-        <button style="float: left;" mat-button color="warn" (click)="deleteShipment(element)" [disabled]="isDeletable(element)" i18n="@@delete">Delete</button>
+        <button style="float: left;" mat-button color="primary" (click)="editShipment(element)" >Edit</button>
+        <button style="float: left;" mat-button color="warn" (click)="deleteShipment(element)" [disabled]="isDeletable(element)" >Delete</button>
         <button style="float: left;" *ngIf="element.fixed && !element.arrived && !isDeletable(element) && !element.partial" mat-icon-button style="color: #ffc107;"
-                    (click)="backToUnConfirm(element)" i18n="@@undu">
+                    (click)="backToUnConfirm(element)" >
                     <mat-icon style="float: left;">undo</mat-icon>
                 </button>
       </td>

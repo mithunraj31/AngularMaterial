@@ -114,11 +114,11 @@
                 <button mat-raised-button color="primary" (click)="transferToConfirmedOrder(element)"
                     *ngIf="!element.fulfilled && !element.fixed">FCST</button>
                 <button class="tablebtn" *ngIf="!element.display" mat-icon-button (click)="clickDisplay(element,true)"
-                    i18n="@@hidden">
+                    >
                     <mat-icon color="warn">block</mat-icon>
                 </button>
                 <button class="tablebtn" *ngIf="element.display" mat-icon-button style="color: #558b2f;"
-                    (click)="clickDisplay(element,false)" i18n="@@display">
+                    (click)="clickDisplay(element,false)">
                     <mat-icon>remove_red_eye</mat-icon>
                 </button>
 

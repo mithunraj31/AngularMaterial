@@ -782,7 +782,7 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="dfulfillConfirmation" datatype="html">
+      <trans-unit id="fulfillConfirmation" datatype="html">
         <source>Fullment Confirmation</source>
         <target>Fulfillment Confirmation</target>
         <context-group purpose="location">
@@ -966,9 +966,9 @@
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="undo" datatype="html">
+       <trans-unit id="undo" datatype="html">
         <source>Undo</source>
-        <target>Undo</target>
+         <target>Undo</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/unfulfill-confirmation/unfulfill-confirmation.component.html</context>
           <context context-type="linenumber">7</context>
@@ -1414,10 +1414,6 @@
         <source>Partial Order</source>
         <target>Partial Order</target>
       </trans-unit>
-      <trans-unit id="confirmInOrder" datatype="html">
-        <source>Confirm</source>
-        <target>Confirm</target>
-      </trans-unit>
 
         <trans-unit id="desiredDeliveryDate" datatype="html">
         <source>Delivery Date</source>
@@ -1523,10 +1519,6 @@
         <source>Shippment Base</source>
         <target>Shippment Base</target>
       </trans-unit>
-      <trans-unit id="undo" datatype="html">
-        <source>Undo</source>
-        <target>Undo</target>
-      </trans-unit>
       <trans-unit id="undoArrived" datatype="html">
         <source>Return to "Not in stock".</source>
         <target>Return to "Not in stock".</target>
@@ -1577,6 +1569,22 @@
       <trans-unit id="titleRequired" datatype="html">
         <source>Title cannot be empty.</source>
         <target>Title cannot be empty.</target>
+      </trans-unit>
+
+
+  <trans-unit id="confirmedDeliveryDateRequired" datatype="html">
+        <source>Confirmed Delivery Date cannot be empty.</source>
+        <target>Confirmed Delivery Date cannot be empty. </target>
+      </trans-unit>
+
+       <trans-unit id="confirmedQtyRequired" datatype="html">
+        <source>Confirmed QTY cannot be empty.</source>
+        <target> Confirmed QTY cannot be empty. </target>
+      </trans-unit>
+
+      <trans-unit id="copy" datatype="html">
+        <source>Copy</source>
+        <target>Copy</target>
       </trans-unit>
 
 

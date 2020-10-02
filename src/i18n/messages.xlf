@@ -1376,6 +1376,7 @@
       </trans-unit>
       <trans-unit id="productAlreadyExists" datatype="html">
         <source>Product is already added to the list.</source>
+        <target>Product is already added to the list.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-incoming-shipment/edit-incoming-shipment.component.html</context>
           <context context-type="linenumber">40</context>
@@ -1904,10 +1905,6 @@
         <source>Partial Order</source>
         <target>Partial Order</target>
       </trans-unit>
-      <trans-unit id="confirmInOrder" datatype="html">
-        <source>Confirm</source>
-        <target>Confirm</target>
-      </trans-unit>
 
         <trans-unit id="desiredDeliveryDate" datatype="html">
         <source>Delivery Date</source>
@@ -2013,9 +2010,6 @@
         <source>Shippment Base</source>
         <target>Shippment Base</target>
       </trans-unit>
-      <trans-unit id="undo" datatype="html">
-        <source>Undo</source>
-        <target>Undo</target>
       </trans-unit>
       <trans-unit id="undoArrived" datatype="html">
         <source>Return to "Not in stock".</source>
@@ -2069,7 +2063,20 @@
         <target>Title cannot be empty.</target>
       </trans-unit>
 
+  <trans-unit id="confirmedDeliveryDateRequired" datatype="html">
+        <source>Confirmed Delivery Date cannot be empty.</source>
+        <target>Confirmed Delivery Date cannot be empty. </target>
+      </trans-unit>
 
+       <trans-unit id="confirmedQtyRequired" datatype="html">
+        <source>Confirmed QTY cannot be empty.</source>
+        <target> Confirmed QTY cannot be empty. </target>
+      </trans-unit>
+
+      <trans-unit id="copy" datatype="html">
+        <source>Copy</source>
+        <target>Copy</target>
+      </trans-unit>
     </body>
     </file>
   </xliff>

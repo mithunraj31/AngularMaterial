@@ -23,6 +23,7 @@ export class AddProductSetDialogComponent implements OnInit {
   saveProductSet: SaveProductSet;
   saveProducts: SaveProductComponent[] = [];
   viewSelectd: { productId: number, productName: String, quantity: number }[] = [];
+  productsAdded:Product[] = [];
   products: Product[] = [];
   _products: Product[] = [];
   constructor(
@@ -160,7 +161,11 @@ export class AddProductSetDialogComponent implements OnInit {
         productName: this.products[this.selected].productName,
         quantity: this.qty
       });
-
+     if(this.products.indexOf(this.products[this.selected])!==-1){
+       this.productsAdded.push(this.products[this.selected]);
+       this.products=this.products.filter(x=>x.productId!==this.products[this.selected].productId);
+       this._products=this.products.filter(x=>x.productId!==this.products[this.selected].productId);
+     }
       this.qtyError = false;
       this.selected = null;
       this.qty = null;
@@ -172,7 +177,12 @@ export class AddProductSetDialogComponent implements OnInit {
   removeComponent(id: number) {
     this.viewSelectd.splice(id, 1);
     this.saveProducts.splice(id, 1);
+    this.products.push((this.productsAdded)[id]);
+    this._products.push((this.productsAdded)[id]);
+    this.productsAdded=this.productsAdded.filter(x=>x.productId!==this.productsAdded[id].productId);
+    console.log( this.productsAdded)
   }
+
 
   onKey(value) {
     this.products = this.search(value);

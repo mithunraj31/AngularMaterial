@@ -90,7 +90,7 @@
       <mat-select [(value)]="selected">
         <input (keyup)="onKey($event.target.value)">
         <mat-option i18n="@@none">None</mat-option>
-        <mat-option value="{{i}}" *ngFor="let product of products; let i = index">{{product.productName}}</mat-option>
+        <mat-option value="{{product.productId}}" *ngFor="let product of products | productNototCotains:saveProducts">{{product.productName}}</mat-option>
 
       </mat-select>
     </mat-form-field>

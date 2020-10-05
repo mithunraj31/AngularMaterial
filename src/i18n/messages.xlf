@@ -1093,7 +1093,7 @@
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="dfulfillConfirmation" datatype="html">
+      <trans-unit id="fulfillConfirmation" datatype="html">
         <source>Fullment Confirmation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/fulfill-order-dialog/fulfill-order-dialog.component.html</context>
@@ -1376,6 +1376,7 @@
       </trans-unit>
       <trans-unit id="productAlreadyExists" datatype="html">
         <source>Product is already added to the list.</source>
+        <target>Product is already added to the list.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/dialogs/edit-incoming-shipment/edit-incoming-shipment.component.html</context>
           <context context-type="linenumber">40</context>
@@ -1822,5 +1823,260 @@
         <target>No product</target>
       </trans-unit>
 
+
+       <trans-unit id="deliverySchedule" datatype="html">
+        <source>Schedule</source>
+        <target>Schedule</target>
+      </trans-unit>
+
+        <trans-unit id="incomingQuantitySummary" datatype="html">
+        <source>Incoming Quantity</source>
+        <target>Incoming Quantity</target>
+      </trans-unit>
+
+       <trans-unit id="outgoingQuantitySummary" datatype="html">
+        <source>OutGoing Quantity</source>
+        <target>OutGoing Quantity</target>
+      </trans-unit>
+
+       <trans-unit id="export" datatype="html">
+        <source>Export</source>
+        <target>Export</target>
+      </trans-unit>
+
+        <trans-unit id="sort" datatype="html">
+        <source>Sort.</source>
+        <target>Sort.</target>
+      </trans-unit>
+
+        <trans-unit id="selectColor" datatype="html">
+        <source>Select a color.</source>
+        <target>Select a color.</target>
+      </trans-unit>
+
+         <trans-unit id="amountRequired" datatype="html">
+        <source>Amount cannot be empty.</source>
+        <target>Amount cannot be empty.</target>
+      </trans-unit>
+
+        <trans-unit id="addNewForecastOrder" datatype="html">
+        <source>Add new Forecast Order</source>
+        <target>Add new Forecast Order</target>
+      </trans-unit>
+
+        <trans-unit id="editReasonRequired" datatype="html">
+        <source>Edit Reason cannot be empty.</source>
+        <target>Edit Reason cannot be empty.</target>
+      </trans-unit>
+      <trans-unit id="editReason" datatype="html">
+        <source>Edit Reason.</source>
+        <target>Edit Reason.</target>
+      </trans-unit>
+
+       <trans-unit id="confirmInOrder" datatype="html">
+        <source>Confirm</source>
+        <target>Confirm</target>
+      </trans-unit>
+
+       <trans-unit id="branch" datatype="html">
+        <source>Branch</source>
+        <target>Branch</target>
+      </trans-unit>
+
+       <trans-unit id="vendor" datatype="html">
+        <source>Vendor</source>
+        <target>Vendor</target>
+      </trans-unit>
+
+       <trans-unit id="orderDate" datatype="html">
+        <source>Order Date</source>
+        <target>Order Date</target>
+      </trans-unit>
+      <trans-unit id="orderedQty" datatype="html">
+        <source>Ordered QTY</source>
+        <target>Ordered QTY</target>
+      </trans-unit>
+      <trans-unit id="pendingQty" datatype="html">
+        <source>Remaining QTY</source>
+        <target>Remaining QTY</target>
+      </trans-unit>
+
+       <trans-unit id="partial" datatype="html">
+        <source>Partial Order</source>
+        <target>Partial Order</target>
+      </trans-unit>
+
+        <trans-unit id="desiredDeliveryDate" datatype="html">
+        <source>Delivery Date</source>
+        <target>Delivery Date</target>
+      </trans-unit>
+
+        <trans-unit id="confirmedQty" datatype="html">
+        <source>Confirmed Qty</source>
+        <target>Confirmed Qty</target>
+      </trans-unit>
+      <trans-unit id="confirmedDeliveryDate" datatype="html">
+        <source>Confirmed Delivery Date</source>
+        <target>Confirmed Delivery Date</target>
+      </trans-unit>
+      <trans-unit id="orderDateRequired" datatype="html">
+        <source> Order Date cannot be empty.</source>
+        <target>  Order Date cannot be empty.</target>
+      </trans-unit>
+
+       <trans-unit id="desiredDeliveryDateRequired" datatype="html">
+        <source>Delivery Date cannot be empty.</source>
+        <target>Delivery Date cannot be empty.</target>
+      </trans-unit>
+      <trans-unit id="productRequired" datatype="html">
+        <source>  Products cannot be empty.</source>
+        <target>   Products cannot be empty.</target>
+      </trans-unit>
+      <trans-unit id="orderQtyRequired" datatype="html">
+        <source>Order QTY cannot be empty.</source>
+        <target>Order QTY cannot be empty.</target>
+      </trans-unit>
+
+        <trans-unit id="arrivalConfirmationMassege" datatype="html">
+        <source>Are you sure you want to fulfill</source>
+        <target>Are you sure you want to fulfill</target>
+      </trans-unit>   <trans-unit id="unfulfillConfirmation" datatype="html">
+        <source>Are you sure! you want to Unfulfill</source>
+        <target>Are you sure! you want to Unfulfill</target>
+      </trans-unit>
+      <trans-unit id="unfulfillConfirmationMassege" datatype="html">
+        <source>Are you sure you want to undo fulfillment</source>
+        <target>Are you sure you want to undo fulfillment</target>
+      </trans-unit>
+
+         <trans-unit id="transferToConfirmed" datatype="html">
+        <source>Transfer to Confirmed</source>
+        <target>Transfer to Confirmed</target>
+      </trans-unit>
+
+        <trans-unit id="confirmInput" datatype="html">
+        <source>Confirm input contents</source>
+        <target>Confirm input contents</target>
+      </trans-unit>
+
+      <trans-unit id="doYouWantToContinue" datatype="html">
+        <source>Do you want to continue?</source>
+        <target>Do you want to continue?</target>
+      </trans-unit>
+
+       <trans-unit id="return" datatype="html">
+        <source>Return</source>
+        <target>Return</target>
+      </trans-unit>
+
+        <trans-unit id="product" datatype="html">
+        <source>products</source>
+        <target>products</target>
+      </trans-unit>
+
+         <trans-unit id="addForecast" datatype="html">
+        <source>Add Forecast</source>
+        <target>Add Forecast</target>
+      </trans-unit>
+
+          <trans-unit id="addConfirmed" datatype="html">
+        <source>Add Confirmed</source>
+        <target>Add Confirmed</target>
+      </trans-unit>
+
+        <trans-unit id="withKitting" datatype="html">
+        <source>With Kitting</source>
+        <target>With Kitting</target>
+      </trans-unit>
+      <trans-unit id="withoutKitting" datatype="html">
+        <source>Without Kitting</source>
+        <target>Without Kitting</target>
+      </trans-unit>
+
+
+       <trans-unit id="all" datatype="html">
+        <source>All</source>
+        <target>All</target>
+      </trans-unit>
+      <trans-unit id="kittingBase" datatype="html">
+        <source>Kitting Base</source>
+        <target>Kitting Base</target>
+      </trans-unit>
+      <trans-unit id="nyuShukkaZumiBase" datatype="html">
+        <source>Shipped Base</source>
+        <target>Shipped Base</target>
+      </trans-unit>
+      <trans-unit id="shukkaBase" datatype="html">
+        <source>Shippment Base</source>
+        <target>Shippment Base</target>
+      </trans-unit>
+      </trans-unit>
+      <trans-unit id="undoArrived" datatype="html">
+        <source>Return to "Not in stock".</source>
+        <target>Return to "Not in stock".</target>
+      </trans-unit>
+      <trans-unit id="doYouWantToContinueUndo" datatype="html">
+        <source>Do you want to continue?</source>
+        <target>Do you want to continue?</target>
+      </trans-unit>
+      <trans-unit id="undoShipped" datatype="html">
+        <source>Return to "Confirmed order".</source>
+        <target>Return to "Confirmed order".</target>
+      </trans-unit>
+      <trans-unit id="undoNotShipped" datatype="html">
+        <source>Return to "FCST order".</source>
+        <target>Return to "FCST order".</target>
+      </trans-unit>
+      <trans-unit id="undoNotInStock" datatype="html">
+        <source>Return to "Unconfirmed order".</source>
+        <target>Return to "Unconfirmed order".</target>
+      </trans-unit>
+
+       <trans-unit id="reasonToEdit" datatype="html">
+        <source>Reason</source>
+        <target>Reason</target>
+      </trans-unit>
+      <trans-unit id="updatedAt" datatype="html">
+        <source>updatedAt</source>
+        <target>updatedAt</target>
+      </trans-unit>
+      <trans-unit id="dataHasBeenChangedMassege" datatype="html">
+        <source>Data has been changed by a another user. Please click OK to refresh the page.</source>
+        <target>Data has been changed by a another user. Please click OK to refresh the page.</target>
+      </trans-unit>
+      <trans-unit id="dataHasBeenChanged" datatype="html">
+        <source>Data has been changed.</source>
+        <target>Data has been changed.</target>
+      </trans-unit>
+
+       <trans-unit id="addOrderSummeryWidget" datatype="html">
+        <source>Add Order Summery Widget</source>
+        <target>Add Order Summery Widget</target>
+      </trans-unit>
+
+        <trans-unit id="title" datatype="html">
+        <source>Title</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="titleRequired" datatype="html">
+        <source>Title cannot be empty.</source>
+        <target>Title cannot be empty.</target>
+      </trans-unit>
+
+  <trans-unit id="confirmedDeliveryDateRequired" datatype="html">
+        <source>Confirmed Delivery Date cannot be empty.</source>
+        <target>Confirmed Delivery Date cannot be empty. </target>
+      </trans-unit>
+
+       <trans-unit id="confirmedQtyRequired" datatype="html">
+        <source>Confirmed QTY cannot be empty.</source>
+        <target> Confirmed QTY cannot be empty. </target>
+      </trans-unit>
+
+      <trans-unit id="copy" datatype="html">
+        <source>Copy</source>
+        <target>Copy</target>
+      </trans-unit>
+    </body>
     </file>
   </xliff>

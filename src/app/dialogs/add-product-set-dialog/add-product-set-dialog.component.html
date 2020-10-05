@@ -88,7 +88,7 @@
     <mat-select [(value)]="selected">
       <input (keyup)="onKey($event.target.value)">
       <mat-option i18n="@@none">None</mat-option>
-      <mat-option value="{{i}}" *ngFor="let product of products; let i = index">{{product.productName}}</mat-option>
+      <mat-option value="{{product.productId}}" *ngFor="let product of products | productNototCotains:saveProducts">{{product.productName}}</mat-option>
 
     </mat-select>
   </mat-form-field>
@@ -98,7 +98,7 @@
   </mat-form-field>
   <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
   <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@amountRequired">QTY cannot be empty</span>
- 
+
     </div>
   <div mat-dialog-actions>
     <button mat-button type="button" (click)="onCancelClick()" i18n="@@cancel">Cancel</button>

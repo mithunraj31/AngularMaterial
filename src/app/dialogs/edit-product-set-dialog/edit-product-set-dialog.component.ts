@@ -189,18 +189,17 @@ export class EditProductSetDialogComponent implements OnInit {
   }
   addComponent() {
     if (this.selected && this.qty) {
-
-
+      const selectedProduct = this.products.filter(x => x.productId == this.selected)[0];
       const saveProductComponent: SaveProductComponent = {
-        productId: this.products[this.selected].productId,
+        productId: selectedProduct.productId,
         quantity: this.qty
       }
       this.saveProducts.push(saveProductComponent);
       this.viewSelectd.push({
-        productId: this.products[this.selected].productId,
-        productName: this.products[this.selected].productName,
+        productId: selectedProduct.productId,
+        productName: selectedProduct.productName,
         quantity: this.qty
-      })
+      });
 
       this.qtyError = false;
       this.selected = null;

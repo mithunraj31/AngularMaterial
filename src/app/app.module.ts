@@ -115,6 +115,7 @@ import { ErrorProductDialogComponent } from './dialogs/error-product-dialog/erro
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { I18nService } from './services/I18nService';
+import { ProductNotCotainsPipe } from './pipes/product-not-cotains.pipe';
 declare const require;
 
 @NgModule({
@@ -177,6 +178,7 @@ declare const require;
     ProductsExportSelectDateComponent,
     ProductViewerComponent,
     ErrorProductDialogComponent,
+    ProductNotCotainsPipe,
   ],
   imports: [
     BrowserModule,
@@ -214,7 +216,7 @@ declare const require;
     MatMenuModule
   ],
   exports: [
-
+    ProductNotCotainsPipe
   ],
   entryComponents: [
     AddProductDialogComponent,

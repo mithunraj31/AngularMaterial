@@ -97,10 +97,10 @@
     </div>
     <mat-form-field class="inline">
         <mat-label i18n="@@selectProduct">Select a product</mat-label>
-        <mat-select [(value)]="selected" (click)="onClick('products')">
-            <input (keyup)="onKey($event.target.value,'products')">
+        <mat-select [(value)]="selectedProductId" (click)="onClick('products')" (selectionChange)="productSearch = ''">
+            <input formControlName="productSearch" [(ngModel)]="productSearch" (keyup)="onKey($event.target.value,'products')">
             <mat-option i18n="@@none">None</mat-option>
-            <mat-option value="{{i}}" *ngFor="let product of selectedProductSets; let i = index" (click)="resetP()">
+            <mat-option [value]="product.productId" *ngFor="let product of selectedProductSets" (click)="productSearch = ''">
                 {{product.productName}}</mat-option>
         </mat-select>
     </mat-form-field>
@@ -108,7 +108,7 @@
         <input matInput type="number" min="1" i18n-placeholder="@@qty" placeholder="QTY" [(ngModel)]="qty" [ngModelOptions]="{standalone: true}">
         <mat-error i18n="@@qtyRequired">QTY cannot be empty</mat-error>
     </mat-form-field>
-    <button mat-button type="button" [disabled]="!selected && !qty" (click)="addComponent()" i18n="@@add">Add</button>
+    <button mat-button type="button" [disabled]="!selectedProductId && !qty" (click)="addComponent()" i18n="@@add">Add</button>
     <br><span class="qtyError" *ngIf="qtyError" color="red" i18n="@@qtyRequired">QTY cannot be empty</span>
 
     <div mat-dialog-actions>

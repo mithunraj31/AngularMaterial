@@ -28,6 +28,7 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
   saveShipmentProducts: SaveShipmentProduct[] = [];
   unsub = new Subject();
   emptyProducts = false;
+  productSearch: string = '';
   constructor(
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -61,7 +62,9 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
       "desiredDeliveryDate": new FormControl("", [
         Validators.required
       ]),
-
+      'productSearch': new FormControl("", [
+        Validators.required
+      ]),
 
     })
   }
@@ -139,10 +142,10 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
   }
   addComponent() {
     if (this.selected && this.qty) {
-
+      const product = this.products.filter(x => x.productId == this.selected)[0];
       this.viewSelectd.push({
-        productId: this.products[this.selected].productId,
-        productName: this.products[this.selected].productName,
+        productId: product.productId,
+        productName: product.productName,
         quantity: this.qty
       });
       this.qtyError = false;
@@ -154,5 +157,10 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
   }
   removeComponent(id: number) {
     this.viewSelectd.splice(id, 1);
+  }
+
+  resetP() {
+    this.productSearch = '';
+    this.products = this._products;
   }
 }

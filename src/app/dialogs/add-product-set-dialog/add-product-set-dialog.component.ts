@@ -25,6 +25,7 @@ export class AddProductSetDialogComponent implements OnInit {
   viewSelectd: { productId: number, productName: String, quantity: number }[] = [];
   products: Product[] = [];
   _products: Product[] = [];
+  productSearch: string = '';
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
@@ -74,6 +75,9 @@ export class AddProductSetDialogComponent implements OnInit {
 
       ]),
       "color": new FormControl("", [
+
+      ]),
+      'productSearch':new FormControl("", [
 
       ]),
     })
@@ -189,5 +193,10 @@ export class AddProductSetDialogComponent implements OnInit {
     }else{
       return false;
     }
+  }
+
+  resetP() {
+    this.productSearch = '';
+    this.products = this._products;
   }
 }

@@ -41,10 +41,10 @@
     <div class="inline">
       <mat-form-field>
         <mat-label i18n="@@selectProduct">Select a product</mat-label>
-        <mat-select [(value)]="selected" (click)="onClick()">
-          <input (keyup)="onKey($event.target.value)">
+        <mat-select [(value)]="selected" (click)="onClick()" (selectionChange)="resetP()">
+          <input formControlName="productSearch" [(ngModel)]="productSearch" (keyup)="onKey($event.target.value)">
           <mat-option i18n="@@none">None</mat-option>
-          <mat-option value="{{i}}" *ngFor="let product of products; let i = index">
+          <mat-option value="{{product.productId}}" *ngFor="let product of products" (click)="resetP()">
             {{product.productName}}</mat-option>
         </mat-select>
       </mat-form-field>

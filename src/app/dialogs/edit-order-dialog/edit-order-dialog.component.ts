@@ -35,6 +35,7 @@ export class EditOrderDialogComponent implements OnInit {
   _productSets: ProductSet[] = [];
   users: User[] = [];
   _users: User[] = [];
+  productSearch: string = '';
   constructor(
     public dialogRef: MatDialogRef<EditOrderDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Order,
@@ -97,6 +98,9 @@ export class EditOrderDialogComponent implements OnInit {
       ]),
 
       "editReason": new FormControl("", [
+
+      ]),
+      'productSearch': new FormControl("", [
 
       ]),
 
@@ -168,15 +172,15 @@ export class EditOrderDialogComponent implements OnInit {
   addComponent() {
     if (this.selected && this.qty) {
 
-
+      const productSet = this.productSets.filter(x => x.productId == this.selected)[0];
       const saveProductComponent: SaveProductComponent = {
-        productId: this.productSets[this.selected].productId,
+        productId: productSet.productId,
         quantity: this.qty
       }
       this.saveProducts.push(saveProductComponent);
       this.viewSelectd.push({
-        productId: this.productSets[this.selected].productId,
-        productName: this.productSets[this.selected].productName,
+        productId: productSet.productId,
+        productName: productSet.productName,
         quantity: this.qty
       })
 
@@ -296,5 +300,10 @@ export class EditOrderDialogComponent implements OnInit {
 
   isItType(customer: string[], type: string) {
     return customer.includes(type);
+  }
+
+  resetP() {
+    this.productSearch = '';
+    this.productSets = this._productSets;
   }
 }

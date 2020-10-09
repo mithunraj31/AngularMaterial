@@ -87,10 +87,10 @@
     </div>
     <mat-form-field class="inline">
       <mat-label i18n="@@selectProduct">Select a product</mat-label>
-      <mat-select [(value)]="selected">
-        <input (keyup)="onKey($event.target.value)">
+      <mat-select [(value)]="selected"  (selectionChange)="resetP()">
+        <input  formControlName="productSearch" [(ngModel)]="productSearch"  (keyup)="onKey($event.target.value)">
         <mat-option i18n="@@none">None</mat-option>
-        <mat-option value="{{product.productId}}" *ngFor="let product of products | productNototCotains:saveProducts">{{product.productName}}</mat-option>
+        <mat-option value="{{product.productId}}" *ngFor="let product of products | productNototCotains:saveProducts"  (click)="resetP()">{{product.productName}}</mat-option>
 
       </mat-select>
     </mat-form-field>

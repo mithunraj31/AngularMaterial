@@ -26,6 +26,7 @@ export class EditProductSetDialogComponent implements OnInit {
   viewSelectd: { productId: number, productName: String, quantity: number }[] = [];
   products: Product[] = [];
   _products : Product[] = [];
+  productSearch: string = '';
   constructor(
     public dialogRef: MatDialogRef<EditProductSetDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data:  {
@@ -79,7 +80,9 @@ export class EditProductSetDialogComponent implements OnInit {
       "color": new FormControl(this.data.editableProduct.color,[
 
       ]),
+      'productSearch' : new FormControl(this.data.editableProduct.color,[
 
+      ]),
     });
   }
   onCancelClick(): void {
@@ -244,5 +247,10 @@ export class EditProductSetDialogComponent implements OnInit {
     }else{
       return false;
     }
+  }
+
+  resetP() {
+    this.productSearch = '';
+    this.products = this._products;
   }
 }

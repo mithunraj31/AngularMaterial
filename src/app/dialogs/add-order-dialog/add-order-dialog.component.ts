@@ -21,7 +21,7 @@ import { Order } from 'src/app/models/Order';
 })
 export class AddOrderDialogComponent implements OnInit {
 
-  selected: number = null;
+  selectedProductId: number = null;
   qty = null;
   qtyError = false;
   viewSelectd: { productId: number, productName: String, quantity: number }[] = [];
@@ -104,7 +104,8 @@ export class AddOrderDialogComponent implements OnInit {
       "salesUserId": new FormControl(this.order&&this.order.salesUser?this.order.salesUser.userId:"", [
         Validators.required
       ]),
-
+      "productSearch": new FormControl("", [
+      ]),
     })
 
     if(this.order){
@@ -179,21 +180,21 @@ export class AddOrderDialogComponent implements OnInit {
     // }
   }
   addComponent() {
-    if (this.selected && this.qty) {
-
+    if (this.selectedProductId && this.qty) {
+      const productSet = this.productSets.filter(x => x.productId == this.selectedProductId)[0];
       const saveProductComponent: SaveProductComponent = {
-        productId: this.productSets[this.selected].productId,
+        productId: productSet.productId,
         quantity: this.qty
       }
       this.saveProducts.push(saveProductComponent);
       this.viewSelectd.push({
-        productId: this.productSets[this.selected].productId,
-        productName: this.productSets[this.selected].productName,
+        productId: productSet.productId,
+        productName: productSet.productName,
         quantity: this.qty
       })
 
       this.qtyError = false;
-      this.selected = null;
+      this.selectedProductId = null;
       this.qty = null;
     } else {
       this.qtyError = true;
@@ -300,11 +301,6 @@ export class AddOrderDialogComponent implements OnInit {
     let filter = value.toLowerCase();
     this.salesD = this._customers;
     return this.salesD.filter(option => option.customerName.toLowerCase().includes(filter));
-  }
-
-  resetP() {
-    this.productSearch = "";
-    this.selectedProductSets = this.productSets;
   }
 
   calculateDelivery(value) {

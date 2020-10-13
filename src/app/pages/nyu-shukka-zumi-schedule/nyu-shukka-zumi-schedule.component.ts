@@ -5,6 +5,7 @@ import { ForecastService } from 'src/app/services/ForecastService';
 import { MatDialog } from '@angular/material';
 import { OrderInfoComponent } from 'src/app/dialogs/order-info/order-info.component';
 import { IncomingInfoComponent } from 'src/app/dialogs/incoming-info/incoming-info.component';
+import { ProductService } from 'src/app/services/ProductService';
 
 @Component({
   selector: 'app-nyu-shukka-zumi-schedule',
@@ -26,17 +27,20 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
   progress;
   unsub = new Subject();
   viewDate = new Date();
+  selectedPatternId: number;
 
   constructor(private forecastService: ForecastService,
     @Inject(LOCALE_ID) public localeId: string,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private productService: ProductService
   ) {
     this.localizeSubColumns();
   }
 
   ngOnInit() {
+    this.selectedPatternId = this.productService.getSchedulePatternIdFromLocalStorage();
     if(localStorage.getItem("smallTable")=="true"){
       this.smallTable = true;
     }else{
@@ -119,7 +123,7 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
     this.progress = true;
     // this.progress = false;
 
-    this.forecastService.getNyuShukkaForcast(this.viewDate.getFullYear(), this.viewDate.getMonth()).subscribe(data => {
+    this.forecastService.getNyuShukkaForcast(this.viewDate.getFullYear(), this.viewDate.getMonth(), this.selectedPatternId).subscribe(data => {
 
       this.addColumnsToTables(data[0].products[0].values);
       this.productForecast = data;
@@ -348,6 +352,12 @@ export class NyuShukkaZumiScheduleComponent implements OnInit {
 
   onclickSmallTable(){
     localStorage.setItem("smallTable",String(this.smallTable));
+  }
+
+
+  onSchedulePatternChanged(patternId: number) {
+    this.selectedPatternId = patternId;
+    this.populateData();
   }
 
 }

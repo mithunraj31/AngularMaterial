@@ -9,6 +9,7 @@
         <button class="calenderNav" (click)="clickToday()" mat-raised-button color="primary"
             i18n="@@today">Today</button>
         <button class="calenderNav" (click)="clickNext()" mat-raised-button color="primary" i18n="@@next">Next</button>
+        <app-schedule-pattern-selector (onChanged)="onSchedulePatternChanged($event)"></app-schedule-pattern-selector>
         <h3> {{ viewDate | date:'MMMM yyyy'}}</h3>
     </span>
     <span>

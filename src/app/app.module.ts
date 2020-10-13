@@ -116,6 +116,7 @@ import { ErrorProductDialogComponent } from './dialogs/error-product-dialog/erro
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { I18nService } from './services/I18nService';
 import { ProductNotCotainsPipe } from './pipes/product-not-cotains.pipe';
+import { ShedulePatternSelectorComponent } from './components/schedule-pattern-selector/schedule-pattern-selector.component';
 declare const require;
 
 @NgModule({
@@ -179,6 +180,7 @@ declare const require;
     ProductViewerComponent,
     ErrorProductDialogComponent,
     ProductNotCotainsPipe,
+    ShedulePatternSelectorComponent,
   ],
   imports: [
     BrowserModule,

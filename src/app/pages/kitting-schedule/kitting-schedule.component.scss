@@ -2,60 +2,51 @@ p {
   font-family: Lato;
 }
 
-
-
-.normalTable{
-  th, td {
+.normalTable {
+  th,
+  td {
     vertical-align: center;
     text-align: center !important;
-    justify-content:center;
-    border-right: 1px solid rgba(0,0,0,.12);
+    justify-content: center;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
     padding: 5px;
 
     font-size: small;
   }
 }
 
-
 .bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 .mat-column-setName {
   left: 0px !important;
   max-width: 100px !important;
   min-width: 100px !important;
 }
-.mat-column-productId 
-{
-// left: 125px !important;
-max-width: 100px !important;
-min-width: 100px !important;
-
+.mat-column-productId {
+  // left: 125px !important;
+  max-width: 100px !important;
+  min-width: 100px !important;
 }
-.mat-column-obicNo 
-{
-// left: 125px !important;
-max-width: 100px !important;
-min-width: 100px !important;
-
+.mat-column-obicNo {
+  // left: 125px !important;
+  max-width: 100px !important;
+  min-width: 100px !important;
 }
-.mat-column-productName 
-{
-// left: 222px !important;
-width: 100px !important;
-min-width: 100px !important;
+.mat-column-productName {
+  // left: 222px !important;
+  width: 100px !important;
+  min-width: 100px !important;
 }
-.mat-column-description 
-{
-// left: 327px !important;
-width: 200px !important;
-min-width: 200px !important;
+.mat-column-description {
+  // left: 327px !important;
+  width: 200px !important;
+  min-width: 200px !important;
 }
-.mat-column-values 
-{
-// left: 528px !important;
-width: 70px !important;
-min-width: 70px !important;
+.mat-column-values {
+  // left: 528px !important;
+  width: 70px !important;
+  min-width: 70px !important;
 }
 
 .table-container {
@@ -68,12 +59,13 @@ td.mat-column-star {
   padding-right: 8px;
 }
 
-th.mat-column-position, td.mat-column-position {
+th.mat-column-position,
+td.mat-column-position {
   padding-left: 1px;
 }
 
 .blue-backround {
-    background-color: aqua;
+  background-color: aqua;
 }
 
 .forecastOrders {
@@ -85,7 +77,7 @@ th.mat-column-position, td.mat-column-position {
   padding-right: 2px;
 }
 .dates {
-    padding: 3px;
+  padding: 3px;
 }
 .calenderNav {
   margin-right: 3px;
@@ -94,23 +86,30 @@ th.mat-column-position, td.mat-column-position {
 body {
   overflow-y: hidden !important;
 }
-.smallTable{
-  th, td {
+.smallTable {
+  th,
+  td {
     vertical-align: center;
     text-align: center !important;
-    justify-content:center;
-    border-right: 1px solid rgba(0,0,0,.12);
+    justify-content: center;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
     padding-left: 6px;
     padding-right: 6px;
     padding-top: 1px;
     padding-bottom: 1px;
     font-size: x-small;
   }
-  tr.mat-footer-row, tr.mat-row {
+  tr.mat-footer-row,
+  tr.mat-row {
     height: 30px;
+  }
 }
-}
-.top-button-section{
+.top-button-section {
   display: flex;
   justify-content: space-between;
+}
+
+.total-column {
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+  font-weight: bold;
 }

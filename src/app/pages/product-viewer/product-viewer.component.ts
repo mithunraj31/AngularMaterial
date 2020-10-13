@@ -50,6 +50,7 @@ export class ProductViewerComponent implements OnInit {
    */
   progress: boolean;
 
+
   constructor(
     private productService: ProductService,
     private router: Router,
@@ -164,7 +165,7 @@ export class ProductViewerComponent implements OnInit {
           else {
             // push all product to product set.
             productSet.products
-              .forEach(x =>  products.push(x));
+              .forEach(x => products.push(x));
           }
 
           productSet.products = products;
@@ -224,10 +225,10 @@ export class ProductViewerComponent implements OnInit {
     const productSetIndex = findIndex(this.productSets, { productId });
     this.productSets[productSetIndex].display = isDisplay;
     this.productSets[productSetIndex].products = this.productSets[productSetIndex].products
-                                                    .map(x =>  {
-                                                      x.product.display = isDisplay;
-                                                      return x;
-                                                    });
+      .map(x => {
+        x.product.display = isDisplay;
+        return x;
+      });
 
   }
 
@@ -323,7 +324,7 @@ export class ProductViewerComponent implements OnInit {
 
       this.snackBarService.open(this.i18nService.get('viewerHasBeenSaved'), this.i18nService.get('close'), { duration: 2000 });
       setTimeout(() => {
-        this.router.navigate(['/delivery-schedule']);
+        this.location.back();
       }, 2000);
     }, () => {
       this.snackBarService.open(this.i18nService.get('somethingWentWrong'), this.i18nService.get('close'), { duration: 5000 })

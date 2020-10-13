@@ -1,26 +1,26 @@
-import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
-import { Subject } from 'rxjs';
-import { ForecastService } from 'src/app/services/ForecastService';
-import { MatDialog } from '@angular/material';
-import { OrderInfoComponent } from 'src/app/dialogs/order-info/order-info.component';
-import { IncomingInfoComponent } from 'src/app/dialogs/incoming-info/incoming-info.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from 'src/app/services/ProductService';
+import { Component, OnInit, Inject, LOCALE_ID } from "@angular/core";
+import { Subject } from "rxjs";
+import { ForecastService } from "src/app/services/ForecastService";
+import { MatDialog } from "@angular/material";
+import { OrderInfoComponent } from "src/app/dialogs/order-info/order-info.component";
+import { IncomingInfoComponent } from "src/app/dialogs/incoming-info/incoming-info.component";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ProductService } from "src/app/services/ProductService";
+import { I18nService } from "src/app/services/I18nService";
 
 @Component({
-  selector: 'app-kitting-schedule',
-  templateUrl: './kitting-schedule.component.html',
-  styleUrls: ['./kitting-schedule.component.scss']
+  selector: "app-kitting-schedule",
+  templateUrl: "./kitting-schedule.component.html",
+  styleUrls: ["./kitting-schedule.component.scss"],
 })
 export class KittingScheduleComponent implements OnInit {
-
   displayedColumns: string[] = [];
   smallTable = false;
   columnsToDisplay: string[] = [];
   subColumns: any[] = [];
   dataSource: Array<any> = [];
   spans = [];
-  spanningColumns = ['obicNo', 'productName', 'description'];
+  spanningColumns = ["obicNo", "productName", "description"];
   tempRowId = null;
   tempRowCount = null;
   productForecast;
@@ -28,70 +28,69 @@ export class KittingScheduleComponent implements OnInit {
   unsub = new Subject();
   viewDate = new Date();
   selectedPatternId: number;
+  totalColumnHeader: string;
 
-  constructor(private forecastService: ForecastService,
+  constructor(
+    private forecastService: ForecastService,
     @Inject(LOCALE_ID) public localeId: string,
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProductService
+    private productService: ProductService,
+    private i18nService: I18nService
   ) {
+    this.totalColumnHeader = this.i18nService.get("total");
     this.localizeSubColumns();
   }
 
   ngOnInit() {
-
     this.selectedPatternId = this.productService.getSchedulePatternIdFromLocalStorage();
-    if(localStorage.getItem("smallTable")=="true"){
+    if (localStorage.getItem("smallTable") == "true") {
       this.smallTable = true;
-    }else{
-      this.smallTable =false;
+    } else {
+      this.smallTable = false;
     }
     try {
-      this.route.queryParams
-        .subscribe(params => {
-
-          if (params.year && params.month) {
-            this.viewDate = new Date(params.year + "-" + params.month);
-          }
-        });
+      this.route.queryParams.subscribe((params) => {
+        if (params.year && params.month) {
+          this.viewDate = new Date(params.year + "-" + params.month);
+        }
+      });
     } catch (error) {
-
       this.viewDate = new Date();
     } finally {
-
       this.populateData();
     }
   }
   localizeSubColumns() {
-    if (this.localeId === 'ja') {
+    if (this.localeId === "ja") {
       this.subColumns = [
         {
-          value: '入荷',
-          key: 'incoming'
+          value: "入荷",
+          key: "incoming",
         },
         {
-          value: '出荷',
-          key: 'outgoing'
+          value: "出荷",
+          key: "outgoing",
         },
         {
-          value: '在庫',
-          key: 'currentQuantity'
+          value: "在庫",
+          key: "currentQuantity",
         },
       ];
     } else {
       this.subColumns = [
         {
-          value: 'in qty',
-          key: 'incoming'
+          value: "in qty",
+          key: "incoming",
         },
         {
-          value: 'out qty',
-          key: 'outgoing'
+          value: "out qty",
+          key: "outgoing",
         },
         {
-          value: 'predicted stock',
-          key: 'currentQuantity'
+          value: "predicted stock",
+          key: "currentQuantity",
         },
       ];
     }
@@ -102,7 +101,12 @@ export class KittingScheduleComponent implements OnInit {
       this.viewDate.getMonth() - 1,
       this.viewDate.getDate()
     );
-    this.router.navigate(['delivery-schedule/kitting'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth() + 1 } });
+    this.router.navigate(["delivery-schedule/kitting"], {
+      queryParams: {
+        year: this.viewDate.getFullYear(),
+        month: this.viewDate.getMonth() + 1,
+      },
+    });
     this.populateData();
   }
   clickNext() {
@@ -111,12 +115,22 @@ export class KittingScheduleComponent implements OnInit {
       this.viewDate.getMonth() + 1,
       this.viewDate.getDate()
     );
-    this.router.navigate(['delivery-schedule/kitting'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth() + 1 } });
+    this.router.navigate(["delivery-schedule/kitting"], {
+      queryParams: {
+        year: this.viewDate.getFullYear(),
+        month: this.viewDate.getMonth() + 1,
+      },
+    });
     this.populateData();
   }
   clickToday() {
     this.viewDate = new Date();
-    this.router.navigate(['delivery-schedule/kitting'], { queryParams: { year: this.viewDate.getFullYear(), month: this.viewDate.getMonth() + 1 } });
+    this.router.navigate(["delivery-schedule/kitting"], {
+      queryParams: {
+        year: this.viewDate.getFullYear(),
+        month: this.viewDate.getMonth() + 1,
+      },
+    });
     this.populateData();
   }
 
@@ -124,157 +138,221 @@ export class KittingScheduleComponent implements OnInit {
     this.progress = true;
     // this.progress = false;
 
-    this.forecastService.getKittingForcast(this.viewDate.getFullYear(), this.viewDate.getMonth(), this.selectedPatternId).subscribe(data => {
+    this.forecastService
+      .getKittingForcast(
+        this.viewDate.getFullYear(),
+        this.viewDate.getMonth(),
+        this.selectedPatternId
+      )
+      .subscribe(
+        (data) => {
+          this.addColumnsToTables(data[0].products[0].values);
+          this.productForecast = data;
 
-      this.addColumnsToTables(data[0].products[0].values);
-      this.productForecast = data;
+          let setcount = 0;
+          let productcount = 0;
+          const tempdata: any[] = [];
+          data.forEach((productSet) => {
+            productSet.products.forEach((product) => {
+              this.subColumns.forEach((column) => {
+                const temp: any = {
+                  setId: productSet.productId,
+                  setObicNo: productSet.obicNo,
+                  setName: productSet.productName,
+                  setDescription: productSet.description,
+                  setColor: productSet.color ? productSet.color : "#ffffff",
 
-      let setcount = 0;
-      let productcount = 0;
-      const tempdata: any[] = [];
-      data.forEach(productSet => {
-        productSet.products.forEach(product => {
-          this.subColumns.forEach(column => {
-
-            const temp: any = {
-              setId: productSet.productId,
-              setObicNo: productSet.obicNo,
-              setName: productSet.productName,
-              setDescription: productSet.description,
-              setColor: productSet.color ? productSet.color : '#ffffff',
-
-              productId: product.productId,
-              obicNo: product.obicNo,
-              productName: product.productName,
-              description: product.description,
-              color: product.color ? product.color : '#ffffff',
-              values: column.value,
-
-            };
-            product.values.forEach(dateItem => {
-              if ((column.key === 'incoming' || column.key === 'outgoing') && (dateItem[column.key].quantity === 0)) {
-                temp[this.getDateString(dateItem.date)] = {
-                  quantity: '',
-                  fixed: true
+                  productId: product.productId,
+                  obicNo: product.obicNo,
+                  productName: product.productName,
+                  description: product.description,
+                  color: product.color ? product.color : "#ffffff",
+                  values: column.value,
                 };
-              } else if (column.key === 'currentQuantity') {
-                temp[this.getDateString(dateItem.date)] = {
-                  quantity: dateItem[column.key],
-                  fixed: true
-                };
-              } else {
-                temp[this.getDateString(dateItem.date)] = dateItem[column.key];
-              }
+                product.values.forEach((dateItem) => {
+                  if (
+                    (column.key === "incoming" || column.key === "outgoing") &&
+                    dateItem[column.key].quantity === 0
+                  ) {
+                    temp[this.getDateString(dateItem.date)] = {
+                      quantity: "",
+                      fixed: true,
+                    };
+                  } else if (column.key === "currentQuantity") {
+                    temp[this.getDateString(dateItem.date)] = {
+                      quantity: dateItem[column.key],
+                      fixed: true,
+                    };
+                  } else {
+                    temp[this.getDateString(dateItem.date)] =
+                      dateItem[column.key];
+                  }
+                });
+                if (
+                  column.key === "outgoing" &&
+                  product.totalFulfilledOutgoingQty > 0
+                ) {
+                  temp[this.totalColumnHeader] = {
+                    quantity: product.totalFulfilledOutgoingQty,
+                    fixed: true,
+                  };
+                } else if (
+                  column.key === "incoming" &&
+                  product.totalFulfilledIncomingQty > 0
+                ) {
+                  temp[this.totalColumnHeader] = {
+                    quantity: product.totalFulfilledIncomingQty,
+                    fixed: true,
+                  };
+                } else {
+                  temp[this.totalColumnHeader] = {};
+                }
+                tempdata.push(temp);
+                // this.dataSource.push(temp);
+              });
+              productcount++;
             });
-            tempdata.push(temp);
-            // this.dataSource.push(temp);
-
+            setcount++;
           });
-          productcount++;
-        });
-        setcount++;
+          // this.dataSource = tempdata.slice(0, 9);
+          this.dataSource = tempdata;
 
-      });
-      // this.dataSource = tempdata.slice(0, 9);
-      this.dataSource = tempdata;
-
-      this.progress = false;
-      this.unsub.next();
-      this.unsub.complete();
-
-    }, error => {
-      this.progress = false;
-    });
-
+          this.progress = false;
+          this.unsub.next();
+          this.unsub.complete();
+        },
+        (error) => {
+          this.progress = false;
+        }
+      );
   }
   addColumnsToTables(dateArray) {
     this.displayedColumns = new Array<string>();
     this.columnsToDisplay = new Array<string>();
     this.displayedColumns = [
-      'setName',
-      'obicNo',
-      'productName',
-      'description',
-      'values',
-
+      "setName",
+      "obicNo",
+      "productName",
+      "description",
+      "values",
     ];
     this.columnsToDisplay = this.displayedColumns.slice();
-    dateArray.forEach(element => {
+    dateArray.forEach((element) => {
       const date = element.date;
       this.displayedColumns.push(this.getDateString(date));
     });
+    this.displayedColumns.push(this.totalColumnHeader);
     this.columnsToDisplay = this.displayedColumns.slice();
-
   }
   getDateString(date: string) {
-    return new Date(date).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' });
+    return new Date(date).toLocaleDateString("en-US", {
+      month: "numeric",
+      day: "numeric",
+    });
   }
 
   changeColor(data, set?) {
     const DateCss = {
-      'background-color': data.color,
-      cursor: 'default',
-      color: '#212121'
+      "background-color": data.color,
+      cursor: "default",
+      color: "#212121",
     };
 
-    if (set && set === 'set') {
-      DateCss['background-color'] = data.setColor;
-
+    if (set && set === "set") {
+      DateCss["background-color"] = data.setColor;
     } else if (set && data[set]) {
       // change color logic
       // Only FCST Orders
-      if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && !data[set].contains.fulfilled) {
-        DateCss['background-color'] = '#f8bbd0';
-        DateCss.color = '#212121';
-
+      if (
+        data[set].contains &&
+        data[set].contains.fcst &&
+        !data[set].contains.confirmed &&
+        !data[set].contains.fulfilled
+      ) {
+        DateCss["background-color"] = "#f8bbd0";
+        DateCss.color = "#212121";
       } // Only Confirmed Orders
-      else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && !data[set].contains.fulfilled) {
-        DateCss['background-color'] = '#81d4fa';
-        DateCss.color = '#212121';
+      else if (
+        data[set].contains &&
+        !data[set].contains.fcst &&
+        data[set].contains.confirmed &&
+        !data[set].contains.fulfilled
+      ) {
+        DateCss["background-color"] = "#81d4fa";
+        DateCss.color = "#212121";
       } // Only fulfilled Orders
-      else if (data[set].contains && !data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
-        DateCss['background-color'] = data.color;
-        DateCss.color = '#212121';
+      else if (
+        data[set].contains &&
+        !data[set].contains.fcst &&
+        !data[set].contains.confirmed &&
+        data[set].contains.fulfilled
+      ) {
+        DateCss["background-color"] = data.color;
+        DateCss.color = "#212121";
       } // FCST and Confirmed Orders
-      else if (data[set].contains && data[set].contains.fcst && data[set].contains.confirmed && !data[set].contains.fulfilled) {
-        DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, #81d4fa 29%, #f8bbd0 66%)';
-        DateCss.color = '#212121';
+      else if (
+        data[set].contains &&
+        data[set].contains.fcst &&
+        data[set].contains.confirmed &&
+        !data[set].contains.fulfilled
+      ) {
+        DateCss["background"] = "rgb(33,150,243)";
+        DateCss["background"] =
+          "linear-gradient(0deg, #81d4fa 29%, #f8bbd0 66%)";
+        DateCss.color = "#212121";
       }
       // FCST and Fulfilled Orders
-      else if (data[set].contains && data[set].contains.fcst && !data[set].contains.confirmed && data[set].contains.fulfilled) {
-        DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 29%, #f8bbd0 66%)';
-        DateCss.color = '#212121';
+      else if (
+        data[set].contains &&
+        data[set].contains.fcst &&
+        !data[set].contains.confirmed &&
+        data[set].contains.fulfilled
+      ) {
+        DateCss["background"] = "rgb(33,150,243)";
+        DateCss["background"] =
+          "linear-gradient(0deg, " + data.color + " 29%, #f8bbd0 66%)";
+        DateCss.color = "#212121";
       }
       // Confirmed and Fulfilled Orders
-      else if (data[set].contains && !data[set].contains.fcst && data[set].contains.confirmed && data[set].contains.fulfilled) {
-        DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 26%, #81d4fa 80%)';
-        DateCss.color = '#212121';
+      else if (
+        data[set].contains &&
+        !data[set].contains.fcst &&
+        data[set].contains.confirmed &&
+        data[set].contains.fulfilled
+      ) {
+        DateCss["background"] = "rgb(33,150,243)";
+        DateCss["background"] =
+          "linear-gradient(0deg, " + data.color + " 26%, #81d4fa 80%)";
+        DateCss.color = "#212121";
       }
       // FCST and Confirmed and Fulfilled Orders
-      else if (data[set].contains && data[set].contains.fcst && data[set].contains.confirmed && data[set].contains.fulfilled) {
-        DateCss['background'] = 'rgb(33,150,243)';
-        DateCss['background'] = 'linear-gradient(0deg, ' +data.color+' 22%, #81d4fa 52%, #f8bbd0 86%)';
-        DateCss.color = '#212121';
+      else if (
+        data[set].contains &&
+        data[set].contains.fcst &&
+        data[set].contains.confirmed &&
+        data[set].contains.fulfilled
+      ) {
+        DateCss["background"] = "rgb(33,150,243)";
+        DateCss["background"] =
+          "linear-gradient(0deg, " +
+          data.color +
+          " 22%, #81d4fa 52%, #f8bbd0 86%)";
+        DateCss.color = "#212121";
       }
       //  end change color logic
       if (data[set].quantity < 0) {
-        DateCss['font-weight'] = 'bold';
-        DateCss.color = '#FF0000';
+        DateCss["font-weight"] = "bold";
+        DateCss.color = "#FF0000";
       }
       if (data[set].orders || data[set].incomingOrders) {
-        DateCss.cursor = 'pointer';
+        DateCss.cursor = "pointer";
       }
     }
-
 
     return DateCss;
   }
 
   getRowSpanSet(col, index) {
-
     const rowVal = this.dataSource[index];
     const cellVal = rowVal[col];
     let count = 0;
@@ -284,9 +362,8 @@ export class KittingScheduleComponent implements OnInit {
       }
     }
     return count;
-  }//
+  } //
   getRowSpan(col, index) {
-
     return 3;
   }
 
@@ -301,7 +378,6 @@ export class KittingScheduleComponent implements OnInit {
       if (valObj[column] === preObj[column]) {
         result = true;
       }
-
     }
     return result;
   }
@@ -319,7 +395,6 @@ export class KittingScheduleComponent implements OnInit {
       if (compare1 === compare2) {
         result = true;
       }
-
     }
     return result;
   }
@@ -328,35 +403,32 @@ export class KittingScheduleComponent implements OnInit {
     const backUrl = {
       base: "delivery-schedule/kitting",
       year: this.viewDate.getFullYear(),
-      month: this.viewDate.getMonth() + 1
-    }
+      month: this.viewDate.getMonth() + 1,
+    };
     if (data.orders) {
       const confirmDialogRef = this.dialog.open(OrderInfoComponent, {
-        width: '700px',
+        width: "700px",
         data: [data.orders, backUrl],
         disableClose: true,
-        hasBackdrop: false
+        hasBackdrop: false,
       });
-
     }
     if (data.incomingOrders) {
       const confirmDialogRef = this.dialog.open(IncomingInfoComponent, {
-        width: '700px',
+        width: "700px",
         data: [data.incomingOrders, backUrl],
         disableClose: true,
-        hasBackdrop: false
+        hasBackdrop: false,
       });
     }
   }
 
-  onclickSmallTable(){
-    localStorage.setItem("smallTable",String(this.smallTable));
+  onclickSmallTable() {
+    localStorage.setItem("smallTable", String(this.smallTable));
   }
-
 
   onSchedulePatternChanged(patternId: number) {
     this.selectedPatternId = patternId;
     this.populateData();
   }
-
 }

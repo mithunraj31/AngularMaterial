@@ -63,7 +63,6 @@ export class AddIncomingShipmentComponent implements OnInit, OnDestroy {
         Validators.required
       ]),
       'productSearch': new FormControl("", [
-        Validators.required
       ]),
 
     })

@@ -1,14 +1,11 @@
-import { Component, OnInit, Inject, LOCALE_ID, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ForecastService } from 'src/app/services/ForecastService';
 import { MatDialog } from '@angular/material';
 import { OrderInfoComponent } from 'src/app/dialogs/order-info/order-info.component';
 import { IncomingInfoComponent } from 'src/app/dialogs/incoming-info/incoming-info.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter } from 'lodash';
 import { ProductService } from 'src/app/services/ProductService';
-import { SchedulePattern } from 'src/app/models/SchedulePattern';
-import { AuthService } from 'src/app/auth/AuthService';
 import { I18nService } from 'src/app/services/I18nService';
 
 @Component({
@@ -32,7 +29,6 @@ export class DeliveryScheduleComponent implements OnInit {
   viewDate = new Date();
   preview: any[];
 
-  patterns: SchedulePattern[]
   selectedPatternId: number;
   totalColumnHeader: string;
 
@@ -42,31 +38,15 @@ export class DeliveryScheduleComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
-    private i18nService: I18nService,
-    private authService: AuthService
+    private i18nService: I18nService
   ) {
     this.totalColumnHeader = this.i18nService.get('total');
-    this.route.queryParams.subscribe(params => {
-      this.preview = [];
-      if (params['preview']) {
-        const previews: any[] = JSON.parse(params['preview']);
-        previews.forEach(x => {
-          x.items.forEach(i => {
-            this.preview.push({ setId: x.id, productId: i });
-          });
-        });
-
-        this.selectedPatternId = 0;
-      }  else {
-        this.selectedPatternId = this.productService.getSchedulePatternIdFromLocalStorage();
-      }
-    });
     this.localizeSubColumns();
 
   }
 
   ngOnInit() {
-
+    this.selectedPatternId = this.productService.getSchedulePatternIdFromLocalStorage();
 
     if (localStorage.getItem("smallTable") == "true") {
       this.smallTable = true;
@@ -87,14 +67,6 @@ export class DeliveryScheduleComponent implements OnInit {
     } finally {
       this.populateData();
     }
-
-    this.productService.getSchedulePatterns().subscribe((scheculePatterns: SchedulePattern[]) => {
-      this.patterns = scheculePatterns;
-      this.patterns.unshift(<SchedulePattern> {
-        schedulePatternId: 0,
-        schedulePatternName: this.i18nService.get('default')
-      });
-    });
   }
   localizeSubColumns() {
     if (this.localeId === 'ja') {
@@ -232,21 +204,7 @@ export class DeliveryScheduleComponent implements OnInit {
         });
 
       });
-      this.dataSource = [];
-      if (this.isPreviewMode()) {
-        this.preview.forEach(x => {
-
-          const previewItems = filter(tempdata,
-            t => t.setId == x.setId && t.productId == x.productId);
-          if (previewItems.length > 0) {
-            previewItems.forEach(f => this.dataSource.push(f));
-
-          }
-
-        });
-      } else {
-        this.dataSource = tempdata;
-      }
+      this.dataSource = tempdata;
 
       this.progress = false;
       this.unsub.next();
@@ -424,36 +382,10 @@ export class DeliveryScheduleComponent implements OnInit {
     localStorage.setItem("smallTable", String(this.smallTable));
   }
 
-  isPreviewMode() {
-    return this.preview && this.preview.length > 0;
-  }
-
-  onAddPatternClicked() {
-    this.router.navigate(['/product-viewer']);
-  }
-
-  onEditPatternClicked() {
-    this.router.navigate([`/product-viewer/${this.selectedPatternId}`]);
-  }
-
-  onSchedulePatternChanged() {
-    this.productService.setSchedulePatternToLocalStorage(this.selectedPatternId);
-
+  onSchedulePatternChanged(patternId: number) {
+    this.selectedPatternId = patternId;
     this.populateData();
   }
-
-  isUserOwnSelectedPattern() {
-    const userId = this.authService.getUserId();
-    if (this.patterns && this.patterns.length > 0 && this.selectedPatternId > 0) {
-      const selectedPattern = this.patterns.filter(x => x.schedulePatternId == this.selectedPatternId)[0];
-      if (selectedPattern) {
-        return userId == selectedPattern.createdUser.userId;
-      }
-    }
-
-    return false;
-  }
-
 }
 
 

@@ -5,13 +5,10 @@ import { OrdersContainerComponent } from './pages/orders/orders-container.compon
 import { ProductsContainerComponent } from './pages/products-container/products-container.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ProductsComponent } from './pages/products/products.component';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { AuthGuardService as AuthGuard } from "./auth/AuthGuardService";
 import { ForcastComponent } from './pages/forcast/forcast.component';
-import { DeliveryScheduleComponent } from './pages/delivery-schedule/delivery-schedule.component';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { ProductViewerComponent } from './pages/product-viewer/product-viewer.component';
 

@@ -1,0 +1,12 @@
+<mat-form-field appearance="fill" *ngIf="patterns && patterns.length > 0">
+  <mat-label i18n="@@schedulePattern">Schedule Patterns</mat-label>
+  <mat-select [(value)]="selectedPatternId" (selectionChange)="onSchedulePatternChanged()">
+    <mat-option *ngFor="let pattern of patterns" [value]="pattern.schedulePatternId">
+      {{pattern.schedulePatternName}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<button class="calenderNav" mat-raised-button color="primary"
+  *ngIf="selectedPatternId != 0 && isUserOwnSelectedPattern()"
+  [routerLink]="['/product-viewer', selectedPatternId]" i18n="@@editPattern">Edit Pattern</button>
+<button class="calenderNav" mat-raised-button color="primary" routerLink="/product-viewer" i18n="@@addPattern">Add Pattern</button>

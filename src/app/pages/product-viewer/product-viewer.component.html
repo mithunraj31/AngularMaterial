@@ -31,7 +31,7 @@
     </mat-menu>
     <mat-checkbox [(ngModel)]="isOnlyMe" i18n="@@onlyMe">Only me</mat-checkbox>
     <mat-form-field class="top-search">
-      <mat-label i18n="@@selectProductSet">Enter a product Set</mat-label>
+      <mat-label i18n="@@enterProductSet">Enter a product Set</mat-label>
       <input matInput type="text" [(ngModel)]="productSetSearch" (keyup)="onProductSetKey($event.target.value)">
       <button mat-button *ngIf="productSetSearch" matSuffix mat-icon-button aria-label="Clear"
         (click)="productSetSearch=''">
@@ -71,7 +71,7 @@
           </mat-menu>
           <div *ngIf="set.productId==0">
             <mat-form-field class="product-search">
-              <mat-label i18n="@@selectProduct">Enter a product</mat-label>
+              <mat-label i18n="@@enterProduct">Enter a product</mat-label>
               <input matInput type="text" [(ngModel)]="productSearch" (keyup)="onKey($event.target.value)">
               <button mat-button *ngIf="productSearch" matSuffix mat-icon-button aria-label="Clear"
                 (click)="productSearch=''">
@@ -80,7 +80,8 @@
             </mat-form-field>
           </div>
           <div cdkDropList class="product-list" (cdkDropListDropped)="dropProduct(set.productId, $event)">
-            <div class="product-box" *ngFor="let product of set.products|productFilterQuery:productSearch" cdkDrag>
+            <div class="product-box" *ngFor="let product of set.products|productFilterQuery:productSearch:set.productId"
+              cdkDrag>
               <span>{{product.product.productName}}</span>
               <span>
                 <mat-icon *ngIf="product.product.display"

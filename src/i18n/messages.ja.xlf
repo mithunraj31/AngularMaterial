@@ -1566,6 +1566,16 @@
         <source>No product</source>
         <target>製品なし</target>
       </trans-unit>
+
+       <trans-unit id="enterProduct" datatype="html">
+        <source>Try to enter product name</source>
+        <target>製品名を入力してみてください</target>
+      </trans-unit>
+
+      <trans-unit id="enterProductSet" datatype="html">
+        <source>Try to enter product set name</source>
+        <target>製品名セットを入力してみてください</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

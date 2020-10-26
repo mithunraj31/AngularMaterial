@@ -1587,6 +1587,16 @@
         <target>Copy</target>
       </trans-unit>
 
+      <trans-unit id="enterProduct" datatype="html">
+        <source>Try to enter product name</source>
+        <target>Try to enter product name</target>
+      </trans-unit>
+
+      <trans-unit id="enterProductSet" datatype="html">
+        <source>Try to enter product set name</source>
+        <target>Try to enter product set name</target>
+      </trans-unit>
+
 
     </body>
   </file>

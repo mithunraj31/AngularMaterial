@@ -117,6 +117,8 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { I18nService } from './services/I18nService';
 import { ProductNotCotainsPipe } from './pipes/product-not-cotains.pipe';
 import { ShedulePatternSelectorComponent } from './components/schedule-pattern-selector/schedule-pattern-selector.component';
+import { productFilterQuery } from './pipes/product-filter-query';
+import { productSetFilterQuery } from './pipes/product-set-filter-query';
 declare const require;
 
 @NgModule({
@@ -180,6 +182,8 @@ declare const require;
     ProductViewerComponent,
     ErrorProductDialogComponent,
     ProductNotCotainsPipe,
+    productFilterQuery,
+    productSetFilterQuery,
     ShedulePatternSelectorComponent,
   ],
   imports: [
@@ -218,7 +222,8 @@ declare const require;
     MatMenuModule
   ],
   exports: [
-    ProductNotCotainsPipe
+    ProductNotCotainsPipe,
+    productFilterQuery
   ],
   entryComponents: [
     AddProductDialogComponent,

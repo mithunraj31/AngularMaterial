@@ -20,6 +20,16 @@ import { AuthService } from 'src/app/auth/AuthService';
 export class ProductViewerComponent implements OnInit {
 
   /**
+   * productSetSearch includes query for searching productSet
+   */
+  productSetSearch = "";
+
+  /**
+    * productSearch includes query for searching product
+    */
+  productSearch = "";
+
+  /**
    * product set listings include product items
    */
   productSets: ProductSet[];
@@ -133,7 +143,6 @@ export class ProductViewerComponent implements OnInit {
       const individualIndex = findIndex(productSets, { productId: 0 });
       productSets[individualIndex].productName = this.i18nService.get('individualProductSet');
       productSets[individualIndex].description = this.i18nService.get('individualProductSet');
-
       // if no preview data, will skip re order statement.
       if (!this.preview || this.preview.length == 0) {
         this.productSets = productSets;
@@ -385,5 +394,15 @@ export class ProductViewerComponent implements OnInit {
         };
       });
   }
+
+
+
+  onKey(value) {
+    this.productSearch = value;
+  }
+  onProductSetKey(value) {
+    this.productSetSearch = value;
+  }
+
 }
 

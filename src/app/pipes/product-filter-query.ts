@@ -8,7 +8,10 @@ import { ProductComponent } from '../models/ProductComponent';
 })
 export class productFilterQuery implements PipeTransform {
 
-  transform(products: ProductComponent[], query: string) {
+  transform(products: ProductComponent[], query: string, productSetId: number) {
+    if (productSetId != 0) {
+      return products;
+    }
     if (!products || products.length == 0) {
       return [];
     }

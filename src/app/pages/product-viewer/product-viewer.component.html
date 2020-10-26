@@ -33,6 +33,10 @@
     <mat-form-field class="top-search">
       <mat-label i18n="@@selectProductSet">Enter a product Set</mat-label>
       <input matInput type="text" [(ngModel)]="productSetSearch" (keyup)="onProductSetKey($event.target.value)">
+      <button mat-button *ngIf="productSetSearch" matSuffix mat-icon-button aria-label="Clear"
+        (click)="productSetSearch=''">
+        <mat-icon>close</mat-icon>
+      </button>
     </mat-form-field>
   </div>
   <div class="product-set-listings">
@@ -66,9 +70,13 @@
             </button>
           </mat-menu>
           <div *ngIf="set.productId==0">
-            <mat-form-field class="inline">
+            <mat-form-field class="product-search">
               <mat-label i18n="@@selectProduct">Enter a product</mat-label>
               <input matInput type="text" [(ngModel)]="productSearch" (keyup)="onKey($event.target.value)">
+              <button mat-button *ngIf="productSearch" matSuffix mat-icon-button aria-label="Clear"
+                (click)="productSearch=''">
+                <mat-icon>close</mat-icon>
+              </button>
             </mat-form-field>
           </div>
           <div cdkDropList class="product-list" (cdkDropListDropped)="dropProduct(set.productId, $event)">
